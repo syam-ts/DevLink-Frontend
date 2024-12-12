@@ -1,3 +1,4 @@
+import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import LandingPage from "./pages/LandingPage";
 
@@ -8,6 +9,7 @@ const App = () => {
     <> 
     <Navbar />
        <LandingPage /> 
+    <Footer />
     </>
   )
 };
