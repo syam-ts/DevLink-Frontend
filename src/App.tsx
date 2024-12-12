@@ -1,11 +1,13 @@
+import Navbar from "./components/common/Navbar";
+import LandingPage from "./pages/LandingPage";
+
  
 const App = () => { 
 
   return (
-    <>
-      <h1 className='font-bold text-xl'>
-      DevLink
-      </h1>
+    <> 
+    <Navbar />
+       <LandingPage /> 
     </>
   )
 };
