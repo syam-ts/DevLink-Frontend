@@ -51,18 +51,18 @@ const LandingPage = () =>  {
                 <img src='public/landingpage_bigimage.png' alt='professional image' />
             </div>
 
-            <div className='text-center mx-auto'>
-                 <span className='font-bold text-3xl'>Bussiness Elavators and</span>
+            <div className='text-center mx-auto mt-44'>
+                 <span className='font-bold text-4xl'>Bussiness Elavators and</span>
                     <div>
-                      <span className='font-bold text-3xl'>Carrer Crafters</span>
+                      <span className='font-bold text-4xl'>Carrer Crafters</span>
                     </div>
-                 <span className='pt-20 grid text-xl'>
+                 <span className='pt-12 grid text-2xl'>
                     Our being able to do what we like best, <br />
                      every pleasure is to be welcomed and every<br />
                       pain avoided but in certain circumstances and <br />
                       owing to the claims of duty or the obligations.
                     </span>
-                    <button className='bg-blue-700 w-44 rounded-lg h-10 mt-12'>
+                    <button className='bg-blue-700 w-44 rounded-2xl text-white font-bold h-12 mt-12'>
                         Get Started
                     </button>
             </div>
