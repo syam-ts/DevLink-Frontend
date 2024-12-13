@@ -1,7 +1,7 @@
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import LandingPage from "./pages/LandingPage";
-import Signup from './pages/user/Signup'
+import Login from './pages/user/Login'
 
  
 const App = () => { 
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <> 
     <Navbar />
-       <Signup />
+       <Login />
     <Footer />
     </>
   )
