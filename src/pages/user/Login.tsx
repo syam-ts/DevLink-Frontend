@@ -36,7 +36,7 @@ const Login = () => {
    <div className="font-[sans-serif]">
       <div className="grid lg:grid-cols-2 md:grid-cols-2 items-center gap-4">
         <div className="max-md:order-1 h-screen min-h-full">
-          <img src="https://assets-us-01.kc-usercontent.com/7beb5311-75a4-0049-50f5-8f58fd55aba7/7a1ab39f-e032-47b9-aaa9-ab06f301ac80/Article_59.jpeg" className="w-full h-full object-cover" alt="login-image" />
+          <img src="https://files.oaiusercontent.com/file-8eUcLxP1N2ZuVrjvbP2JPA?se=2024-12-13T07%3A41%3A53Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Ddd4d315a-c263-45ab-a383-9b7618fbffd6.webp&sig=g3mgoUj3JrF2tk%2BPEjuU8zyoJqoqzaMN/1yOL5xkkIw%3D" className="w-full h-full object-cover" alt="login-image" />
         </div>
 
         <form className="max-w-xl w-full p-6 mx-auto">
