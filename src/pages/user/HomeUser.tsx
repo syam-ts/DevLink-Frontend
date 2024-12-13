@@ -1,6 +1,6 @@
 
 
-const Home = () => {
+const HomeUser = () => {
   return (
     <div>
         Home
@@ -8,4 +8,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default HomeUser;
