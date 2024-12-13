@@ -1,4 +1,4 @@
-import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
+import {Card, CardHeader, CardFooter, Image, Button} from "@nextui-org/react";
 
 const HomeClient = () => {
 
@@ -90,24 +90,24 @@ const HomeClient = () => {
             </section>
 
          {/* cards */}
-            <section>
-
-                <Card className="py-4 w-72">
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                <p className="text-tiny uppercase font-bold">Daily Mix</p>
-                <small className="text-default-500">12 Tracks</small>
-                <h4 className="font-bold text-large">Frontend Radio</h4>
-            </CardHeader>
-                <CardBody className="overflow-visible py-2">
-                    <Image
-                    alt="Card background"
-                    className="object-cover rounded-xl"
-                    src="https://nextui.org/images/hero-card-complete.jpeg"
-                    width={270}
-                    />
-                </CardBody>
-        </Card>
-
+            <section> 
+                <div className="max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8 mx-auto">
+                    <Card className="col-span-12 sm:col-span-4 h-[300px]">
+                        <CardHeader className="absolute z-10 top-1 flex-col !items-start">
+                        <p className="text-tiny text-black/60 uppercase font-bold">What to watch</p>
+                        <h4 className="text-black font-medium text-large">Stream the Acme event</h4>
+                        </CardHeader>
+                        <Image
+                        removeWrapper
+                        alt="Card background"
+                        className="z-0 w-full h-full object-cover"
+                        src="https://workreap.amentotech.com/wp-content/uploads/2024/04/11-1714142074-1714142074-600x600.jpg"
+                        />
+                     </Card> 
+                     <div className='absolute pt-80 pl-4'>
+                        <span className='font-thin'>John Snow</span>
+                     </div>
+                   </div>
             </section>
         </main>
     )
