@@ -1,6 +1,7 @@
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import LandingPage from "./pages/LandingPage";
+import HomeUser from './pages/user/HomeUser'
 
 import SignupUser from './pages/user/SignupUser'
 import LoginUser from './pages/user/LoginUser'
@@ -14,12 +15,27 @@ const App = () => {
     <> 
 
     {/* user routes */}
-   <BrowserRouter>
+    { location.pathname !== '/user/signup' && location.pathname !== '/user/login' ? (
+    <>
+      <BrowserRouter>
+     <Navbar />
    <Routes>
-     <Route path='/user/signup' element={<SignupUser />} />
-     <Route path='/user/login' element={<LoginUser />} />
+     <Route path='/user/home' element={<HomeUser />} />
    </Routes>
+      <Footer /> 
    </BrowserRouter>
+      
+    </>
+  ): (
+    <BrowserRouter>
+    <Routes>
+      <Route path='/user/signup' element={<SignupUser />} />
+      <Route path='/user/login' element={<LoginUser />} /> 
+    </Routes>
+    </BrowserRouter>
+  )
+}
+
 
    {/* Client routes */}
    <BrowserRouter>

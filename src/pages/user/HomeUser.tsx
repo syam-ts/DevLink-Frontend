@@ -1,9 +1,11 @@
 
 
+
 const HomeUser = () => {
   return (
-    <div>
+    <div className='text-black'>
         Home
+       
     </div>
   )
 }
