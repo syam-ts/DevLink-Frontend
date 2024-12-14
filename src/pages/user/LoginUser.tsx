@@ -1,8 +1,38 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
+import { Link, useLocation } from 'react-router-dom';
+import {Alert} from "@nextui-org/react";
 
 
 const LoginUser = () => {
+
+  const message = useLocation()
+  console.log(message.state?.message)
+  const [messages, setMessages] = useState('');
+  const [alertTimer, setAlertTimer] = useState(false);
+  const [alertColor, setAlertColor] = useState('');
+ 
+
+   useEffect(() => {
+
+    if( message.state.message != '') {
+          if(message.state.message) {
+            setMessages(message.state.message);
+            setAlertColor(message.state.color);
+            message.state.message = '';
+          } 
+    }
+  }, []);
+
+  useEffect(() => {
+      if(messages) {
+        const timer = setTimeout(() => {
+          setAlertTimer(false);
+        }, 1000);
+       setAlertTimer(true)
+        return () => clearTimeout(timer);
+      }
+  }, [messages])
 
   const [formData, setFormData] = useState({
    email: ""
@@ -34,6 +64,21 @@ const LoginUser = () => {
   
  <div>
    <div className="font-[sans-serif]">
+
+
+
+
+   { alertTimer && (
+      <div className="absolute flex end-5 items-center justify-center w-auto">
+        <div className="flex flex-col w-full">
+            <div className="w-full flex items-center my-3">
+              <Alert color={alertColor} variant="solid" title={messages} />
+            </div> 
+        </div>
+      </div>
+    )}
+
+
       <div className="grid lg:grid-cols-2 md:grid-cols-2 items-center gap-4">
         <div className="max-md:order-1 h-screen min-h-full">
           <img src="/public/login.webp" className="w-full h-full object-cover" alt="login-image" />
@@ -42,15 +87,31 @@ const LoginUser = () => {
         <form className="max-w-xl w-full p-6 mx-auto">
           <div className="mb-12">
             <h3 className="text-gray-800 text-4xl font-extrabold">DevLink</h3>
-            <p className="text-gray-800 text-sm mt-6">Already have an account <a href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Signup here</a></p>
+            <p className="text-gray-800 text-sm mt-6">Already have an account <Link to='/user/signup'> <a href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Signup here</a> </Link> </p>
           </div>
 
           <div>                   
- 
-      
             <label className="text-gray-800 text-sm block mb-2">Email</label>
             <div className="relative flex items-center">
-              <input name="email" type="text" onChange={handleChange} required className="w-full text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <input name="email" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
+                <defs>
+                  <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                    <path d="M0 512h512V0H0Z" data-original="#000000"></path>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
+                  <path fill="none" stroke-miterlimit="10" stroke-width="40" d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z" data-original="#000000"></path>
+                  <path d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z" data-original="#000000"></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div>                   
+            <label className="text-gray-800 text-sm block mb-2">Password</label>
+            <div className="relative flex items-center">
+              <input name="password" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter password" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
