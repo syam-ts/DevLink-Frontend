@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {Alert} from "@nextui-org/react";
 
 
 const LoginUser = () => {
 
-  const message = useLocation()
-  console.log(message.state?.message)
+  const message = useLocation();
+  const navigate = useNavigate();
+  console.log(message.state?.message);
   const [messages, setMessages] = useState('');
   const [alertTimer, setAlertTimer] = useState(false);
   const [alertColor, setAlertColor] = useState('');
@@ -50,9 +51,15 @@ const LoginUser = () => {
   const handleSubmit = async () => {
        
     console.log('Form ', formData)
-    const response = await axios.post('http://localhost:3000/user/login', formData)
-    console.log(response.data.message);
-   try {
+    try {
+     const response = await axios.post('http://localhost:3000/user/login', formData)
+     console.log(response.data.message);
+ 
+      if(response.data.type !== 'success') {
+         
+      } else {
+        navigate('/user/home', { state: { message: response.data.message } });
+      }
     
    } catch (err) {
      console.error('ERROR: ',err)
@@ -69,10 +76,10 @@ const LoginUser = () => {
 
 
    { alertTimer && (
-      <div className="absolute flex end-5 items-center justify-center w-auto">
+      <div className="absolute flex end-5 items-center justify-center w-1/3">
         <div className="flex flex-col w-full">
             <div className="w-full flex items-center my-3">
-              <Alert color={alertColor} variant="solid" title={messages} />
+              <Alert color={alertColor} variant={'flat'} title={messages} />
             </div> 
         </div>
       </div>
