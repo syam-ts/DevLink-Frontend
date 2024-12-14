@@ -8,13 +8,26 @@ import LoginUser from './pages/user/LoginUser'
 import SignupClient from './pages/client/SignupClient'
 import LoginClient from './pages/client/LoginClient'
 import { BrowserRouter , Routes, Route} from 'react-router-dom';
+import Google from "./Google";
  
 const App = () => { 
+  console.log('hi')
 
   return (
-    <> 
+    <div> 
+    <Google />
 
-    {/* user routes */}
+  
+    
+    </div>
+  )
+};
+
+export default App;
+
+
+
+    {/* user routes
     { location.pathname !== '/user/signup' && location.pathname !== '/user/login' && location.pathname !== '/client/signup' && location.pathname !== '/client/login' ? (
     <>
       <BrowserRouter>
@@ -37,7 +50,7 @@ const App = () => {
     </Routes>
     </BrowserRouter>
   )
-}
+} */}
 
 
    {/* Client routes */}
@@ -57,10 +70,3 @@ const App = () => {
     </BrowserRouter>
    )} */}
    
-       
-    
-    </>
-  )
-};
-
-export default App;

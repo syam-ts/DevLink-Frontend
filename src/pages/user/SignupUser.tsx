@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Link ,useNavigate} from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom';  
 
 const SignupUser = () => {
+ 
+ 
 
   const navigate: any = useNavigate();
   let message: string = '';
