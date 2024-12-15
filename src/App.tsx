@@ -9,14 +9,14 @@ import SignupClient from './pages/client/SignupClient'
 import LoginClient from './pages/client/LoginClient'
 import { BrowserRouter , Routes, Route} from 'react-router-dom';
 import Google from "./Google";
+import LandingPage from "./pages/LandingPage";
  
 const App = () => { 
   console.log('hi')
 
   return (
     <div> 
-    <Google />
-
+   <LandingPage />
   
     
     </div>
