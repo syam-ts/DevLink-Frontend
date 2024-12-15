@@ -146,7 +146,7 @@ const LoginUser = () => {
 
           <div className="mt-12">
             <button onClick={handleSubmit} type="button" className="w-full py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-              Sign up
+              Login
             </button>
           </div>
 

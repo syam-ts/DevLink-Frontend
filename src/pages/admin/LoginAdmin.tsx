@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import axios from 'axios';
-import Google from '../../components/common/Google'
+ 
 
-const LoginClient = () => {
+const LoginAdmin = () => {
 
   const [formData, setFormData] = useState({
    email: ""
@@ -20,7 +20,7 @@ const LoginClient = () => {
   const handleSubmit = async () => {
        
     console.log('Form ', formData)
-    const response = await axios.post('http://localhost:3000/user/login', formData)
+    const response = await axios.post('http://localhost:3000/admin/login', formData)
     console.log(response.data.message);
    try {
     
@@ -63,32 +63,14 @@ const LoginClient = () => {
                 </g>
               </svg>
             </div>
-          </div>
-
-     
-
-          <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
-    
-            <div>
-              <a href="jajvascript:void(0);" className="text-blue-600 font-semibold text-sm hover:underline">
-                Forgot Password?
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-12">
-            <button onClick={handleSubmit} type="button" className="w-full py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-              Login
-            </button>
-          </div>
+          </div> 
 
           <div className="my-6 flex items-center gap-4">
             <hr className="w-full border-gray-300" />
             <p className="text-sm text-gray-800 text-center">or</p>
             <hr className="w-full border-gray-300" />
           </div>
-
-          <Google role={'client'} />
+ 
         </form>
       </div>
     </div>
@@ -100,4 +82,4 @@ const LoginClient = () => {
     )
 }
 
-export default LoginClient;
+export default LoginAdmin;
