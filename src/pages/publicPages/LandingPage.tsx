@@ -1,8 +1,17 @@
  
-import {Input} from '../components/shadcn/Input' 
+import { useNavigate } from 'react-router-dom'
+import Footer from '../../components/common/Footer'
+import {Input} from '../../components/shadcn/Input' 
  
 
 const LandingPage = () =>  {
+
+    const navigate = useNavigate()
+
+    const toRolePage = () => {
+        navigate('/role')
+    }
+
   return (
     <div>
            <nav className="bg-white shadow-md"> 
@@ -79,12 +88,12 @@ const LandingPage = () =>  {
                       pain avoided but in certain circumstances and <br />
                       owing to the claims of duty or the obligations.
                     </span>
-                    <button className='bg-blue-700 w-44 rounded-2xl text-white font-bold h-12 mt-12'>
+                    <button onClick={toRolePage} className='bg-blue-700 w-44 rounded-2xl text-white font-bold hover:bg-green-500 h-12 mt-12'>
                         Get Started
                     </button>
             </div>
         </section> 
-        
+          <Footer />
     </div>
   )
 }

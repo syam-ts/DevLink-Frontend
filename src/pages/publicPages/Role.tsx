@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { SmallModal } from './components/nextUi/modals/SmallModal';
+import { SmallModal } from '../../components/nextUi/modals/SmallModal';
+import { useNavigate } from "react-router-dom";
 
 
 const Role = () => {
 
    const [checkBox, setCheckBox] = useState('');
    const [modal, showModal] = useState(false);
+   const navigate = useNavigate();
 
    const checkFn = (role: any) => {
       setCheckBox(role);
@@ -17,8 +19,13 @@ const Role = () => {
             setTimeout(() => {
                 showModal(false)
             }, 2000)
+        } else {
+            if(checkBox === 'freelance') {
+                navigate('/user/signup');
+            } else {
+                navigate('/client/signup');
+            }
         }
-         console.log('The chosen role : ', checkBox);
     };
 
     return (

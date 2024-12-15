@@ -8,9 +8,9 @@ import LoginUser from './pages/user/LoginUser'
 import SignupClient from './pages/client/SignupClient'
 import LoginClient from './pages/client/LoginClient'
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Google from "./Google";
-import LandingPage from "./pages/LandingPage";
-import Role from "./Role";
+import Google from "./components/common/Google";
+import LandingPage from "./pages/publicPages/LandingPage";
+import Role from "./pages/publicPages/Role";
  
 
 const showNavAndFooter: any = (pathname: string) => {
