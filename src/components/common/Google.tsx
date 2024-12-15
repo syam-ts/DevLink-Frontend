@@ -14,10 +14,11 @@ const Google = ({role}: any) => {
             onSuccess={async (credentialResponse: any) => {
                 try {
                     let credentialResponseDecode: any = jwtDecode(credentialResponse.credential)
-                console.log(credentialResponseDecode);
-                const response = await axios.post(`http://localhost:3000/${role}/googleLogin`, credentialResponseDecode.email, credentialResponseDecode.given_name);
+                    let data = {email: credentialResponseDecode.email, name: credentialResponseDecode.given_name}
+                console.log(credentialResponseDecode.email, 'and ',credentialResponseDecode.name );
+                const response = await axios.post(`http://localhost:3000/${role}/googleLogin`,data );
                 console.log(response.data.message);
-                // navigate(`/${role}/home`);
+                 navigate(`/${role}/home`);
                 } catch (error) {
                     console.log('ERROR: ',error);
                 }
