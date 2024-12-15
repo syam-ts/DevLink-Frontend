@@ -10,16 +10,18 @@ import {
   useDraggable,
 } from "@nextui-org/react";
 
-export const SmallModal = ( {showModal}: any ) => {
+export const SmallModal = ( {showModals}: any ) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const targetRef = React.useRef(null);
   const {moveProps} = useDraggable({targetRef, isDisabled: !isOpen});
+    console.log('modal page')
 
     useEffect(() => {
-    if (showModal) {
-      onOpen(); // Open the modal if `showModal` is true
+    if (showModals) {
+      onOpen(); 
+      showModals = false;
     }
-  }, [showModal, onOpen]);
+  }, [showModals, onOpen]);
 
   return (
     <>
