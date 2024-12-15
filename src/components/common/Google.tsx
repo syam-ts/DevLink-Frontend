@@ -1,17 +1,26 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Google = ({role}: any) => {
 
     const navigate = useNavigate();
+ 
 
     return (
         <GoogleLogin
-            onSuccess={(credentialResponse: any) => {
-                let credentialResponseDecode = jwtDecode(credentialResponse.credential)
+            onSuccess={async (credentialResponse: any) => {
+                try {
+                    let credentialResponseDecode: any = jwtDecode(credentialResponse.credential)
                 console.log(credentialResponseDecode);
-                navigate(`/${role}/home`);
+                const response = await axios.post(`http://localhost:3000/${role}/googleLogin`, credentialResponseDecode.email, credentialResponseDecode.given_name);
+                console.log(response.data.message);
+                // navigate(`/${role}/home`);
+                } catch (error) {
+                    console.log('ERROR: ',error);
+                }
 
             }}
 
