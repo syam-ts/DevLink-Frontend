@@ -1,7 +1,7 @@
  
 import { useNavigate } from 'react-router-dom'
 import Footer from '../../components/common/Footer'
-import {Input} from '../../components/shadcn/Input' 
+import { Input } from '../../components/shadcn/Input' 
  
 
 const LandingPage = () =>  {

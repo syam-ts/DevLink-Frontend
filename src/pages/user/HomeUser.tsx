@@ -1,7 +1,28 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {Card, CardHeader, Image} from "@nextui-org/react";
+
+
  
 
 const HomeUser = () => {
- 
+
+  const [clients, setClients] = useState({})
+
+  useEffect(() => {
+     const findAllClients = async () => {
+      try {
+      const clients = await axios.get('http://localhost:3000/user/getHome');
+
+      console.log('The all clients', clients.data.data);
+      setClients(clients.data.data)
+
+      } catch (error) {
+        console.log(error)
+      }
+     } 
+     findAllClients();
+  }, []);
  
 
   return (
@@ -50,8 +71,33 @@ const HomeUser = () => {
         </div>
       </section>
       <section className='text-center my-12'>
-         <span className='font-sans text-3xl'>Top Categories</span>
+         <span className='font-sans text-3xl'>Top Clients</span>
       </section>
+
+
+       {/* cards */}
+       <section> 
+  <div className="max-w-[980px] gap-12 grid grid-cols-12 grid-rows-2 mx-auto">
+    {Object.values(clients).map((client: any, index: number) => (
+      <Card key={index} className="col-span-12 sm:col-span-4 h-[300px]">
+        <CardHeader className="absolute z-10 top-1 flex-col !items-start">
+          <p className="text-tiny text-blue-700 uppercase font-bold">Top Client</p>
+          <h4 className="text-black font-medium pl-44 pt-5 text-large">{client.name}</h4>
+        </CardHeader>
+        <Image
+          removeWrapper
+          alt={`${client.name}'s profile`}
+          className="z-0 w-full h-full object-cover"
+          src={client.image || "https://www.leonhard-weiss.de/assets/img/portfolio/schluesselfertigbau/buero%20verwaltungsbau/QBig3.jpg"}
+        />
+        <div className="absolute top-7">
+          <span className="font-thin text-black">{client.email || "John Snow"}</span>
+        </div>
+      </Card>
+    ))}
+  </div>
+</section>
+
     </div>
   );
 };
