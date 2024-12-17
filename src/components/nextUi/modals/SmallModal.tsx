@@ -38,12 +38,9 @@ export const SmallModal = ( {showModals}: any ) => {
                  Please Chose one Role
                 </p>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
+              <ModalFooter> 
                 <Button className='text-white font-bold' color="success" onPress={onClose}>
-                  Done
+                  Okay
                 </Button>
               </ModalFooter>
             </>

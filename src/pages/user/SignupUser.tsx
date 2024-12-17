@@ -2,10 +2,13 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Link ,useNavigate} from 'react-router-dom';  
 import Google from '../../components/common/Google';
+import { Sonner } from '../../components/sonner/Toaster';
+import { toast } from "sonner";
 
 const SignupUser = () => {
  
  
+  const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
 
   const navigate: any = useNavigate();
   let message: string = '';
@@ -15,12 +18,15 @@ const SignupUser = () => {
     email: "",
     mobile: 0
   });
-
-
-  useEffect(() => {
-     
-  }, [])
  
+ useEffect(() => {
+
+  if (sonner.message) {
+    toast.error(sonner.message);  
+  }
+ }, [sonner.message]);
+
+ console.log('the mai', sonner)
 
   const handleChange = (e: any) => {
   
@@ -35,20 +41,21 @@ const SignupUser = () => {
        
     try {
    
-    console.log('Form ', formData)
+      
     const response = await axios.post('http://localhost:3000/user/signup', formData);
     console.log('the re', response)
     console.log(response.data.message);
       if(response.data.type !== 'success') {
-
-           message = response.data.message;
-        alert(message)   
+        setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
          navigate('/user/login', { state: { message: response.data.message, color: 'success' } });      }
     
    } catch (err: any) {
      console.error('ERROR: ',err.response.data.message)
-     alert(err.response.data.message)
+     setSonner({
+       message: err.response?.data?.message || "An error occurred",
+      timestamp: Date.now(),
+    });
    }
   }
  
@@ -56,6 +63,9 @@ const SignupUser = () => {
     return ( 
   
  <div>
+    <div>
+           <Sonner />
+    </div>
    <div className="font-[sans-serif]">
       <div className="grid lg:grid-cols-2 md:grid-cols-2 items-center gap-4">
         <div className="max-md:order-1 h-screen min-h-full">

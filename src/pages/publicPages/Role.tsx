@@ -42,13 +42,15 @@ const Role = () => {
                     <div className='text-center' onClick={() => checkFn('freelance')}>
                         <input className="peer hidden" id="radio_1" type="radio" name="freelance" checked />
                         <label className="flex hover:border-blue-500 h-96 w-96 cursor-pointer flex-col rounded-lg border border-gray-300 p-4 peer-checked:border-4" htmlFor="radio_1">
-                            <span className="mt-2 text-xl font-bold"> Freelancer </span>                         
+                             <img src='https://media.licdn.com/dms/image/D5612AQGctn1djk31Ww/article-cover_image-shrink_600_2000/0/1721492130919?e=2147483647&v=beta&t=jzv8vvsG25SZIkRID9XEsBNUzHy0G0Aul0CS8QgoHI0' />
+                            <span className="mt-2 text-xl font-bold"> Freelancer </span> 
                         </label>
                     </div>
                     
-                    <div className='text-center' onClick={() => checkFn('client')}>
+                    <div className='text-center object-fill' onClick={() => checkFn('client')}>
                         <input className="peer hidden" id="radio_2" type="radio" name="client" checked />
                         <label className="flex hover:border-blue-500 h-96 w-96 cursor-pointer flex-col rounded-lg border border-gray-300 p-4 peer-checked:border-4" htmlFor="radio_2">
+                          <img src='https://st4.depositphotos.com/1075946/23526/i/450/depositphotos_235260704-stock-photo-smart-professional-male-client-office.jpg' />
                             <span className="mt-2 text-xl font-bold"> Client </span>                         
                         </label>
                     </div> 

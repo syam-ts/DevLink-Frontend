@@ -1,40 +1,26 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {Alert} from "@nextui-org/react";
 import Google from '../../components/common/Google';
-
+import { Sonner } from '../../components/sonner/Toaster';
+import { toast } from "sonner";
 
 const LoginUser = () => {
 
+  const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const message = useLocation();
   const navigate = useNavigate();
   console.log(message.state?.message);
-  const [messages, setMessages] = useState('');
-  const [alertTimer, setAlertTimer] = useState(false);
-  const [alertColor, setAlertColor] = useState('');
+  
  
-
-   useEffect(() => {
-
-    if( message?.state?.message !== '') {
-          if(message?.state?.message) {
-            setMessages(message.state.message);
-            setAlertColor(message.state.color);
-            message.state.message = '';
-          } 
-    } 
-  }, []);
-
   useEffect(() => {
-      if(messages) {
-        const timer = setTimeout(() => {
-          setAlertTimer(false);
-        }, 1000);
-       setAlertTimer(true)
-        return () => clearTimeout(timer);
-      } 
-  }, [messages])
+
+    if (sonner.message) {
+      toast.error(sonner.message);  
+    }
+   }, [sonner.message]);
+
+ 
 
   const [formData, setFormData] = useState({
    email: ""
@@ -56,13 +42,17 @@ const LoginUser = () => {
      console.log(response.data.message);
  
       if(response.data.type !== 'success') {
-         
+        setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
         navigate('/user/home', { state: { message: response.data.message } });
       }
     
-   } catch (err) {
+   } catch (err: any) {
      console.error('ERROR: ',err)
+     setSonner({
+      message: err.response?.data?.message || "An error occurred",
+     timestamp: Date.now(),
+   });
    }
   }
  
@@ -71,20 +61,10 @@ const LoginUser = () => {
   
  <div>
    <div className="font-[sans-serif]">
-
-
-
-
-   { alertTimer && (
-      <div className="absolute flex end-5 items-center justify-center w-1/3">
-        <div className="flex flex-col w-full">
-            <div className="w-full flex items-center my-3">
-              <Alert color={alertColor} variant={'flat'} title={messages} />
-            </div> 
-        </div>
-      </div>
-    )}
-
+ 
+    <div>
+    <Sonner />
+    </div>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-2 items-center gap-4">
         <div className="max-md:order-1 h-screen min-h-full">
