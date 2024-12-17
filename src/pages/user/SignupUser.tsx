@@ -33,17 +33,22 @@ const SignupUser = () => {
 
   const handleSubmit = async () => {
        
+    try {
+   
     console.log('Form ', formData)
-    const response = await axios.post('http://localhost:3000/user/signup', formData)
+    const response = await axios.post('http://localhost:3000/user/signup', formData);
+    console.log('the re', response)
     console.log(response.data.message);
       if(response.data.type !== 'success') {
+
            message = response.data.message;
+        alert(message)   
       } else {
          navigate('/user/login', { state: { message: response.data.message, color: 'success' } });      }
-   try {
     
-   } catch (err) {
-     console.error('ERROR: ',err)
+   } catch (err: any) {
+     console.error('ERROR: ',err.response.data.message)
+     alert(err.response.data.message)
    }
   }
  
