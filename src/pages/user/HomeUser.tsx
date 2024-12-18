@@ -33,15 +33,17 @@ const HomeUser = () => {
 
 
   useEffect(() => {
-     const findAllClients = async () => {
+     const findAllClients = async () => { 
       try {
-      const clients = await axios.get('http://localhost:3000/user/getHome');
+      const clients = await axios.get('http://localhost:3000/user/getHome', {
+         withCredentials: true
+     });
 
       console.log('The all clients', clients.data.data);
       setClients(clients.data.data)
 
-      } catch (error) {
-        console.log(error)
+      } catch (error: any) {
+        console.log(error.message)
       }
      } 
      findAllClients();

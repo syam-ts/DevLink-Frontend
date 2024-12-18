@@ -5,19 +5,28 @@ import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { signInUser } from '../../redux/slices/userSlice'
+import { useSelector } from 'react-redux';
 import Google from '../../components/common/Google';
 
 const LoginUser = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const dispatch = useDispatch();
-
+  const currentUser = useSelector((store: any) => store.user.isUser);
 
 
   const message = useLocation();
   const navigate = useNavigate();
   console.log(message.state?.message);
   
+
+  useEffect(() => {
+ 
+    // checking whether use exists or not 
+    if(currentUser) {
+      navigate('/user/home')
+  }
+   }, []);
  
   useEffect(() => {
 
@@ -50,7 +59,9 @@ const LoginUser = () => {
   const handleSubmit = async () => {
         
     try {
-     const response = await axios.post('http://localhost:3000/user/login', formData)
+     const response = await axios.post('http://localhost:3000/user/login', formData, {
+      withCredentials: true, // Ensure cookies are included
+    })
      console.log(response.data.message);
  
       if(response.data.type !== 'success') {
