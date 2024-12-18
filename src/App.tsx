@@ -11,6 +11,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Google from "./components/common/Google";
 import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
+import LoginAdmin from "./pages/admin/LoginAdmin";
  
 
 const showNavAndFooter: any = (pathname: string) => {
@@ -48,6 +49,9 @@ const App = () => {
           <Route path='/client/signup' element={<SignupClient />} />
           <Route path='/client/login' element={<LoginClient />} />
           <Route path='/client/home' element={<HomeClient />} />
+
+          {/* Admin Routes */} 
+          <Route path='/admin/login' element={<LoginAdmin />} /> 
       </Routes> 
       {showNavAndFooter(location.pathname) && <Footer />}
     </div>
