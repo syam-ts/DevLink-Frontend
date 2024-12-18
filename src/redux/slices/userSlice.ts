@@ -20,8 +20,8 @@ const userSlice = createSlice({
             state.isUser = true;
         },
         
-        signOutUser: (state: any, action: PayloadAction<User>) => {
-            state.currentUser = '';
+        signOutUser: (state: any) => {
+            state.currentUser = null;
             state.isUser = false;
         },
 
