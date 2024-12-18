@@ -1,13 +1,19 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Google from '../../components/common/Google';
-import { Sonner } from '../../components/sonner/Toaster';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { toast } from "sonner";
+import { Sonner } from '../../components/sonner/Toaster';
+import { signInUser } from '../../redux/slices/userSlice'
+import Google from '../../components/common/Google';
 
 const LoginUser = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
+  const dispatch = useDispatch();
+
+
+
   const message = useLocation();
   const navigate = useNavigate();
   console.log(message.state?.message);
@@ -44,6 +50,7 @@ const LoginUser = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        dispatch(signInUser(response.data))
         navigate('/user/home', { state: { message: response.data.message } });
       }
     

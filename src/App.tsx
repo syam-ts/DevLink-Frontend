@@ -1,14 +1,18 @@
 import Footer from "./components/common/Footer";
-import Navbar from "./components/common/Navbar"; 
-import HomeUser from './pages/user/HomeUser'
-import HomeClient from './pages/client/HomeClient'
+import Navbar from "./components/common/Navbar";
 
+import HomeUser from './pages/user/HomeUser'
 import SignupUser from './pages/user/SignupUser'
 import LoginUser from './pages/user/LoginUser'
+
+import HomeClient from './pages/client/HomeClient'
 import SignupClient from './pages/client/SignupClient'
 import LoginClient from './pages/client/LoginClient'
+
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Google from "./components/common/Google";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import store,{ persistor } from './redux/store/UserStore';
 import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
 import LoginAdmin from "./pages/admin/LoginAdmin";
@@ -33,6 +37,9 @@ const App = () => {
   const location = useLocation();
 
   return (
+    <Provider store={store}>
+
+
     <div> 
         { showNavAndFooter(location.pathname) && <Navbar />}
        <Routes>
@@ -55,6 +62,7 @@ const App = () => {
       </Routes> 
       {showNavAndFooter(location.pathname) && <Footer />}
     </div>
+    </Provider>
   )
 };
 

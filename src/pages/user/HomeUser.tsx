@@ -1,13 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {Card, CardHeader, Image} from "@nextui-org/react";
-
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
  
 
 const HomeUser = () => {
 
-  const [clients, setClients] = useState({})
+  const [clients, setClients] = useState({});
+  const navigate = useNavigate();
+  const currentUser = useSelector((store: any) => store.user.isUser);
+  
+  console.log('The user from store', currentUser)
+
 
   useEffect(() => {
      const findAllClients = async () => {
@@ -23,6 +29,14 @@ const HomeUser = () => {
      } 
      findAllClients();
   }, []);
+
+  useEffect(() => {
+
+    if(!currentUser) {
+        navigate('/user/login')
+    }
+
+  },[]);
  
 
   return (

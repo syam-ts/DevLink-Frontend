@@ -1,12 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { signOutUser } from '../../redux/slices/userSlice'
+import { useSelector } from 'react-redux';
+
+  
 
 const Navbar = () => {
-
+  
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const currentUser = useSelector((store: any) => store.user);
 
   const logout = () => {
 
+    const isUser = false;
     //type user | client ( redux | jwt)
+    dispatch(signOutUser(currentUser))
     navigate('/user/login')
   }
 
