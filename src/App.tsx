@@ -9,13 +9,15 @@ import HomeClient from './pages/client/HomeClient'
 import SignupClient from './pages/client/SignupClient'
 import LoginClient from './pages/client/LoginClient'
 
+//admin  
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import store,{ persistor } from './redux/store/UserStore';
+import store,{ persistor } from './redux/store/userStore'
 import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
-import LoginAdmin from "./pages/admin/LoginAdmin";
+import LoginAdmin from "./pages/admin/LoginAdmin"; 
+import Index from './pages/admin/index'
  
 
 const showNavAndFooter: any = (pathname: string) => {
@@ -25,6 +27,7 @@ const showNavAndFooter: any = (pathname: string) => {
     '/user/login',
     '/client/signup',
     '/client/login',
+    '/admin/login',
     '/role',
     '/landingpage'
   ];
@@ -59,6 +62,7 @@ const App = () => {
 
           {/* Admin Routes */} 
           <Route path='/admin/login' element={<LoginAdmin />} /> 
+          <Route path='/admin/dashboard' element={<Index />} /> 
       </Routes> 
       {showNavAndFooter(location.pathname) && <Footer />}
     </div>
