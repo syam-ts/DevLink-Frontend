@@ -14,10 +14,7 @@ const HomeUser = () => {
   let message: any = useLocation();
   const navigate = useNavigate();
   const currentUser = useSelector((store: any) => store.user.isUser);
-  
-  console.log('The user from store', currentUser)
-
-  console.log('the eroor message : ', message.state?.message);
+ 
 
   useEffect(() => {
     if (message.state) { 
@@ -38,12 +35,11 @@ const HomeUser = () => {
       const clients = await axios.get('http://localhost:3000/user/getHome', {
          withCredentials: true
      });
-
-      console.log('The all clients', clients.data.data);
+ 
       setClients(clients.data.data)
 
-      } catch (error: any) {
-        console.log(error.message)
+      } catch (err: any) {
+        toast.error(err.message);
       }
      } 
      findAllClients();

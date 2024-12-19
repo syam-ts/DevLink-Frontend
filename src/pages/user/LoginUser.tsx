@@ -13,11 +13,12 @@ const LoginUser = () => {
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const dispatch = useDispatch();
   const currentUser = useSelector((store: any) => store.user.isUser);
-
-
+ 
   const message = useLocation();
-  const navigate = useNavigate();
-  console.log(message.state?.message);
+  const navigate = useNavigate(); 
+
+  //otp success setSonner 
+  console.log('msg : ', message.state)
   
 
   useEffect(() => {
@@ -62,11 +63,11 @@ const LoginUser = () => {
      const response = await axios.post('http://localhost:3000/user/login', formData, {
       withCredentials: true,  
     })
-     console.log(response.data.message);
  
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        console.log('use', response.data)
         dispatch(signInUser(response.data))
         navigate('/user/home', { state: { message: response.data.message } });
       }

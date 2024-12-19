@@ -25,8 +25,7 @@ const SignupUser = () => {
     toast.error(sonner.message);  
   }
  }, [sonner.message]);
-
- console.log('the mai', sonner)
+ 
 
   const handleChange = (e: any) => {
   
@@ -39,12 +38,9 @@ const SignupUser = () => {
 
   const handleSubmit = async () => {
        
-    try {
-   
-      
-    const response = await axios.post('http://localhost:3000/user/signup', formData);
-    console.log('the re', response)
-    console.log(response.data.message);
+    try { 
+      const response = await axios.post('http://localhost:3000/user/signup', formData); 
+
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {

@@ -55,8 +55,7 @@ const OtpUser = () => {
       }
      const response = await axios.post('http://localhost:3000/user/verify-otp', data, {
       withCredentials: true, 
-    })
-     console.log(response.data.message);
+    }) 
  
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
