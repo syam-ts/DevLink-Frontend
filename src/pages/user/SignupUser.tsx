@@ -48,7 +48,11 @@ const SignupUser = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-         navigate('/user/login', { state: { message: response.data.message, color: 'success' } });      }
+        const data = {
+          userData: response.data.data,
+          mailOtp: response.data.otp
+        }
+         navigate('/user/verify-otp', { state: { message: data, color: 'success' } });      }
     
    } catch (err: any) {
      console.error('ERROR: ',err.response.data.message)

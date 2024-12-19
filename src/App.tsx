@@ -18,6 +18,7 @@ import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
 import LoginAdmin from "./pages/admin/LoginAdmin"; 
 import Index from './pages/admin/index'
+import OtpUser from "./pages/user/Otp-page";
  
 
 const showNavAndFooter: any = (pathname: string) => {
@@ -25,6 +26,7 @@ const showNavAndFooter: any = (pathname: string) => {
   const restrictedPath = [
     '/user/signup',
     '/user/login',
+    '/user/verify-otp',
     '/client/signup',
     '/client/login',
     '/admin/login',
@@ -55,6 +57,7 @@ const App = () => {
 
           {/* User Routes */}
           <Route path='/user/signup' element={<SignupUser />} />
+          <Route path='/user/verify-otp' element={<OtpUser />} />
           <Route path='/user/login' element={<LoginUser />} />
           <Route path='/user/home' element={<HomeUser />} />
 
