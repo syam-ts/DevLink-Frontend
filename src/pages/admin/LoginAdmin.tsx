@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Google from '../../components/common/Google';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Sonner } from '../../components/sonner/Toaster';
 import { toast } from "sonner";
 
@@ -79,7 +78,7 @@ const LoginClient = () => {
           <div>                   
             <label className="text-gray-800 text-sm block mb-2">Email</label>
             <div className="relative flex items-center">
-              <input name="email" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <input name="email" type="text" onChange={handleChange} required className="w-full border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -97,7 +96,7 @@ const LoginClient = () => {
           <div>                   
             <label className="text-gray-800 text-sm block mb-2">Password</label>
             <div className="relative flex items-center">
-              <input name="password" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter password" />
+              <input name="password" type="text" onChange={handleChange} required className="w-full borde-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter password" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">

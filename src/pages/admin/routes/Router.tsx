@@ -5,16 +5,14 @@ import { Navigate } from "react-router-dom";
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));
 /****End Layouts*****/
 
-/*****Pages******/
-const Dashboard1 = lazy(() => import("../views/dashboards/Dashboard1.js"));
+/*****dashboard******/
+const Dashboard = lazy(() => import("../views/dashboards/Dashboard1.js"));
 
 /*****Tables******/ 
 const ClientTable = lazy(() => import("../views/tables/ClientTable.js"));
 const UserTable = lazy(() => import("../views/tables/UserTable.js"));
 
- 
   
- 
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -22,8 +20,8 @@ const ThemeRoutes = [
     path: "/",
     element: <FullLayout />,
     children: [
-      // { path: "/", element: <Navigate to="dashboards/dashboard1" /> },
-      { path: "/", exact: true, element: <Dashboard1 /> },
+      { path: "/", element: <Navigate to="/admin/index/dashboard" /> },
+      { path: "/dashboard",  element: <Dashboard /> }, //exact: true,
       { path: "/tables/user-table", element: <UserTable /> },
       { path: "/tables/client-table", element: <ClientTable /> } 
     ],

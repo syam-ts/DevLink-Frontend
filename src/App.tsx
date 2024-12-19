@@ -22,16 +22,19 @@ import Index from './pages/admin/index'
 
 const showNavAndFooter: any = (pathname: string) => {
 
-  const restrictedPaht = [
+  const restrictedPath = [
     '/user/signup',
     '/user/login',
     '/client/signup',
     '/client/login',
     '/admin/login',
+    '/admin/index/dashboard',
+    '/admin/index/tables/user-table',
+    '/admin/index/tables/client-table',
     '/role',
     '/landingpage'
   ];
-  return !restrictedPaht.includes(pathname);
+  return !restrictedPath.includes(pathname);
 };
 
 
@@ -62,7 +65,7 @@ const App = () => {
 
           {/* Admin Routes */} 
           <Route path='/admin/login' element={<LoginAdmin />} /> 
-          <Route path='/admin/dashboard' element={<Index />} /> 
+          <Route path='/admin/index/*' element={<Index />} /> 
       </Routes> 
       {showNavAndFooter(location.pathname) && <Footer />}
     </div>

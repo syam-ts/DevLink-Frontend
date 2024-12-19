@@ -11,17 +11,17 @@ const Menuitems: Menu[] = [
   {
     title: "Dashboard",
     icon: DashboardOutlinedIcon,
-    href: "/dashboards/dashboard1",
+    href: "/admin/index/dashboard",
   },   
   {
     title: "User",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/tables/user-table",
+    href: "/admin/index/tables/user-table",
   },
   {
     title: "Client",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/tables/client-table",
+    href: "/admin/index/tables/client-table",
   },
 ];
 
