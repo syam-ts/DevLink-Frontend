@@ -6,8 +6,8 @@ import { Sonner } from '../../components/sonner/Toaster';
 import { toast } from "sonner";
 
 const SignupClient = () => {
- 
- 
+  
+  
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
 
   const navigate: any = useNavigate();
@@ -22,11 +22,16 @@ const SignupClient = () => {
  useEffect(() => {
 
   if (sonner.message) {
-    toast.error(sonner.message);  
+    toast.error(sonner.message, {
+      style: {
+        backgroundColor: 'red',
+        color: 'white'
+      }
+    });  
+    setSonner({ message: "", timestamp: 0 })
   }
  }, [sonner.message]);
-
- console.log('the mai', sonner)
+ 
 
   const handleChange = (e: any) => {
   
@@ -39,16 +44,17 @@ const SignupClient = () => {
 
   const handleSubmit = async () => {
        
-    try {
-   
-      
-    const response = await axios.post('http://localhost:3000/client/signup', formData);
-    console.log('the re', response)
-    console.log(response.data.message);
+    try { 
+      const response = await axios.post('http://localhost:3000/client/signup', formData); 
+
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-         navigate('/client/login', { state: { message: response.data.message, color: 'success' } });      }
+        const data = {
+          clientData: response.data.data,
+          mailOtp: response.data.otp
+        }
+         navigate('/client/verify-otp', { state: { message: data, color: 'success' } });      }
     
    } catch (err: any) {
      console.error('ERROR: ',err.response.data.message)
@@ -58,7 +64,7 @@ const SignupClient = () => {
     });
    }
   }
- 
+  
 
     return ( 
   

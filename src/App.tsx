@@ -13,12 +13,14 @@ import LoginClient from './pages/client/LoginClient'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import store,{ persistor } from './redux/store/userStore'
+import userStore,{ userPersistor } from './redux/store/userStore'
+import clientStore,{ clientPersistor } from './redux/store/clientStore'
 import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
 import LoginAdmin from "./pages/admin/LoginAdmin"; 
 import Index from './pages/admin/index'
 import OtpUser from "./pages/user/Otp-page";
+import OtpClient from "./pages/client/otp-page";
  
 
 const showNavAndFooter: any = (pathname: string) => {
@@ -27,6 +29,7 @@ const showNavAndFooter: any = (pathname: string) => {
     '/user/signup',
     '/user/login',
     '/user/verify-otp',
+    '/client/verify-otp',
     '/client/signup',
     '/client/login',
     '/admin/login',
@@ -43,6 +46,10 @@ const showNavAndFooter: any = (pathname: string) => {
 const App = () => { 
  
   const location = useLocation();
+
+  let store = {user: userStore,
+    client: clientStore
+  }
 
   return (
     <Provider store={store}>
@@ -63,6 +70,7 @@ const App = () => {
 
           {/* Client Routes */}
           <Route path='/client/signup' element={<SignupClient />} />
+          <Route path='/client/verify-otp' element={<OtpClient />} />
           <Route path='/client/login' element={<LoginClient />} />
           <Route path='/client/home' element={<HomeClient />} />
 

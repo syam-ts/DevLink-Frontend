@@ -1,23 +1,42 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Google from '../../components/common/Google';
-import { Sonner } from '../../components/sonner/Toaster';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { toast } from "sonner";
+import { Sonner } from '../../components/sonner/Toaster';
+import { signInClient } from '../../redux/slices/clientSlice'
+import { useSelector } from 'react-redux';
+import Google from '../../components/common/Google';
 
 const LoginClient = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
+  const dispatch = useDispatch();
+  // const currentClient = useSelector((store: any) => store.client.isClient);
+ 
   const message = useLocation();
-  const navigate = useNavigate();
-  console.log(message.state?.message);
-  
+  const navigate = useNavigate(); 
+ 
+   
+  // useEffect(() => {
+ 
+  //   // checking whether client exists or not 
+  //   if(currentClient) {
+  //     navigate('/client/home')
+  // }
+  //  }, []);
  
   useEffect(() => {
 
     if (sonner.message) {
-      toast.error(sonner.message);  
+      toast.error(sonner.message, {
+        style: {
+          backgroundColor: "red",
+          color: "white"
+        }
+      });  
     }
+    setSonner({ message: "", timestamp: 0 })
    }, [sonner.message]);
 
  
@@ -38,12 +57,15 @@ const LoginClient = () => {
   const handleSubmit = async () => {
         
     try {
-     const response = await axios.post('http://localhost:3000/client/login', formData)
-     console.log(response.data.message);
+     const response = await axios.post('http://localhost:3000/client/login', formData, {
+      withCredentials: true,  
+    })
  
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        
+        dispatch(signInClient(response.data))
         navigate('/client/home', { state: { message: response.data.message } });
       }
     

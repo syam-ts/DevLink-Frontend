@@ -36,5 +36,5 @@ const store = configureStore({
         }),
 });
 
-export const persistor = persistStore(store);
+export const clientPersistor = persistStore(store);
 export default store;

@@ -25,7 +25,9 @@ const Navbar = () => {
     //type user | client ( redux | jwt)
 
 
-    const data = await axios.post('http://localhost:3000/user/logout');
+    const data = await axios.post('http://localhost:3000/user/logout', {}, {
+      withCredentials: true
+    });
 
     console.log('The Logout Response : ', data);
 
