@@ -53,6 +53,7 @@ const OtpUser = () => {
         mailOtp: message.state.message.mailOtp,
         userOtp: formData
       }
+      
      const response = await axios.post('http://localhost:3000/user/verify-otp', data, {
       withCredentials: true, 
     }) 

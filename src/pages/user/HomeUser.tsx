@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {Card, CardHeader, Image} from "@nextui-org/react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster';
+import { Sonner } from '../../components/sonner/Toaster'; 
+import { signOutUser } from '../../redux/slices/userSlice';
+   
  
 
 const HomeUser = () => {
@@ -13,7 +15,9 @@ const HomeUser = () => {
 
   let message: any = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const currentUser = useSelector((store: any) => store.user.isUser);
+ 
  
 
   useEffect(() => {
@@ -32,16 +36,23 @@ const HomeUser = () => {
   useEffect(() => {
      const findAllClients = async () => { 
       try {
-      const clients = await axios.get('http://localhost:3000/user/getHome', {
+      const response = await axios.get('http://localhost:3000/user/getHome', {
          withCredentials: true
      });
+
  
-      setClients(clients.data.data)
+      setClients(response.data.data)
 
       } catch (err: any) {
-        toast.error(err.message);
+        
+        if(err.response.data.message === 'Invalid Token') {
+          dispatch(signOutUser());
+            navigate('/user/login');
+        } 
+        toast.error(err.response.data.message);
       }
-     } 
+     };
+
      findAllClients();
   }, []);
 

@@ -22,7 +22,13 @@ const SignupUser = () => {
  useEffect(() => {
 
   if (sonner.message) {
-    toast.error(sonner.message);  
+    toast.error(sonner.message, {
+      style: {
+        backgroundColor: 'red',
+        color: 'white'
+      }
+    });  
+    setSonner({ message: "", timestamp: 0 })
   }
  }, [sonner.message]);
  

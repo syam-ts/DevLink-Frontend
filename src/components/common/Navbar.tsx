@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { signOutUser } from '../../redux/slices/userSlice';
 import { useSelector } from 'react-redux';
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import { useEffect } from "react";
 
   
 
@@ -15,7 +16,9 @@ const Navbar = () => {
 
   const currentUser = useSelector((store: any) => store.user);
 
-  const user: string = currentUser.currentUser.user.user.name;
+  const user: string = currentUser?.currentUser?.user?.user?.name;
+
+  
 
   const logout = () => {
      
@@ -30,7 +33,7 @@ const Navbar = () => {
 
       <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
         <div className="flex shrink-0 items-start">
-          <img className="h-8 w-auto" src="../../public/devLink_logo.png" alt="Your Company"/>
+          <img className="h-8 w-auto" src="../../public/devLink_logo.png" alt="Devlink"/>
         </div>
         <div className=" sm:ml-6 sm:block pl-16 ">
           <div className="flex space-x-44">
