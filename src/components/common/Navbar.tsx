@@ -4,7 +4,7 @@ import { signOutUser } from '../../redux/slices/userSlice';
 import { useSelector } from 'react-redux';
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { useEffect } from "react";
-
+import axios from 'axios';
   
 
 const Navbar = () => {
@@ -20,9 +20,15 @@ const Navbar = () => {
 
   
 
-  const logout = () => {
+  const logout = async () => {
      
     //type user | client ( redux | jwt)
+
+
+    const data = await axios.post('http://localhost:3000/user/logout');
+
+    console.log('The Logout Response : ', data);
+
     dispatch(signOutUser())
     navigate('/user/login')
   }

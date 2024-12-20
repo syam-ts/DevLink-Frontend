@@ -11,7 +11,7 @@ import { signOutUser } from '../../redux/slices/userSlice';
 
 const HomeUser = () => {
 
-  const [clients, setClients] = useState({});
+  const [clients, setClients]: any = useState({});
 
   let message: any = useLocation();
   const navigate = useNavigate();
