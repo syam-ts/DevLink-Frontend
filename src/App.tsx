@@ -13,8 +13,7 @@ import LoginClient from './pages/client/LoginClient'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import userStore,{ userPersistor } from './redux/store/userStore'
-import clientStore,{ clientPersistor } from './redux/store/clientStore'
+import store,{ userPersistor } from './redux/store/mainStore' 
 import LandingPage from "./pages/publicPages/LandingPage";
 import Role from "./pages/publicPages/Role";
 import LoginAdmin from "./pages/admin/LoginAdmin"; 
@@ -46,10 +45,7 @@ const showNavAndFooter: any = (pathname: string) => {
 const App = () => { 
  
   const location = useLocation();
-
-  let store = {user: userStore,
-    client: clientStore
-  }
+ 
 
   return (
     <Provider store={store}>

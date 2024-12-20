@@ -18,7 +18,7 @@ const HomeClient = () => {
   const dispatch = useDispatch();
   const currentClient = useSelector((store: any) => store.client.isClient);
  
- 
+ console.log('The current Client : ', currentClient);
 
   useEffect(() => {
     if (message.state) { 
@@ -55,6 +55,10 @@ const HomeClient = () => {
 
      findAllUsers();
   }, []);
+
+  Object.entries(users).map((user) => {
+    console.log('The all users', user?.[1])
+  })
 
  
 
@@ -146,13 +150,14 @@ const HomeClient = () => {
             </section>
 
          {/* cards */}
-            <section> 
-                <div className="max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8 mx-auto">
+            <section className='flex gap-12 mx-auto justify-center'> 
+                {Object.entries(users).map((user: any) => (
+                    
+                    <div className="max-w-[900px] flex gap-12 ">
                     <Card className="col-span-12 sm:col-span-4 h-[300px]">
                         <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-                        <p className="text-tiny text-black/60 uppercase font-bold">What to watch</p>
-                        <h4 className="text-black font-medium text-large">Stream the Acme event</h4>
-                        </CardHeader>
+                        <p className="text-tiny text-black/60 font-bold">{user?.[1]?.email}</p> 
+                        </CardHeader> 
                         <Image
                         removeWrapper
                         alt="Card background"
@@ -161,9 +166,10 @@ const HomeClient = () => {
                         />
                      </Card> 
                      <div className='absolute pt-80 pl-4'>
-                        <span className='font-thin'>John Snow</span>
+                        <span className='font-thin'>{user?.[1]?.name}</span>
                      </div>
                    </div>
+                ))}
             </section>
         </main>
     )
