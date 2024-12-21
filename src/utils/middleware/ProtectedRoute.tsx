@@ -16,6 +16,14 @@ export const ClientProctedRoute = () => {
 };
 
  
+
+export const AdminProctedRoute = () => {
+    const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
+    console.log('The user : ', isClientAuth)
+    return isClientAuth === undefined ? <Outlet /> : <Navigate to="/client/login" />;
+};
+
+ 
  
 
 

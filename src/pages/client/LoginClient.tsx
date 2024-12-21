@@ -1,22 +1,22 @@
 import {useEffect, useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,useLocation} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { signInClient } from '../../utils/redux/slices/clientSlice'
-// import { useSelector } from 'react-redux';
+ import { useSelector } from 'react-redux';
 import Google from '../../components/common/Google';
 
 const LoginClient = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const dispatch = useDispatch();
-  // const currentClient = useSelector((store: any) => store.client.isClient);
+  const currentClient = useSelector((store: any) => store.client.isClient);
 
   console.log("Client page")
  
-  // const message = useLocation();
+    const message = useLocation();
   const navigate = useNavigate(); 
  
    

@@ -21,13 +21,13 @@ const LoginUser = () => {
   console.log('msg : ', message.state)
   
 
-  useEffect(() => {
+  // useEffect(() => {
  
-    // checking whether use exists or not 
-    if(currentUser) {
-      navigate('/user/home')
-  }
-   }, []);
+  //   // checking whether use exists or not 
+  //   if(currentUser) {
+  //     navigate('/user/home')
+  // }
+  //  }, []);
  
   useEffect(() => {
 

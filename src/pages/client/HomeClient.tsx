@@ -16,9 +16,10 @@ const HomeClient = () => {
   let message: any = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentClient = useSelector((store: any) => store.client.isClient);
+  const isClient = useSelector((store: any) => store.client.isClient);
+  
  
- console.log('The current Client : ', currentClient);
+ 
 
   useEffect(() => {
     if (message.state) { 
@@ -27,7 +28,7 @@ const HomeClient = () => {
     };
 
     // checking whether use exists or not 
-    if(!currentClient) {
+    if(!isClient) {
       navigate('/client/login')
   }
    }, []);
@@ -56,10 +57,7 @@ const HomeClient = () => {
      findAllUsers();
   }, []);
 
-  Object.entries(users).map((user) => {
-    console.log('The all users', user?.[1])
-  })
-
+ 
  
 
     return (

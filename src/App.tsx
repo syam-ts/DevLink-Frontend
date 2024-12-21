@@ -3,17 +3,13 @@ import ClientRoute from './routes/ClientRoute'
 import LandingRoute from './routes/LandingRoute';
 import NotFound from './pages/404/NotFound'; 
 import { UserProctedRoute, ClientProctedRoute } from './utils/middleware/ProtectedRoute';
- 
-import { Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './utils/redux/store/mainStore' 
+import { Routes, Route } from 'react-router-dom'; 
 
 
 const App = () => { 
  
 
-  return (
-    <Provider store={store}>  
+  return ( 
        <Routes>
 
           <Route path='/*' element={<LandingRoute />} />
@@ -28,8 +24,7 @@ const App = () => {
          
           <Route path='*' element={<NotFound />} />
          
-       </Routes>   
-    </Provider>
+       </Routes>    
   )
 };
 

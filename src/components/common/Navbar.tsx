@@ -1,17 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { signOutUser } from '../../utils/redux/slices/userSlice'; 
 import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import axios from 'axios';
   
 
-const Navbar = (props: any) => {
+const Navbar = ({ roleType, roleInfo }: any) => {
 
-
-  const { roleType, roleInfo } = props;
-
-  
+   
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -68,15 +65,11 @@ const Navbar = (props: any) => {
 
 
        {
-        roleInfo !== undefined ? (
+        roleInfo && (
           <div className='mx-4 py-2 font-thin'>
-          <span className='font-bold'> { roleInfo.name } </span>
+          <span className='font-bold'> { roleInfo } </span>
        </div>
-        ) : (
-          <div>
-            
-          </div>
-        )
+        )  
        }
  
    {/* Profile dropdown */}
