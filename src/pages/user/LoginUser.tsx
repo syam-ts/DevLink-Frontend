@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
-import { signInUser } from '../../redux/slices/userSlice'
+import { signInUser } from '../../utils/redux/slices/userSlice'
 import { useSelector } from 'react-redux';
 import Google from '../../components/common/Google';
 

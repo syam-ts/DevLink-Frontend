@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster'; 
-import { signOutClient } from '../../redux/slices/clientSlice';
+import { signOutClient } from '../../utils/redux/slices/clientSlice';
    
 
 

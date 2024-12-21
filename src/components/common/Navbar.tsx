@@ -1,22 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { signOutUser } from '../../redux/slices/userSlice';
-import { useSelector } from 'react-redux';
+import { signOutUser } from '../../utils/redux/slices/userSlice'; 
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { useEffect } from "react";
 import axios from 'axios';
   
 
-const Navbar = () => {
+const Navbar = (props: any) => {
 
+
+  const { roleType, roleInfo } = props;
 
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const currentUser = useSelector((store: any) => store.user);
-
-  const user: string = currentUser?.currentUser?.user?.user?.name;
+ 
 
   
 
