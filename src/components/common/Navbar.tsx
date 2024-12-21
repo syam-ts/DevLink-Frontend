@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { signOutUser } from '../../utils/redux/slices/userSlice'; 
+import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
-import { useEffect } from "react";
 import axios from 'axios';
   
 
@@ -14,23 +14,26 @@ const Navbar = (props: any) => {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
- 
-
   
 
   const logout = async () => {
-     
-    //type user | client ( redux | jwt)
-
-
-    const data = await axios.post('http://localhost:3000/user/logout', {}, {
+      
+    const data = await axios.post(`http://localhost:3000/${roleType}/logout`, {}, {
       withCredentials: true
     });
 
     console.log('The Logout Response : ', data);
 
-    dispatch(signOutUser())
-    navigate('/user/login')
+    if(roleType === 'user') {
+
+      dispatch(signOutUser())
+      navigate('/user/login')
+    } else {
+      dispatch(signOutClient())
+      navigate('/client/login')
+
+    } 
+
   }
 
     return ( 
@@ -62,9 +65,19 @@ const Navbar = (props: any) => {
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
           </svg>
         </button> */}
-       <div className='mx-4 py-2 font-thin'>
-          <span className='font-bold'> {user} </span>
+
+
+       {
+        roleInfo !== undefined ? (
+          <div className='mx-4 py-2 font-thin'>
+          <span className='font-bold'> { roleInfo.name } </span>
        </div>
+        ) : (
+          <div>
+            
+          </div>
+        )
+       }
  
    {/* Profile dropdown */}
           <div>

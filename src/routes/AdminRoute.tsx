@@ -9,8 +9,8 @@ const AdminRoute = () => {
     return (
         <>
             <Routes>
-                <Route path='/admin/login' element={<LoginAdmin />} /> 
-                <Route path='/admin/index/*' element={<Index />} /> 
+                <Route path='/login' element={<LoginAdmin />} /> 
+                <Route path='/index/*' element={<Index />} /> 
             </Routes> 
         </>
     )

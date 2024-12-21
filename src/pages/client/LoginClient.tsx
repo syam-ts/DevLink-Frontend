@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { signInClient } from '../../utils/redux/slices/clientSlice'
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import Google from '../../components/common/Google';
 
 const LoginClient = () => {
@@ -13,8 +13,10 @@ const LoginClient = () => {
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const dispatch = useDispatch();
   // const currentClient = useSelector((store: any) => store.client.isClient);
+
+  console.log("Client page")
  
-  const message = useLocation();
+  // const message = useLocation();
   const navigate = useNavigate(); 
  
    
@@ -102,7 +104,7 @@ const LoginClient = () => {
           <div>                   
             <label className="text-gray-800 text-sm block mb-2">Email</label>
             <div className="relative flex items-center">
-              <input name="email" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <input name="email" type="text" onChange={handleChange} required className="w-full   border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -120,7 +122,7 @@ const LoginClient = () => {
           <div>                   
             <label className="text-gray-800 text-sm block mb-2">Password</label>
             <div className="relative flex items-center">
-              <input name="password" type="text" onChange={handleChange} required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter password" />
+              <input name="password" type="text" onChange={handleChange} required className="w-full   border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter password" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">

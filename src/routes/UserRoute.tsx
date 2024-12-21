@@ -15,16 +15,27 @@ const UserRoute = () => {
     const currentUser = useSelector((store: any) => store.user);
     const user: string = currentUser?.currentUser?.user?.user?.name;
 
+    const showNavAndFooter: any = (pathname: string) => {
+  
+    
+      const restrictedPath = [
+        '/user/signup',
+        '/user/login',
+        '/user/verify-otp'
+      ];
+      return !restrictedPath.includes(pathname);
+    };
+
     return (
         <>
-        <Navbar roleType='user' roleInfo={user} />
+          { showNavAndFooter(location.pathname) && <Navbar roleType='user' roleInfo={user} />}
             <Routes>
                 <Route path='/signup' element={<SignupUser />} />
                 <Route path='/verify-otp' element={<OtpUser />} />
                 <Route path='/login' element={<LoginUser />} />
                 <Route path='/home' element={<HomeUser />} />
             </Routes>
-        <Footer />
+          { showNavAndFooter(location.pathname) && <Footer />}
         </>
     )
 };

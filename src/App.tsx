@@ -1,41 +1,34 @@
-import Footer from "./components/common/Footer";
-import Navbar from "./components/common/Navbar";
-
-import HomeUser from './pages/user/HomeUser'
-import SignupUser from './pages/user/SignupUser'
-import LoginUser from './pages/user/LoginUser'
-
-import HomeClient from './pages/client/HomeClient'
-import SignupClient from './pages/client/SignupClient'
-import LoginClient from './pages/client/LoginClient'
-
-//admin  
-import LoginAdmin from "./pages/admin/LoginAdmin"; 
-import Index from './pages/admin/index';
-
-import UserRoute from './routes/UserRoute';
-
-
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store,{ userPersistor } from './utils/redux/store/mainStore' 
+import UserRoute from './routes/UserRoute'
+import ClientRoute from './routes/ClientRoute'
+import LandingRoute from './routes/LandingRoute';
+import NotFound from './pages/404/NotFound'; 
+import { UserProctedRoute, ClientProctedRoute } from './utils/middleware/ProtectedRoute';
  
+import { Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './utils/redux/store/mainStore' 
+
 
 const App = () => { 
  
-  const location = useLocation();
- 
 
   return (
-    <Provider store={store}> 
-    <div>  
+    <Provider store={store}>  
        <Routes>
 
-          <Route path='/user/*' element={<UserRoute />} />
- 
+          <Route path='/*' element={<LandingRoute />} />
+          
+          <Route element={<UserProctedRoute />} >
+             <Route path='user/*' element={<UserRoute />} />
+          </Route>
+
+          <Route element={<ClientProctedRoute />} >
+             <Route path='client/*' element={<ClientRoute />} />
+          </Route>
          
-      </Routes>  
-    </div>
+          <Route path='*' element={<NotFound />} />
+         
+       </Routes>   
     </Provider>
   )
 };
