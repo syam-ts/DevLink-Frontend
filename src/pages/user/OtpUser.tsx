@@ -72,6 +72,25 @@ const OtpUser = () => {
    });
    }
   }
+
+
+  const resendOtp = async () => {
+
+         const response = await axios.post('http://localhost:3000/user/resend-otp',message.state.message.userData);
+         
+         if(response.data.type === 'success') {
+
+          console.log('The new otp ', response?.data)
+          toast.error(response.data.message, {
+            style: {
+              backgroundColor: "white",
+              color: "black"
+            }
+          })
+            message.state.message.mailOtp = response.data.newOtp
+         }
+        
+  }
  
 
     return ( 
@@ -107,8 +126,6 @@ const OtpUser = () => {
               </svg>
             </div>
           </div>
-
-     
  
 
           <div className="mt-12">
@@ -116,7 +133,15 @@ const OtpUser = () => {
               Verify OTP
             </button>
           </div>
+          <hr className="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700" />
+
+          <div className="mt-12"> 
+            <button onClick={resendOtp} type="button" className="w-full hover:text-gray-400 py-2.5 px-4 text-sm tracking-wide rounded-md text-black focus:outline-none">
+              Resend OTP
+            </button>
+          </div>
  
+       
 
         
         </form>
