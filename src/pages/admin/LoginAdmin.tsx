@@ -22,7 +22,7 @@ const LoginClient = () => {
  
 
   const [formData, setFormData] = useState({
-   email: ""
+   name: ""
   })
 
   const handleChange = (e: any) => {
@@ -37,13 +37,15 @@ const LoginClient = () => {
   const handleSubmit = async () => {
         
     try {
-     const response = await axios.post('http://localhost:3000/admin/login', formData)
+     const response = await axios.post('http://localhost:3000/admin/login', formData, {
+          withCredentials: true,  
+     })
      console.log(response.data.message);
  
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        navigate('/client/home', { state: { message: response.data.message } });
+        navigate('/admin/index/dashboard', { state: { message: response.data.message } });
       }
     
    } catch (err: any) {
@@ -76,9 +78,9 @@ const LoginClient = () => {
           </div>
 
           <div>                   
-            <label className="text-gray-800 text-sm block mb-2">Email</label>
+            <label className="text-gray-800 text-sm block mb-2">Username</label>
             <div className="relative flex items-center">
-              <input name="email" type="text" onChange={handleChange} required className="w-full border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <input name="name" type="text" onChange={handleChange} required className="w-full border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter Username" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
