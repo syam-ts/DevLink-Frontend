@@ -11,10 +11,10 @@ import {
 
 import ExTable from "./ExTable";
 
-const ProductPerformance = () => {
+const ProductPerformance = ({users}: any) => {
   const [age, setAge] = React.useState("10");
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setAge(event.target.value);
   };
   return (
@@ -50,21 +50,21 @@ const ProductPerformance = () => {
               },
             }}
           >
-            <FormControl variant="standard" sx={{ minWidth: 120 }}>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={age}
-                onChange={handleChange}
-                label="Age"
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>March 2021</MenuItem>
-                <MenuItem value={20}>April 2021</MenuItem>
-                <MenuItem value={30}>Jun 2021</MenuItem>
-              </Select>
+            <FormControl variant="standard" sx={{ minWidth: 120 }}> 
+                     <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={age}
+                        onChange={handleChange}
+                        label="Age"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={10}>March 2021</MenuItem>
+                        <MenuItem value={20}>April 2021</MenuItem>
+                        <MenuItem value={30}>Jun 2021</MenuItem>
+                      </Select> 
             </FormControl>
           </Box>
         </Box>
@@ -74,7 +74,7 @@ const ProductPerformance = () => {
             mt: 3,
           }}
         >
-          <ExTable />
+          <ExTable users={users} />
         </Box>
       </CardContent>
     </Card>

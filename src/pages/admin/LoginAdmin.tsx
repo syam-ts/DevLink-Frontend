@@ -3,14 +3,17 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sonner } from '../../components/sonner/Toaster';
 import { toast } from "sonner";
+import { signInAdmin } from '../../utils/redux/slices/adminSlice';
+import { useDispatch } from 'react-redux';
+
 
 const LoginClient = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const message = useLocation();
-  const navigate = useNavigate();
-  console.log(message.state?.message);
-  
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
+
  
   useEffect(() => {
 
@@ -39,12 +42,15 @@ const LoginClient = () => {
     try {
      const response = await axios.post('http://localhost:3000/admin/login', formData, {
           withCredentials: true,  
-     })
-     console.log(response.data.message);
+     }) 
+     console.log('The whoel ', response.data)
  
       if(response.data.type !== 'success') {
+      
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        console.log('Enterd from login')
+        dispatch(signInAdmin(response.data.admin.admin));
         navigate('/admin/index/dashboard', { state: { message: response.data.message } });
       }
     

@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { signOutAdmin } from '../../../../../utils/redux/slices/adminSlice';
+import { useDispatch } from 'react-redux';
  
 
 const Header = (props: any) => { 
@@ -22,6 +24,7 @@ const Header = (props: any) => {
   const [anchorEl4, setAnchorEl4] = React.useState(null);
   const [anchorEl5, setAnchorEl5] = React.useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick4 = (event: any) => {
     setAnchorEl4(event.currentTarget);
@@ -38,6 +41,7 @@ const Header = (props: any) => {
     });
     console.log('The response ', response)
     if(response.data.type === 'success') {
+        dispatch(signOutAdmin());
        navigate('/admin/login')
     } 
   }

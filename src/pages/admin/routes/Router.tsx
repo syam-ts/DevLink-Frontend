@@ -1,5 +1,20 @@
-import { lazy } from "react";
+import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import { Suspense } from "react";
+
+// class ErrorBoundary extends React.Component {
+//   state = { hasError: false };
+
+//   static getDerivedStateFromError() {
+//     return { hasError: true };
+//   }
+
+//   render() {
+//     if (this.state.hasError) {
+//       return <div>Something went wrong!</div>;
+//     }
+//     return this.props.children;
+//   }
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));
@@ -18,12 +33,32 @@ const UserTable = lazy(() => import("../views/tables/UserTable.js"));
 const ThemeRoutes = [
   {
     path: "/",
-    element: <FullLayout />,
+    element: (
+    
+      <Suspense fallback={<div>Loading...</div>}>
+        <FullLayout />
+      </Suspense>
+    ),
     children: [
       { path: "/", element: <Navigate to="/admin/index/dashboard" /> },
-      { path: "/dashboard",  element: <Dashboard /> }, //exact: true,
-      { path: "/tables/user-table", element: <UserTable /> },
-      { path: "/tables/client-table", element: <ClientTable /> } 
+      { path: "/dashboard",  element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Dashboard />
+        </Suspense>
+      )}, //exact: true,
+      { path: "/tables/user-table", element: (
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <UserTable />
+        </Suspense>
+      ) },
+      { path: "/tables/client-table", element:(
+        
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <ClientTable />
+        </Suspense>
+      ) } 
     ],
   },
 ];
