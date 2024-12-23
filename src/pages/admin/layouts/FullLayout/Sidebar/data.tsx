@@ -23,6 +23,16 @@ const Menuitems: Menu[] = [
     icon: AutoAwesomeMosaicOutlinedIcon,
     href: "/admin/index/tables/client-table",
   },
+  {
+    title: "Notifications",
+    icon: AutoAwesomeMosaicOutlinedIcon,
+    href: "/admin/index/notifications",
+  },
+  {
+    title: "Logout",
+    icon: AutoAwesomeMosaicOutlinedIcon,
+    href: "/admin/logout",
+  },
 ];
 
 export default Menuitems;

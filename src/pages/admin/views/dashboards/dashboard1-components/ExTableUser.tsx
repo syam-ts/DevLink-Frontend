@@ -8,11 +8,47 @@
   TableRow,
   Chip,
 } from "@mui/material";
-
+import axios from "axios";
+import { useState } from "react";
+import { Sonner } from '../../../../../components/sonner/ToasterBottom';
+import { toast } from "sonner";
  
 const ExTable = ({ users }: any) => {
+
  
-  console.log('Teh whole users', users)
+ 
+  const blockUser = async (userId: string) => {
+    try{
+
+      const response = await axios.patch(`http://localhost:3000/admin/blockUser/${userId}`);
+
+      console.log('The response', response.data.message)
+      if(response.data.type == 'success') { 
+        toast.success(response.data.message, {
+          position: 'bottom-right'
+        })
+      }
+    }catch(err: any) {
+      console.log(err.message)
+    }
+  }
+
+
+  const unBlockUser = async (userId: string) => {
+    try{
+
+      const response = await axios.patch(`http://localhost:3000/admin/unblockUser/${userId}`);
+
+      console.log('The response', response.data.message)
+      if(response.data.type == 'success') { 
+        toast.success(response.data.message, {
+          position: 'bottom-right'
+        })
+      }
+    }catch(err: any) {
+      console.log(err.message)
+    }
+  }
 
   return (
     <Table
@@ -22,6 +58,10 @@ const ExTable = ({ users }: any) => {
         whiteSpace: "nowrap",
       }}
     >
+   {/* toster */}
+       
+     <Sonner />
+     
       <TableHead>
         <TableRow>
           <TableCell>
@@ -60,7 +100,7 @@ const ExTable = ({ users }: any) => {
                   fontSize: "15px",
                   fontWeight: "500",
                 }}
-              >    { console.log( 'The whole users', user[1]?.name)}
+              >      
                 {user?.profilePicture } {0}
               </Typography>
             </TableCell>
@@ -88,17 +128,23 @@ const ExTable = ({ users }: any) => {
                 {user[1]?.email}
               </Typography>
             </TableCell>
+          
             <TableCell>
-              <Chip
-                sx={{
-                  pl: "4px",
-                  pr: "4px",
-                  backgroundColor: 'green',
-                  color: "#fff",
-                }}
-                size="small"
-                label={'product'}
+             {
+              user[1].isBlocked ? (
+                <Chip onClick={() => unBlockUser(user[1]._id) }
+                  sx={{
+                    pl: "4px", pr: "4px", backgroundColor: 'red', color: "#fff",
+                  }} size="small" label= 'unBlock' 
               ></Chip>
+              ) : (
+                <Chip onClick={() => blockUser(user[1]._id)}
+                    sx={{
+                      pl: "4px", pr: "4px", backgroundColor: 'green', color: "#fff",
+                    }} size="small" label='block'
+              ></Chip>
+              )
+             }
             </TableCell>
             <TableCell align="right">
               <Typography variant="h6">{100}</Typography>

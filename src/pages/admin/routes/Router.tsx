@@ -14,7 +14,9 @@ const Dashboard = lazy(() => import("../views/dashboards/Dashboard1.js"));
 const ClientTable = lazy(() => import("../views/tables/ClientTable.js"));
 const UserTable = lazy(() => import("../views/tables/UserTable.js"));
 
-  
+const Notifications = lazy(() => import('../views/extra/Notifications.tsx'))
+
+
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -44,6 +46,12 @@ const ThemeRoutes = [
       
         <Suspense fallback={<div>Loading...</div>}>
           <ClientTable />
+        </Suspense>
+      ) },
+      { path: "/notifications", element:( 
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <Notifications />
         </Suspense>
       ) } 
     ],
