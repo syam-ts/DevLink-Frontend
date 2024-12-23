@@ -1,8 +1,7 @@
 import { useRoutes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { baseTheme } from './assets/global/Theme-variable.tsx'
-import Themeroutes from './routes/Router.tsx'
-import ErrorBoundary from '../../utils/middleware/ErrorBoundary.tsx'
+import Themeroutes from './routes/Router.tsx' 
 
 
 function index() {
@@ -11,10 +10,8 @@ function index() {
   const theme = baseTheme;
   return (
     <div>
-        <ThemeProvider theme={theme}>
-          <ErrorBoundary> 
-           {routing}
-          </ErrorBoundary>
+        <ThemeProvider theme={theme}> 
+           {routing} 
         </ThemeProvider>
 
     </div>

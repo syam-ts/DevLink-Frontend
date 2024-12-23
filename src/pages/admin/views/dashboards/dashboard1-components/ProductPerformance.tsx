@@ -9,7 +9,7 @@ import {
   Select,
 } from "@mui/material";
 
-import ExTable from "./ExTable";
+import ExTable from "./ExTableUser";
 
 const ProductPerformance = ({users}: any) => {
   const [age, setAge] = React.useState("10");

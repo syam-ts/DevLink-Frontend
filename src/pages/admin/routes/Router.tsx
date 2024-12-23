@@ -1,20 +1,7 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import { Suspense } from "react";
-
-// class ErrorBoundary extends React.Component {
-//   state = { hasError: false };
-
-//   static getDerivedStateFromError() {
-//     return { hasError: true };
-//   }
-
-//   render() {
-//     if (this.state.hasError) {
-//       return <div>Something went wrong!</div>;
-//     }
-//     return this.props.children;
-//   }
+ 
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));

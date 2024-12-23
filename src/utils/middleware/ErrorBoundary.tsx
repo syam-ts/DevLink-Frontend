@@ -1,34 +1,34 @@
-import React, { ReactNode, useState, useEffect } from 'react';
+// import React, { ReactNode, useState, useEffect } from 'react';
 
-interface ErrorBoundaryProps {
-  children: ReactNode;
-}
+// interface ErrorBoundaryProps {
+//   children: ReactNode;
+// }
 
-const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
-  const [hasError, setHasError] = useState(false);
+// const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
+//   const [hasError, setHasError] = useState(false);
 
-  const handleError = (error: Error, info: { componentStack: string }) => {
-    console.error("Error Boundary caught an error:", error, info);
-    setHasError(true);
-  };
+//   const handleError = (error: Error, info: { componentStack: string }) => {
+//     console.error("Error Boundary caught an error:", error, info);
+//     setHasError(true);
+//   };
 
-  useEffect(() => {
-    const errorHandler = (event: ErrorEvent) => {
-      handleError(event.error, { componentStack: "" });
-    };
+//   useEffect(() => {
+//     const errorHandler = (event: ErrorEvent) => {
+//       handleError(event.error, { componentStack: "" });
+//     };
 
-    window.addEventListener("error", errorHandler);
+//     window.addEventListener("error", errorHandler);
 
-    return () => {
-      window.removeEventListener("error", errorHandler);
-    };
-  }, []);
+//     return () => {
+//       window.removeEventListener("error", errorHandler);
+//     };
+//   }, []);
 
-  if (hasError) {
-    return <h1>Something went wrong.</h1>;
-  }
+//   if (hasError) {
+//     return <h1>Something went wrong.</h1>;
+//   }
 
-  return <>{children}</>;
-};
+//   return <>{children}</>;
+// };
 
-export default ErrorBoundary;
+// export default ErrorBoundary;

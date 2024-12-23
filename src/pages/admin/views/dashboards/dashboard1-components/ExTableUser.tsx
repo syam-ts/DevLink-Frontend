@@ -9,50 +9,11 @@
   Chip,
 } from "@mui/material";
 
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    email: "jsunil09@gmail.com",
-    priority: "block",
-    pbg: "success.main",
-    earnings: "30",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    email: "adndreswmc98@gmail.com",
-    priority: "block",
-    pbg: "success.main",
-    earnings: "16",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    email: "christ532@gmail.com",
-    priority: "unblock",
-    pbg: "error.main",
-    earnings: "4",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    email: "nravjoshit3@gmail.com",
-    priority: "unblock",
-    pbg: "error.main",
-    earnings: "25",
-  }, 
-  {
-    id: "5",
-    name: "manu kumar",
-    email: "manukumar733@gmail.com",
-    priority: "unblock",
-    pbg: "error.main",
-    earnings: "12",
-  },
-];
+ 
+const ExTable = ({ users }: any) => {
+ 
+  console.log('Teh whole users', users)
 
-const ExTable = () => {
   return (
     <Table
       aria-label="simple table"
@@ -65,7 +26,7 @@ const ExTable = () => {
         <TableRow>
           <TableCell>
             <Typography color="textSecondary" variant="h6">
-              Id
+              Image
             </Typography>
           </TableCell>
           <TableCell>
@@ -91,16 +52,16 @@ const ExTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {products.map((product) => (
-          <TableRow key={product.name}>
+        {Object.entries(users).map((user: any) => (
+          <TableRow key={user[1]?.name}>
             <TableCell>
               <Typography
                 sx={{
                   fontSize: "15px",
                   fontWeight: "500",
                 }}
-              >
-                {product.id}
+              >    { console.log( 'The whole users', user[1]?.name)}
+                {user?.profilePicture } {0}
               </Typography>
             </TableCell>
             <TableCell>
@@ -117,14 +78,14 @@ const ExTable = () => {
                       fontWeight: "600",
                     }}
                   >
-                    {product.name}
+                    {user[1]?.name}
                   </Typography>
                 </Box>
               </Box>
             </TableCell>
             <TableCell>
               <Typography color="textSecondary" variant="h6">
-                {product.email}
+                {user[1]?.email}
               </Typography>
             </TableCell>
             <TableCell>
@@ -132,15 +93,15 @@ const ExTable = () => {
                 sx={{
                   pl: "4px",
                   pr: "4px",
-                  backgroundColor: product.pbg,
+                  backgroundColor: 'green',
                   color: "#fff",
                 }}
                 size="small"
-                label={product.priority}
+                label={'product'}
               ></Chip>
             </TableCell>
             <TableCell align="right">
-              <Typography variant="h6">{product.earnings}</Typography>
+              <Typography variant="h6">{100}</Typography>
             </TableCell>
           </TableRow>
         ))}

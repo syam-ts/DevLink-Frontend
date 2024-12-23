@@ -32,7 +32,6 @@ useEffect(() => {
     }); 
   
   
-      console.log('The res ', response.data.data.allUsers)
       setUsers(response.data.data.allUsers);
     } catch (err: any) {
       console.log('The err', err.response.data.message)
