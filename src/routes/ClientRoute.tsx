@@ -5,6 +5,8 @@ import LoginClient from '../pages/client/LoginClient'
 import OtpClient from '../pages/client/otpClient'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
+import VerfiyEmail from '../pages/client/VerifyEmail';
+import ResetPassword from '../pages/client/ResetPassword';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -21,7 +23,9 @@ const ClientRoute = () => {
       const restrictedPath = [
         '/client/signup',
         '/client/login',
-        '/client/verify-otp'
+        '/client/verify-otp',
+        '/client/verify-email',
+        '/client/resetPassword/:clientId'
       ];
       return !restrictedPath.includes(pathname);
     };
@@ -32,6 +36,8 @@ const ClientRoute = () => {
             <Routes>
                 <Route path='/signup' element={<SignupClient />} />
                 <Route path='/verify-otp' element={<OtpClient />} />
+                <Route path='/verify-email' element={<VerfiyEmail />} />
+                <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} />
             </Routes>

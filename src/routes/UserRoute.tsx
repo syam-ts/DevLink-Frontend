@@ -7,6 +7,8 @@ import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import VerfiyEmail from '../pages/user/VerifyEmailFP';
+import ResetPassword from '../pages/user/ResetPassword';
 
 
 
@@ -21,7 +23,9 @@ const UserRoute = () => {
       const restrictedPath = [
         '/user/signup',
         '/user/login',
-        '/user/verify-otp'
+        '/user/verify-otp',
+        '/user/verify-email',
+        '/user/resetPassword/:userId'
       ];
       return !restrictedPath.includes(pathname);
     };
@@ -33,6 +37,8 @@ const UserRoute = () => {
                 <Route path='/signup' element={<SignupUser />} />
                 <Route path='/verify-otp' element={<OtpUser />} />
                 <Route path='/login' element={<LoginUser />} />
+                <Route path='/verify-email' element={<VerfiyEmail />} />
+                <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
