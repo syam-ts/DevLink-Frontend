@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent, 
@@ -6,12 +6,55 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function App() {
+
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    age: "",
+    description: "",
+    location: "",
+    skills: "",
+    budget: ""
+  });
+
+
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
 
-  // const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "full"];
+  const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user);
+
+  const { _id } = userId; 
+
+  const handleChange = (e: any) => {
+  
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  console.log('The form data', formData)
+ 
+  const sumbmitForm = async () => {
+    try{
+
+      const response = await axios.put(`http://localhost:3000/user/profile/edit/${_id}`, formData, {
+        withCredentials: true
+      });
+
+      console.log('The response of edit : ', response);
+
+    }catch(err: any) {
+      console.log(err.message);
+    }
+  }
+
 
   const handleOpen = (size: any) => {
     setSize(size);
@@ -19,6 +62,9 @@ export default function App() {
   };
 
   return (
+ 
+
+
     <>
       <div className="flex flex-wrap gap-3">
         
@@ -51,38 +97,43 @@ export default function App() {
                                 <div className="grid gap-4 gap-y-1 text-sm grid-cols-1 md:grid-cols-5">
                                 <div className="md:col-span-5">
                                     <label>Name</label>
-                                    <input name="name" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
+                                    <input onChange={handleChange} name="name" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" />
                                 </div> 
 
                                 <div className="md:col-span-5">
+                                    <label>Age</label>
+                                    <input name="age" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                </div>
+
+                                <div className="md:col-span-5">
                                     <label>Mobile</label>
-                                    <input name="mobile" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input name="mobile" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
                                 </div>
 
                                 <div className="md:col-span-5 pt-12">
                                     <label>Description</label>
-                                    <input name="description" className="h-44 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
+                                    <input  onChange={handleChange} name="description" className="h-44 border mt-1 rounded px-4 w-full bg-slate-300" />
                                 </div>
 
                                 <div className="md:col-span-5">
                                     <label>Location</label>
-                                    <input name="location" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="location" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
                                 </div>
  
 
                                 <div className="md:col-span-5">
                                     <label>Skills</label>
-                                    <input name="skills" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="skills" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
                                 </div> 
 
                                 <div className="md:col-span-5">
                                     <label>Budget</label>
-                                    <input name="budget" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="budget" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
                                 </div>
                     
                                 <div className="md:col-span-5 text-right">
                                     <div className="inline-flex items-end">
-                                    <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"> Submit </button>
+                                    <button onClick={sumbmitForm} className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"> Submit </button>
                                     </div>
                                 </div>
 
