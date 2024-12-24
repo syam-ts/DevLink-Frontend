@@ -8,10 +8,13 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
 
 export default function App() {
 
-  
+
   const [formData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -29,6 +32,7 @@ export default function App() {
   const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user);
 
   const { _id } = userId; 
+  const navigate = useNavigate();
 
   const handleChange = (e: any) => {
   
@@ -48,7 +52,11 @@ export default function App() {
         withCredentials: true
       });
 
-      console.log('The response of edit : ', response);
+      console.log('The response of edit : ', response.data.type);
+      if(response.data.type === 'success') {
+        toast.success(response.data.message)
+           navigate('/user/profile/profile')
+      }
 
     }catch(err: any) {
       console.log(err.message);
@@ -67,7 +75,10 @@ export default function App() {
 
     <>
       <div className="flex flex-wrap gap-3">
-        
+         
+         <Sonner />
+
+
           <Button className=' bg-transparent text-white rounded-none' key={size} onPress={() => handleOpen(size)}>
             Edit 
           </Button> 
@@ -107,7 +118,7 @@ export default function App() {
 
                                 <div className="md:col-span-5">
                                     <label>Mobile</label>
-                                    <input name="mobile" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input onChange={handleChange} name="mobile" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
                                 </div>
 
                                 <div className="md:col-span-5 pt-12">
