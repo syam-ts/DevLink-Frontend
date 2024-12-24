@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Modal from '../../../../../components/nextUi/modals/LargeModal'
+import Modal from '../../../../../components/nextUi/modals/editProfileUserModal'
  
 
 

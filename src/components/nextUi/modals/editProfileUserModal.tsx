@@ -51,47 +51,33 @@ export default function App() {
                                 <div className="grid gap-4 gap-y-1 text-sm grid-cols-1 md:grid-cols-5">
                                 <div className="md:col-span-5">
                                     <label>Name</label>
-                                    <input name="full_name" id="full_name" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
-                                </div>
-
-                                <div className="md:col-span-5">
-                                    <label>Email Address</label>
-                                    <input name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
-                                </div>
-
-                                
+                                    <input name="name" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
+                                </div> 
 
                                 <div className="md:col-span-5">
                                     <label>Mobile</label>
-                                    <input name="mobile" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input name="mobile" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
                                 </div>
 
                                 <div className="md:col-span-5 pt-12">
                                     <label>Description</label>
-                                    <input name="full_name" id="full_name" className="h-44 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
+                                    <input name="description" className="h-44 border mt-1 rounded px-4 w-full bg-slate-300" value="" />
                                 </div>
 
                                 <div className="md:col-span-5">
                                     <label>Location</label>
-                                    <input name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input name="location" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
                                 </div>
-
-                                
+ 
 
                                 <div className="md:col-span-5">
                                     <label>Skills</label>
-                                    <input name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
-                                </div> 
-                                
-
-                                <div className="md:col-span-5">
-                                    <label>Pay per hour</label>
-                                    <input name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <input name="skills" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
                                 </div> 
 
                                 <div className="md:col-span-5">
-                                    <label>Total Jobs finished on Devlink</label>
-                                    <input name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
+                                    <label>Budget</label>
+                                    <input name="budget" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" value="" placeholder="email@domain.com" />
                                 </div>
                     
                                 <div className="md:col-span-5 text-right">
@@ -124,3 +110,7 @@ export default function App() {
     </>
   );
 }
+ 
+// profilePicture?: string;
+// location?:string;
+// skills?: [string];
