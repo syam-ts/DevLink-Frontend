@@ -1,10 +1,8 @@
 import React from "react";
 import {
   Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  ModalContent, 
+  ModalBody, 
   Button,
   useDisclosure,
 } from "@nextui-org/react";
@@ -13,7 +11,7 @@ export default function App() {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
 
-  const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "full"];
+  // const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "full"];
 
   const handleOpen = (size: any) => {
     setSize(size);
@@ -24,7 +22,7 @@ export default function App() {
     <>
       <div className="flex flex-wrap gap-3">
         
-          <Button className='bg-sky-500 text-white rounded-none' key={size} onPress={() => handleOpen(size)}>
+          <Button className=' bg-transparent text-white rounded-none' key={size} onPress={() => handleOpen(size)}>
             Edit 
           </Button> 
       </div>

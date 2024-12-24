@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -10,8 +10,7 @@ import {
   ListItemIcon,
   ListItemText
 } from "@mui/material";
-import { SidebarWidth } from "../../../assets/global/Theme-variable.tsx";
-import LogoIcon from "../Logo/LogoIcon.tsx";
+import { SidebarWidth } from "../../../assets/global/Theme-variable.tsx"; 
 import Menuitems from "./data.tsx"; 
 
 const Sidebar = (props: any) => {
@@ -30,13 +29,13 @@ const Sidebar = (props: any) => {
 
   const SidebarContent = (
     <Box sx={{ p: 3, height: "calc(100vh - 40px)" }}>
-      <Link to="/">
+      <div >
         <Box sx={{ display: "flex", alignItems: "Center" }}>
           <div className='w-32 h-32'>
-          <LogoIcon />
+         
           </div>
         </Box>
-      </Link>
+      </div>
 
       <Box>
         <List
@@ -51,7 +50,7 @@ const Sidebar = (props: any) => {
               <List component="li" disablePadding key={item.title}>
                 <ListItem
                   onClick={() => handleClick(index)}
-                  button
+
                   component={NavLink}
                   to={item.href}
                   selected={pathDirect === item.href}
@@ -59,7 +58,7 @@ const Sidebar = (props: any) => {
                     mb: 1,
                     ...(pathDirect === item.href && {
                       color: "white",
-                      backgroundColor: (theme) =>
+                      backgroundColor: (theme: any) =>
                         `${theme.palette.primary.main}!important`,
                     }),
                   }}
