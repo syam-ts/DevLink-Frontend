@@ -18,7 +18,7 @@ const HomeUser = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((store: any) => store.user.isUser);
  
- 
+ console.log('The current user', currentUser);
 
   useEffect(() => {
     if (message.state) { 

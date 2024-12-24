@@ -140,12 +140,14 @@ const LoginClient = () => {
      
 
           <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
-{/*     
+    
             <div>
-              <a href="jajvascript:void(0);" className="text-blue-600 font-semibold text-sm hover:underline">
-                Forgot Password?
-              </a>
-            </div> */}
+              <Link to='/client/verify-email' >
+                <a href="jajvascript:void(0);" className="text-blue-600 font-semibold text-sm hover:underline">
+                  Forgot Password?
+                </a>
+              </Link>
+            </div>
           </div>
 
           <div className="mt-12">

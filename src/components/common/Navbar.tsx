@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUser } from '../../utils/redux/slices/userSlice'; 
 import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
@@ -83,9 +83,9 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Static Actions" variant="faded">
-                    <DropdownItem key="new">Profile</DropdownItem>
+                    <DropdownItem key="new"> <Link to='/user/profile/profile' >Profile</Link> </DropdownItem>
                     <DropdownItem key="copy">Chat</DropdownItem>
-              
+                    <DropdownItem key="new"> <Link to='/user/home' >Home</Link> </DropdownItem>
                     <DropdownItem key="delete" className="text-danger" color="danger" onClick={logout}>
                       Logout
                     </DropdownItem>

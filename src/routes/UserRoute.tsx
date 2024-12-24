@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
+import Index from '../pages/user/profile/index'
 
 
 
@@ -25,7 +26,7 @@ const UserRoute = () => {
         '/user/login',
         '/user/verify-otp',
         '/user/verify-email',
-        '/user/resetPassword/:userId'
+        '/user/resetPassword/67697480bd289da770893f9c'
       ];
       return !restrictedPath.includes(pathname);
     };
@@ -40,6 +41,7 @@ const UserRoute = () => {
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} />
+                <Route path='/profile/*' element={<Index />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

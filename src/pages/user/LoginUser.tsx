@@ -21,13 +21,13 @@ const LoginUser = () => {
   console.log('msg : ', message.state)
   
 
-  // useEffect(() => {
+  useEffect(() => {
  
-  //   // checking whether use exists or not 
-  //   if(currentUser) {
-  //     navigate('/user/home')
-  // }
-  //  }, []);
+    // checking whether use exists or not 
+    if(currentUser) {
+      navigate('/user/home')
+  }
+   }, []);
  
   useEffect(() => {
 
@@ -141,12 +141,14 @@ const LoginUser = () => {
      
 
           <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
-{/*     
+    
             <div>
-              <a href="jajvascript:void(0);" className="text-blue-600 font-semibold text-sm hover:underline">
+              <Link to='/user/verify-email' >
+              <a href="jajvascript:void(0);" className="text-blue-600 font-thin text-xs hover:underline">
                 Forgot Password?
               </a>
-            </div> */}
+              </Link>
+            </div>
           </div>
 
           <div className="mt-12">

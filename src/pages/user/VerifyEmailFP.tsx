@@ -56,7 +56,7 @@ const VerfiyEmail = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        navigate('/user/resetPassword', { state: { message: response.data.message }});
+        toast.success(response.data.message)
       }
     
    } catch (err: any) {
