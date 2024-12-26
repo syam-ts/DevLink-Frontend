@@ -24,9 +24,9 @@ const Menuitems: Menu[] = [
     href: "/admin/index/tables/client-table",
   },
   {
-    title: "Notifications",
+    title: "Requests",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/admin/index/notifications",
+    href: "/admin/index/requests",
   },
   {
     title: "Logout",

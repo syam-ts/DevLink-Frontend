@@ -79,11 +79,11 @@ export default function App() {
          <Sonner />
 
 
-          <Button className=' bg-transparent text-white rounded-none' key={size} onPress={() => handleOpen(size)}>
+          <Button className=' bg-transparent text-white -none' key={size} onPress={() => handleOpen(size)}>
             Edit 
           </Button> 
       </div>
-      <Modal isOpen={isOpen} backdrop={'blur'} size={"5xl"} onClose={onClose}>
+      <Modal isOpen={isOpen} backdrop={'blur'} size={"5xl"}  onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -96,7 +96,7 @@ export default function App() {
                         <h2 className="font-semibold text-xl text-gray-600">Your Profile</h2>
                         <p className="text-gray-500 text-xs mb-6">Edit all here.</p>
 
-                        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                        <div className="bg-white  p-4 px-4 md:p-8 mb-6">
                             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                             <div className="text-gray-600">
                                 <p className="font-medium text-lg">Personal Details</p> 
@@ -108,43 +108,43 @@ export default function App() {
                                 <div className="grid gap-4 gap-y-1 text-sm grid-cols-1 md:grid-cols-5">
                                 <div className="md:col-span-5">
                                     <label>Name</label>
-                                    <input onChange={handleChange} name="name" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" />
+                                    <input onChange={handleChange} name="name" className="h-8 border mt-1 px-4 w-full " placeholder='change name' />
                                 </div> 
 
                                 <div className="md:col-span-5">
                                     <label>Age</label>
-                                    <input name="age" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input name="age" type='number' className="h-8 border mt-1  px-4 w-full " placeholder="change age" />
                                 </div>
 
                                 <div className="md:col-span-5">
                                     <label>Mobile</label>
-                                    <input onChange={handleChange} name="mobile" type='number' className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input onChange={handleChange} name="mobile" type='number' className="h-8 border mt-1  px-4 w-full " placeholder="change mobile number" />
                                 </div>
 
-                                <div className="md:col-span-5 pt-12">
+                                <div className="md:col-span-5">
                                     <label>Description</label>
-                                    <input  onChange={handleChange} name="description" className="h-44 border mt-1 rounded px-4 w-full bg-slate-300" />
+                                    <input  onChange={handleChange} name="description" className="h-44 border mt-1  px-4 w-full " />
                                 </div>
 
                                 <div className="md:col-span-5">
                                     <label>Location</label>
-                                    <input  onChange={handleChange} name="location" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="location" className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
                                 </div>
  
 
                                 <div className="md:col-span-5">
                                     <label>Skills</label>
-                                    <input  onChange={handleChange} name="skills" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="skills" className="h-8 border mt-1  px-4 w-full " placeholder="change skills" />
                                 </div> 
 
                                 <div className="md:col-span-5">
                                     <label>Budget</label>
-                                    <input  onChange={handleChange} name="budget" className="h-10 border mt-1 rounded px-4 w-full bg-slate-300" placeholder="email@domain.com" />
+                                    <input  onChange={handleChange} name="budget" className="h-8 border mt-1  px-4 w-full " placeholder="change budget" />
                                 </div>
                     
                                 <div className="md:col-span-5 text-right">
                                     <div className="inline-flex items-end">
-                                    <button onClick={sumbmitForm} className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"> Submit </button>
+                                    <button onClick={sumbmitForm} className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 "> Submit </button>
                                     </div>
                                 </div>
 
