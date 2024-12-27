@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Modal from '../../../../../components/nextUi/modals/editProfileUserModal'
+import Modal from '../../../../../components/nextUi/modals/editProfileClientModal'
  
 
 
@@ -15,30 +15,30 @@ const Profile = () => {
  const [ client, setClient]: any = useState({});
 
  const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client)
+ 
   
+ const { _id } = clientId;  
 
-//  const { _id } = clientId; 
+useEffect(() => {
+  const getClientData = async () => {
 
-// useEffect(() => {
-//   const getClientData = async () => {
-
-//     try {
+    try {
       
-//       const response = await axios.get(`http://localhost:3000/client/profile/view/${_id}`,{
-//         withCredentials: true
-//     }); 
+      const response = await axios.get(`http://localhost:3000/client/profile/view/${_id}`,{
+        withCredentials: true
+    }); 
    
-  
-//       setClient(response.data.data);
-//     } catch (err: any) { 
-//     if(err.response.data.message == 'No token provided') {
-//       navigate('/client/login')
-//     }
-//     }
-//   }
+      console.log("the data : ", response.data.data)
+      setClient(response.data?.data);
+    } catch (err: any) { 
+    if(err.response.data.message == 'No token provided') {
+      navigate('/client/login')
+    }
+    }
+  }
 
-//   getClientData();
-// }, []);
+  getClientData();
+}, []);
  
 
 // useEffect(() => {
@@ -72,80 +72,76 @@ const Profile = () => {
             <div className="px-6">
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                  <div className="">
-                    <img alt="client-profile" src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" className="shadow-xl rounded-full h-44 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
-                  </div>
+            
                 </div>
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                  {/* <div className="py-6 px-3 mt-32 sm:mt-0">
+                  <div className="py-6 px-3 mt-32 sm:mt-0">
                     <button className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
                     <Modal /> 
                     </button>
-                  </div> */}
-                </div>
-                <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                  <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                    <div className="mr-4 p-3 text-center">
-                      <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">22</span><span className="text-sm text-blueGray-400">
-                        Total Jobs
-                        </span>
-                    </div>
-                    <div className="mr-4 p-3 text-center">
-                      <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">
-                        Finished
-                        </span>
-                    </div>
-                    <div className="lg:mr-4 p-3 text-center">
-                      <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{client?.budget}</span><span className="text-sm text-blueGray-400">
-                        Pay/hour
-                        </span>
-                    </div>
                   </div>
                 </div>
+               
               </div>
      
               <div className="text-center mt-12">
                 <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
-                  {client?.name}
+                  {client?.companyName}
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-thin">
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                   {client?.email}
+                   {client?.domain}
+                </div>
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-thin">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                   {client?.email} 
+                 {
+                  client?.isVerified && (
+                    <span className="inline-flex ml-3 items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                    <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                    <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                    </svg>
+                    <span className="sr-only">Icon description</span>
+                    </span>
+                  )
+                 }
+ 
+
+                </div>
+           
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                   {client?.location}
+                </div>
+           
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                   {client?.since}
+                </div>
+           
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400">Total Employees - {client?.totalEmployees}</i>
+                   
+                </div>
+           
+                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+                   {client?.location}
                 </div>
 
-
-                {/* <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-thin">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                   {user?.mobile}
-                </div>
-                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                  {user?.location}
-                </div>
-                <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"> </i>
-                  Male - 27
-                </div>
-                <div className="mb-2 text-blueGray-600 mt-10">
-                  <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"> Education </i>University of Computer Science
-                </div>
-                <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Domain - </i> Backend Developer
-                </div>
-                <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i>React.js Node.js Express.js php Typescipt
-                </div> */}
+ 
               </div>
-              {/* <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+              <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-9/12 px-4">
                     <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    {user?.description}
-                    </p> */}
+                    { client?.description }
+                    </p>  
                     {/* <a href="#pablo" className="font-normal text-pink-500">Show more</a> */}
-                  {/* </div>
-                </div>
-              </div> */}
+                   </div>
+                  </div>
+              </div>
 
 
             </div>

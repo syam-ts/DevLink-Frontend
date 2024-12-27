@@ -11,27 +11,27 @@ const Menuitems: Menu[] = [
   {
     title: "Profile",
     icon: DashboardOutlinedIcon,
-    href: "/user/profile/profile",
+    href: "/client/profile/profile",
   },  
   {
     title: "Wallet",
     icon: DashboardOutlinedIcon,
-    href: "/user/profile/wallet",
+    href: "/client/profile/wallet",
   },  
   {
     title: "Notifications",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/user/profile/notifications",
+    href: "/client/profile/notifications",
   },
   {
     title: "chat",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/user/profile/chat",
+    href: "/client/profile/chat",
   },
   {
     title: "Logout",
     icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/user/logout",
+    href: "/client/logout",
   },
 ];
 

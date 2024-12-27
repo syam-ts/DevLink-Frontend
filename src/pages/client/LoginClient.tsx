@@ -66,7 +66,6 @@ const LoginClient = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        
         dispatch(signInClient(response.data))
         navigate('/client/home', { state: { message: response.data.message } });
       }

@@ -83,9 +83,9 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Static Actions" variant="faded">
-                    <DropdownItem key="new"> <Link to='/user/profile/profile' >Profile</Link> </DropdownItem>
+                    <DropdownItem key="new"> <Link to={`/${roleType}/profile/profile`} >Profile</Link> </DropdownItem>
                     <DropdownItem key="copy">Chat</DropdownItem>
-                    <DropdownItem key="new"> <Link to='/user/home' >Home</Link> </DropdownItem>
+                    <DropdownItem key="new"> <Link to={`/${roleType}/home`} >Home</Link> </DropdownItem>
                     <DropdownItem key="delete" className="text-danger" color="danger" onClick={logout}>
                       Logout
                     </DropdownItem>
