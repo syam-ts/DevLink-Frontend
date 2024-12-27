@@ -7,6 +7,7 @@ import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import VerfiyEmail from '../pages/client/VerifyEmail';
 import ResetPassword from '../pages/client/ResetPassword';
+import Index from '../pages/client/profile/index'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -40,6 +41,7 @@ const ClientRoute = () => {
                 <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} />
+                <Route path='/profile/*' element={<Index />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

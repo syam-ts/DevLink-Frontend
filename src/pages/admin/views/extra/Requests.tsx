@@ -5,21 +5,36 @@ import { useEffect, useState } from "react"
 
 const Requests: any = () => {
 
-  const [requests, setRequests] = useState({});
+  const [requests, setRequests]: any = useState({});
 
   useEffect(() => {
     (async() => {
 
       const data = await axios.get('http://localhost:3000/admin/getRequests');
 
-      console.log("The request data ", data?.data?.data[1]?.type);
-  
+      console.log("The request data ", data?.data);
        setRequests(data?.data?.data)
     })()  
   }, [])
 
+  console.log('The client id ', requests[0]?.data)
  
+  const acceptRequest = async () => {
+    try{
 
+      const data = {
+        clientId: requests[0]?.clientId,
+        editData: requests[0]?.data
+      }
+
+      const response = await axios.put('http://localhost:3000/admin/verifyClient/accept',data );
+
+      console.log("The accept response : ", response);
+    }catch (err: any) {
+      console.log('ERROR: ', err.message);
+    }
+  }
+ 
 
   return (
     <div className=''>
@@ -42,7 +57,7 @@ const Requests: any = () => {
           </div>
         </div>
         <div>
-        <button  className="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-full">
+        <button onClick={acceptRequest}  className="flex-no-shrink bg-green-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-500 text-white rounded-full">
           Accept
           </button>
         <button  className="flex-no-shrink bg-red-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-red-400 text-white rounded-full">
