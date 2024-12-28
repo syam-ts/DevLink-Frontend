@@ -43,16 +43,17 @@ export default function App() {
     }));
   }
 
-  console.log('The form data', formData)
+ 
  
   const sumbmitForm = async () => {
     try{
+      console.log('The whole data ',formData )
 
-      const response = await axios.put(`http://localhost:3000/client/profile/edit/${_id}`, formData, {
+      const response = await axios.post(`http://localhost:3000/client/profile/verification/${_id}`, formData, {
         withCredentials: true
       });
 
-      console.log('The response of edit : ', response.data.type);
+     
       if(response.data.type === 'success') {
         toast.success(response.data.message)
            navigate('/client/profile/profile')

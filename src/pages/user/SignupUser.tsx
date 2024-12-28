@@ -70,7 +70,7 @@ const SignupUser = () => {
   
  <div>
     <div>
-           <Sonner />
+      <Sonner />
     </div>
    <div className="font-[sans-serif]">
       <div className="grid lg:grid-cols-2 md:grid-cols-2 items-center gap-4">
