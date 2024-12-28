@@ -7,7 +7,9 @@ import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import VerfiyEmail from '../pages/client/VerifyEmail';
 import ResetPassword from '../pages/client/ResetPassword';
-import Index from '../pages/client/profile/index'
+import Index from '../pages/client/profile/index';
+import Jobs from '../pages/client/Jobs';
+import DraftJobPost from '../pages/client/draftJobPost';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -42,6 +44,8 @@ const ClientRoute = () => {
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} />
                 <Route path='/profile/*' element={<Index />} />
+                <Route path='/jobs' element={<Jobs />} />
+                <Route path='/draftJobPost' element={<DraftJobPost />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
