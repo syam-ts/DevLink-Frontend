@@ -47,7 +47,10 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">Home</a>
             <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">About</a>
             <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">Contact</a>
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white"> Jobs </a>
+            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+              
+            <Link to={`/${roleType}/jobs`}><button >Jobs</button></Link> 
+             </a>
           </div>
         </div>
       </div>

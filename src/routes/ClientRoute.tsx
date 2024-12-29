@@ -45,7 +45,7 @@ const ClientRoute = () => {
                 <Route path='/home' element={<HomeClient />} />
                 <Route path='/profile/*' element={<Index />} />
                 <Route path='/jobs' element={<Jobs />} />
-                <Route path='/draftJobPost' element={<DraftJobPost />} />
+                <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

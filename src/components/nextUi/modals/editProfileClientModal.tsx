@@ -47,13 +47,19 @@ export default function App({ clientId, type }: any) {
       const response = await axios.post(`http://localhost:3000/client/profile/${type}/${clientId}`, formData, {
         withCredentials: true
       });
+
+      console.log('The rfspons e', response.data)
  
-      if(response.data.type === 'success') {
-        toast.success(response.data.message)
-           navigate('/client/profile/profile')
-      } 
+      if(response.data.success) {
+        toast.success(response.data.message);
+           navigate('/client/profile/profile');
+      } else {
+        toast.error(response.data.message);
+      }
     }catch(err: any) {
-      console.log(err.message);
+      toast.error(err.message);
+
+      console.log(err);
     }
   }
  

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import Calender from '../../components/nextUi/calender'
 
 
 
@@ -27,6 +28,7 @@ const DraftJobPost = () => {
     const createJobPost = async () => {
         try{
  
+            console.log("The form data : ", formData)
             const response = await axios.post('http://localhost:3000/client/createJobPost', formData);
 
             console.log('The response : ', response);
@@ -39,7 +41,7 @@ const DraftJobPost = () => {
     return (
 
         <div>
-            <section className="bg-gray-100">
+            <section className="bg-gray-100 py-44">
                 <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                         <div className="lg:col-span-2 lg:py-12">
@@ -63,6 +65,7 @@ const DraftJobPost = () => {
                                         placeholder="Title"
                                         name="title"
                                         type="text" />
+                                        <hr />
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -72,6 +75,7 @@ const DraftJobPost = () => {
                                             placeholder="Key Responsiblities"
                                             name="keyResponsiblities"
                                             />
+                                          <hr />
                                     </div>
 
                                     <div>
@@ -80,16 +84,18 @@ const DraftJobPost = () => {
                                             placeholder="Required Skills"
                                             name="requiredSkills"
                                             type="tel" />
+                                         <hr />
                                     </div>
+
                                     <div>
                                         <input onChange={handleChange}
                                             className="w-full p-3 text-sm"
                                             placeholder="Payment Type"
                                             name="paymentType"
-                                            type="text" />
+                                            />
+                                         <hr />
                                     </div>
                                 </div>
-
 
                                 <div>
                                     <textarea onChange={handleChange}
@@ -98,6 +104,18 @@ const DraftJobPost = () => {
                                         name="description"
                                         >
                                     </textarea>
+                                    <hr />
+                                </div>
+
+                                <div>
+                               
+                                <input onChange={handleChange}
+                                            className="w-full p-3 text-sm"
+                                            placeholder="Estimate Time"
+                                            name="estimateTime"
+                                            type="date" />
+                                    {/* <Calender /> */}
+                                    <hr />
                                 </div>
 
                                 <div className="mt-4">
