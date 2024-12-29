@@ -12,26 +12,22 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 
-export default function App() {
+export default function App({ clientId, type }: any) {
 
 
   const [formData, setFormData] = useState({
-    name: "",
-    mobile: "",
-    age: "",
-    description: "",
+    companyName: "",
     location: "",
-    skills: "",
-    budget: ""
+    description: "",
+    requiredSkills: "",
+    totalEmployees: "",
+    since: ""
   });
 
 
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
-
-  const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client);
-
-  const { _id } = clientId; 
+  
   const navigate = useNavigate();
 
   const handleChange = (e: any) => {
@@ -46,25 +42,21 @@ export default function App() {
  
  
   const sumbmitForm = async () => {
-    try{
-      console.log('The whole data ',formData )
+    try{ 
 
-      const response = await axios.post(`http://localhost:3000/client/profile/verification/${_id}`, formData, {
+      const response = await axios.post(`http://localhost:3000/client/profile/${type}/${clientId}`, formData, {
         withCredentials: true
       });
-
-     
+ 
       if(response.data.type === 'success') {
         toast.success(response.data.message)
            navigate('/client/profile/profile')
-      }
-
+      } 
     }catch(err: any) {
       console.log(err.message);
     }
   }
-
-
+ 
   const handleOpen = (size: any) => {
     setSize(size);
     onOpen();
@@ -79,9 +71,8 @@ export default function App() {
          
          <Sonner />
 
-
-          <Button className=' bg-transparent text-white -none' key={size} onPress={() => handleOpen(size)}>
-            Edit 
+          <Button className=' bg-transparent text-white font-bold' key={size} onPress={() => handleOpen(size)}>
+              { type === 'edit' ? ( <span> Edit </span> ) : ( <span> Verify </span> )} 
           </Button> 
       </div>
       <Modal isOpen={isOpen} backdrop={'blur'} size={"5xl"}  onClose={onClose}>

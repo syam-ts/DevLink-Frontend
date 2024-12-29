@@ -48,7 +48,8 @@ const Sidebar = (props: any) => {
             //{/********SubHeader**********/}
 
             return (
-              <List component="li" disablePadding key={item.title}>
+              <List component="li" 
+              disablePadding key={item.title}>
                 <ListItem
                   onClick={() => handleClick(index)}
                   button
@@ -59,7 +60,7 @@ const Sidebar = (props: any) => {
                     mb: 1,
                     ...(pathDirect === item.href && {
                       color: "white",
-                      backgroundColor: (theme) =>
+                      backgroundColor: (theme: any) =>
                         `${theme.palette.primary.main}!important`,
                     }),
                   }}

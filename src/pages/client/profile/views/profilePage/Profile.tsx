@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Modal from '../../../../../components/nextUi/modals/editProfileClientModal'
+import EditModal from '../../../../../components/nextUi/modals/editProfileClientModal'
  
 
 
@@ -13,6 +13,7 @@ const Profile = () => {
 //  const isClient = useSelector((state: any) => state?.client?.isClient);
 
  const [ client, setClient]: any = useState({});
+ const [isVerified , setIsVerified] = useState('')
 
  const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client)
  
@@ -29,6 +30,7 @@ useEffect(() => {
     }); 
    
       console.log("the data : ", response.data.data)
+      setIsVerified(response.data?.data?.isVerified)
       setClient(response.data?.data);
     } catch (err: any) { 
     if(err.response.data.message == 'No token provided') {
@@ -48,8 +50,10 @@ useEffect(() => {
 //   }
 
 // }, []);
+ 
+ 
 
-  return ( 
+   return ( 
  
     <main className="profile-pag py-60">
     
@@ -74,13 +78,25 @@ useEffect(() => {
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
             
                 </div>
+            {
+              isVerified ? (
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                  <div className="py-6 px-3 mt-32 sm:mt-0">
-                    <button className="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                    <Modal /> 
-                    </button>
-                  </div>
+                <div className="py-6 px-3 mt-32 sm:mt-0">
+                  <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                     <EditModal clientId={clientId?._id} type={'edit'} /> 
+                  </button>
                 </div>
+              </div>
+              ) : (
+                <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+                <div className="py-6 px-3 mt-32 sm:mt-0">
+                  <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                      <EditModal clientId={clientId?._id} type={'verification'} />
+                  </button>
+                </div>
+              </div>
+              )
+            }
                
               </div>
      
@@ -97,7 +113,7 @@ useEffect(() => {
                    {client?.email} 
                  {
                   client?.isVerified && (
-                    <span className="inline-flex ml-3 items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                    <span className="inline-flex ml-1 items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-[#0661ff]">
                     <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
                     <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>

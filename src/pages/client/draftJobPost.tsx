@@ -1,7 +1,39 @@
+import axios from "axios";
+import { useState } from "react";
 
 
 
 const DraftJobPost = () => {
+
+    const [ formData, setFormData] = useState({
+        title: "",
+        keyResponsiblities:"",
+        requiredSkills: "",
+        paymentType: "",
+        description: ""
+    });
+
+
+    const handleChange = (e: any) => {
+  
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
+ 
+
+    const createJobPost = async () => {
+        try{
+ 
+            const response = await axios.post('http://localhost:3000/client/createJobPost', formData);
+
+            console.log('The response : ', response);
+        }catch(err: any) {
+            console.log('ERROR: ', err.message);
+        }
+    }
 
 
     return (
@@ -12,104 +44,67 @@ const DraftJobPost = () => {
                     <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                         <div className="lg:col-span-2 lg:py-12">
                             <p className="max-w-xl text-lg">
-                                At the same time, the fact that we are wholly owned and totally independent from
-                                manufacturer and other group control gives you confidence that we will only recommend what
-                                is right for you.
+                                Post your job on the world’s work marketplace and wait for the proposals to flood in from talented people around the world.
+
+                                Our advanced algorithms help you shortlist candidates who are the best fit. And you can check profiles, portfolios, and reviews before you give someone the green light.
                             </p>
 
                             <div className="mt-8">
-                                <a href="#" className="text-2xl font-bold text-pink-600"> 0151 475 4450 </a>
-
-                                <address className="mt-2 not-italic">282 Kevin Brook, Imogeneborough, CA 58517</address>
+                                <a href="#" className="text-2xl font-bold text-pink-600"> devlinksmart@gmail.com </a>
+                                <address className="mt-2 not-italic">282 Kevin Brook, DevLink inc, CA 58517</address>
                             </div>
                         </div>
 
-                        <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+                        <div className=" bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
                             <form action="#" className="space-y-4">
                                 <div>
-                                    <label className="sr-only">Name</label>
-                                    <input
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Name"
-                                        type="text"
-                                        id="name"
-                                    />
+                                    <input onChange={handleChange}
+                                        className="w-full p-3 text-sm"
+                                        placeholder="Title"
+                                        name="title"
+                                        type="text" />
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                     <div>
-                                        <label className="sr-only">Email</label>
-                                        <input
-                                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                            placeholder="Email address"
-                                            type="email"
-                                            id="email"
-                                        />
+                                        <input onChange={handleChange}
+                                            className="w-full p-3 text-sm"
+                                            placeholder="Key Responsiblities"
+                                            name="keyResponsiblities"
+                                            />
                                     </div>
 
                                     <div>
-                                        <label className="sr-only">Phone</label>
-                                        <input
-                                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                            placeholder="Phone Number"
-                                            type="tel"
-                                            id="phone"
-                                        />
+                                        <input onChange={handleChange}
+                                            className="w-full p-3 text-sm"
+                                            placeholder="Required Skills"
+                                            name="requiredSkills"
+                                            type="tel" />
+                                    </div>
+                                    <div>
+                                        <input onChange={handleChange}
+                                            className="w-full p-3 text-sm"
+                                            placeholder="Payment Type"
+                                            name="paymentType"
+                                            type="text" />
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                                    <div>
-                                        <label
-
-                                            className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                        >
-                                            <input className="sr-only" id="Option1" type="radio" name="option" />
-
-                                            <span className="text-sm"> Option 1 </span>
-                                        </label>
-                                    </div>
-
-                                    <div>
-                                        <label
-
-                                            className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                        >
-                                            <input className="sr-only" id="Option2" type="radio" name="option" />
-
-                                            <span className="text-sm"> Option 2 </span>
-                                        </label>
-                                    </div>
-
-                                    <div>
-                                        <label
-
-                                            className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                        >
-                                            <input className="sr-only" id="Option3" type="radio" name="option" />
-
-                                            <span className="text-sm"> Option 3 </span>
-                                        </label>
-                                    </div>
-                                </div>
 
                                 <div>
-                                    <label className="sr-only">Message</label>
-
-                                    <textarea
-                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Message"
-
-                                        id="message"
-                                    ></textarea>
+                                    <textarea onChange={handleChange}
+                                        className="w-full p-3 text-sm"
+                                        placeholder="Description" 
+                                        name="description"
+                                        >
+                                    </textarea>
                                 </div>
 
                                 <div className="mt-4">
-                                    <button
+                                    <button onClick={createJobPost}
                                         type="submit"
-                                        className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-                                    >
-                                        Send Enquiry
+                                        className="inline-block w-full rounded-xl bg-black px-5 py-3 font-medium text-white sm:w-auto" >
+                                        Checkout Post
                                     </button>
                                 </div>
                             </form>

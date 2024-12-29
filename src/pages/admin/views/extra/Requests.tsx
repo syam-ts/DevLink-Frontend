@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Sonner } from '../../../../components/sonner/Toaster';
 import { toast } from "sonner";
+import { ViewClient } from '../../../../components/nextUi/modals/AdminViewClientModal'
  
 
 const Requests: any = () => {
@@ -57,13 +58,13 @@ const Requests: any = () => {
      
           <div className="flex flex-col p-4 bg-white m-5 shadow-lg border-1 hover:shodow-lg rounded-2xl">
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                className="w-16 h-16 rounded-2xl p-3 border border-gray-800 text-blue-400 bg-gray-900" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+            <div className="flex items-center"> 
+
+         {/* getRequestedClient */}
+         <button>
+            <ViewClient clientId={request[1]?.clientId} />
+         </button>
+
               <div className="flex flex-col ml-3">
                 <div className="font-medium leading-none text-black"> { request[1]?.type }</div>
                 <p className="text-sm text-gray-500 leading-none mt-1"> { request[1]?.type } 
