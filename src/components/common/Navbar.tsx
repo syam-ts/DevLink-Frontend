@@ -38,19 +38,20 @@ const Navbar = ({ roleType, roleInfo }: any) => {
     <div className="relative flex h-16 items-center justify-between "> 
 
       <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
-        <div className="flex shrink-0 items-start">
+             <Link to={`/${roleType}/home`} > <div className="flex shrink-0 items-start cursor-pointer">
           <img className="h-8 w-auto" src="../../public/devLink_logo.png" alt="Devlink"/>
         </div>
+        </Link>
         <div className=" sm:ml-6 sm:block pl-16 ">
           <div className="flex space-x-44">
             
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">Home</a>
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">About</a>
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">Contact</a>
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+            <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white"><Link to={`/${roleType}/home`} >Home</Link></p>
+            <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">About</p>
+            <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">Contact</p>
+            <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
               
             <Link to={`/${roleType}/jobs`}><button >Jobs</button></Link> 
-             </a>
+             </p>
           </div>
         </div>
       </div>
