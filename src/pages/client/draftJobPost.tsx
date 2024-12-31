@@ -24,19 +24,25 @@ const DraftJobPost = () => {
     }));
   };
 
-  const createJobPost = async () => {
+  const paymentFunction = async () => {
     try {
   
       const response = await axios.post("http://localhost:3000/client/jobPost/payment-stripe", {
         formData,
       });
 
+      if(response && response.status === 200) {
+              console.log(response.data.response.url);
+
+              window.location.href = response.data.response.url;
+      }
+
      
-        navigate("/client/draftJobPost/payment-success");
+        // navigate("/client/draftJobPost/payment-success");
       
     } catch (err: any) {
       console.error("ERROR:", err.message);
-      navigate("/client/payment/failed");
+      // navigate("/client/payment/failed");
     }
   };
 
@@ -151,11 +157,11 @@ const DraftJobPost = () => {
 
                 <div className="mt-4">
                   <button
-                    onClick={createJobPost}
+                    onClick={paymentFunction}
                     type="button"
                     className="inline-block w-full rounded-xl bg-black px-5 py-3 font-medium text-white sm:w-auto"
                   >
-                    Checkout Post
+                    Proceed Payment
                   </button>
                 </div>
               </form>
