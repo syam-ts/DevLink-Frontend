@@ -9,7 +9,9 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
+import JobPage from '../pages/user/JobPage';
 import Index from '../pages/user/profile/index'
+
 
 
 
@@ -41,6 +43,7 @@ const UserRoute = () => {
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} />
+                <Route path='/jobs' element={<JobPage />} />
                 <Route path='/profile/*' element={<Index />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
