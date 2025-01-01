@@ -80,7 +80,7 @@ const LoginClient = () => {
 
         <form className="max-w-xl w-full p-6 mx-auto">
           <div className="mb-12">
-            <h3 className="text-gray-800 text-4xl font-extrabold">DevLink - <span className='text-red-500'>Admin</span></h3>
+            <h3 className="text-red-600 text-4xl font-extrabold">DevLink <span className='text-sm'>@</span></h3>
           </div>
 
           <div>                   

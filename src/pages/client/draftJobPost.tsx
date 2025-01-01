@@ -148,7 +148,7 @@ const DraftJobPost = () => {
                   <input
                     onChange={handleChange}
                     className="w-full p-3 text-sm"
-                    placeholder="Estimate Time (in Days)"
+                    placeholder="Estimate Time (in Hours)"
                     name="estimateTime"
                     type="number"
                   />
