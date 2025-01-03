@@ -28,6 +28,7 @@ useEffect(() => {
         withCredentials: true
     }); 
    
+    console.log('The response ', response.data?.data.profilePicture)
   
       setUser(response.data.data);
     } catch (err: any) { 
@@ -48,6 +49,8 @@ useEffect(() => {
 //   }
 
 // }, []);
+
+console.log('The user : ', user)
 
   return ( 
  
@@ -73,7 +76,7 @@ useEffect(() => {
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                   <div className="">
-                    <img alt="user-profile" src="data:image/jpeg;base64,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" className="shadow-xl rounded-full h-44 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                    <img alt="user-profile" src={user?.profilePicture} />
                   </div>
                 </div>
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -131,7 +134,7 @@ useEffect(() => {
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400">Domain - </i> Backend Developer
                 </div>
                 <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i>React.js Node.js Express.js php Typescipt
+                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i>{user?.skills}
                 </div>
               </div>
               <div className="mt-10 py-10 border-t border-blueGray-200 text-center">

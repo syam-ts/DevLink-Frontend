@@ -67,7 +67,6 @@ const LoginUser = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        console.log('use', response.data)
         dispatch(signInUser(response.data))
         navigate('/user/home', { state: { message: response.data.message } });
       }
