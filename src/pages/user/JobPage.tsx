@@ -7,6 +7,7 @@ import JobPropsalUserModal from '../../components/nextUi/modals/jobProposalUserM
 const Jobs = () => {
 
     const [jobs , setJobs] = useState({});
+    const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user?._id)
    
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const Jobs = () => {
         
     }, []);
     
-
+console.log('The current user id ', userId)
 
     console.log(
         Object.entries(jobs).map((j: any) => {
@@ -53,7 +54,7 @@ const Jobs = () => {
                         </div>
                         <div className="mt-4 grid items-center justify-between">
                            {/* <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button"> */}
-                           < JobPropsalUserModal />
+                           < JobPropsalUserModal clientId={job[1]?.clientId} userId={userId} />
                             {/* </button> */}
                         </div>
                     </div>

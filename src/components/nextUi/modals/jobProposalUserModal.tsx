@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 
-export default function App() {
+export default function App({clientId, userId}: any) {
 
   const [description, setDescription] = React.useState('');
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -28,7 +28,7 @@ export default function App() {
 
   const sendProposal = async () => {
     try{
-        const response = await axios.post(`http://localhost:3000/user/job/createPropsal/`)
+        const response = await axios.post(`http://localhost:3000/user/job/createProposal/${clientId}/${userId}`, {description})
     }catch(err: any) {
         console.log('ERROR: ',err.message);
     }

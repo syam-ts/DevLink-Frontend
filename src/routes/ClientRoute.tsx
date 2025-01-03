@@ -11,7 +11,8 @@ import Index from '../pages/client/profile/index';
 import Jobs from '../pages/client/Jobs';
 import DraftJobPost from '../pages/client/draftJobPost';
 import PaymentSuccess from '../pages/client/SuccessPayment';
-import UserProfile from '../pages/client/UserViewProfile'
+import UserProfile from '../pages/client/UserViewProfile';
+import JobPropsals from '../pages/client/JobProposal';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -50,6 +51,7 @@ const ClientRoute = () => {
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success' element={<PaymentSuccess />} />
                 <Route path='/userProfile/:userId' element={<UserProfile />} />
+                <Route path='/job/proposals' element={<JobPropsals />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
