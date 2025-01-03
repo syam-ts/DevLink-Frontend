@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useSelector } from 'react-redux';
+import JobPropsalUserModal from '../../components/nextUi/modals/jobProposalUserModal'
  
 
 const Jobs = () => {
 
     const [jobs , setJobs] = useState({});
+   
 
     useEffect(() => {
 
@@ -43,7 +44,7 @@ const Jobs = () => {
                     <div className="px-4 py-5 sm:px-6">
                         <div className="flex items-center justify-between">
                             <h3 className="text-md leading-6 bellota-text-regular text-gray-900"> {job[1]?.description} </h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500"> {job[1]?.status} </p>
+                            {/* <p className="mt-1 max-w-2xl text-sm text-gray-500"> {job[1]?.status} </p> */}
                             <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.paymentType}</a>
                         </div>
                         <div className="mt-2 grid items-center justify-between">
@@ -51,9 +52,9 @@ const Jobs = () => {
                             <p className="text-sm font-medium text-gray-500"> {job[1]?.keyResponsiblities} </p>
                         </div>
                         <div className="mt-4 grid items-center justify-between">
-                            <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                               Apply
-                            </button>
+                           {/* <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button"> */}
+                           < JobPropsalUserModal />
+                            {/* </button> */}
                         </div>
                     </div>
                 </li> 

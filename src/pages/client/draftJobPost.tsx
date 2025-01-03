@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
+import { useSelector } from "react-redux";
  
 const DraftJobPost = () => {
+
   const navigate = useNavigate(); 
-
-
+  const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client?._id);
+ 
   const [formData, setFormData] = useState({
     title: "",
     keyResponsiblities: "",
@@ -25,9 +27,9 @@ const DraftJobPost = () => {
   };
 
   const paymentFunction = async () => {
-    try {
-  
-      const response = await axios.post("http://localhost:3000/client/jobPost/payment-stripe", {
+    try { 
+    
+      const response = await axios.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
         formData,
       });
 
