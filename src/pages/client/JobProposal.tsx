@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
  
 
 
@@ -8,13 +9,28 @@ import { useSelector } from 'react-redux';
 
 const Jobs = () => {
 
+  interface Proposals {
+    type: string;
+    description: string;
+    userId: number;
+  }
+  
+
+    const [data, setData]: any = useState<Proposals>({
+      type: "",
+      description: "",
+      userId: 0
+    });
+
     const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client?._id);
 
 
     useEffect(() => {
          (async() => {
             try{
-              const response = await axios.get(`http://localhost:3000/jobs/proposals/${clientId}`)
+              const response = await axios.get(`http://localhost:3000/client/job/proposals/${clientId}`);
+                 console.log('The response ', response.data?.data);
+                setData(response.data?.data);
             }catch(err: any) {
                 console.log('ERROR: ',err.message);
             }
@@ -28,23 +44,45 @@ const Jobs = () => {
     <main>
  
         
-        <section>
-      
-                    <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16">
-                    <li>
-                    <div className="px-4 py-5 sm:px-6">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-lg leading-6 font-medium text-gray-900">'  '</h3>
-                            <p className="mt-1 max-w-2xl text-sm text-gray-500">' '</p>
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">''</a>
-                        </div>
-                        <div className="mt-2 grid items-center justify-between">
-                            <p className="text-sm font-medium text-gray-500"> '' </p>
-                            <p className="text-sm font-medium text-gray-500"> '' </p>
-                        </div>
+        <section className='pt-20'>
+              <div className='text-center comfortaa-regular text-2xl'>
+                  <span> Proposals </span>
+              </div>
+          {
+            Object.entries(data).map((proposal: any) => (
+
+              <div className='w-2/3 border grid border-gray-100 shadow-xl rounded-xl h-[220px] mx-auto my-12 '>
+                
+              <div className='grid px-12 py-2'>
+         
+                   <div>
+                        <img className='w-16 h-16 rounded-full' src={proposal[1]?.userData?.profilePicture} alt='user-profile' />
+                   </div>
+                   <div>
+                      <span className='font-semibold text-lg'> {proposal[1]?.userData?.name}</span>
+                   </div>
+                   <div>
+                      <span> {proposal[1]?.description} 
+                      </span>
+                   </div>
+                          
+              </div>
+                  <div className='flex justify-end pr-12 gap-5'>
+                    <div>
+                    <button className="rounded-md border border-slate-300 py-2 px-12 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                    <Link to={`/client/userProfile/${proposal[1]?.userId}`}> View </Link>
+                    </button>
                     </div>
-                </li> 
-              </ul>
+                    <div>
+                    <button className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                     Accept
+                    </button>
+                    </div>
+                  </div>
+              </div>
+            ))
+          }
+         
         </section>
     </main>
   )

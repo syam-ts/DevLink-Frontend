@@ -22,13 +22,14 @@ export default function App() {
     name: "",
     mobile: "",
     age: "",
-    profilePicture: "",
+    profilePicture: null,
     description: "",
     location: "",
     skills: "",
     budget: ""
   });
  
+  const [image, setImage] = useState(null)
   const [user, setUser]: any = useState({})
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
@@ -46,7 +47,23 @@ export default function App() {
       ...prevData,
       [name]: value,
     }));
-  }
+  };
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0]; // Get the file object from the file input
+    setFormData(prevData => ({
+      ...prevData,
+      profilePicture: file // Set the file directly to the state
+    }));
+  };
+ 
+  useEffect(() => {
+
+     formData.profilePicture = image;
+    console.log('The image , ', image)
+  }, [image]);
+
+
 
  useEffect(() => {
 
@@ -68,12 +85,11 @@ export default function App() {
  
   const sumbmitForm = async () => {
     try{
+      
+   
+      const response = await axios.put(`http://localhost:3000/user/profile/edit/${_id}`, formData);
 
-      const response = await axios.put(`http://localhost:3000/user/profile/edit/${_id}`, formData, {
-        withCredentials: true
-      });
-
-      console.log('The response of edit : ', response.data.type);
+      // console.log('The response of edit : ', response.data.type);
       if(response.data.type === 'success') {
         toast.success(response.data.message)
            navigate('/user/profile/profile')
@@ -104,7 +120,22 @@ export default function App() {
     }
 };
 
-console.log("the for ", formData)
+
+const handleFileUpload = async(e: any) => {
+       
+      const file = e.target.files[0];
+      if(!file) return 
+      
+      const data = new FormData(); 
+      data.append("file", file);
+      data.append("upload_preset", "devlink-userProfle");
+      data.append("cloud_name","dusbc29s2");
+
+    const response = await axios.post(`https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`, data);
+  
+       setImage(response.data?.url);
+};
+   
 
   return (
  
@@ -141,11 +172,13 @@ console.log("the for ", formData)
                                 <p className="font-medium text-lg">Personal Details</p>  
                                 <div className="flex items-center py-44 space-x-6">
                                       <div className="shrink-0">
-                                        <img id='preview_img' onChange={handleChange} className="h-44 w-44 object-cover rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSxwtNwBZrujgVzK44NhBAi0ybAxnnCB8VgueUBMjv1XkEAephINAcGhzFNWukvZ0VbVA&usqp=CAU" alt="Current profile photo" />
+                                       
+                                          <img id='preview_img' onChange={handleChange} className="h-44 w-44 object-cover rounded-full" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSxwtNwBZrujgVzK44NhBAi0ybAxnnCB8VgueUBMjv1XkEAephINAcGhzFNWukvZ0VbVA&usqp=CAU"} alt="Current profile photo" />
+                                       
                                       </div>
                                       <label className="block"  onChange={(event: any) =>loadFile(event)}> 
                                         <input type="file" name='profilePicture'
-                                        onChange={handleChange} 
+                                          onChange={handleFileUpload}
                                         accept="image/*"
                                         //  onChange={(event: any) =>loadFile(event)}
                                          className="block w-full text-sm text-slate-500

@@ -76,7 +76,7 @@ console.log('The user : ', user)
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                   <div className="">
-                    <img alt="user-profile" src={user?.profilePicture} />
+                    <img alt="user-profile" className='w-64 h-48 rounded-full object-fill' src={user?.profilePicture} />
                   </div>
                 </div>
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
