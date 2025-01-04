@@ -18,7 +18,7 @@ import Index from '../pages/user/profile/index'
 const UserRoute = () => {
 
     const currentUser = useSelector((store: any) => store.user);
-    const user: string = currentUser?.currentUser?.user?.user?.name;
+    const user: string = currentUser?.currentUser?.user?.user;
 
     const showNavAndFooter: any = (pathname: string) => {
   

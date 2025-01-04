@@ -16,9 +16,6 @@ const LoginUser = () => {
  
   const message = useLocation();
   const navigate = useNavigate(); 
-
-  //otp success setSonner 
-  console.log('msg : ', message.state)
   
 
   useEffect(() => {
