@@ -18,26 +18,26 @@ const LoginUser = () => {
   const navigate = useNavigate(); 
   
 
-  useEffect(() => {
+  // useEffect(() => {
  
-    // checking whether use exists or not 
-    if(currentUser) {
-      navigate('/user/home')
-  }
-   }, []);
+  //   // checking whether use exists or not 
+  //   if(currentUser) {
+  //     navigate('/user/home')
+  // }
+  //  }, []);
  
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (sonner.message) {
-      toast.error(sonner.message, {
-        style: {
-          backgroundColor: "red",
-          color: "white"
-        }
-      });  
-    }
-    setSonner({ message: "", timestamp: 0 })
-   }, [sonner.message]);
+  //   if (sonner.message) {
+  //     toast.error(sonner.message, {
+  //       style: {
+  //         backgroundColor: "red",
+  //         color: "white"
+  //       }
+  //     });  
+  //   }
+  //   setSonner({ message: "", timestamp: 0 })
+  //  }, [sonner.message]);
 
  
 
@@ -59,14 +59,22 @@ const LoginUser = () => {
     try {
      const response = await axios.post('http://localhost:3000/user/login', formData, {
       withCredentials: true,  
-    })
+    });
+    console.log('The token', response.data)
+    const { accessToken  }= response.data;
+
+    localStorage.setItem('accessTokenU', accessToken);
+    // localStorage.setItem('refreshToken', refreshToken);
+
+    window.location.href = '/user/home';
+     
  
-      if(response.data.type !== 'success') {
-        setSonner({ message: response.data.message, timestamp: Date.now() });
-      } else {
-        dispatch(signInUser(response.data))
-        navigate('/user/home', { state: { message: response.data.message } });
-      }
+      // if(response.data.type !== 'success') {
+      //   setSonner({ message: response.data.message, timestamp: Date.now() });
+      // } else {
+      //   dispatch(signInUser(response.data))
+      //   navigate('/user/home', { state: { message: response.data.message } });
+      // }
     
    } catch (err: any) {
      console.error('ERROR: ',err)

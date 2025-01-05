@@ -1,17 +1,22 @@
 import { Navigate , Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getAccessToken } from "../../api/auth";
+import LoginUser from '../../pages/user/LoginUser'
 
 
-
-export const UserProctedRoute = () => {
-    const isUserAuth = useSelector((state: any) => state?.currentUser?.user?.isUser);
-    console.log('The user : ', isUserAuth)
-    return isUserAuth === undefined ? <Outlet /> : <Navigate to="/user/login" />;
+export const UserProctedRoute = () => { 
+    const accessToken = localStorage.getItem("accessTokenU");
+ 
+    if (accessToken) {
+        console.log('ENTERED HERE 3: ')
+        return <Outlet />;
+    }
+    return <LoginUser />
 };
 
 export const ClientProctedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
-    console.log('The user : ', isClientAuth)
+     
     return isClientAuth === undefined ? <Outlet /> : <Navigate to="/client/login" />;
 };
 
@@ -19,7 +24,7 @@ export const ClientProctedRoute = () => {
 
 export const AdminProctedRoute = () => {
     const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
-    console.log('The admin main : ', isAdminAuth)
+   
     return isAdminAuth !== undefined ? <Outlet /> : <Navigate to="/admin/login" />;
 };
 

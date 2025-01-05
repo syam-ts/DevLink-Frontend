@@ -20,40 +20,38 @@ const HomeUser = () => {
  
  console.log('The current user', currentUser);
 
-  useEffect(() => {
-    if (message.state) { 
+  // useEffect(() => {
+  //   if (message.state) { 
 
-      toast.error(message.state?.message);  
-    };
+  //     toast.error(message.state?.message);  
+  //   };
 
-    // checking whether use exists or not 
-    if(!currentUser) {
-      navigate('/user/login')
-  }
-   }, []);
+  //   // checking whether use exists or not 
+  //   if(!currentUser) {
+  //     navigate('/user/login')
+  // }
+  //  }, []);
 
 
-  useEffect(() => {
-     const findAllClients = async () => { 
+  useEffect(() => { 
       try {
-      const response = await axios.get('http://localhost:3000/user/getHome', {
-         withCredentials: true
-     });
+        (async() => {
+          const {data} = await axios.get('http://localhost:3000/user/getHome', {
+            withCredentials: true
+          });
 
+
+          setClients(data.data)
+   
+        })();
+  
  
-      setClients(response.data.data)
 
       } catch (err: any) {
         
-        if(err.response.data.message === 'Invalid Token') {
-          dispatch(signOutUser());
-            navigate('/user/login');
-        } 
-        toast.error(err.response.data.message);
-      }
-     };
-
-     findAllClients();
+        console.log('The err', err)
+      } 
+ 
   }, []);
  
  

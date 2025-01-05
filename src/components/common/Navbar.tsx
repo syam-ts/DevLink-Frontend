@@ -19,20 +19,21 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
   const logout = async () => {
     const response = await axios.post(
-      `http://localhost:3000/${roleType}/logout`,
-      {},
-      {
-        withCredentials: true,
-      }
+      `http://localhost:3000/${roleType}/logout`,{},{withCredentials: true } 
     );
 
-    if (roleType === "user") {
-      dispatch(signOutUser());
-      navigate("/user/login");
-    } else {
-      dispatch(signOutClient());
-      navigate("/client/login");
-    }
+    localStorage.removeItem('accessTokenU')
+    // localStorage.removeItem('refreshToken');
+
+    window.location.href = '/user/login'
+
+    // if (roleType === "user") {
+    //   dispatch(signOutUser());
+    //   navigate("/user/login");
+    // } else {
+    //   dispatch(signOutClient());
+    //   navigate("/client/login");
+    // }
   };
 
   return (
@@ -99,7 +100,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 <Dropdown backdrop="blur">
                   <DropdownTrigger>
                     <Button variant="light">
-                      {roleInfo.profilePicture ? (
+                      {roleInfo?.profilePicture ? (
                         <img
                           className="size-8 object-cover rounded-full"
                           src={roleInfo.profilePicture}
