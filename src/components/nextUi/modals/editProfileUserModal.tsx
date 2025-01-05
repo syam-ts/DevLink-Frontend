@@ -229,7 +229,7 @@ export default function App() {
                                   <input
                                     value={inputValue}
                                     onChange={handleChangeSkills}
-                                    className="w-full p-3 text-sm border border-gray-300 rounded"
+                                    className="w-auto p-3 text-sm border border-gray-300 rounded"
                                     placeholder="Add a skill"
                                     name="skills"
                                     type="text"
@@ -301,7 +301,7 @@ export default function App() {
                             <hr />
                           </div>
 
-                          <div>
+                          {/* <div>
                             <input
                               onChange={handleChange}
                               className="w-full p-3 text-sm"
@@ -310,7 +310,7 @@ export default function App() {
                               type="number"
                             />
                             <hr />
-                          </div>
+                          </div> */}
                         </div>
 
                         <div className="mt-4 text-right">

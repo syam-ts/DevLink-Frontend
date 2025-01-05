@@ -41,15 +41,7 @@ useEffect(() => {
   getUserData();
 }, []);
  
-
-// useEffect(() => {
-//   console.log('Enterd')
-//   if(isUser=== undefined) {
-//       navigate('/user/login')
-//   }
-
-// }, []);
-
+ 
 console.log('The user : ', user)
 
   return ( 
@@ -133,8 +125,18 @@ console.log('The user : ', user)
                 <div className="mb-2 text-blueGray-600">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400">Domain - </i> Backend Developer
                 </div>
-                <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i>{user?.skills}
+                <div className="mb-2 text-blueGray-600"> 
+                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills -  </i>  
+               { 
+                   user?.skills?.map((skill: string, i: number) => (
+                    <span className='pl-3'>
+
+                       {user?.skills[i]} 
+                    </span>
+                  )) 
+                
+               }
+                   
                 </div>
               </div>
               <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
