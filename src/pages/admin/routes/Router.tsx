@@ -15,6 +15,7 @@ const ClientTable = lazy(() => import("../views/tables/ClientTable.js"));
 const UserTable = lazy(() => import("../views/tables/UserTable.js"));
 
 const Requests = lazy(() => import('../views/extra/Requests.tsx'))
+const Wallet = lazy(() => import('../views/extra/Wallet.tsx'))
 
 
 /*****Routes******/
@@ -52,6 +53,12 @@ const ThemeRoutes = [
       
         <Suspense fallback={<div>Loading...</div>}>
           <Requests />
+        </Suspense>
+      ) },
+      { path: "/wallet", element:( 
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <Wallet />
         </Suspense>
       ) } 
     ],

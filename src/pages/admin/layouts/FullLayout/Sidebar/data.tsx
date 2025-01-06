@@ -29,6 +29,11 @@ const Menuitems: Menu[] = [
     href: "/admin/index/requests",
   },
   {
+    title: "Wallet",
+    icon: AutoAwesomeMosaicOutlinedIcon,
+    href: "/admin/index/wallet",
+  },
+  {
     title: "Logout",
     icon: AutoAwesomeMosaicOutlinedIcon,
     href: "/admin/logout",

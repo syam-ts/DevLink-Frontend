@@ -7,7 +7,7 @@ import axiosInstance from '../../api/axiosInstance'
 const Jobs = () => {
 
     const [jobs , setJobs] = useState({});
-    const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user?._id)
+    const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
    
 
     useEffect(() => {
