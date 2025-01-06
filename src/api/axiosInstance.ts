@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        // Send refresh token request
+ 
         const response = await axios.post(
           'http://localhost:3000/user/refresh-token',
           {},
@@ -38,16 +38,16 @@ axiosInstance.interceptors.response.use(
         );
         const { accessToken } = response.data;
 
-        // Update localStorage and retry the failed request
+       
         localStorage.setItem('accessToken', accessToken);
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-        return axiosInstance(originalRequest); // Retry the failed request
+        return axiosInstance(originalRequest);  
       } catch (refreshError) {
-        // Handle refresh token failure (e.g., logout the user)
+      
         console.error('Refresh token failed:', refreshError);
         localStorage.removeItem('accessToken');
 
-        window.location.href = '/user/login'; // Redirect to login page
+        window.location.href = '/user/login';  
         return Promise.reject(refreshError);
       }
     }

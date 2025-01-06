@@ -46,7 +46,7 @@ const HomeUser = () => {
         setClients(data?.data || []);
       } catch (error: any) {
         console.error('Error fetching home data:', error?.response?.data?.message || error.message);
-        alert('Failed to fetch home data. Please try again.');
+        // alert('Failed to fetch home data. Please try again.');
       }
     };
   

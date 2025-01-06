@@ -14,17 +14,16 @@ const Profile = () => {
 
  const [ user, setUser]: any = useState({});
 
- const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user)
-  
-
- const { _id } = userId; 
+ const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
+   
+ 
 
 useEffect(() => {
   const getUserData = async () => {
 
     try {
       
-      const response = await axios.get(`http://localhost:3000/user/profile/view/${_id}`,{
+      const response = await axios.get(`http://localhost:3000/user/profile/view/${userId}`,{
         withCredentials: true
     }); 
    

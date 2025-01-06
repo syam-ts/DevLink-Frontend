@@ -32,9 +32,7 @@ export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("md");
 
-  const userId = useSelector((state: any) => state?.user?.currentUser?.user?.user);
-  const { _id } = userId;
-
+  const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
 
   useEffect(() => {
     formData.profilePicture = image;
@@ -93,8 +91,9 @@ export default function App() {
 
   const sumbmitForm = async () => {
     try {
+      console.log('The id ', userId)
       const response = await axios.put(
-        `http://localhost:3000/user/profile/edit/${_id}`,
+        `http://localhost:3000/user/profile/edit/${userId}`,
         formData
       );
 

@@ -8,7 +8,42 @@ import {
     TableRow,
     Chip,
   } from "@mui/material";
+import axios from "axios";
+import { Sonner } from '../../../../../components/sonner/ToasterBottom';
+import { toast } from "sonner";
   
+  const blockClient = async (clientId: string) => {
+    try{
+
+      const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
+
+      console.log('The response', response.data.message)
+      if(response.data.type == 'success') { 
+        toast.success(response.data.message, {
+          position: 'bottom-right'
+        })
+      }
+    }catch(err: any) {
+      console.log(err.message)
+    }
+  }
+
+
+  const unBlockClient = async (clientId: string) => {
+    try{
+
+      const response = await axios.patch(`http://localhost:3000/admin/unblockClient/${clientId}`);
+
+      console.log('The response', response.data.message)
+      if(response.data.type == 'success') { 
+        toast.success(response.data.message, {
+          position: 'bottom-right'
+        })
+      }
+    }catch(err: any) {
+      console.log(err.message)
+    }
+  }
    
   const ExTable = ({ clients }: any) => {
     return (
@@ -19,6 +54,9 @@ import {
           whiteSpace: "nowrap",
         }}
       >
+
+      <Sonner />
+
         <TableHead>
           <TableRow>
             <TableCell>
@@ -86,17 +124,22 @@ import {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Chip
+             {
+              client[1].isBlocked ? (
+                <Chip onClick={() => unBlockClient(client[1]._id) }
                   sx={{
-                    pl: "4px",
-                    pr: "4px",
-                    backgroundColor: 'green',
-                    color: "#fff",
-                  }}
-                  size="small"
-                  label={'product'}
-                ></Chip>
-              </TableCell>
+                    pl: "4px", pr: "4px", backgroundColor: 'red', color: "#fff",
+                  }} size="small" label= 'unBlock' 
+              ></Chip>
+              ) : (
+                <Chip onClick={() => blockClient(client[1]._id)}
+                    sx={{
+                      pl: "4px", pr: "4px", backgroundColor: 'green', color: "#fff",
+                    }} size="small" label='block'
+              ></Chip>
+              )
+             }
+            </TableCell>
               <TableCell align="right">
                 <Typography variant="h6">{100}</Typography>
               </TableCell>

@@ -62,11 +62,10 @@ const LoginUser = () => {
     });
     console.log('The token', response.data);
     const { accessToken } = response.data;
-
-    // Store the access token in localStorage
+ 
     localStorage.setItem('accessTokenU', accessToken);
-
-    // Redirect to the user home page
+ 
+    dispatch(signInUser(response.data))
     window.location.href = '/user/home';
      
  
