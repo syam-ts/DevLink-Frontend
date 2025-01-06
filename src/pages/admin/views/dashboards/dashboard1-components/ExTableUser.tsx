@@ -13,10 +13,11 @@ import { useState } from "react";
 import { Sonner } from '../../../../../components/sonner/ToasterBottom';
 import { toast } from "sonner";
 import { ViewRole } from '../../../../../components/nextUi/modals/AdminViewRole'
+import { Link } from "react-router-dom";
  
 const ExTable = ({ users }: any) => {
 
- 
+ const userInfo = 'user';
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const handleViewUser = (userId: any) => {
@@ -191,13 +192,16 @@ const ExTable = ({ users }: any) => {
            
             <TableCell align="right">
               <Typography variant="h6">
-            
+{/*             
  
                        <div>
                          <ViewRole roleId={user[1]?._id}roleInfo="user"   />
                               view
-                       </div>
+                       </div> */}
+
+                       <Link to={`/admin/viewRole/${user[1]?._id}/${userInfo}`} >
                               <img className='h-5 w-5 cursor-pointer' src='https://cdn-icons-png.flaticon.com/128/159/159604.png' />
+                       </Link>
                      
               
               </Typography>

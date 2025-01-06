@@ -9,29 +9,33 @@ import {
   } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
  
   
-  export const ViewRole = ({ roleId, roleInfo} : any) => {
+  export const ViewRole = () => {
 
+   const {roleId, roleInfo}: any = useParams()
+
+   
     console.log('THE MODAL OPENED', roleId)
 
     const [ role , setRole] = useState({});
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-    useEffect(()=> {
-      try{
-      console.log('id ',roleId);
-      console.log('info', roleInfo);
-          (async () => {
-            const { data }: any = axios.get(`http://localhost:3000/admin/viewRole/${roleId}/${roleInfo}`);
+    // useEffect(()=> {
+    //   try{
+    //   console.log('id ',roleId);
+    //   console.log('info', roleInfo);
+    //       (async () => {
+    //         const { data }: any = axios.get(`http://localhost:3000/admin/viewRole/${roleId}/${roleInfo}`);
 
-            console.log('The result ', data);
-          }
-            )();
-      }catch(err: any) {
-        console.log('ERROR: ', err.message);
-      }
-    }, []);
+    //         console.log('The result ', data);
+    //       }
+    //         )();
+    //   }catch(err: any) {
+    //     console.log('ERROR: ', err.message);
+    //   }
+    // }, []);
     
   
     return (

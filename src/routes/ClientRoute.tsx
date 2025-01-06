@@ -49,7 +49,7 @@ const ClientRoute = () => {
                 <Route path='/profile/*' element={<Index />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
-                <Route path='/draftJobPost/payment-success' element={<PaymentSuccess />} />
+                <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />
                 <Route path='/userProfile/:userId' element={<UserProfile />} />
                 <Route path='/job/proposals' element={<JobPropsals />} />
             </Routes>
