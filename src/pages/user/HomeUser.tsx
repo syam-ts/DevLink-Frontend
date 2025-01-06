@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster'; 
 import { signOutUser } from '../../utils/redux/slices/userSlice';
+import axiosInstance from '../../api/axiosInstance'
    
  
 
@@ -34,25 +35,25 @@ const HomeUser = () => {
 
 
   useEffect(() => { 
+    const fetchHomeData = async () => {
       try {
-        (async() => {
-          const {data} = await axios.get('http://localhost:3000/user/getHome', {
-            withCredentials: true
-          });
-
-
-          setClients(data.data)
-   
-        })();
+        // Fetch data from the backend
+        const { data } = await axiosInstance.get('/user/getHome', {
+          withCredentials: true,
+        });
   
- 
-
-      } catch (err: any) {
-        
-        console.log('The err', err)
-      } 
- 
+        // Update the state with the fetched data
+        setClients(data?.data || []);
+      } catch (error: any) {
+        console.error('Error fetching home data:', error?.response?.data?.message || error.message);
+        alert('Failed to fetch home data. Please try again.');
+      }
+    };
+  
+    // Call the async function
+    fetchHomeData();
   }, []);
+  
  
  
 

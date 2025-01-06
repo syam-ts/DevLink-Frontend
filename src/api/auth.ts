@@ -5,11 +5,11 @@ export const getAccessToken = () => localStorage.getItem("accessTokenU");
 export const getRefreshToken = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/user/refresh-token`, {
-      credentials: "include", // Include cookies
+      credentials: "include", 
     });
     const data = await response.json();
     if (data.accessToken) {
-      localStorage.setItem("accessTokenU", data.accessToken); // Save new token
+      localStorage.setItem("accessTokenU", data.accessToken); 
       return data.accessToken;
     } else {
       throw new Error(data.message || "Failed to refresh token");

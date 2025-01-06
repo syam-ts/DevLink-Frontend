@@ -60,12 +60,13 @@ const LoginUser = () => {
      const response = await axios.post('http://localhost:3000/user/login', formData, {
       withCredentials: true,  
     });
-    console.log('The token', response.data)
-    const { accessToken  }= response.data;
+    console.log('The token', response.data);
+    const { accessToken } = response.data;
 
+    // Store the access token in localStorage
     localStorage.setItem('accessTokenU', accessToken);
-    // localStorage.setItem('refreshToken', refreshToken);
 
+    // Redirect to the user home page
     window.location.href = '/user/home';
      
  

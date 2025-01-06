@@ -8,7 +8,7 @@ export const fetchData = async (endpoint: any, options: any = {}) => {
       console.warn("Access token missing. Attempting refresh...");
       accessToken = await getRefreshToken();
       if (!accessToken) {
-        window.location.href = "/user/login"; // Redirect to login if refresh fails
+        window.location.href = "/user/login";
         return;
       }
     }

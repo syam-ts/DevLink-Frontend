@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import JobPropsalUserModal from '../../components/nextUi/modals/jobProposalUserModal'
- 
+import axiosInstance from '../../api/axiosInstance'
 
 const Jobs = () => {
 
@@ -13,7 +13,7 @@ const Jobs = () => {
     useEffect(() => {
 
         (async() => {
-            const response = await axios.get('http://localhost:3000/user/listAllJobs');
+            const response = await axiosInstance.get('http://localhost:3000/user/listAllJobs');
 
             console.log('The response ', response?.data?.data);
             setJobs(response.data?.data)
