@@ -77,7 +77,7 @@ const HomeClient = () => {
     const autoSlide = setInterval(() => {
         currentIndex = (currentIndex + 1) % totalItems;
         showSlide(currentIndex);
-    }, 5000); // 5 seconds
+    }, 3000); 
 
     return () => clearInterval(autoSlide);
 }, []);
@@ -183,9 +183,17 @@ const HomeClient = () => {
                 </div>
             </section>
 
-            <section className='text-center my-12'>
+            <section className='text-center my-12 mt-44'>
                 <span className='font-sans text-3xl'>Top Rated Freelancers</span> <br />
                 <span>Browse talent for your projects</span>
+                <hr className='border-gray-400 mt-12 w-2/4 mx-auto' />
+                  <div className='text-end px-96'> 
+                        <span className=''>  
+                          <Link to='/client/view-user'>
+                               More Users
+                          </Link>
+                        </span>
+                        </div>
             </section>
 
          {/* cards */}
@@ -195,47 +203,43 @@ const HomeClient = () => {
                     <div className="max-w-[900px] flex gap-12 ">
                     <Card className="col-span-12 sm:col-span-4 h-[250px]">
                         <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-                        <p className="text-tiny text-black/60 font-bold">{user?.[1]?.email}</p> 
+                        <p className="text-tiny text-white font-bold">{user?.[1]?.email}</p> 
                         </CardHeader> 
                       <Link to={`/client/userProfile/${user?.[1]._id}`}>
                       <Image 
                         removeWrapper
                         alt="Card background"
-                        className="z-0 w-full h-full object-cover cursor-pointer"
-                        src="data:image/png;base64,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"
+                        className="z-0 w-64 h-80 object-fill cursor-pointer"
+                        src={user[1]?.profilePicture}
                         />
                         </Link>
                      </Card> 
-                     <div className='absolute pt-80 pl-4'>
+                     <div className='absolute pt-72 pl-4'>
                          
-                        <span className='font-thin'>{user?.[1]?.name}</span>
+                        <span className='font-bold'>{user?.[1]?.name}</span>
                      </div>
                    </div>
                 ))}
             </section>
 
-            <section>
-            
-               
-
-                        <div id="default-carousel" className="relative w-full" data-carousel="slide">
+            <section className='mt-64 bg-black'>
+             
+                        <div id="default-carousel" className="relative w-full h-[600px]" data-carousel="slide">
                         
-                            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-                                <div className="  duration-700 ease-in-out" data-carousel-item>
-                                    <img src="/public/user_home-1.png" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                            <div className="relative h-[600px] overflow-hidden rounded-lg ">
+                                    <div className="duration-700 ease-in-out" data-carousel-item>
+                                    <img src="https://cdn-employer-wp.arc.dev/wp-content/uploads/2022/04/how-to-hire-a-freelance-developer-1128x635.jpg"
+                                       className="absolute object-cover  block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                                 </div>
+                              <div className="  duration-700 ease-in-out" data-carousel-item>
+                                    <img src="https://media.licdn.com/dms/image/D5612AQEQmeY5e7W8sQ/article-cover_image-shrink_720_1280/0/1719068700883?e=2147483647&v=beta&t=GvjM15rQJJmonr2t4lx28pBdOm82aAexL-Fmwb7PQ5Y"
+                                       className="absolute object-cover block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                                </div>   
                                 <div className="duration-700 ease-in-out" data-carousel-item>
-                                    <img src="/public/user-home-img-2.png" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                                </div>
-                                <div className="duration-700 ease-in-out" data-carousel-item>
-                                    <img src="/docs/images/carousel/carousel-3.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                                </div>
-                                <div className="duration-700 ease-in-out" data-carousel-item>
-                                    <img src="/public/user_home-1.png" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                                </div>
-                                <div className="duration-700 ease-in-out" data-carousel-item>
-                                    <img src="/docs/images/carousel/carousel-5.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-                                </div>
+                                    <img src="https://www.elevatus.io/wp-content/uploads/2022/04/Full-Stack-Developer.jpg" 
+                                     className="absolute object-cover block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                                </div> 
+                               
                             </div>
                             
                             <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
