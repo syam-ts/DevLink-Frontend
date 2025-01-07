@@ -139,7 +139,7 @@ const Header = (props: any) => {
             },
           }}
         >
-          <MenuItem onClick={handleClose4}>
+          {/* <MenuItem onClick={handleClose4}>
             <Avatar
               sx={{
                 width: "35px",
@@ -153,7 +153,7 @@ const Header = (props: any) => {
             >
               My account
             </Box>
-          </MenuItem>
+          </MenuItem> */}
           <Divider />
       
           <MenuItem onClick={handleClose4}>

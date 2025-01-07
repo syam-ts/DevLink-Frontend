@@ -61,11 +61,15 @@ const LoginClient = () => {
     try {
      const response = await axios.post('http://localhost:3000/client/login', formData, {
       withCredentials: true,  
-    })
+    });
+    console.log('The token', response.data);
  
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        const { accessTokenC } = response.data;
+ 
+        localStorage.setItem('accessTokenC', accessTokenC);
         dispatch(signInClient(response.data))
         navigate('/client/home', { state: { message: response.data.message } });
       }

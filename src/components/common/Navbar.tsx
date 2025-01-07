@@ -22,10 +22,20 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       `http://localhost:3000/${roleType}/logout`,{},{withCredentials: true } 
     );
 
-    localStorage.removeItem('accessTokenU')
-    // localStorage.removeItem('refreshToken');
+  
 
-    window.location.href = '/user/login'
+    if(roleType === 'user') {
+
+      localStorage.removeItem('accessTokenU')
+      // localStorage.removeItem('refreshToken');
+  
+      window.location.href = '/user/login'
+    } else if(roleType === 'client') { 
+      localStorage.removeItem('accessTokenC')
+      // localStorage.removeItem('refreshToken');
+  
+      window.location.href = '/client/login'
+    }
 
     // if (roleType === "user") {
     //   dispatch(signOutUser());

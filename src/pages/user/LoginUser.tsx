@@ -61,9 +61,9 @@ const LoginUser = () => {
       withCredentials: true,  
     });
     console.log('The token', response.data);
-    const { accessToken } = response.data;
+    const { accessTokenU } = response.data;
  
-    localStorage.setItem('accessTokenU', accessToken);
+    localStorage.setItem('accessTokenU', accessTokenU);
  
     dispatch(signInUser(response.data))
     window.location.href = '/user/home';

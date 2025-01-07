@@ -1,5 +1,5 @@
 import {Card, CardHeader, Image} from "@nextui-org/react";
-import axios from "axios";
+ 
 import { useEffect, useState } from "react"; 
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster'; 
 import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
 import { Link } from 'react-router-dom';
+import apiInstance from '../../api/axiosInstance'
    
 
 
@@ -40,7 +41,7 @@ const HomeClient = () => {
   useEffect(() => {
      const findAllUsers = async () => { 
       try {
-      const response = await axios.get('http://localhost:3000/client/getHome', {
+      const response = await apiInstance.axiosInstanceClient.get('client/getHome', {
          withCredentials: true
      });
 

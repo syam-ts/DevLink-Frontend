@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster'; 
 import { signOutUser } from '../../utils/redux/slices/userSlice';
-import axiosInstance from '../../api/axiosInstance'
+import apiInstance from '../../api/axiosInstance'
    
  
 
@@ -38,7 +38,7 @@ const HomeUser = () => {
     const fetchHomeData = async () => {
       try {
         // Fetch data from the backend
-        const { data } = await axiosInstance.get('/user/getHome', {
+        const { data } = await apiInstance.axiosInstanceUser.get('/user/getHome', {
           withCredentials: true,
         });
   
