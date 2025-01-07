@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import { Sonner } from '../../components/sonner/Toaster'; 
 import apiInstance from '../../api/axiosInstance'
 
 const DraftJobPost = () => {
@@ -34,16 +36,33 @@ const DraftJobPost = () => {
         formData,
       });
 
-      if (response && response.status === 200) {
+    
+
+      if (response.data.success) {
         console.log(response.data.response.url);
 
         window.location.href = response.data.response.url;
+      } else if(response.data.success === false) {
+ 
+        toast.error(response.data.message, {
+          position: "bottom-right",
+          style: {
+            backgroundColor: "red",
+            color: "white",
+            borderRadius: "8px",
+            padding: "20px",
+          },
+        });
+        
+        
       }
 
 
       // navigate("/client/draftJobPost/payment-success");
 
     } catch (err: any) {
+      toast.error(err.message);
+
       console.error("ERROR:", err.message);
       // navigate("/client/payment/failed");
     }
@@ -51,9 +70,14 @@ const DraftJobPost = () => {
 
   return (
     <div className='flex justify-center py-32 gap-44'>
+      <Sonner /> 
       <section>
         <div className="lg:col-span-2 lg:py-44">
-          <p className="max-w-xl text-xl comfortaa-regular">
+          <span className='text-4xl'> Draft New Job Post </span>
+          <div className='py-5'>
+             <hr className=' border-black' />
+          </div>
+          <p className="max-w-xl text-xl pt-1 comfortaa-regular">
             Post your job on the world’s work marketplace and wait for proposals from talented
             people worldwide.
           </p>

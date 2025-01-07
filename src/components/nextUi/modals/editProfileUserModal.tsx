@@ -11,17 +11,19 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import apiInstance from '../../../api/axiosInstance'
+import axios from "axios";
 
 export default function App() {
+
+  const [userData, setUserData ] = useState({})
   const [formData, setFormData] = useState({
     name: "",
-    mobile: "",
-    age: "",
     profilePicture: null,
-    description: "",
-    domain: "",
-    eduction: "",
+    age: "",
+    mobile: "",
+    education: "",
     location: "",
+    description: "",
     skills: "",
     budget: "",
   });
@@ -34,9 +36,23 @@ export default function App() {
 
   const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
 
+
+  useEffect(() => {
+    (async () => {
+      const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/profile/view/${userId}`,{
+        withCredentials: true
+    });
+ 
+    setUserData(response?.data?.data);
+    })(); 
+ 
+  }, []);
+
+
   useEffect(() => {
     formData.profilePicture = image;
   }, [image]);
+  console.log('THE IMAGE : ', image);
 
   useEffect(() => {
     formData.skills = skills;
@@ -61,7 +77,7 @@ export default function App() {
       data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
-    const response = await apiInstance.axiosInstanceUser.post(
+    const response = await axios.post(
       `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
       data
     );
@@ -77,9 +93,9 @@ export default function App() {
 
 
   var loadFile: any = function (event: any) {
-    // var input = event.target;
-    // var file = input.files[0];
-    // var type = file.type;
+    var input = event.target;
+    var file = input.files[0];
+    var type = file.type;
     var output: any = document.getElementById("preview_img");
 
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -91,10 +107,14 @@ export default function App() {
 
   const sumbmitForm = async () => {
     try {
-      console.log('The id ', userId)
+      const data = {
+        editData: formData,
+        unchangedData: userData
+      }
+      console.log('THE FORM DATA  :', formData)
       const response = await apiInstance.axiosInstanceUser.put(
         `http://localhost:3000/user/profile/edit/${userId}`,
-        formData
+        data
       );
 
       if (response.data.type === "success") {
@@ -119,8 +139,6 @@ export default function App() {
     }
   };
  
-  console.log('The skills', skills)
-
   const handleRemoveSkill = (skillToRemove: any) => {
     setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove)); // Remove a skill
   };

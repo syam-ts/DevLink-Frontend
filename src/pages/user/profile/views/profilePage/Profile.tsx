@@ -27,9 +27,9 @@ useEffect(() => {
         withCredentials: true
     }); 
    
-    console.log('The response ', response.data?.data.profilePicture)
+    console.log('The response ', response.data?.data)
   
-      setUser(response.data.data);
+      setUser(response.data.data?.user);
     } catch (err: any) { 
     if(err.response.data.message == 'No token provided') {
       navigate('/user/login')
@@ -142,7 +142,7 @@ console.log('The user : ', user)
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-9/12 px-4">
                     <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    {user?.description}
+                        {user?.description}
                     </p>
                     {/* <a href="#pablo" className="font-normal text-pink-500">Show more</a> */}
                   </div>
