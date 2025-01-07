@@ -4,25 +4,32 @@ import { useEffect, useState } from "react";
 import { Sonner } from '../../../../components/sonner/Toaster'
 import { toast } from "sonner";
 import axios from "axios";
+import { setUser } from '../../../../utils/redux/slices/adminSlice';
+import { useDispatch } from "react-redux";
+
 
 const Table = () => {
- 
-  console.log('This is from the main one')
+  
   const [users, setUsers] = useState({}); 
+  const dispatch = useDispatch();
 
   useEffect(() => {
-
-    console.log('Entered effect')
+ 
     const loadUsers = async () => {
         try{
        
 
-          const users = await axios.get('http://localhost:3000/admin/getAllUsers' ,{
+          const { data } = await axios.get('http://localhost:3000/admin/getAllUsers' ,{
             withCredentials: true
           });
 
-          console.log("the total users : ", users?.data?.data)
-           setUsers(users?.data?.data)
+          setUsers(data?.data);
+
+          for(let i =0; i< 100; i++) {
+            if (data?.data[i]) { 
+               dispatch(setUser(data?.data[i]))
+               } 
+          }
 
         }catch(err: any) {
           console.log('First error', err.message)
@@ -58,7 +65,7 @@ const Table = () => {
               },
             }}
           >
-            <ExTableUser users={users} />
+            <ExTableUser  />
           </Box>
         </CardContent>
       </Card>

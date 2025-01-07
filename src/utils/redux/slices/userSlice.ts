@@ -23,8 +23,7 @@ const userSlice = createSlice({
         signOutUser: (state: any) => {
             state.currentUser = null;
             state.isUser = false;
-        },
-
+        }
     }
 });
 
