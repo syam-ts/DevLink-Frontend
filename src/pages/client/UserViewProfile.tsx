@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios"; 
- 
+import apiInstance from '../../api/axiosInstance'
 
 
 const Profile = () => {
@@ -24,7 +24,7 @@ useEffect(() => {
 
     try {
       
-      const response = await axios.get(`http://localhost:3000/client/userProfile/view/${userId} `,{
+      const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/userProfile/view/${userId} `,{
         withCredentials: true
     }); 
    

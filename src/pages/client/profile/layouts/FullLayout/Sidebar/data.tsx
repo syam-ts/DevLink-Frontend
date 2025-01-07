@@ -19,6 +19,11 @@ const Menuitems: Menu[] = [
     href: "/client/profile/wallet",
   },  
   {
+    title: "proposals",
+    icon: AutoAwesomeMosaicOutlinedIcon,
+    href: "/client/profile/proposals",
+  },
+  {
     title: "Notifications",
     icon: AutoAwesomeMosaicOutlinedIcon,
     href: "/client/profile/notifications",

@@ -38,7 +38,7 @@ const HomeUser = () => {
     const fetchHomeData = async () => {
       try {
         // Fetch data from the backend
-        const { data } = await apiInstance.axiosInstanceUser.get('/user/getHome', {
+        const { data } = await apiInstance.axiosInstanceUser.get('/getHome', {
           withCredentials: true,
         });
   

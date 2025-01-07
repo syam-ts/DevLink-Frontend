@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import apiInstance from '../../api/axiosInstance'
 
 const DraftJobPost = () => {
 
@@ -29,7 +30,7 @@ const DraftJobPost = () => {
   const paymentFunction = async () => {
     try {
 
-      const response = await axios.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
+      const response = await apiInstance.axiosInstanceClient.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
         formData,
       });
 

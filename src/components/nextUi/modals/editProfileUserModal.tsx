@@ -5,12 +5,12 @@ import {
   ModalBody,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
-import axios from "axios";
+} from "@nextui-org/react"; 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
+import apiInstance from '../../../api/axiosInstance'
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ export default function App() {
       data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
-    const response = await axios.post(
+    const response = await apiInstance.axiosInstanceUser.post(
       `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
       data
     );
@@ -92,7 +92,7 @@ export default function App() {
   const sumbmitForm = async () => {
     try {
       console.log('The id ', userId)
-      const response = await axios.put(
+      const response = await apiInstance.axiosInstanceUser.put(
         `http://localhost:3000/user/profile/edit/${userId}`,
         formData
       );

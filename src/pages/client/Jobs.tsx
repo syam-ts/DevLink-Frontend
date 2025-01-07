@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import apiInstance from '../../api/axiosInstance'
  
 
 const Jobs = () => {
@@ -11,7 +11,7 @@ const Jobs = () => {
     useEffect(() => {
 
         (async() => {
-            const response = await axios.get('http://localhost:3000/client/listAllJobs');
+            const response = await apiInstance.axiosInstanceClient.get('http://localhost:3000/client/listAllJobs');
 
             console.log('The response ', response?.data?.data);
             setJobs(response.data?.data)

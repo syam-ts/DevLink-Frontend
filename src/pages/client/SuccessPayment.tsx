@@ -1,6 +1,8 @@
-import axiosInstance from "../../api/axiosInstance";
+import apiInstance from "../../api/axiosInstance";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom"
+
+
 
 function SuccessPayment() {
 
@@ -15,7 +17,7 @@ useEffect(() => {
     try{
 
         (async() => {
-            const response = await axiosInstance.post(`http://localhost:3000/client/payment/success/${clientId}/${data}`)
+            const response = await apiInstance.axiosInstanceClient.post(`http://localhost:3000/client/payment/success/${clientId}/${data}`)
             
             console.log('THRE RESULT FROM FRONTEND : ', response.data);
         })();

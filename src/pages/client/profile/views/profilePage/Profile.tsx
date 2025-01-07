@@ -1,10 +1,9 @@
  
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import { useNavigate } from 'react-router-dom'; 
 import EditModal from '../../../../../components/nextUi/modals/editProfileClientModal'
- 
+import apiInstance from '../../../../../api/axiosInstance'
 
 
 const Profile = () => {
@@ -25,7 +24,7 @@ useEffect(() => {
 
     try {
       
-      const response = await axios.get(`http://localhost:3000/client/profile/view/${_id}`,{
+      const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/profile/view/${_id}`,{
         withCredentials: true
     }); 
    

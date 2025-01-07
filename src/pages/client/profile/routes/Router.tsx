@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import { Suspense } from "react";
+import JobProposals from "../../JobProposal.tsx";
  
 
 /****Layouts*****/
@@ -12,6 +13,8 @@ const Profile = lazy(() => import("../views/profilePage/Profile.js"));
 
 
 /*****wallet******/
+const JobProposal = lazy(() => import("../../JobProposal.tsx"));
+
 const Wallet = lazy(() => import("../views/extra/WalletUser.tsx"));
  
 
@@ -36,6 +39,12 @@ const ThemeRoutes = [
           <Profile />
         </Suspense>
       )}, 
+      { path: "/proposals", element:( 
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <JobProposal />
+        </Suspense>
+      ) } ,
       { path: "/wallet", element:( 
       
         <Suspense fallback={<div>Loading...</div>}>

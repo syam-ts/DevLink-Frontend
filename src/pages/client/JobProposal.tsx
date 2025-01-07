@@ -2,12 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
- 
+import apiInstance from '../../api/axiosInstance'
 
 
 
 
-const Jobs = () => {
+const JobProposals = () => {
 
   interface Proposals {
     type: string;
@@ -28,7 +28,7 @@ const Jobs = () => {
     useEffect(() => {
          (async() => {
             try{
-              const response = await axios.get(`http://localhost:3000/client/job/proposals/${clientId}`);
+              const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/job/proposals/${clientId}`);
                  console.log('The response ', response.data?.data);
                 setData(response.data?.data);
             }catch(err: any) {
@@ -88,4 +88,4 @@ const Jobs = () => {
   )
 }
 
-export default Jobs;
+export default JobProposals;

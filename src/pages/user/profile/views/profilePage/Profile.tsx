@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Modal from '../../../../../components/nextUi/modals/editProfileUserModal'
- 
+import apiInstance from '../../../../../api/axiosInstance'
 
 
 const Profile = () => {
@@ -23,7 +23,7 @@ useEffect(() => {
 
     try {
       
-      const response = await axios.get(`http://localhost:3000/user/profile/view/${userId}`,{
+      const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/profile/view/${userId}`,{
         withCredentials: true
     }); 
    
