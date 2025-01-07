@@ -14,7 +14,7 @@ import { Sonner } from '../../../../../components/sonner/ToasterBottom';
 import { toast } from "sonner";
 // import { ViewRole } from '../../../../../components/nextUi/modals/AdminViewRole'
 import { Link } from "react-router-dom";
-import { blockUser , unBlockUser } from '../../../../../utils/redux/slices/adminSlice'
+import { blockUser , unBlockUser, deleteDatas } from '../../../../../utils/redux/slices/adminSlice'
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -35,10 +35,17 @@ const ExTable = () => {
   // };
  
   const user = useSelector((state: any) => Array.from(state.admin?.user))
+  const filter = user.filter((x: any, i: number) => {
+    console.log('THE X : ', x._id)
+    return x[i]?._id !== x[1+1]?._id
+  })
  
- 
+  let set: any = new Set(user)
+ console.log('The users ', filter)
 
-  const userInfo = 'user'
+  const userInfo = 'user';
+
+
   const blockUserFn = async (userId: string) => {
     try{
       console.log('THE USER ID : ', userId)
@@ -48,7 +55,7 @@ const ExTable = () => {
       if(response.data.type == 'success') { 
         dispatch(blockUser(userId))
         toast.success(response.data.message, {
-          position: 'bottom-right'
+          position: 'top-center'
         })
       }
     }catch(err: any) {
@@ -66,12 +73,17 @@ const ExTable = () => {
       if(response.data.type == 'success') { 
         dispatch(unBlockUser(userId));
         toast.success(response.data.message, {
-          position: 'bottom-right'
+          position: 'top-center'
         })
       }
     }catch(err: any) {
       console.log(err.message)
     }
+  }
+
+
+  const deleteData = () => {
+    dispatch(deleteDatas(set))
   }
 
   return (
@@ -230,6 +242,11 @@ const ExTable = () => {
           </TableRow>
         ))}
       </TableBody>
+
+      {/* Emergency delete */}
+      {/* <button onClick={deleteData}>
+        Delete Whole Data
+      </button> */}
     </Table>
   );
 };

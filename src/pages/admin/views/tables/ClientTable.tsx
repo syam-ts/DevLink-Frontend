@@ -4,21 +4,31 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Sonner } from '../../../../components/sonner/Toaster'
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setClient } from '../../../../utils/redux/slices/adminSlice';
 
 const Table = () => {
 
-  const [clients, setClients] = useState({});
+ 
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const loadUsers = async () => {
         try{
 
-          const clients = await axios.get('http://localhost:3000/admin/getAllClients' ,{
+          const { data } = await axios.get('http://localhost:3000/admin/getAllClients' ,{
             withCredentials: true
           });
 
-          console.log("the total clients : ", clients?.data?.data)
-           setClients(clients?.data?.data)
+          console.log("the total clients : ", data.data)
+        
+
+             for(let i =0; i< 100; i++) {
+                       if (data?.data[i]) { 
+                          dispatch(setClient(data?.data[i]))
+                          } 
+                        }
 
         }catch(err: any) {
           toast.error(err.message, {
@@ -47,7 +57,7 @@ const Table = () => {
               },
             }}
           >
-            <ExTableClient  clients={clients} />
+            <ExTableClient />
           </Box>
         </CardContent>
       </Card>

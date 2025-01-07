@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 
 const Table = () => {
   
-  const [users, setUsers] = useState({}); 
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Table = () => {
             withCredentials: true
           });
 
-          setUsers(data?.data);
+ 
 
           for(let i =0; i< 100; i++) {
             if (data?.data[i]) { 
