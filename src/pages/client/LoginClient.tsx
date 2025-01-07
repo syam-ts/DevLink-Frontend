@@ -67,10 +67,10 @@ const LoginClient = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        const { accessTokenC } = response.data;
+        const { accessToken } = response.data?.data?.client;
  
-        localStorage.setItem('accessTokenC', accessTokenC);
-        dispatch(signInClient(response.data))
+        localStorage.setItem('accessTokenC', accessToken);
+        dispatch(signInClient(response.data?.data?.client?.client?.client))
         navigate('/client/home', { state: { message: response.data.message } });
       }
     

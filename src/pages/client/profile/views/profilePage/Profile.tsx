@@ -14,8 +14,9 @@ const Profile = () => {
  const [ client, setClient]: any = useState({});
  const [isVerified , setIsVerified] = useState('')
 
- const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client)
+ const clientId = useSelector((state: any) => state?.client?.currentClient)
  
+ console.log('THE CLEINT FROM STROE ',clientId)
   
  const { _id } = clientId;  
 

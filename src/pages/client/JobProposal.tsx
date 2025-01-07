@@ -22,7 +22,7 @@ const JobProposals = () => {
       userId: 0
     });
 
-    const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client?._id);
+    const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
 
 
     useEffect(() => {

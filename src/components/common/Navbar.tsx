@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutUser } from "../../utils/redux/slices/userSlice";
 import { signOutClient } from "../../utils/redux/slices/clientSlice";
+import JobProposalsDrawer from '../rsuite/proposalsDrawer'
 import {
   Dropdown,
   DropdownTrigger,
@@ -10,6 +11,9 @@ import {
   Button,
 } from "@nextui-org/react";
 import axios from "axios";
+
+
+
 
 const Navbar = ({ roleType, roleInfo }: any) => {
   console.log("the role ", roleInfo);
@@ -54,7 +58,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             {" "}
             <div className="flex shrink-0 items-start cursor-pointer">
               <img
-                className="h-8 w-auto"
+                className="h-8 my-2 w-auto"
                 src="../../public/devLink_logo.png"
                 alt="Devlink"
               />
@@ -62,26 +66,24 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </Link>
           <div className=" sm:ml-6 sm:block pl-16 ">
             <div className="flex space-x-44">
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/home`}>Home</Link>
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
                 About
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
                 Contact
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
+              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/jobs`}>
                   <button>Jobs</button>
                 </Link>
               </p>
               {
                 roleType === 'client' &&
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:bg-gray-700 hover:text-white">
-                <Link to={`/${roleType}/job/proposals`}>
-                  <button>Proposals</button>
-                </Link>
+              <p>
+                 <JobProposalsDrawer />
               </p>
               }
             </div>
@@ -141,6 +143,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                       </Link>{" "}
                     </DropdownItem>
                     <DropdownItem key="copy">Chat</DropdownItem>
+                    <DropdownItem key="copy">
+                    <Link to={`/${roleType}/job/proposals`}>
+                  <button>Proposals</button>
+                </Link>
+                    </DropdownItem>
                     <DropdownItem key="new">
                       {" "}
                       <Link to={`/${roleType}/home`}>Home</Link>{" "}
