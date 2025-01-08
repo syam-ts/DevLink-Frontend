@@ -9,9 +9,9 @@ function Wallet() {
    useEffect(() => {
     try{
           (async() => {
-            const response = await axios.get('http://localhost:3000/admin/getWallet');
-   
-            setWallet(response?.data?.data?.wallet);
+            const {data} = await axios.get('http://localhost:3000/admin/getWallet');
+            console.log('THE WALLET ', data?.data?.wallet?.transactions)
+            setWallet(data?.data?.wallet);
           })();
     }catch(err: any) {
         console.log('ERROR: ', err.message);
@@ -71,17 +71,17 @@ function Wallet() {
                         <tr className='border-b'>
                             <td className="p-4"> 
                             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {transaction.type}
+                            {transaction[0]?.type}
                             </p>
                             </td>
                             <td className="p-4">
                             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {transaction.amount}
+                            {transaction[0].amount}
                             </p>
                             </td>
                             <td className="p-4">
                             <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {transaction.from}
+                            {transaction[0].from}
                             </p>
                             </td>
                             <td className="p-4">
@@ -91,7 +91,7 @@ function Wallet() {
                             </td>
                             <td className="p-4">
                             <a href="#" className="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                            {new Date(transaction.date).toLocaleString()}
+                            {new Date(transaction[0].date).toLocaleString()}
                             </a>
                             </td>
                         </tr>

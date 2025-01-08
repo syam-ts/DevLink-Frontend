@@ -6,8 +6,11 @@ import apiInstance from '../../api/axiosInstance'
 
 const Jobs = () => {
 
-    const [jobs , setJobs] = useState({});
+    const [allJobs , setAllJobs] = useState({});
+    const [bestMatchJobs , setBestMatchJobs] = useState({});
     const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
+
+    console.log('THE USER ID FORM JOB POST : ',userId)
    
 
     useEffect(() => {
@@ -16,18 +19,24 @@ const Jobs = () => {
             const response = await apiInstance.axiosInstanceUser.get('http://localhost:3000/user/listAllJobs');
 
             console.log('The response ', response?.data?.data);
-            setJobs(response.data?.data)
+            setAllJobs(response.data?.data)
+        })();
+        
+    }, []);
+
+
+    useEffect(() => {
+
+        (async() => {
+            const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listJobs/bestMatches/${userId}`);
+
+            console.log('The response ', response?.data?.data);
+            setBestMatchJobs(response.data?.data)
         })();
         
     }, []);
     
-console.log('The current user id ', userId)
-
-    console.log(
-        Object.entries(jobs).map((j: any) => {
-            console.log('This ', j[1])
-        })
-    )
+ 
 
 
   return (
@@ -39,7 +48,7 @@ console.log('The current user id ', userId)
                  Available Jobs
             </div>
             {
-                Object.entries(jobs).map((job: any) => (
+                Object.entries(allJobs).map((job: any) => (
                     <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16">
                     <li>
                     <div className="px-4 py-5 sm:px-6">
@@ -61,10 +70,40 @@ console.log('The current user id ', userId)
                 </li> 
               </ul>
                 ))
-            }
-
-          
+            } 
  
+        </section>
+
+        <section>
+        <div className='text-center text-4xl bellota-text-regular pt-10'>
+                 Best Matches
+            </div>
+        </section>
+        <section>
+        {
+                Object.entries(bestMatchJobs)?.map((job: any) => (
+                    <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16">
+                    <li>
+                    <div className="px-4 py-5 sm:px-6">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-md leading-6 bellota-text-regular text-gray-900"> {job[1]?.description} </h3>
+                            {/* <p className="mt-1 max-w-2xl text-sm text-gray-500"> {job[1]?.status} </p> */}
+                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.paymentType}</a>
+                        </div>
+                        <div className="mt-2 grid items-center justify-between">
+                            <p className="text-sm font-medium text-gray-500"> {job[1]?.title} </p>
+                            <p className="text-sm font-medium text-gray-500"> {job[1]?.keyResponsiblities} </p>
+                        </div>
+                        <div className="mt-4 grid items-center justify-between">
+                           {/* <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button"> */}
+                           < JobPropsalUserModal clientId={job[1]?.clientId} userId={userId} />
+                            {/* </button> */}
+                        </div>
+                    </div>
+                </li> 
+              </ul>
+                ))
+            } 
         </section>
     </main>
   )

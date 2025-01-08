@@ -26,18 +26,18 @@ const LoginUser = () => {
   // }
   //  }, []);
  
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   if (sonner.message) {
-  //     toast.error(sonner.message, {
-  //       style: {
-  //         backgroundColor: "red",
-  //         color: "white"
-  //       }
-  //     });  
-  //   }
-  //   setSonner({ message: "", timestamp: 0 })
-  //  }, [sonner.message]);
+    if (sonner.message) {
+      toast.error(sonner.message, {
+        style: {
+          backgroundColor: "red",
+          color: "white"
+        }
+      });  
+    }
+    setSonner({ message: "", timestamp: 0 })
+   }, [sonner.message]);
 
  
 
@@ -61,20 +61,25 @@ const LoginUser = () => {
       withCredentials: true,  
     });
     console.log('The token', response.data);
-    const { accessTokenU } = response.data;
- 
-    localStorage.setItem('accessTokenU', accessTokenU);
- 
-    dispatch(signInUser(response.data))
-    window.location.href = '/user/home';
+  
      
  
-      // if(response.data.type !== 'success') {
-      //   setSonner({ message: response.data.message, timestamp: Date.now() });
-      // } else {
-      //   dispatch(signInUser(response.data))
-      //   navigate('/user/home', { state: { message: response.data.message } });
-      // }
+      if(response.data.type === 'success') {
+        const { accessTokenU } = response.data;
+ console.log('THE RESPONSE ', response.data)
+        localStorage.setItem('accessTokenU', accessTokenU);
+     
+        dispatch(signInUser(response.data))
+        window.location.href = '/user/home';
+        setSonner({ message: response.data.message, timestamp: Date.now() });
+      } else {
+        setSonner({
+          message:  response?.data?.message || "An error occurred",
+         timestamp: Date.now(),
+       });
+        // dispatch(signInUser(response.data))
+        // navigate('/user/home', { state: { message: response.data.message } });
+      }
     
    } catch (err: any) {
      console.error('ERROR: ',err)
