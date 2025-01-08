@@ -16,6 +16,8 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { blockUser , unBlockUser, deleteDatas } from '../../../../../utils/redux/slices/adminSlice'
 import { useDispatch, useSelector } from "react-redux";
+import ViewUserInAdmin from "../../../../../components/bootstrap/ViewUserInAdmin";
+import { ViewRole } from "@/components/nextUi/modals/AdminViewRole";
 
 
  
@@ -214,24 +216,27 @@ const ExTable = () => {
            
             <TableCell align="right">
               <Typography variant="h6">
-{/*             
- 
-                       <div>
+                
+               <div className='text-left'>
+                 <ViewUserInAdmin roleId={user?._id} roleInfo='user' />
+               </div>
+
+                  {/* <div>
                          <ViewRole roleId={user[1]?._id}roleInfo="user"   />
                               view
-                       </div> */}
+                       </div> 
 
  
-                                 {/* <span>{user?.isBlocked}</span>   
+                                  <span>{user?.isBlocked}</span>   
                                  {
                                   user?.isBlocked ? <span> true </span> : <span>false</span>
-                                 } */}
+                                 }  
 
                                  
+                             
                        <Link to={`/admin/viewRole/${user[1]?._id}/${userInfo}`} >
-                              <img className='h-5 w-5 cursor-pointer' src='https://cdn-icons-png.flaticon.com/128/159/159604.png' />
                        </Link>
-                     
+                      */}
               
               </Typography>
             </TableCell>
