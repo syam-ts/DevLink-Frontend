@@ -29,7 +29,7 @@ const JobProposals = () => {
          (async() => {
             try{
               const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/job/proposals/${clientId}`);
-                 console.log('The response ', response.data?.data);
+                 
                 setData(response.data?.data);
             }catch(err: any) {
                 console.log('ERROR: ',err.message);
@@ -44,10 +44,11 @@ const JobProposals = () => {
     <main>
  
         
+        <section className='text-center my-12'>
+            <span className='comfortaa-regular text-3xl'> Proposals </span>
+            <hr className='border-gray-400 mt-12 w-2/4 mx-auto' />
+      </section>
         <section className='pt-20'>
-              <div className='text-center comfortaa-regular text-2xl'>
-                  <span> Proposals </span>
-              </div>
           {
             Object.entries(data).map((proposal: any) => (
 

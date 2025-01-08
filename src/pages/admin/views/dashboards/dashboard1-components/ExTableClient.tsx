@@ -13,6 +13,7 @@ import { Sonner } from '../../../../../components/sonner/ToasterBottom';
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { blockClient, unBlockClient } from '../../../../../utils/redux/slices/adminSlice'
+import ViewUserInAdmin from "../../../../../components/bootstrap/ViewUserInAdmin";
 
 
 const ExTable = () => {
@@ -146,7 +147,11 @@ const ExTable = () => {
 
 
             <TableCell align="left">
-              <Typography variant="h6"> Empty </Typography>
+              <Typography variant="h6"> 
+                    <div className='text-left'>
+                      <ViewUserInAdmin roleId={cl?._id} roleInfo='client' />
+                    </div>
+                 </Typography>
             </TableCell>
 
             <TableCell align="right">

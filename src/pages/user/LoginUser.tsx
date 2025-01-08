@@ -65,9 +65,8 @@ const LoginUser = () => {
      
  
       if(response.data.type === 'success') {
-        const { accessTokenU } = response.data;
- console.log('THE RESPONSE ', response.data)
-        localStorage.setItem('accessTokenU', accessTokenU);
+        const { accessToken } = response.data;
+        localStorage.setItem('accessTokenU', accessToken);
      
         dispatch(signInUser(response.data))
         window.location.href = '/user/home';

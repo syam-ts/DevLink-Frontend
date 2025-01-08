@@ -27,7 +27,7 @@ const HomeUser = () => {
     (async () => {
       const response = await apiInstance.axiosInstanceUser.get('http://localhost:3000/user/listAllJobs');
 
-      console.log('The response ', response?.data?.data);
+    
       setJobs(response.data?.data);
     })();
 
