@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster'; 
+import { Sonner } from '../../components/sonner/Toaster';
 import apiInstance from '../../api/axiosInstance'
 
 const DraftJobPost = () => {
 
-  const navigate = useNavigate();
-  const clientId = useSelector((state: any) => state?.client?.currentClient?.client?.client?._id);
 
-  const [formData, setFormData] = useState({
+  const [skills, setSkills]: any = useState([]);
+  const [inputValue, setInputValue]: any = useState("");
+  const [formData, setFormData]: any = useState({
     title: "",
     keyResponsiblities: "",
     requiredSkills: "",
@@ -21,13 +20,41 @@ const DraftJobPost = () => {
     estimateTime: "",
   });
 
+  const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
+
+ 
+
+  useEffect(() => {
+    formData.requiredSkills = skills;
+  }, [skills]);
+
+
+  const handleChangeSkills = (e: any) => {
+    setInputValue(e.target.value); // Update the input field's value
+  };
+
+  const handleAddSkill = (event: any, inputValue: any) => {
+    event.preventDefault();
+    if (inputValue.trim() && !skills.includes(inputValue)) {
+      setSkills((prevSkills: any) => [...prevSkills, inputValue.trim()]);
+      setInputValue("");
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove: any) => {
+    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove)); // Remove a skill
+  };
+
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormData((prevData: any) => ({
       ...prevData,
       [name]: value,
     }));
   };
+
 
   const paymentFunction = async () => {
     try {
@@ -36,14 +63,14 @@ const DraftJobPost = () => {
         formData,
       });
 
-    
+
 
       if (response.data.success) {
-        console.log(response.data.response.url);
+        // console.log(response.data.response.url);
 
         window.location.href = response.data.response.url;
-      } else if(response.data.success === false) {
- 
+      } else if (response.data.success === false) {
+
         toast.error(response.data.message, {
           position: "bottom-right",
           style: {
@@ -53,8 +80,8 @@ const DraftJobPost = () => {
             padding: "20px",
           },
         });
-        
-        
+
+
       }
 
 
@@ -70,12 +97,12 @@ const DraftJobPost = () => {
 
   return (
     <div className='flex justify-center py-32 gap-44'>
-      <Sonner /> 
+      <Sonner />
       <section>
         <div className="lg:col-span-2 lg:py-44">
           <span className='text-4xl'> Draft New Job Post </span>
           <div className='py-5'>
-             <hr className=' border-black' />
+            <hr className=' border-black' />
           </div>
           <p className="max-w-xl text-xl pt-1 comfortaa-regular">
             Post your job on the world’s work marketplace and wait for proposals from talented
@@ -124,84 +151,105 @@ const DraftJobPost = () => {
               </div>
               <div>
                 <input
-                  onChange={handleChange}
-                  className="w-full p-3 text-sm"
-                  placeholder="Required Skills"
-                  name="requiredSkills"
+                  value={inputValue}
+                  onChange={handleChangeSkills}
+                  className="w-auto p-3 text-sm border border-gray-300 rounded"
+                  placeholder="Add a skill"
+                  name="skills"
                   type="text"
                 />
-                <hr />
+                <button
+                  onClick={(e) => handleAddSkill(e, inputValue)}
+                  className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                >
+                  Add
+                </button>
+              </div>
+              {/* <hr className="my-3" /> */}
+              <div>
+                {skills.map((skill: any, index: any) => (
+                  <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
+                    <span className="text-sm">{skill}</span>
+                    <button
+                      onClick={() => handleRemoveSkill(skill)}
+                      className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
+         
 
-            <div className="flex items-center gap-5 mb-4">
-              <label>
-                <input
-                  onChange={handleChange}
-                  type="radio"
-                  value="hourly"
-                  name="paymentType"
-                  className="w-4 h-4"
-                />
-                Hourly
-              </label>
-              <label>
-                <input
-                  onChange={handleChange}
-                  type="radio"
-                  value="fixed"
-                  name="paymentType"
-                  className="w-4 h-4"
-                />
-                Fixed
-              </label>
-            </div>
-
-            <div>
-              <input
-                onChange={handleChange}
-                className="w-full p-3 text-sm"
-                placeholder="Amount Pay For This Job"
-                name="payment"
-                type="number"
-              />
-              <hr />
-            </div>
-
-            <div>
-              <textarea
-                onChange={handleChange}
-                className="w-full p-3 text-sm"
-                placeholder="Description"
-                name="description"
-              />
-              <hr />
-            </div>
-
-            <div>
-              <input
-                onChange={handleChange}
-                className="w-full p-3 text-sm"
-                placeholder="Estimate Time (in Hours)"
-                name="estimateTime"
-                type="number"
-              />
-              <hr />
-            </div>
-
-            <div className="mt-4">
-              <button
-                onClick={paymentFunction}
-                type="button"
-                className="inline-block w-full rounded-xl bg-black px-5 py-3 font-medium text-white sm:w-auto"
-              >
-                Proceed Payment
-              </button>
-            </div>
-          </form>
+        <div className="flex items-center gap-5 mb-4">
+          <label>
+            <input
+              onChange={handleChange}
+              type="radio"
+              value="hourly"
+              name="paymentType"
+              className="w-4 h-4"
+            />
+            Hourly
+          </label>
+          <label>
+            <input
+              onChange={handleChange}
+              type="radio"
+              value="fixed"
+              name="paymentType"
+              className="w-4 h-4"
+            />
+            Fixed
+          </label>
         </div>
-      </section>
+
+        <div>
+          <input
+            onChange={handleChange}
+            className="w-full p-3 text-sm"
+            placeholder="Amount Pay For This Job"
+            name="payment"
+            type="number"
+          />
+          <hr />
+        </div>
+
+        <div>
+          <textarea
+            onChange={handleChange}
+            className="w-full p-3 text-sm"
+            placeholder="Description"
+            name="description"
+          />
+          <hr />
+        </div>
+
+        <div>
+          <input
+            onChange={handleChange}
+            className="w-full p-3 text-sm"
+            placeholder="Estimate Time (in Hours)"
+            name="estimateTime"
+            type="number"
+          />
+          <hr />
+        </div>
+
+        <div className="mt-4">
+          <button
+            onClick={paymentFunction}
+            type="button"
+            className="inline-block w-full rounded-xl bg-black px-5 py-3 font-medium text-white sm:w-auto"
+          >
+            Proceed Payment
+          </button>
+        </div>
+      </form>
     </div>
+      </section >
+    </div >
   );
 };
 

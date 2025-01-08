@@ -128,7 +128,7 @@ export default function App() {
 
 
   const handleChangeSkills = (e: any) => {
-    setInputValue(e.target.value); // Update the input field's value
+    setInputValue(e.target.value);  
   };
 
   const handleAddSkill = (event: any,inputValue: any) => {
@@ -140,7 +140,7 @@ export default function App() {
   };
  
   const handleRemoveSkill = (skillToRemove: any) => {
-    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove)); // Remove a skill
+    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));  
   };
 
   return (
