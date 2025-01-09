@@ -23,10 +23,10 @@ import { useSelector } from 'react-redux';
 const ClientRoute = () => {
 
     const currentClient = useSelector((store: any) => store.client);
-    const client: string = currentClient?.currentClient?.client?.client?.name;
+    const client: string = currentClient?.currentClient; 
+
 
     const showNavAndFooter: any = (pathname: string) => {
-  
     
       const restrictedPath = [
         '/client/signup',

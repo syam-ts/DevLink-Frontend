@@ -52,7 +52,7 @@ export default function App() {
   useEffect(() => {
     formData.profilePicture = image;
   }, [image]);
-  console.log('THE IMAGE : ', image);
+   
 
   useEffect(() => {
     formData.skills = skills;
@@ -198,19 +198,20 @@ export default function App() {
                   <section>
                     <div className="bg-white w-[800px] lg:col-span-3 lg:p-12">
                       <form className="space-y-8">
-                        <div>
+
+                      <div className='flex gap-44'>
+                      <div>
                           <input
                             onChange={handleChange}
-                            className="w-full p-3 text-sm t"
+                            className="w-full p-3 text-sm "
                             placeholder="Change Name"
                             name="name"
                             type="text"
                           />
-                          <hr />
+                          <hr className='w-80' />
                         </div>
 
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                          <div>
+                        <div>
                             <input
                               onChange={handleChange}
                               className="w-full p-3 text-sm"
@@ -220,6 +221,14 @@ export default function App() {
                             />
                             <hr />
                           </div>
+                      </div>
+ 
+
+
+                      
+
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                     
                           <div>
                             <input
                               onChange={handleChange}
@@ -230,12 +239,24 @@ export default function App() {
                             />
                             <hr />
                           </div>
+
+                          <div>
+                          <input
+                            onChange={handleChange}
+                            className="w-full p-3 text-sm"
+                            placeholder="Change Location"
+                            name="location"
+                            type="text"
+                          />
+                          <hr />
+                        </div>
+
                         </div>
 
                         <div>
                           <textarea
                             onChange={handleChange}
-                            className="w-full py-5 text-sm"
+                            className="w-full py-2 text-sm"
                             placeholder="Description"
                             name="description"
                           />
@@ -253,7 +274,7 @@ export default function App() {
                                   />
                                   <button
                                     onClick={(e) => handleAddSkill(e, inputValue)}
-                                    className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                                    className="px-4 py-2 text-sm text-white bg-sky-500 rounded hover:bg-blue-600"
                                   >
                                     Add
                                   </button>
@@ -272,17 +293,9 @@ export default function App() {
                                     </div>
                                   ))}
                                 </div>
+                                <div className='flex gap-20'>
 
-                        <div>
-                          <input
-                            onChange={handleChange}
-                            className="w-full p-3 text-sm"
-                            placeholder="Change Location"
-                            name="location"
-                            type="text"
-                          />
-                          <hr />
-                        </div>
+                    
 
                         <div>
                           <input
@@ -292,7 +305,7 @@ export default function App() {
                             name="education"
                             type="text"
                           />
-                          <hr />
+                          <hr className='w-72' />
                         </div>
 
                         <div>
@@ -303,8 +316,13 @@ export default function App() {
                             name="domain"
                             type="text"
                           />
-                          <hr />
+                          <hr className='w-80' />
                         </div>
+                                </div>
+
+                       
+
+                  
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                           <div>
