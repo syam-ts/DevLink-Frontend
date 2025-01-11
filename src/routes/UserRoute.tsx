@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
-import Index from '../pages/user/profile/index'
+import Index from '../pages/user/profile/index';
+import Contract from '../components/common/Contract'
 
 
 
@@ -47,6 +48,7 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} />
                 <Route path='/jobs' element={<JobPage />} />
                 <Route path='/profile/*' element={<Index />} />
+                <Route path='/contract' element={<Contract />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

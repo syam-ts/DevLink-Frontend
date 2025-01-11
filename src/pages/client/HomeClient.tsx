@@ -197,7 +197,7 @@ const HomeClient = () => {
             </section>
 
          {/* cards */}
-            <section className='flex gap-12 mx-auto justify-center'> 
+            <section className='grid gap-7 lg:grid-cols-4 sm:grid-cols-2 px-96'> 
                 {Object.entries(users).map((user: any) => (
                     
                     <div className="max-w-[900px] flex gap-12 ">
@@ -206,15 +206,16 @@ const HomeClient = () => {
                         <p className="text-tiny text-white font-bold">{user?.[1]?.email}</p> 
                         </CardHeader> 
                       <Link to={`/client/userProfile/${user?.[1]._id}`}>
-                      <Image 
-                        removeWrapper
+                      <img 
+                         
                         alt="Card background"
-                        className="z-0 w-64 h-80 object-fill cursor-pointer"
-                        src={user[1]?.profilePicture}
+                        className="z-0 w-64 h-80 object-fill cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                        src={user?.[1]?.profilePicture}
                         />
                         </Link>
                      </Card> 
                      <div className='absolute pt-72 pl-4'>
+                      
                          
                         <span className='font-bold'>{user?.[1]?.name}</span>
                      </div>

@@ -47,9 +47,9 @@ const JobsRender = ({ clientId , type}: any) => {
                   </section>
                   <section>
                     {Object.entries(allJobs).map((job: any) => (
-                      <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16" key={job[0]}>
+                      <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-96 mt-16" key={job[0]}>
                         <li>
-                          <div className="px-4 py-5 sm:px-6">
+                          <div className="py-4 sm:px-12">
                             <div className="flex items-center justify-between">
                               <h3 className="text-lg leading-6 font-medium text-gray-900">{job[1]?.description}</h3>
                               <p className="mt-1 max-w-2xl text-sm text-gray-500">{job[1]?.status}</p>
