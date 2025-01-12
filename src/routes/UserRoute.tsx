@@ -12,7 +12,10 @@ import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
 import Index from '../pages/user/profile/index';
 import Contract from '../components/common/Contract-test';
-import AllContracts from '../pages/user/AllContracts'
+
+
+import AllContracts from '../pages/user/AllContracts';
+import Notifications from '../pages/user/Notification'
 
 
 
@@ -51,6 +54,7 @@ const UserRoute = () => {
                 <Route path='/profile/*' element={<Index />} />
                 <Route path='/all-contracts/:userId' element={<AllContracts />} />
                 <Route path='/contract/:contractId' element={<Contract />} />
+                <Route path='/notifications/:userId' element={<Notifications />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
