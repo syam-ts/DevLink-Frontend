@@ -20,10 +20,7 @@ import {
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
-  console.log("the role ", roleInfo);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+ 
 
   const logout = async () => {
     const response = await axios.post(

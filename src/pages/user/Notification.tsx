@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { ContractRespond } from '../../components/nextUi/modals/ContractRespond'
 
-function Notification() {
+
+const Notification = () => {
 
     const [notifications, setNotifications] = useState({})
     const user = useParams()
@@ -12,12 +14,23 @@ function Notification() {
     
     useEffect(() => {
 
+      try{
         (async() => {
-              const { data } = await axios.get(`http://localhost:3000/user/notifications/${user?.userId}`);
-              
-              setNotifications(data?.notifications);
-        })();
+            const { data } = await axios.get(`http://localhost:3000/user/notifications/${user?.userId}`);
+            console.log('THE WHOLE DATA : ', data?.notifications)
+            
+            setNotifications(data?.notifications);
+      })();
+      }catch(err: any) {
+        console.error('ERROR: ', err.message);
+      }
+
     }, []);
+
+
+
+
+
 
 
   return (
@@ -26,12 +39,13 @@ function Notification() {
         Object.entries(notifications).map((notification: any) => (
 
       <div className='grid gap-2 border-2 h-44 font-semibold border-black my-12 mx-96 rounded-xl'>
-        <span>Contractid: {notification[1]?.contractInfo?._id} {console.log('THE DATA : ', notification)} </span>
+        <span>Contractid: {notification[1]?.contractInfo?._id} </span>
+        <span>Status: {notification[1]?.contractInfo?.status} </span>
         <span>Job Title: {notification[1]?.contractInfo?.jobPostData?.title} </span>
         <span>Job Description: {notification[1]?.contractInfo?.jobPostData?.description} </span>
-        <div className='text-end px-8 pb-4'>
-            <button className="rounded-md w-28 bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-            Reponsd
+        <div className='text-end px-8 pb-4 '>
+            <button  type="button">
+            <ContractRespond contractId={notification[1]?.contractInfo?._id} />
             </button>
         </div>
       </div>
