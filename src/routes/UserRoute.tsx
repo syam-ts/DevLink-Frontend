@@ -46,7 +46,7 @@ const UserRoute = () => {
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} />
-                <Route path='/jobs' element={<JobPage />} />
+                <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/profile/*' element={<Index />} />
                 <Route path='/contract' element={<Contract />} />
             </Routes>

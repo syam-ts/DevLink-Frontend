@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -10,9 +10,10 @@ import {
 } from "@nextui-org/react";
 import axios from "axios";
 
-export default function App({clientId, userId}: any) {
 
-  const [description, setDescription] = React.useState('');
+export default function App({clientId, userId, jobPostId}: any) {
+
+  const [description, setDescription] =  useState('');
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
  
@@ -27,17 +28,24 @@ export default function App({clientId, userId}: any) {
   }
 
   const sendProposal = async () => {
-    try{
-        const response = await axios.post(`http://localhost:3000/user/job/createProposal/${clientId}/${userId}`, {description})
+    try{ 
+
+        const response = await axios.post(`http://localhost:3000/user/job/createProposal/${clientId}/${userId}/${jobPostId}`, {description});
+        
+        if(response.data.success) {
+          window.location.href=`http://localhost:5173/user/jobs`
+        }
     }catch(err: any) {
         console.log('ERROR: ',err.message);
     }
   }
+  
 
   return (
     <>
+
       <div className="flex flex-wrap gap-3">
-   
+ 
           <Button className='bg-black text-white' key={size} onPress={() => handleOpen(size)}>
             Apply
           </Button>

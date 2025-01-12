@@ -28,9 +28,9 @@ const JobProposals = () => {
     useEffect(() => {
          (async() => {
             try{
-              const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/job/proposals/${clientId}`);
-                 
-                setData(response.data?.data);
+              const {data} = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/job/proposals/${clientId}`);
+                 console.log('THE REPONSE OF USEEFFECT :', data?.data)
+                setData(data?.data);
             }catch(err: any) {
                 console.log('ERROR: ',err.message);
             }
@@ -38,6 +38,22 @@ const JobProposals = () => {
          })();
     }, []);
    
+
+
+    const acceptProposal = async () => {
+        try{
+          const body = {
+            userId: '',
+            clientId: '',
+            jobpostId: ''
+          }
+            const { data } = await apiInstance.axiosInstanceClient.post('http://localhost:3000/client/job/createContract', body);
+
+            console.log('THE REPONSE OF ACCEPT PROPOSAL: ', data);
+        }catch(err: any) {
+          console.error('ERROR: ', err.message);
+        }
+    };
 
 
   return (
@@ -75,7 +91,7 @@ const JobProposals = () => {
                     </button>
                     </div>
                     <div>
-                    <button className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                    <button onClick={acceptProposal} className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                      Accept
                     </button>
                     </div>

@@ -1,6 +1,6 @@
-import React from 'react'
+ 
 
-function Contract() {
+const Contract = () => {
   return (
     <div>
 <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 ">
@@ -19,7 +19,6 @@ function Contract() {
         <div className="text-end">
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">Contract</h2>
           <span className="mt-1 block text-gray-500">3682303</span>
-
           {/* <address className="mt-4 not-italic text-gray-800">
             45 Roker Terrace<br>
             Latheronwheel<br>
