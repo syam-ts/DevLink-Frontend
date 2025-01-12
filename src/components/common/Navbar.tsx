@@ -121,7 +121,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             roleInfo.profilePicture ? (
               <img 
               
-            className="h-10 w-10 rounded-full ring-gray-400 ring-4"
+            className="h-9 w-9 rounded-full ring-black ring-4 border-5 border-white"
             src={roleInfo.profilePicture}
           />
             ) : (
@@ -138,22 +138,28 @@ const Navbar = ({ roleType, roleInfo }: any) => {
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
           <DropdownItem key="profile">
-            <Link className='no-underline text-black comfortaa-regular' to={`/${roleType}/profile/profile`}>
+            <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/profile/profile`}>
             Profile
             </Link>
           </DropdownItem>
-          <DropdownItem key="team_settings">
-            Chat
-          </DropdownItem>
           <DropdownItem key="proposals">
-          <Link className='no-underline text-black comfortaa-regular' to={`/${roleType}/job/proposals`}>
+          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/job/proposals`}>
             Proposals
           </Link>
           </DropdownItem>
           <DropdownItem key="home">
-          <Link className='no-underline text-black comfortaa-regular' to={`/${roleType}/home`}>
+          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
+             Contracts
+          </Link>
+          </DropdownItem>  
+          <DropdownItem key="team_settings">
+            Chat
+          </DropdownItem>
+          <DropdownItem key="home">
+          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/home`}>
              Home
-          </Link></DropdownItem>  
+          </Link>
+          </DropdownItem>  
           <DropdownItem key="logout" onClick={logout} color="danger">
             Log Out
           </DropdownItem>

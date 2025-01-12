@@ -11,7 +11,8 @@ import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
 import Index from '../pages/user/profile/index';
-import Contract from '../components/common/Contract'
+import Contract from '../components/common/Contract-test';
+import AllContracts from '../pages/user/AllContracts'
 
 
 
@@ -48,7 +49,8 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} />
                 <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/profile/*' element={<Index />} />
-                <Route path='/contract' element={<Contract />} />
+                <Route path='/all-contracts/:userId' element={<AllContracts />} />
+                <Route path='/contract/:contractId' element={<Contract />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
