@@ -74,7 +74,7 @@ useEffect(() => {
               <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                   <div className="">
-                    <img alt="user-profile" src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" className="shadow-xl rounded-full h-44 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                    <img alt="user-profile" src={user?.profilePicture} className="shadow-xl rounded-full h-44 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
                   </div>
                 </div>
            
@@ -126,7 +126,12 @@ useEffect(() => {
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400">Domain - </i> Backend Developer
                 </div>
                 <div className="mb-2 text-blueGray-600">
-                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i>React.js Node.js Express.js php Typescipt
+                  <i className="fas fa-university mr-2 text-lg text-blueGray-400">Skills - </i> 
+                  {
+                     user?.skills?.map((skill: string) => (
+                             <span className='px-2 uppercase'>{skill}</span>   
+                     ))
+                  }
                 </div>
               </div>
               <div className="mt-10 py-10 border-t border-blueGray-200 text-center">

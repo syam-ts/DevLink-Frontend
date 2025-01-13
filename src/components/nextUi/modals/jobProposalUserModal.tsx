@@ -9,6 +9,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import axios from "axios";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
 
 
 export default function App({clientId, userId, jobPostId}: any) {
@@ -34,8 +36,16 @@ export default function App({clientId, userId, jobPostId}: any) {
         
         if(response.data.success) {
           window.location.href=`http://localhost:5173/user/jobs`
+        } else {
+          toast.warning(response.data?.message, {
+            style: {
+              backgroundColor: "yellow",
+              color: "black"
+            }
+          })
         }
     }catch(err: any) {
+      toast.warning(err.message)
         console.log('ERROR: ',err.message);
     }
   }
@@ -45,6 +55,7 @@ export default function App({clientId, userId, jobPostId}: any) {
     <>
 
       <div className="flex flex-wrap gap-3">
+        <Sonner />
  
           <Button className='bg-black text-white' key={size} onPress={() => handleOpen(size)}>
             Apply

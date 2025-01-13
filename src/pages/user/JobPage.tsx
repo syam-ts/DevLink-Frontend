@@ -17,14 +17,19 @@ const Jobs = () => {
     
 
     useEffect(() => {
-
+      try{
+        
         (async() => {
             const response = await apiInstance.axiosInstanceUser.get('http://localhost:3000/user/listAllJobs');
 
-            console.log('The response ', response?.data?.data);
+            console.log('The response ', response?.data?.data); 
             setAllJobs(response.data?.data)
         })();
         
+      }catch(err: any) {
+        console.log('ERROR : ', err.message);
+        toast.warning(err.message)
+      }
     }, []);
 
 
@@ -53,9 +58,9 @@ const Jobs = () => {
             </div>
             {
                 Object.entries(allJobs).map((job: any) => (
-                    <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16">
+                    <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16 h-56">
                     <li>
-                    <div className="px-4 py-5 sm:px-6">
+                    <div className="px-4 py-4">
                         <div className="flex items-center justify-between">
                             <h3 className="text-md leading-6 bellota-text-regular text-gray-900"> {job[1]?.title} </h3>
                             {/* <p className="mt-1 max-w-2xl text-sm text-gray-500"> {job[1]?.status} </p> */}
@@ -65,7 +70,7 @@ const Jobs = () => {
                             <p className="text-sm font-medium text-gray-500"> {job[1]?.description} </p>
                             <p className="text-sm font-medium text-gray-500"> {job[1]?.keyResponsiblities} </p>
                         </div>
-                        <div className="mt-4 grid items-center justify-between">
+                        <div className="mt-2 grid items-center justify-between">
                            {/* <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button"> */}
                            < JobPropsalUserModal clientId={job[1]?.clientId} userId={userId} jobPostId={job[1]?._id} />
                             {/* </button> */}
