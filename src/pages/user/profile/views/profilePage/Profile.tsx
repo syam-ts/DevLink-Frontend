@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Modal from '../../../../../components/nextUi/modals/editProfileUserModal'
 import apiInstance from '../../../../../api/axiosInstance'
+import BoostPopover from '../../../../../components/nextUi/popover/BoostAcc-Pop'
 
 
 const Profile = () => {
@@ -99,9 +100,27 @@ console.log('The user : ', user)
               </div>
      
               <div className="text-center mt-12">
+                <div className='text-center w-full flex justify-center'>
                 <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
                      Name: {user?.name}
-                </h3>
+                
+                </h3> 
+            
+                     {
+                      user?.isBoosted ? (
+
+                        <span className=' cursor-pointer bg-white'>
+                          <img className='h-8 w-8' src='https://cdn-icons-png.freepik.com/256/13950/13950107.png?semt=ais_hybrid' />
+                        </span> 
+                      ) : (
+                        
+                        <span className=' cursor-pointer bg-white'>
+                        <BoostPopover userId={user?._id} />
+                        </span> 
+                      )
+                     }
+            
+                </div>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-thin">
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                   Email: {user?.email}
