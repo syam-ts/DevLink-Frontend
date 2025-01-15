@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -54,7 +53,7 @@ const JobProposals = () => {
           console.error('ERROR: ', err.message);
         }
     };
-
+console.log('THE PROPOSAL S: ', data)
 
   return (
     <main>
@@ -73,12 +72,16 @@ const JobProposals = () => {
               <div className='grid px-12 py-2'>
          
                    <div>
-                        <img className='w-16 h-16 rounded-full' src={proposal[1]?.userData?.profilePicture} alt='user-profile' />
+                        <img className='w-16 h-16 rounded-full object-cover' src={proposal[1]?.userData?.profilePicture} alt='user-profile' />
                    </div>
                    <div>
                       <span className='font-semibold text-lg'> {proposal[1]?.userData?.name}</span>
                    </div>
                    <div>
+                      <span className='font-semibold text-lg'>Job :  {proposal[1]?.jobPostInfo}</span>
+                   </div>
+                   <div>
+                    
                       <span> {proposal[1]?.description} 
                       </span>
                    </div>

@@ -209,7 +209,7 @@ const HomeClient = () => {
                       <img 
                          
                         alt="Card background"
-                        className="z-0 w-64 h-80 object-fill cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                        className="z-0 w-64 h-80 object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
                         src={user?.[1]?.profilePicture}
                         />
                         </Link>

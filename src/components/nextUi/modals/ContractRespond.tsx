@@ -9,6 +9,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import axios from "axios";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
 
 export const ContractRespond = ({ contractId }: any) => {
 
@@ -51,6 +53,8 @@ export const ContractRespond = ({ contractId }: any) => {
        const { data } = await axios.post(`http://localhost:3000/user/contact/response`, body);
 
        console.log('THE RESPONSE FROM CLOSE CONTREACT API : ', data);
+       toast.success(data?.message || 'Contract closed successfully and amount will credit soon ')
+       window.location.href= 'http://localhost:5173/user/home'
     }catch(err: any) {
         console.error('ERROR: ', err.message);
     }
@@ -60,6 +64,7 @@ export const ContractRespond = ({ contractId }: any) => {
   return (
     <>
       <div className="flex flex-wrap gap-3 bg-white">
+        <Sonner />
    
           <Button className='bg-slate-800 rounded-md text-white font-bold' key={size} onPress={() => handleOpen("5xl")}>
             Respond

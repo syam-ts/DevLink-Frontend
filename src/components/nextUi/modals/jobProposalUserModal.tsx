@@ -62,7 +62,7 @@ export default function App({clientId, userId, jobPostId}: any) {
       <div className="flex flex-wrap gap-3">
         <Sonner />
  
-          <Button className='bg-black text-white' key={size} onPress={() => handleOpen(size)}>
+          <Button className='bg-black text-white rounded-md' key={size} onPress={() => handleOpen(size)}>
             Apply
           </Button>
       

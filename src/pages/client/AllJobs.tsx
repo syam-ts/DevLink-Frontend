@@ -79,7 +79,11 @@ const JobsRender = ({ clientId , type}: any) => {
                             <div className="flex items-center justify-between">
                               <h3 className="text-lg leading-6 font-medium text-gray-900">{job[1]?.description}</h3>
                               <p className="mt-1 max-w-2xl text-sm text-gray-500">{job[1]?.status}</p>
-                              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.paymentType}</a>
+                             <div>
+                              <p className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.paymentType}</p>
+                              <p className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.amount}</p>
+                              <p className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.estimateTimeinHours}</p>
+                             </div>
                             </div>
                             <div className="mt-2 grid items-center justify-between">
                               <p className="text-sm font-medium text-gray-500">{job[1]?.title}</p>
