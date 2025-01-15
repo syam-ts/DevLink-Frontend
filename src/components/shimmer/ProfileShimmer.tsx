@@ -13,13 +13,13 @@ export const ProfileShimmer = () => {
                     <div className="py-6">
                         <div className="h-12 mx-auto bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500 w-1/4"></div>
                         <div className="my-4">
-                            <div className="h-12 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-full"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-full"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-5/6"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-4/6"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-5/6"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-3/6"></div>
-                            <div className="h-7 my-2 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500  w-2/6"></div>
+                            <div className="h-12 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-full"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-full"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-5/6"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-4/6"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-5/6"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-3/6"></div>
+                            <div className="h-7 my-2 bg-gradient-to-t from-gray-500 via-gray-600 to-gray-500  w-2/6"></div>
                         </div>
                     </div>
                     <div className="my-4">

@@ -6,11 +6,12 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
+  useDisclosure
 } from "@nextui-org/react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
+import { useNavigate } from "react-router-dom";
 
 
 export default function App({clientId, userId, jobPostId}: any) {
@@ -18,6 +19,7 @@ export default function App({clientId, userId, jobPostId}: any) {
   const [description, setDescription] =  useState('');
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [size, setSize] = React.useState("md");
+  const navigate = useNavigate()
  
 
   const handleOpen = (size: string) => {
@@ -34,8 +36,11 @@ export default function App({clientId, userId, jobPostId}: any) {
 
         const response = await axios.post(`http://localhost:3000/user/job/createProposal/${clientId}/${userId}/${jobPostId}`, {description});
         
-        if(response.data.success) {
-          window.location.href=`http://localhost:5173/user/jobs`
+        if(response.data.success) { 
+          toast.success(response.data?.message);
+     // Closing modal & redirecting to same page
+          onClose();
+          navigate('/user/jobs', { replace: true }) 
         } else {
           toast.warning(response.data?.message, {
             style: {

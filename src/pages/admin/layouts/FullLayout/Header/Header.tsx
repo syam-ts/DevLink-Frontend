@@ -34,8 +34,7 @@ const Header = (props: any) => {
     setAnchorEl4(null);
   };
 
-  const logout = async () => {
- console.log('hit logout')
+  const logout = async () => { 
     const response = await axios.post('http://localhost:3000/admin/logout',{}, {
       withCredentials: true
     });

@@ -5,7 +5,9 @@ type Menu = {
   title: string,
   icon: any,
   href: string
-}
+};
+
+ 
 
 const Menuitems: Menu[] = [
   {
