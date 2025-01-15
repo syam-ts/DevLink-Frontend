@@ -2,8 +2,7 @@ import {Popover, PopoverTrigger, PopoverContent, Button, Input} from "@nextui-or
 import axios from "axios";
 
 export default function App({userId}: any) {
-  
-    console.log('THE USER ID FROM POPOVER: ', userId)
+   
 
     const boostAccount= async () => {
         try{
@@ -13,7 +12,9 @@ export default function App({userId}: any) {
         }catch(err: any) {
             console.error('ERROR: ', err.message);
         }
-    }
+    };
+
+
 
   const content = (
     <PopoverContent className="w-[440px] bg-white">
