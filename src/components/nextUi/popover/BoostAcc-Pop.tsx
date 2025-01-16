@@ -17,9 +17,9 @@ export default function App({userId}: any) {
 
 
   const content = (
-    <PopoverContent className="w-[440px] bg-white">
+    <PopoverContent className="w-[440px] ">
       {(titleProps) => (
-        <div className="px-1 py-2 w-full">
+        <div className="px-1 w-full">
           <p className="text-small font-bold text-foreground" {...titleProps}>
             Boost Account
           </p>
@@ -48,12 +48,12 @@ export default function App({userId}: any) {
   );
 
   return (
-    <div className='bg-white'>
+    <div className=' '>
        
         <Popover showArrow backdrop={"blur"} offset={10} placement="bottom">
           <PopoverTrigger>
-            <Button className="capitalize bg-white" color="warning" variant="flat">
-               <span className='font-bold'>Boost</span>
+            <Button className="capitalize  bg-[#334155]" color="warning" variant="flat">
+               <span className='font-bold text-white'>Boost</span>
             </Button>
           </PopoverTrigger>
           {content}

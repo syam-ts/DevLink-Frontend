@@ -5,11 +5,12 @@ export const ProfileShimmer = () => {
 
     return (
         <div>
-            <div className="animate-pulse max-w-full "> 
+            <div className="animate-pulse max-w-[1300px] mx-auto"> 
                 <div className="py-1 px-6">
                     <div className="flex items-center justify-center space-x-2">
-                        <div className="w-64 h-48 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500 rounded-full"></div>
+                        <div className="w-full h-48 bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500 "></div>
                     </div>
+                        <div className="w-44 h-20 mx-5 bg-gradient-to-t rounded-b-md from-gray-700 via-gray-600 to-gray-500 "></div>
                     <div className="py-6">
                         <div className="h-12 mx-auto bg-gradient-to-t from-gray-700 via-gray-600 to-gray-500 w-1/4"></div>
                         <div className="my-4">
