@@ -2,10 +2,10 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'; 
-import Modal from '../../../../../components/nextUi/modals/editProfileUserModal'
-import apiInstance from '../../../../../api/axiosInstance'
-import BoostPopover from '../../../../../components/nextUi/popover/BoostAcc-Pop';
-import { ProfileShimmer } from '../../../../../components/shimmer/ProfileShimmer'
+import Modal from '../../components/nextUi/modals/editProfileUserModal'
+import apiInstance from '../../api/axiosInstance'
+import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
+import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
  
 
 const Profile = () => {

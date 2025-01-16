@@ -8,7 +8,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));
 /****End Layouts*****/
 
 /*****Profile******/
-const Profile = lazy(() => import("../views/profilePage/Profile.js"));
+const Profile = lazy(() => import("../../Profile.js"));
 
 
 /*****wallet******/

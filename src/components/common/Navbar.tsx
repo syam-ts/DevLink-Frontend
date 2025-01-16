@@ -20,6 +20,8 @@ import {
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
+
+  const dispatch = useDispatch()
  
 
   const logout = async () => {
@@ -32,11 +34,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
     if(roleType === 'user') {
 
       localStorage.removeItem('accessTokenU')
+
       // localStorage.removeItem('refreshToken');
   
       window.location.href = '/user/login'
     } else if(roleType === 'client') { 
-      localStorage.removeItem('accessTokenC')
+      localStorage.removeItem('accessTokenC');
+      dispatch(signOutUser())
       // localStorage.removeItem('refreshToken');
   
       window.location.href = '/client/login'
@@ -115,11 +119,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               <span className="comfortaa-regular text-lg"> {roleInfo.name} </span>
             </div>
           )}
+ 
 
 
-
-<div className="flex items-center gap-4">
-      <Dropdown placement="bottom-end">
+<div>
+      <Dropdown placement="bottom-end" className='rounded-none mx-12 h-96 text-center '>
         <DropdownTrigger>
           {
             roleInfo.profilePicture ? (
@@ -140,33 +144,50 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           
           
         </DropdownTrigger>
-        <DropdownMenu aria-label="Profile Actions" variant="flat">
+        <DropdownMenu aria-label="Profile Actions" variant="flat" className=''>
           <DropdownItem key="profile">
-            <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/profile/profile`}>
+            <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/profile/view`}>
             Profile
             </Link>
           </DropdownItem>
+     
           <DropdownItem key="proposals">
-          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/job/proposals`}>
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/job/proposals`}>
             Proposals
           </Link>
           </DropdownItem>
           <DropdownItem key="home">
-          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
              Contracts
           </Link>
           </DropdownItem>  
-          <DropdownItem key="team_settings">
-            Chat
-          </DropdownItem>
+          
+          <DropdownItem key="contracts">
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
+             Requests
+          </Link>
+          </DropdownItem>  
+          
+
+           
           <DropdownItem key="home">
-          <Link className='no-underline text-black comfortaa-regular text-medium' to={`/${roleType}/home`}>
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/home`}>
+             Chat
+          </Link>
+          </DropdownItem>  
+
+           
+          <DropdownItem key="home">
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/home`}>
              Home
           </Link>
           </DropdownItem>  
-          <DropdownItem key="logout" onClick={logout} color="danger">
-            Log Out
-          </DropdownItem>
+          <DropdownItem  key="logout" onClick={logout} color="danger">
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/home`}>
+             Logout
+          </Link>
+          </DropdownItem>  
+     
         </DropdownMenu>
       </Dropdown>
       

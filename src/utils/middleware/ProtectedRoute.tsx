@@ -6,16 +6,21 @@ import { useEffect, useState } from 'react';
 
 
 export const UserProctedRoute = () => { 
-  const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
+  const isUserAuth = useSelector((state: any) => state?.user?.isUser);
+  const user = useSelector((state: any) => state?.user?.isUser)
+  console.log('THE USER : ', user)
      
-  return isClientAuth === undefined ? <Outlet /> : <Navigate to="/user/login" />;
+  return isUserAuth !== undefined ? <Outlet /> : <Navigate to="/user/login" />;
 };
+
+
 
 export const ClientProctedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
      
     return isClientAuth === undefined ? <Outlet /> : <Navigate to="/client/login" />;
 };
+
 
  
 

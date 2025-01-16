@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
-import Index from '../pages/user/profile/index';
+import Profile from '../pages/user/ProfileUserTest';
 import Contract from '../components/common/Contract-test';
 import Chat from '../pages/user/Chat';
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success'
@@ -19,6 +19,7 @@ import BoostPaymentSuccess from '../pages/user/BoostAcc-Success'
 
 import AllContracts from '../pages/user/AllContracts';
 import Notifications from '../pages/user/Notification'
+ 
 
 
 
@@ -55,7 +56,7 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} />
                 <Route path='/chat' element={<Chat />} />
                 <Route path='/jobs/' element={<JobPage />} />
-                <Route path='/profile/*' element={<Index />} />
+                <Route path='/profile/view' element={<Profile />} />
                 <Route path='/all-contracts/:userId' element={<AllContracts />} />
                 <Route path='/contract/:contractId' element={<Contract />} />
                 <Route path='/notifications/:userId' element={<Notifications />} />

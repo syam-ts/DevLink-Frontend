@@ -14,7 +14,7 @@ const LoginClient = () => {
   const dispatch = useDispatch();
   const currentClient = useSelector((store: any) => store.client.isClient);
 
-  console.log("Client page")
+ 
  
     const message = useLocation();
   const navigate = useNavigate(); 
@@ -68,7 +68,7 @@ const LoginClient = () => {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
         const { accessToken } = response.data?.data?.client;
- 
+         
         localStorage.setItem('accessTokenC', accessToken);
         dispatch(signInClient(response.data?.data?.client?.client?.client))
         navigate('/client/home', { state: { message: response.data.message } });
