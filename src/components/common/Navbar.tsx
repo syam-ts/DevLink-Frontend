@@ -123,7 +123,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
 
 <div>
-      <Dropdown placement="bottom-end" className='rounded-none mx-12 h-96 text-center '>
+      <Dropdown placement="bottom-end" className='rounded-none w-full h-full text-center '>
         <DropdownTrigger>
           {
             roleInfo.profilePicture ? (

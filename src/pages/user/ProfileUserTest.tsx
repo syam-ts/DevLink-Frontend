@@ -59,8 +59,8 @@ const ProfileUser = () => {
                                         <section>
                                             <div className="text-white d-flex flex-row " style={{ backgroundColor: '#334155', height: '250px' }}>
                                                 <div className="ms-4 mt-40 d-flex flex-column" style={{ width: '150px' }}>
-                                                    <img src={user?.profilePicture}
-                                                        alt="Generic placeholder image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
+                                                    <img src={user?.profilePicture}  
+                                                        alt="user-image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
                                                 </div>
                                                 <div className="ms-3 my-auto flex w-full justify-between" >
                                                     <div>
@@ -111,8 +111,12 @@ const ProfileUser = () => {
                                             </div>
                                         </section>
                                         <section>
-                                            <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
+                                            <div className="p-4 text-black comfortaa-regular text-sm" style={{ backgroundColor: '#f8f9fa' }}>
                                                 <div className="d-flex justify-content-end text-center py-1">
+                                                    <div>
+                                                        <MDBCardText className="mb-1 px-4 h5">{user?.budget}₹</MDBCardText>
+                                                        <MDBCardText className="small text-muted mb-0">/hr</MDBCardText>
+                                                    </div>
                                                     <div>
                                                         <MDBCardText className="mb-1 h5">253</MDBCardText>
                                                         <MDBCardText className="small text-muted mb-0">Total Jobs</MDBCardText>
@@ -124,7 +128,7 @@ const ProfileUser = () => {
                                                 </div>
                                             </div>
                                         </section>
-                                        <MDBCardBody className="text-black p-4">
+                                        <MDBCardBody className="text-black p-4 comfortaa-regular">
 
                                             {/* About section */}
                                             <section>
