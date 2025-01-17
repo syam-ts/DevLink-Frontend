@@ -25,7 +25,7 @@ const ProfileUser = () => {
         description: "",
         whyHireMe: "",
         experience: "",
-      education: "",
+        education: "",
     });
  
 
@@ -105,11 +105,11 @@ const ProfileUser = () => {
         unchangedData: userData
       }
       console.log('THE FORM DATA  :', data)
-      const response = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/edit/${userId}`,formData);
+      const response = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/edit/${userId}`,data);
 
-    //   if (response.data.type === "success") {
-    //     window.location.href = 'http://localhost:5173/user/profile/profile'
-    //   }
+      if (response.data.type === "success") {
+        window.location.href = 'http://localhost:5173/user/profile/view'
+      }
     } catch (err: any) { 
       toast.error(err.message);
     }
@@ -350,7 +350,7 @@ const ProfileUser = () => {
               <label className='text-xs text-gray-500'>Experience</label>
 
                 <textarea
-                  // onChange={handleChange}
+                    onChange={handleChange}
                   className="w-full py-2 text-xs px-3"
                   placeholder="2+ years years of experience in cloud engineering"
                   name="experience"
@@ -362,7 +362,7 @@ const ProfileUser = () => {
                     <input
                         value={inputValue}
                          onChange={handleChangeEducation}
-                      className="w-auto p-3 text-sm border border-gray-300 rounded"
+                      className="w-2/3 p-3 text-sm border border-gray-300 rounded"
                       placeholder="Add a Education"
                       name="education"
                       type="text"
@@ -377,7 +377,7 @@ const ProfileUser = () => {
                   {/* <hr className="my-3" /> */}
                   <div>
                     {education.map((education: any, index: any) => (
-                  <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
+                  <div key={index} className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2">
                     <span className="text-sm">{education}</span>
                     <button
                        onClick={() => handleRemoveEducation(education)}

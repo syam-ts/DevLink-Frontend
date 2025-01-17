@@ -32,7 +32,7 @@ const ProfileUser = () => {
 
                 console.log('The response ', response.data?.data)
 
-                setUser(response.data.data?.user);
+                  setUser(response.data.data);
             } catch (err: any) {
                 if (err.response.data.message == 'No token provided') {
                     navigate('/user/login')
@@ -42,6 +42,7 @@ const ProfileUser = () => {
 
         getUserData();
     }, []);
+    console.log('THE USE : ', Object.entries(user).length)
 
 
 
@@ -57,7 +58,7 @@ const ProfileUser = () => {
                                 <MDBCol  >
                                     <MDBCard>
                                         <section>
-                                            <div className="text-white d-flex flex-row " style={{ backgroundColor: '#334155', height: '250px' }}>
+                                            <div className="text-white d-flex flex-row " style={{ backgroundColor: '#8c919f', height: '250px' }}>
                                                 <div className="ms-4 mt-40 d-flex flex-column" style={{ width: '150px' }}>
                                                     <img src={user?.profilePicture}  
                                                         alt="user-image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
@@ -74,7 +75,7 @@ const ProfileUser = () => {
                                                                             <img className='h-4 w-4' src='https://cdn-icons-png.freepik.com/256/13950/13950107.png?semt=ais_hybrid' />
                                                                         </span>
                                                                     ) : (
-                                                                        <span className=' cursor-pointer bg-[#334155]'>
+                                                                        <span className=' cursor-pointer bg-transparent'>
                                                                             <BoostPopover userId={user?._id} />
                                                                         </span>
                                                                     )
@@ -135,8 +136,8 @@ const ProfileUser = () => {
                                                 <div className="mb-5">
                                                     <p className="lead fw-normal mb-1">About</p>
                                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                                                        <MDBCardText className="font-italic mb-1 text-center text-lg"> Domain: Full Stack web developer </MDBCardText>
-                                                        <MDBCardText className="font-italic mb-0">
+                                                        <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4"> Full Stack web developer </MDBCardText>
+                                                        <MDBCardText className="font-italic mb-0 p-3">
                                                             More on descriptoin :::  {user?.description}
                                                         </MDBCardText>
 
@@ -150,30 +151,38 @@ const ProfileUser = () => {
                                                     <p className="lead fw-normal mb-1">Why Hire Me</p>
                                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                                                         <MDBCardText className="font-italic mb-1">
-                                                            <div className='grid'>
-                                                                <ul>
-                                                                    <li> * 100% Job Success rate </li>
-                                                                    <li> * Diverse Portfolio: E-commerce, Business Websites, Custom Solutions, Scalable APIs - I've done it all .</li>
-                                                                    <li> * 90+ Clients Across Various Platforms </li>
-                                                                    <li> * 4+ years of experience </li>
-                                                                </ul>
+                                                            <div className='grid p-3 py-4'>
+                                                                <span> {user?.whyHireMe} </span>
                                                             </div>
 
                                                         </MDBCardText>
-                                                        <span className='text-lg'>Skills:</span>
-                                                        <MDBCardText className="font-italic mb-1">
-                                                            React Js, Next Js, Typescript, MUI Components, Ant design Components, React Native, jQuery,
-                                                            Bootstrap, tailwind css, HTML5/CSS3, UI/UX, Media Queries, Sass, Wordpress , Gsap,
+                                                        <span className='text-xl'>Skills:</span>
+                                                        <MDBCardText className="font-italic mb-1 py-3 p-3"> 
+                                                           <ul>
+                                                            {
+                                                                user?.skills.map((skill: any) => (
+
+                                                                    <li className='list-disc '> {skill}</li>
+                                                                ))
+                                                            }
+                                                           </ul>
                                                         </MDBCardText>
 
-                                                        <MDBCardText className="font-italic mb-1 py-3">
-                                                            Experince: 2+ year expeorience
-                                                            Expoerince descripton: experient in * mobile dev and * web and *gaming
+                                                            <span className='text-xl'>Experience:</span> 
+                                                        <MDBCardText className="font-italic mb-1 py-3 p-3">
+                                                            <div className='py-3 p-3'>
+                                                            {user?.experience}
+                                                            </div>
                                                         </MDBCardText>
 
-                                                        <MDBCardText className="font-italic mb-1">
-                                                            Education:  IIT mumbai
-                                                            experient in * mobile dev and * web and *gaming
+                                                        <span className='text-xl'>Education:</span>
+                                                        <MDBCardText className="font-italic mb-1 p-3 px-4">
+                                                              {
+                                                                user?.education.map((ed: any) => (
+
+                                                                    <li className='list-disc'> {ed}</li>
+                                                                ))
+                                                            }
                                                         </MDBCardText>
 
                                                     </div>

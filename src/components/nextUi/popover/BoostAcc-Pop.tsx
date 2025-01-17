@@ -52,7 +52,7 @@ export default function App({userId}: any) {
        
         <Popover showArrow backdrop={"blur"} offset={10} placement="bottom">
           <PopoverTrigger>
-            <Button className="capitalize  bg-[#334155]" color="warning" variant="flat">
+            <Button className="capitalize  bg-transparent" color="warning" variant="flat">
                <span className='font-bold text-white'>Boost</span>
             </Button>
           </PopoverTrigger>
