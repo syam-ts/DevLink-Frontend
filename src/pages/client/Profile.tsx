@@ -2,8 +2,8 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'; 
-import EditModal from '../../../../../components/nextUi/modals/editProfileClientModal'
-import apiInstance from '../../../../../api/axiosInstance'
+import EditModal from '../../components/nextUi/modals/editProfileClientModal'
+import apiInstance from '../../api/axiosInstance'
 
 
 const Profile = () => {
@@ -54,10 +54,26 @@ useEffect(() => {
  
 
    return ( 
- 
-    <main className="profile-pag py-60">
-    
+     <>
 
+      {
+        !isVerified ? (
+          <div className='text-center p-44'>
+             <span className='text-2xl'>
+               You need To verify
+             </span>
+             <div className="w-full mx-auto py-10">
+                <div className="py-6 px-3 mt-32 sm:mt-0">
+                  <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
+                      <EditModal clientId={clientId?._id} type={'verification'} />
+                  </button>
+                </div>
+              </div>
+         
+          </div>
+        ) : (
+<main className="profile-pag py-60">
+     
      <div> 
         <section className="relative block h-500-px">
         <div className="absolute top-0 w-full h-full bg-center bg-cover"
@@ -78,8 +94,7 @@ useEffect(() => {
                 <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
             
                 </div>
-            {
-              isVerified ? (
+           
                 <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                 <div className="py-6 px-3 mt-32 sm:mt-0">
                   <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
@@ -87,16 +102,8 @@ useEffect(() => {
                   </button>
                 </div>
               </div>
-              ) : (
-                <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                <div className="py-6 px-3 mt-32 sm:mt-0">
-                  <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                      <EditModal clientId={clientId?._id} type={'verification'} />
-                  </button>
-                </div>
-              </div>
-              )
-            }
+           
+   
                
               </div>
      
@@ -137,7 +144,7 @@ useEffect(() => {
                 </div>
            
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400">Total Employees - {client?.totalEmployees}</i>
+                  <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400">Total Employees - {client?.numberOfEmployees}</i>
                    
                 </div>
            
@@ -168,6 +175,10 @@ useEffect(() => {
     </div>
       
     </main>
+        )
+      }
+    
+    </>
   );
 };
 

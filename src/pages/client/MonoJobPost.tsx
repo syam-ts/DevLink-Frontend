@@ -122,6 +122,9 @@ function MonoJobPost() {
                 <span>Cloud Based System</span>
                 <span>Large Company(2000 people)</span>
               </div>
+              <div className='pt-4'>
+                <span className='text-sm'>Nutreinous Inc.</span>
+              </div>
             </section>
 
       {/* Similar Jobs */}

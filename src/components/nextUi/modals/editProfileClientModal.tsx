@@ -21,7 +21,7 @@ export default function App({ clientId, type }: any) {
     companyName: "",
     location: "",
     description: "",
-    totalEmployees: "",
+    numberOfEmployees: "",
     since: ""
   });
 
@@ -107,25 +107,24 @@ export default function App({ clientId, type }: any) {
               {/* <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader> */}
               <ModalBody>
               <div>  
-                  <div className="min-h-full w-full flex items-center justify-center">
-                  <div className="container max-w-screen-lg mx-auto">
+                  <div className="min-h-full w-full ">
+                  <div className="container">
                       <div>
                       <h2 className="font-semibold text-xl text-gray-600">Your Profile</h2>
                       <p className="text-gray-500 text-xs mb-6">Edit all here.</p>
 
-                      <div className="bg-white  p-4 px-4 md:p-8 mb-6">
+                      <div className="p-4 px-4 md:p-8 mb-6 ">
                           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                 
 
-                          <div className="lg:col-span-2">
+                          <div className="lg:col-span-3 px-4">
                               <div className="grid gap-4 gap-y-1 text-sm grid-cols-1 md:grid-cols-5">
                      
                           <div className="md:col-span-full w-full">
                                   <label>Company Name</label>
                                   <input  onChange={handleChange} id="companyName"  className="h-8 border mt-1  px-4 w-full "  />
                               </div>
-
-                     
+ 
 
                               <div className="md:col-span-5">
                                   <label>Description</label>
@@ -134,16 +133,16 @@ export default function App({ clientId, type }: any) {
 
                               <div className="md:col-span-5">
                                   <label>Location</label>
-                                  <input  onChange={handleChange} id="location"  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="location" type='text'  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
                               </div>
                               <div className="md:col-span-5">
                                   <label>Since</label>
-                                  <input  onChange={handleChange} id="since"  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="since" type='number' className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
                               </div>
 
                               <div className="md:col-span-5">
                                   <label>Total Employees</label>
-                                  <input  onChange={handleChange} id="totalEmployees"  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="numberOfEmployees"  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
                               </div>
 
 

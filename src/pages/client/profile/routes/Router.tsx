@@ -9,7 +9,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));
 /****End Layouts*****/
 
 /*****Profile******/
-const Profile = lazy(() => import("../views/profilePage/Profile.js"));
+const Profile = lazy(() => import("../../Profile.js"));
 
 
 /*****wallet******/
@@ -34,7 +34,7 @@ const ThemeRoutes = [
     ),
     children: [
       { path: "/", element: <Navigate to="/client/profile" /> },
-      { path: "/profile",  element: (
+      { path: "/view",  element: (
         <Suspense fallback={<div>Loading...</div>}>
           <Profile />
         </Suspense>

@@ -15,7 +15,8 @@ import PaymentFailed from '../pages/client/FailedPayment';
 import UserProfile from '../pages/client/UserViewProfile';
 import JobPropsals from '../pages/client/JobProposal';
 import TestingTables from '../pages/client/TestingTabs';
-import MonoJobPage from '../pages/client/MonoJobPost'
+import MonoJobPage from '../pages/client/MonoJobPost';
+import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -49,7 +50,7 @@ const ClientRoute = () => {
                 <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} />
-                <Route path='/profile/*' element={<Index />} />
+                <Route path='/profile/view' element={<Profile />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />

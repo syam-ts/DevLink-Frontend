@@ -15,9 +15,11 @@ const DraftJobPost = () => {
     keyResponsiblities: "",
     requiredSkills: "",
     paymentType: "",
-    description: "",
     payment: "",
+    projectType: "",
+    description: "",
     estimateTime: "",
+    location: "",
   });
 
   const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
@@ -47,7 +49,7 @@ const DraftJobPost = () => {
 
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData: any) => ({
       ...prevData,
@@ -96,6 +98,7 @@ const DraftJobPost = () => {
   };
 
   return (
+
     <div className='flex justify-center py-32 gap-44'>
       <Sonner />
       <section>
@@ -125,13 +128,14 @@ const DraftJobPost = () => {
 
 
       <section>
-        <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[800px] lg:col-span-3 lg:p-12">
+        <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[900px] lg:col-span-3 lg:p-12">
           <form className="space-y-8">
             <div>
+            <label className='text-gray-500'>Title</label>
               <input
                 onChange={handleChange}
-                className="w-full p-3 text-sm"
-                placeholder="Title"
+                className="w-full px-4 pt-3  text-sm"
+                placeholder="Cloud Engineer for ongoing large scale project"
                 name="title"
                 type="text"
               />
@@ -140,10 +144,11 @@ const DraftJobPost = () => {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
+              <label className='text-gray-500'>Key Responsiblities</label>
                 <input
                   onChange={handleChange}
-                  className="w-full p-3 text-sm"
-                  placeholder="Key Responsibilities"
+                  className="w-full px-4 pt-3 text-sm"
+                  placeholder="Freelancer need to know amazone web service, digital ocean and firebase"
                   name="keyResponsiblities"
                   type="text"
                 />
@@ -182,8 +187,10 @@ const DraftJobPost = () => {
             </div>
          
 
-        <div className="flex items-center gap-5 mb-4">
-          <label>
+        <div className="grid items-center gap-3 mb-4">
+            <label className='text-gray-500'>Payment Type</label>
+         <div className='flex gap-5'>
+         <label>
             <input
               onChange={handleChange}
               type="radio"
@@ -203,13 +210,17 @@ const DraftJobPost = () => {
             />
             Fixed
           </label>
+         </div>
         </div>
 
+
+        <div className='flex gap-44'>
         <div>
+        <label className='text-gray-500'>Amount Pay for this job</label>
           <input
             onChange={handleChange}
-            className="w-full p-3 text-sm"
-            placeholder="Amount Pay For This Job"
+            className="w-full px-4 pt-3  text-sm"
+            placeholder="250rs"
             name="payment"
             type="number"
           />
@@ -217,25 +228,66 @@ const DraftJobPost = () => {
         </div>
 
         <div>
+        <label className='text-gray-500'>Project Type</label> 
+        <div>
+          <select name="projectType" className='w-full py-2' onChange={handleChange}>
+            <option value="ongoing project">Ongoing Project</option>
+            <option value="project updation">Project Updation</option> 
+          </select>
+        </div> 
+          <hr />
+        </div>
+
+        </div>
+
+        <div>
+        <label className='text-gray-500'>Expertize Level</label> 
+        <div>
+          <select name="expertLevel" className=' py-2' onChange={handleChange}>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option> 
+            <option value="advanced">Advanced</option> 
+          </select>
+        </div>
+        </div> 
+          <hr className='w-1/3' />
+
+        <div>
+        <label className='text-gray-500'>Description</label>
           <textarea
             onChange={handleChange}
-            className="w-full p-3 text-sm"
-            placeholder="Description"
+            className="w-full px-4 pt-3  text-sm"
+            placeholder="Cloud engineer urgent requirement with experties of more than 3 years....."
             name="description"
           />
           <hr />
         </div>
-
+        <div className='flex gap-16'>
         <div>
+        <label className='text-gray-500'>Estimate Time</label>
           <input
             onChange={handleChange}
-            className="w-full p-3 text-sm"
-            placeholder="Estimate Time (in Hours)"
+            className="w-full px-4 pt-3  text-sm"
+            placeholder="16/hr"
             name="estimateTime"
             type="number"
           />
           <hr />
         </div>
+
+        <div>
+        <label className='text-gray-500'>Location</label>
+          <input
+            onChange={handleChange}
+            className="w-full px-4 pt-3 text-sm"
+            placeholder="Gurgaon"
+            name="location"
+            type="string"
+          />
+          <hr />
+        </div>
+        </div>
+
 
         <div className="mt-4">
           <button
