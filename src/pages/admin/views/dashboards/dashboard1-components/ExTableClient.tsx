@@ -97,11 +97,16 @@ const ExTable = () => {
               Total Jobs
             </Typography>
           </TableCell>
+          <TableCell align="right">
+            <Typography color="textSecondary" variant="h6">
+              Total Hours
+            </Typography>
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {client.map((cl: any) => (
-          <TableRow key={cl?.name}>
+          <TableRow key={cl?.companyName}>
 
             <TableCell>
               <Box
@@ -117,7 +122,7 @@ const ExTable = () => {
                       fontWeight: "600",
                     }}
                   >
-                    {cl?.name}
+                    {cl?.companyName}
                   </Typography>
                 </Box>
               </Box>
@@ -155,7 +160,11 @@ const ExTable = () => {
             </TableCell>
 
             <TableCell align="right">
-              <Typography variant="h6">{100}</Typography>
+              <Typography variant="h6">{cl?.totalSpend}</Typography>
+            </TableCell>
+
+            <TableCell align="right">
+              <Typography variant="h6">{cl?.totalHours}</Typography>
             </TableCell>
           </TableRow>
         ))}

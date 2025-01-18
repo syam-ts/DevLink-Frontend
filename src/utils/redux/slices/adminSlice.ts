@@ -76,9 +76,11 @@ const adminSlice = createSlice({
              fountClient.isBlocked = false
             }
         },
-        deleteDatas: (state: any, action: any)=> {
-            console.log('entered')
+        deleteDatasUser: (state: any, action: any)=> { 
                 state.user = []
+        }, 
+        deleteDatasClient: (state: any, action: any)=> { 
+                state.client = []
         } 
 
     }
@@ -86,4 +88,4 @@ const adminSlice = createSlice({
 
 
 export default adminSlice.reducer;
-export const { signInAdmin, signOutAdmin, addRequest, pullRequest,setUser,setClient, blockUser, blockClient, unBlockUser, unBlockClient, deleteDatas} = adminSlice.actions;
+export const { signInAdmin, signOutAdmin, addRequest, pullRequest,setUser,setClient, blockUser, blockClient, unBlockUser, unBlockClient, deleteDatasUser, deleteDatasClient} = adminSlice.actions;

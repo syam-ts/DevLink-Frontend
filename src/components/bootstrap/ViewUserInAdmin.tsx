@@ -14,7 +14,7 @@ function ViewRoleInAdmin({roleId, roleInfo}: any) {
   useEffect(() => {
     (async()=> {
       const response = await axios.get(`http://localhost:3000/admin/viewRole/${roleId}/${roleInfo}`)
-      console.log('THE USER ', response.data?.data?.roleInformation)
+      
       setUser(response.data?.data?.roleInformation)
     })();
   }, [])
