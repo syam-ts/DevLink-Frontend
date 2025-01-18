@@ -59,9 +59,15 @@ useEffect(() => {
       {
         !isVerified ? (
           <div className='text-center p-44'>
-             <span className='text-2xl'>
-               You need To verify
+            <div className='grid text-lg comfortaa-regular'>
+              <span>{client?.companyName}</span>
+              <span>{client?.email}</span>
+            </div>
+           <div className='pt-5'>
+             <span className='text-2xl comfortaa-regular'>
+               Your Account is not Verified
              </span>
+           </div>
              <div className="w-full mx-auto py-10">
                 <div className="py-6 px-3 mt-32 sm:mt-0">
                   <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">

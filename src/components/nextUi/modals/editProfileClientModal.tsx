@@ -107,11 +107,10 @@ export default function App({ clientId, type }: any) {
               {/* <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader> */}
               <ModalBody>
               <div>  
-                  <div className="min-h-full w-full ">
+                  <div className="h-full py-12 w-full comfortaa-regular">
                   <div className="container">
-                      <div>
-                      <h2 className="font-semibold text-xl text-gray-600">Your Profile</h2>
-                      <p className="text-gray-500 text-xs mb-6">Edit all here.</p>
+                      <div> 
+                      <p className="text-gray-500 text-xs mb-6">* Edit the data and wait for admin approval.</p>
 
                       <div className="p-4 px-4 md:p-8 mb-6 ">
                           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
@@ -122,33 +121,38 @@ export default function App({ clientId, type }: any) {
                      
                           <div className="md:col-span-full w-full">
                                   <label>Company Name</label>
-                                  <input  onChange={handleChange} id="companyName"  className="h-8 border mt-1  px-4 w-full "  />
+                                  <input  onChange={handleChange} id="companyName"  className="h-8 border-1 border-gray-400 mt-1  px-4 w-full rounded-lg" placeholder='xyccompany'  />
                               </div>
  
 
                               <div className="md:col-span-5">
                                   <label>Description</label>
-                                  <input  onChange={handleChange} id="description" className="h-44 border mt-1  px-4 w-full " placeholder={clientData?.description} />
+                                  <input  onChange={handleChange} id="description" className="rounded-lg h-44 border-1 border-gray-400 mt-1  px-4 w-full " placeholder='Software developing company working over an decade listed on indias top 10 revenued comapny at 2015' />
                               </div>
 
                               <div className="md:col-span-5">
                                   <label>Location</label>
-                                  <input  onChange={handleChange} id="location" type='text'  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="location" type='text'  className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full " placeholder="Bangalore" />
+                              </div>
+
+                              <div className="md:col-span-5">
+                                  <label>Domain</label>
+                                  <input  onChange={handleChange} id="domain" type='text'  className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full " placeholder="Full Stack" />
                               </div>
                               <div className="md:col-span-5">
                                   <label>Since</label>
-                                  <input  onChange={handleChange} id="since" type='number' className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="since" type='number' className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full " placeholder="2001" />
                               </div>
 
                               <div className="md:col-span-5">
                                   <label>Total Employees</label>
-                                  <input  onChange={handleChange} id="numberOfEmployees"  className="h-8 border mt-1  px-4 w-full " placeholder="change location" />
+                                  <input  onChange={handleChange} id="numberOfEmployees"  className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full " placeholder="140" />
                               </div>
 
 
                               <div className="md:col-span-5 text-right">
                                   <div className="inline-flex items-end">
-                                  <button onClick={sumbmitForm} className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 "> Submit </button>
+                                  <button onClick={sumbmitForm} className="bg-black rounded-lg hover:bg-blue-500 text-white font-bold py-2 px-4 "> Submit </button>
                                   </div>
                               </div>
 

@@ -13,7 +13,7 @@ const SignupClient = () => {
   const navigate: any = useNavigate();
   let message: string = '';
   const [formData, setFormData] = useState({
-    name: "",
+    companyName: "",
     password: "",
     email: "" 
   });
@@ -84,9 +84,9 @@ const SignupClient = () => {
           </div>
 
           <div>                   
-            <label className="text-gray-800 text-sm block mb-2">name</label>
+            <label className="text-gray-800 text-sm block mb-2">Company Name</label>
             <div className="relative flex items-center">
-              <input onChange={ handleChange } name="name" type="text" required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter name" />
+              <input onChange={ handleChange } name="companyName" type="text" required className="w-full border border-1 text-sm text-gray-800 border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Apple.inc" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -102,7 +102,7 @@ const SignupClient = () => {
             
             <label className="text-gray-800 text-sm block mb-2">Email</label>
             <div className="relative flex items-center">
-              <input name="email" type="text" onChange={handleChange} required className="w-full text-sm text-gray-800 border border-1  border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter email" />
+              <input name="email" type="text" onChange={handleChange} required className="w-full text-sm text-gray-800 border border-1  border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="appleglobal64@gmail.com" />
               <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" className="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
                 <defs>
                   <clipPath id="a" clipPathUnits="userSpaceOnUse">
