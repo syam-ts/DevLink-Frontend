@@ -11,23 +11,7 @@ const Table = () => {
 
   const dispatch = useDispatch();  
   
-  useEffect(() => {
-    (async() => {
-      try{ 
-        const { data } = await axios.get('http://localhost:3000/admin/getAllClients' ,{
-          withCredentials: true
-        }); 
-           for(let i =0; i< 100; i++) {
-                     if (data?.data[i]) { 
-                        dispatch(setClient(data?.data[i]))
-                      } 
-                      }}catch(err: any) {
-        toast.error(err.message, {
-          style: {
-            backgroundColor: 'red',color: 'white'
-          }})}
-      })()
-  }, []);
+ 
   
   
   //cleaning client slice
