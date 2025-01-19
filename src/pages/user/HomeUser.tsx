@@ -70,13 +70,13 @@ const HomeUser = () => {
 
 
   return (
-    <>
+    <div className='arsenal-sc-regular'>
 
      
         <Sonner />
       
       <section>
-        <div className="">
+        <div className="arsenal-sc-regular">
 
           <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
             <a href="#">
@@ -121,7 +121,7 @@ const HomeUser = () => {
       </section>
 
       <section className='text-center my-12'>
-        <span className='font-sans text-3xl'>Top Clients</span>
+        <span className='arsenal-sc-regular text-3xl'>Top Clients</span>
         <hr className='border-gray-700 mt-12 w-2/4 mx-auto' />
       </section>
 
@@ -132,22 +132,22 @@ const HomeUser = () => {
           {Object.values(clients).map((client: any, index: number) => (
             <Card key={index} className="col-span-12 sm:col-span-4 h-[200px]">
               <CardHeader className="absolute z-10 top-1 flex-col !items-start"> 
-     
-                 <div> 
-                <span className="absolute bg-white text-black font-bold top-0 right-0 min-h-[24px] min-w-[24px]">
-                  TOP CLIENT
-                </span>
-              <h4 className="text-black font-medium text-lg py-4">{client.companyName}</h4>
-              </div>
               </CardHeader> 
-                
- 
+                <img src='https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY=' />
+             
+           
 
-          
- 
-              <div className="absolute top-7">
-                <span className="font-thin text-white">{client.email || "John Snow"}</span>
+              <div className="absolute top-7 grid">
+                <span className="px-3 text-xl text-white flex">{client.companyName || "xyzcompany"}
+                  <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/12559/12559876.png' alt='verified-icon' />
+                </span>
+              
+                <span className="px-3 text-sm text-white"> {client?.location || "...."}</span>
               </div>
+
+             
+                 
+ 
               
             </Card>
             
@@ -165,7 +165,7 @@ const HomeUser = () => {
                     <h2 className="text-white text-4xl font-bold ">Start as a Freelancer</h2>
                     <span className='text-white'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span>
                     <button className="rounded-md w-52 border border-transparent bg-[#0000ff] py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        <Link to='/user/jobs'>
+                        <Link className='no-underline text-white' to='/user/jobs'>
                           Find Jobs
                         </Link>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-1.5">
@@ -177,12 +177,12 @@ const HomeUser = () => {
         </section>
 
         <section className='text-center my-12 mt-44'>
-        <span className='font-sans text-4xl'>Top Jobs</span>
+        <span className='arsenal-sc-regular text-4xl'>Top Jobs</span>
         
         <hr className='border-gray-400 mt-12 w-2/4 mx-auto' />
        
         <div className='text-end px-96'> 
-        <span className=''>  
+        <span className='arsenal-sc-regular'>  
           <Link to='/user/jobs'>
                 <LinkAttribute text='More Jobs' />
           </Link>
@@ -193,7 +193,7 @@ const HomeUser = () => {
       <section> 
         {
           Object.entries(jobs).map((job: any) => (
-            <div className='w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 bellota-text-bold-italic'>
+            <div className='w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular'>
                <div className='flex justify-between '>
 
 
@@ -251,7 +251,7 @@ const HomeUser = () => {
         }
 
       </section>
-    </>
+    </div>
   );
 };
 

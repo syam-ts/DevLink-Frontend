@@ -57,7 +57,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
  
 
   return (
-    <nav className="bg-white border-1 shadow-md ">
+    <nav className="bg-white border-1 shadow-md arsenal-sc-regular">
       <div className="relative flex h-16 items-center justify-between ">
         <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
           <Link to={`/${roleType}/home`}>
@@ -72,7 +72,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </Link>
           <div className=" sm:ml-6 sm:block pl-16 ">
             <div className="flex space-x-44 ">
-              <p className="rounded-md px-3 py-3 text-sm bellota-text-bold-italic font-thin text-gray-950 hover:text-gray-300">
+              <p className="rounded-md px-3 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/home`}>
                   Home
               </Link>
@@ -118,7 +118,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
           {roleInfo && (
             <div className="mx-4 py-2 font-thin">
-              <span className="comfortaa-regular text-lg"> {roleInfo.name} </span>
+              <span className="arsenal-sc-regular text-lg"> {roleInfo.name} </span>
             </div>
           )}
  
