@@ -81,9 +81,7 @@ const ExTable = () => {
     try{
 
       setIsSearchTriggered(true)
-       const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/search?inputData=${inputData}`);
-
-      
+       const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/search?inputData=${inputData}`);  
        
        if (totalPages[0] !== data?.data?.totalPages) (
         setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
@@ -105,7 +103,7 @@ const ExTable = () => {
       setIsSortTriggered(true);
         const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/sort?sortingType=${sortingType}`);
 
-        console.log('THE OUTPUT FROM SORT : ', data?.data);
+ 
         if (totalPages[0] !== data?.data?.totalPages) (
           setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
          )

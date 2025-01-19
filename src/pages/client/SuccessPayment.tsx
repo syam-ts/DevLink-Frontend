@@ -1,3 +1,4 @@
+import axios from "axios";
 import apiInstance from "../../api/axiosInstance";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom"
@@ -17,7 +18,10 @@ useEffect(() => {
     try{
 
         (async() => {
-            const response = await apiInstance.axiosInstanceClient.post(`http://localhost:3000/client/payment/success/${clientId}/${data}`)
+            console.log('TEH CREADENTIOAL DATA ', finalData)
+            const response = await axios.post(`http://localhost:3000/client/payment/success/${clientId}`,{data: finalData}, {
+                withCredentials: true
+            })
             
             console.log('THRE RESULT FROM FRONTEND : ', response.data);
         })();

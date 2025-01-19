@@ -37,6 +37,13 @@ function MonoJobPost() {
                 </div>
                 <span className='px-4'> Fixed Price </span>
               </div>
+              <div className='text-xs'>
+                <div className='flex gap-3 pb-2'>
+                  <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/5579/5579107.png' alt='price-image' />
+                  <span> ₹300.00 </span>
+                </div>
+                <span className='px-4'> Hourly </span>
+              </div>
 
               <div className='text-xs'>
                 <div className='flex gap-3 pb-2'>
@@ -89,6 +96,11 @@ function MonoJobPost() {
                 </span>
            
             </div>
+            <div className='text-xs mt-3'>
+                  The field provides the context for the commit, communicating the intent of the change that was made. It tries to answer the question “what did the commit do?”
+                 The field is an enumerated type that can be defined differently on each specific project. However there are some conventions, for example the @commitlint/config-conventional based on the Angular Convention, which defines the following types:
+
+            </div>
             </section> 
 
             <section className='pt-10'>
@@ -128,7 +140,7 @@ function MonoJobPost() {
             </section>
 
       {/* Similar Jobs */}
-      <section className='py-20 '>
+      <section className='my-20 '>
         <div>
           <span className='text-2xl'>Related Job Posts</span>
         </div>
