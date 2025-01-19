@@ -71,9 +71,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             </div>
           </Link>
           <div className=" sm:ml-6 sm:block pl-16 ">
-            <div className="flex space-x-44">
-              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                <Link to={`/${roleType}/home`}>Home</Link>
+            <div className="flex space-x-44 ">
+              <p className="rounded-md px-3 py-3 text-sm bellota-text-bold-italic font-thin text-gray-950 hover:text-gray-300">
+                <Link to={`/${roleType}/home`}>
+                  Home
+              </Link>
               </p>
               <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
                 About

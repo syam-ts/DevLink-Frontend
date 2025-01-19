@@ -193,7 +193,7 @@ const HomeUser = () => {
       <section> 
         {
           Object.entries(jobs).map((job: any) => (
-            <div className='w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12'>
+            <div className='w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 bellota-text-bold-italic'>
                <div className='flex justify-between '>
 
 
