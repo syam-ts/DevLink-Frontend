@@ -1,25 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, CardHeader, Image } from "@nextui-org/react";
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster';
-import { signOutUser } from '../../utils/redux/slices/userSlice';
+import { Card, CardHeader } from "@nextui-org/react"; 
+import { Link } from 'react-router-dom'; 
 import LinkAttribute from '../../components/nextUi/Link'
-import apiInstance from '../../api/axiosInstance'
+import apiInstance from '../../api/axiosInstance';
+import { JobPostCard } from '../../components/common/JobPostCard'
 
-
+ 
 
 const HomeUser = () => {
 
   const [clients, setClients]: any = useState({});
-  const [jobs, setJobs] = useState({});
-
-  let message: any = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const currentUser = useSelector((store: any) => store.user.isUser);
+  const [jobs, setJobs]: any  = useState({});
+ 
   
 
   useEffect(() => {
@@ -33,37 +25,22 @@ const HomeUser = () => {
 
   }, []);
 
-  // useEffect(() => {
-  //   if (message.state) { 
-
-  //     toast.error(message.state?.message);  
-  //   };
-
-  //   // checking whether use exists or not 
-  //   if(!currentUser) {
-  //     navigate('/user/login')
-  // }
-  //  }, []);
+ 
 
 
   useEffect(() => {
-    const fetchHomeData = async () => {
-      try {
-        // Fetch data from the backend
+    (async () => {
+      try { 
         const { data } = await apiInstance.axiosInstanceUser.get('/getHome', {
           withCredentials: true,
         });
 
-        // Update the state with the fetched data
         setClients(data?.data || []);
       } catch (error: any) {
         console.error('Error fetching home data:', error?.response?.data?.message || error.message);
-        // alert('Failed to fetch home data. Please try again.');
       }
-    };
-
-    // Call the async function
-    fetchHomeData();
+    }
+  )();
   }, []);
 
 
@@ -71,9 +48,6 @@ const HomeUser = () => {
 
   return (
     <div className='arsenal-sc-regular'>
-
-     
-        <Sonner />
       
       <section>
         <div className="arsenal-sc-regular">
@@ -190,67 +164,12 @@ const HomeUser = () => {
         </div>
       </section>
 
-      <section> 
-        {
-          Object.entries(jobs).map((job: any) => (
-            <div className='w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular'>
-               <div className='flex justify-between '>
 
-
-                  <div className='grid'>
-                  <span className='text-2xl'>{ job[1]?.title }</span> 
-                    <span className='text-sm mt-2'>{ job[1]?.description }</span> 
-                    <div className='flex gap-4 mt-3'>
-                      <span className='text-sm'>{ job[1]?.expertLevel }</span> 
-                      <span className='text-sm'>{ job[1]?.location }</span> 
-                    </div>
-                    <span className='flex gap-3'>
-                      {
-                        job[1]?.requiredSkills?.map((skill: string) => (
-                           
-                            <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-slate-900  bg-slate-300 focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" >
-                               {skill}
-                          </span>
-                        ))
-                      }  
-                    </span> 
-                  </div>
-
-                 <div className='grid text-end py-3'>
-                  <span className='text-sm'>{ job[1]?.amount }.00₹</span> 
-                    <span className='text-sm'>{ job[1]?.paymentType }</span> 
-                    <span className='text-sm'>{ job[1]?.estimateTimeinHours }/hr</span> 
-                    <span className='text-sm text-green-500'>{ job[1]?.projectType }</span> 
-                     <button className="rounded-md bg-slate-800 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                    View
-                  </button>     
-                  </div>
-               </div>
-               
-            
-                 
-              
-
-            </div>
-
-              
-
-         
-              
-          
-            // <div className='w-2/3 border justify-between border-gray-100 shadow-xl rounded-xl h-[220px] mx-auto my-12 '>
-
-             
-
-       
-
-
-
-            // </div>
-          ))
-        }
-
+  {/* jobpost card section */}
+      <section>
+           <JobPostCard jobs={jobs} />
       </section>
+
     </div>
   );
 };

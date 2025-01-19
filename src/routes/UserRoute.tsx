@@ -14,7 +14,8 @@ import Profile from '../pages/user/ProfileUserTest';
 import ProfileEdit from '../pages/user/ProfileEditTest';
 import Contract from '../components/common/Contract-test';
 import Chat from '../pages/user/Chat';
-import BoostPaymentSuccess from '../pages/user/BoostAcc-Success'
+import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
+import MonoJobPost from '../components/common/MonoJobPost'
 
 
 
@@ -57,6 +58,7 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} />
                 <Route path='/chat' element={<Chat />} />
                 <Route path='/jobs/' element={<JobPage />} />
+                <Route path='/job/:jobPostId' element={<MonoJobPost />} />
                 <Route path='/profile/view' element={<Profile />} />
                 <Route path='/profile/edit' element={<ProfileEdit />} />
                 <Route path='/all-contracts/:userId' element={<AllContracts />} />

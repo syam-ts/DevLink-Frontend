@@ -15,7 +15,7 @@ import PaymentFailed from '../pages/client/FailedPayment';
 import UserProfile from '../pages/client/UserViewProfile';
 import JobPropsals from '../pages/client/JobProposal';
 import TestingTables from '../pages/client/TestingTabs';
-import MonoJobPage from '../pages/client/MonoJobPost';
+import MonoJobPage from '../components/common/MonoJobPost';
 import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
