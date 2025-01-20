@@ -36,8 +36,8 @@ const JobProposals = () => {
 
   return (
     <main>
-      <section className="text-center my-12 arsenal-sc-regular">
-        <span className="comfortaa-regular text-3xl"> Proposals </span>
+      <section className="text-center mt-16 arsenal-sc-regular">
+        <span className="text-3xl"> Proposals </span>
         <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
       </section>
       <section className="pt-20 arsenal-sc-regular">

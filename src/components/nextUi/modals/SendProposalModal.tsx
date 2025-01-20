@@ -1,3 +1,4 @@
+import { Sonner } from "../../../components/sonner/Toaster";
 import {
     Modal,
     ModalContent,
@@ -7,12 +8,63 @@ import {
     Button,
     useDisclosure,
   } from "@heroui/react";
+import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
   
-  export const SendProposalModal = () => {
+  export const SendProposalModal = ({jobPostId}: any) => {
+
+    const [formData, setFormData] = useState({
+      bidAmount: "",
+      bidDeadline: "",
+      description: "",
+      attachedFile: ""
+    });
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
+
+
+
+    const handleOnChange = (e: any) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+
+     
+    const submitProposal = async () => {
+      try{
+        const body = {
+          userId,
+          jobPostId,
+          description: formData.description,
+          bidAmount: formData.bidAmount,
+          bidDeadline: formData.bidDeadline
+        }
+
+        const { data } = await axios.post('http://localhost:3000/user/job/createProposal', {
+          body
+        });
+
+        if(!data.success) {
+          toast.error(data.message, {
+            style: {
+              backgroundColor: 'yellow'
+            }
+          })
+        }
+      }catch(err: any) {
+        console.error('ERROR: ', err.message);
+        toast.error('ERROR')
+      }
+    }
   
     return (
       <>
+      <Sonner />
         <Button className='rounded-xl bg-green-600 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2' onPress={onOpen}>Apply</Button>
         <Modal
           backdrop="opaque" size="full"
@@ -26,7 +78,7 @@ import {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1 mx-auto mt-5">Draft Job Proposal</ModalHeader>
-                <ModalBody className='p-44'>
+                <ModalBody className='px-52 py-28'>
            
                 <div className='arsenal-sc-regular '>
                    <div className='flex gap-5'>
@@ -35,7 +87,7 @@ import {
                     <div className="relative flex items-center max-w-[190px]">
                         
                             
-                        <input
+                        <input onChange={handleOnChange}
                             type="number"
                             name='bidAmount'
                             placeholder="₹200.00"
@@ -47,7 +99,7 @@ import {
                     <label> Propose Deadline </label>
                     <div className="relative flex items-center max-w-[190px]">
                             
-                        <input
+                        <input onChange={handleOnChange}
                             type="number"
                             name='bidDeadline'
                             placeholder="12/hr"
@@ -60,28 +112,31 @@ import {
                    <div className='flex gap-5 mt-5'>
                      <label> Propose Description </label>
                         <div className="relative flex items-center w-full pr-10">
-                        <textarea className="w-full h-44 p-10 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white" placeholder='I want to do this job, i am good at ......' />
+                        <textarea onChange={handleOnChange} name='description' className="w-full h-44 p-10 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white" placeholder='I want to do this job, i am good at ......' />
                        
                         </div>
                     </div>
                         <div className='mt-5 flex gap-24'>
                             <label>Attch file*</label>
-                            <input type='file' accept="image" />
+                            <input onChange={handleOnChange} name='attachedFile' type='file' accept="image" />
                             </div>
                     <span className='text-sm absolute my-12'><ul>
-                          <li className='list-disc'>You are requesting for a jobpost which cannot be cancelled.</li>
+                          <li className='list-disc font-sans text-xs'>You are requesting for a jobpost proposal which cannot be cancelled later. if you aggreed
+                            on the condition click submit
+                          </li>
                         </ul></span>
 
                 </div>
                  
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" variant="light" onPress={onClose}>
+   
+                  <button onClick={onClose} className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                     Close
-                  </Button>
-                  <Button color="primary" onPress={onClose}>
+                  </button>
+                  <button onClick={submitProposal} className="rounded-md bg-blue-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                     Submit
-                  </Button>
+                  </button>
                 </ModalFooter>
               </>
             )}

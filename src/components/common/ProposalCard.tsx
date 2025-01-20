@@ -24,11 +24,11 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
         <div>
             {
                 Object.entries(proposals).map((proposal: any) => (
-                    <div className='w-2/3 border border-gray-100 shadow-xl rounded-xl h-[220px] mx-auto my-12 p-3'>
+                    <div className='w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3'>
                         <div className='h-16 w-16 '>
                             <img className='w-12 h-12 rounded-full object-cover' src={proposal[1]?.userData?.profilePicture} alt='user-profile' />
                         </div>
-                        <div className='grid'>
+                        <div className='grid gap-2 px-3'>
                             <div>
                                 <span className='font-semibold text-lg'>Job Title:  {' _'}  {proposal[1]?.jobPostInfo}</span>
                                 <p className='text-sm'> {proposal[1]?.description} </p>
@@ -36,6 +36,9 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
                             <div className='flex gap-5'>
                                 <span className='font-semibold text-xs'>Proposal Amount: {' _'} {proposal[1]?.bidAmount}.00₹/hr</span>
                                 <span className='font-semibold text-xs'>Propposal DeadLine: {' _'} {proposal[1]?.bidDeadline}hrs</span>
+                            </div>
+                            <div>
+                                <span className='font-semibold text-xs'>Propposal Description: {' _'} {proposal[1]?.description}hrs</span>
                             </div>
                         </div>
 
