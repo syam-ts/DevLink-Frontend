@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
  
 
@@ -45,7 +45,11 @@ function AllContract() {
             <span className='text-xs'>Contract Amount: {contract[1]?.amount}.00₹</span>
             <span className='text-xs'>Contract Amount Deadline: {contract[1]?.deadline}</span>
           </div>
-           <button className="py-2 px-4 mt-8 bg-indigo-600 text-white rounded-md shadow-xl"> View Contract </button>
+           <button className="py-2 px-4 mt-8 bg-indigo-600 text-white rounded-md shadow-xl">
+            <Link to={`/${roleType}/contract/view/${contract[1]?._id}`} className='no-underline text-white'>
+              View Contract 
+            </Link>
+             </button>
           <div>
             <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-indigo-600 rounded-md transform translate-x-2 -translate-y-3 shadow-xl">New</span>
           </div>

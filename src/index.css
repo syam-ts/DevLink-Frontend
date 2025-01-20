@@ -10,6 +10,14 @@
   font-style: normal;
 }
 
+.nunito-regular {
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
 
 /* least used font */
 .arsenal-sc-regular {

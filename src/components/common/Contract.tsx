@@ -6,17 +6,17 @@ import { useParams } from "react-router-dom";
 
 export const Contract = () => {
 
-  const [myContract,setMyContract]: any = useState({})
-  const contract = useParams()
+  const [contract,setContract]: any = useState({})
+  const {contractId} = useParams()
 
 useEffect(() => {
  
    (async () => {
     try{
-      const { data } = await axios.get(`http://localhost:3000/user/contract/${contract.contractId}`);
-      console.log('THE RESPONSE OF VIEW CONTRACT : ', data?.contract.clientId);
+      const { data } = await axios.get(`http://localhost:3000/user/contract/${contractId}`);
+      console.log('THE RESPONSE OF VIEW CONTRACT : ', data?.contract);
 
-    setMyContract(data?.contract)
+    setContract(data?.contract)
    }catch(err: any) {
      console.error('ERROR: ', err.message);
    }
@@ -28,7 +28,7 @@ useEffect(() => {
   return (
     <div>{
    
-        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 arsenal-sc-regular">
+        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 nunito-regular">
           <div className="sm:w-11/12 lg:w-3/5 mx-auto border-1 border-gray-300">
             <div className="flex flex-col p-4 sm:p-10 bg-white">
               <div className="flex justify-between">
@@ -36,7 +36,7 @@ useEffect(() => {
                 
                     <img src='/public/devLink_logo.png' className='h-20 w-20' /> 
 
-                  <h1 className="mt-2 text-lg md:text-xl font-semibold text-blue-600">DevLink Contract</h1>
+                  <h1 className="mt-2 text-2xl px-60 text-blue-600">DevLink Contract</h1>
                 </div>
 
                 <div className="text-end">
@@ -56,21 +56,16 @@ useEffect(() => {
               <div className='grid gap-3'>
                 <div className='flex gap-3'>
                 <h3 className="text-lg font-semibold text-gray-800">Contract by:  </h3> 
-                  <h3 className="text-lg font-semibold text-gray-800">{myContract?.clientId}(client)
+                  <h3 className="text-lg font-semibold text-gray-800">{contract?.clientData?.companyName}(client)
                  
                     </h3>
-                  
-                </div>
-                <div className='flex gap-3'>
-                <h3 className="text-lg font-semibold text-gray-800">Contract by:</h3>
-                  <h3 className="text-lg font-semibold text-gray-800">{myContract?.userId}(freelancer)</h3>
                   
                 </div> 
               </div>
                 
 
-                <div className="sm:text-end">
-                  <div className="grid grid-cols-2 sm:grid-cols-1 gap-1 sm:gap-2">
+                <div className="sm:text-end mt-5 ">
+                  <div className="grid grid-cols-1 ">
                     <dl className="grid sm:grid-cols-5 gap-x-3">
                       <dt className="col-span-3 font-semibold text-gray-800">Contract id:</dt>
                       <dd className="col-span-2 text-gray-500">849234023jkdjfw</dd>
@@ -78,15 +73,15 @@ useEffect(() => {
               
                     <dl className="grid sm:grid-cols-5 gap-x-3">
                       <dt className="col-span-3 font-semibold text-gray-800">Created date:</dt>
-                      <dd className="col-span-2 text-gray-500">03/10/2018</dd>
+                      <dd className="col-span-2 text-gray-500">{contract?.createdAt}</dd>
                     </dl>
                     <dl className="grid sm:grid-cols-5 gap-x-3">
                       <dt className="col-span-3 font-semibold text-gray-800">Due date:</dt>
-                      <dd className="col-span-2 text-gray-500">03/11/2018</dd>
+                      <dd className="col-span-2 text-gray-500">{contract?.deadline}</dd>
                     </dl>
                     <dl className="grid sm:grid-cols-5 gap-x-3">
                       <dt className="col-span-3 font-semibold text-gray-800">Amount:</dt>
-                      <dd className="col-span-2 text-gray-500">400rs /hourly</dd>
+                      <dd className="col-span-2 text-gray-500">{contract?.amount}/hr</dd>
                     </dl>
                   </div>
                 </div>
@@ -103,10 +98,10 @@ useEffect(() => {
                 <span>CLIENT</span>
                 <hr className='bg-black '/>
                 <div>
-                    <ul>
-                        <li>Company Name : sample</li>
-                        <li>Location : sample</li>
-                        <li>Email : sample</li> 
+                    <ul className='text-xs'>
+                        <li>Company Name : {contract?.clientData?.companyName}</li>
+                        <li>Location : {contract?.clientData?.location}</li>
+                        <li>Email : {contract?.clientData?.email}</li> 
                     </ul>
                 </div>
               </div>
@@ -116,10 +111,10 @@ useEffect(() => {
               <span>FREELANCER</span>
               <hr className='bg-black '/>
                 <div>
-                    <ul>
-                        <li>Name : sample</li>
-                        <li>Location : sample</li>
-                        <li>Email : sample</li> 
+                    <ul className='text-sm'>
+                        <li>Name : {contract?.userData?.name}</li>
+                        <li>Location : {contract?.userData?.location}</li>
+                        <li>Email : {contract?.userData?.email}</li> 
                     </ul>
                 </div>
               </div>
@@ -128,15 +123,15 @@ useEffect(() => {
               <span>JOB DETAILS</span>
               <hr className='bg-black '/>
                 <div>
-                    <ul>
-                        <li>Title : sample</li>
-                        <li>Description : sample</li>
-                        <li>Expert Level : sample</li>
-                        <li>Project Type : sample</li>
-                        <li>Status: Sample</li>
-                        <li>Payment: Sample</li>
-                        <li>Payment Type: Sample</li>
-                        <li>Deadline: Sample</li>
+                    <ul className='text-sm'>
+                        <li>Title : {contract?.jobPostData?.title}</li>
+                        <li>Description : {contract?.jobPostData?.description}</li>
+                        <li>Expert Level : {contract?.jobPostData?.expertLevel}</li>
+                        <li>Project Type : {contract?.jobPostData?.projectType}</li>
+                        <li>Status: {contract?.status}</li>
+                        <li>Payment: {contract?.amount}rs</li>
+                        <li>Payment Type: {contract?.jobPostData?.paymentType}</li>
+                        <li>Deadline: {contract?.deadline}</li>
                     </ul>
                 </div>
               </div>

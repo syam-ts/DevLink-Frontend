@@ -63,6 +63,7 @@ const ClientRoute = () => {
                 <Route path='/job/proposals' element={<JobPropsals />} />
                 <Route path='/job/tabs' element={<TestingTables />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
+                <Route path='/contract/view/:contractId' element={<Contract />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
