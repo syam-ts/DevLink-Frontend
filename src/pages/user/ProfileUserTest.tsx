@@ -1,7 +1,7 @@
 import { MDBCol, MDBContainer, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import Modal from '../../components/nextUi/modals/editProfileUserModal'
 import apiInstance from '../../api/axiosInstance'
 import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
@@ -9,16 +9,15 @@ import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
 
 
 
-const ProfileUser = () => {
+export const ProfileUser = ( ) => {
 
+    const {userId} = useParams()
 
     const navigate = useNavigate();
-    //  const isUser = useSelector((state: any) => state?.user?.isUser);
-
+ 
     const [user, setUser]: any = useState({});
 
-    const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
-
+    console.log('THE FULL USER ID : ', userId);
 
 
     useEffect(() => {
@@ -42,8 +41,9 @@ const ProfileUser = () => {
 
         getUserData();
     }, []);
-    console.log('THE USE : ', Object.entries(user).length)
 
+
+     
 
 
     return (
@@ -240,4 +240,4 @@ const ProfileUser = () => {
 
 
 
-export default ProfileUser;
+ 

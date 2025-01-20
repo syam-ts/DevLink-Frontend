@@ -19,6 +19,7 @@ import MonoJobPage from '../components/common/MonoJobPost';
 import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ProfileUser } from '../pages/user/ProfileUserTest';
 
 
 
@@ -51,6 +52,7 @@ const ClientRoute = () => {
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} />
                 <Route path='/profile/view' element={<Profile />} />
+                <Route path='/userProfile/view/:userId' element={<ProfileUser />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />

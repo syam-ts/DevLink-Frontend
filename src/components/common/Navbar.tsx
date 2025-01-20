@@ -32,7 +32,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       localStorage.removeItem('accessTokenU')
 
       // localStorage.removeItem('refreshToken');
-  
+ 
       window.location.href = '/user/login'
     } else if(roleType === 'client') { 
       localStorage.removeItem('accessTokenC');
@@ -129,7 +129,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             roleInfo.profilePicture ? (
               <img 
               
-            className="h-9 w-9 rounded-full ring-black ring-4 border-5 border-white"
+            className="h-9 w-9 rounded-full ring-black ring-1 border-2  border-white"
             src={roleInfo.profilePicture}
           />
             ) : (

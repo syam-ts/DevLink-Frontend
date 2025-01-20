@@ -13,10 +13,10 @@ const Footer = () => {
                                     Find us on any of these platforms, we respond 1-2 business days.
                                 </h5>
                                 <div className="mt-6 lg:mb-0 mb-6">
-                                    <button className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                                        <i className="fab fa-twitter"></i></button><button className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                                        <i className="fab fa-facebook-square"></i></button><button className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
-                                        <i className="fab fa-dribbble"></i></button><button className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+                                    <button className="bg-[#0000ff] text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+                                        <i className="fab fa-twitter"></i></button><button className="bg-[#0000ff] text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+                                        <i className="fab fa-facebook-square"></i></button><button className="bg-[#0000ff] text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+                                        <i className="fab fa-dribbble"></i></button><button className="bg-[#0000ff] text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
                                         <i className="fab fa-github"></i>
                                     </button>
                                 </div>
@@ -24,36 +24,36 @@ const Footer = () => {
                             <div className="w-full lg:w-6/12 px-4">
                                 <div className="flex flex-wrap items-top mb-6">
                                     <div className="w-full lg:w-4/12 px-4 ml-auto">
-                                        <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
+                                        <span className="block uppercase text-[#0000ff] text-sm font-semibold mb-2">Useful Links</span>
                                         <ul className="list-unstyled">
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div className="w-full lg:w-4/12 px-4">
-                                        <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
+                                        <span className="block uppercase text-[#0000ff] text-sm font-semibold mb-2">Other Resources</span>
                                         <ul className="list-unstyled">
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT License</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT License</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
                                             </li>
                                             <li>
-                                                <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
+                                                <a className="text-black no-underline hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
                                             </li>
                                         </ul>
                                     </div>
