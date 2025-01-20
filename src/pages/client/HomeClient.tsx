@@ -205,7 +205,7 @@ const HomeClient = () => {
                         <CardHeader className="absolute z-10 top-1 flex-col !items-start">
                         <p className="text-tiny text-white font-bold">{user?.[1]?.email}</p> 
                         </CardHeader> 
-                      <Link to={`/client/userProfile/${user?.[1]._id}`}>
+                      <Link to={`/client/userProfile/view/${user?.[1]._id}/client-home-view`}>
                       <img 
                          
                         alt="Card background"

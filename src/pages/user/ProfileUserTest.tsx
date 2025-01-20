@@ -11,13 +11,13 @@ import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
 
 export const ProfileUser = ( ) => {
 
-    const {userId} = useParams()
+    const {userId, type} = useParams()
 
     const navigate = useNavigate();
  
     const [user, setUser]: any = useState({});
 
-    console.log('THE FULL USER ID : ', userId);
+    console.log('THE TYPE OF VIEW : ',type);
 
 
     useEffect(() => {
@@ -53,12 +53,12 @@ export const ProfileUser = ( ) => {
                     <ProfileShimmer />
                 ) : (
                     <div className="gradient-custom-2 " >
-                        <MDBContainer className="py-5 h-100  ">
-                            <div className="  ">
+                        <MDBContainer className="py-5 h-100">
+                            <div>
                                 <MDBCol  >
                                     <MDBCard>
                                         <section>
-                                            <div className="text-white d-flex flex-row " style={{ backgroundColor: '#8c919f', height: '250px' }}>
+                                            <div className="text-white d-flex flex-row arsenal-sc-regular" style={{ backgroundColor: '#8c919f', height: '250px' }}>
                                                 <div className="ms-4 mt-40 d-flex flex-column" style={{ width: '150px' }}>
                                                     <img src={user?.profilePicture}  
                                                         alt="user-image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
@@ -93,9 +93,26 @@ export const ProfileUser = ( ) => {
                                                     </div>
                                                   <div className='grid'>
                                                   <div className='flex gap-4 mr-5'>
-                                                        <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                            Invite
-                                                        </button> 
+                                                    {
+                                                        type === 'client-proposal-view' ? (
+                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                               Hire
+                                                            </button> 
+                                                        ) : type === 'client-home-view' ? (
+                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                              Invite
+                                                           </button> 
+                                                        ) : type === 'user-profile-view' ? (
+                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                              Invite
+                                                            </button> 
+                                                        ) : (
+                                                            <div>
+
+                                                            </div>
+                                                        )
+                                                    }
+                                                      
                                                         <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/11504/11504867.png' /> </span>
                                                         <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/13424/13424066.png' /> </span>
                                                     </div>
@@ -112,7 +129,7 @@ export const ProfileUser = ( ) => {
                                             </div>
                                         </section>
                                         <section>
-                                            <div className="p-4 text-black comfortaa-regular text-sm" style={{ backgroundColor: '#f8f9fa' }}>
+                                            <div className="p-4 text-black arsenal-sc-regular text-sm" style={{ backgroundColor: '#f8f9fa' }}>
                                                 <div className="d-flex justify-content-end text-center py-1">
                                                     <div>
                                                         <MDBCardText className="mb-1 px-4 h5">{user?.budget}₹</MDBCardText>
@@ -133,7 +150,7 @@ export const ProfileUser = ( ) => {
 
                                             {/* About section */}
                                             <section>
-                                                <div className="mb-5">
+                                                <div className="mb-5 arsenal-sc-regular">
                                                     <p className="lead fw-normal mb-1">About</p>
                                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                                                         <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4"> Full Stack web developer </MDBCardText>
@@ -147,7 +164,7 @@ export const ProfileUser = ( ) => {
 
 
                                             <section>
-                                                <div className="mb-5">
+                                                <div className="mb-5 arsenal-sc-regular">
                                                     <p className="lead fw-normal mb-1">Why Hire Me</p>
                                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                                                         <MDBCardText className="font-italic mb-1">
@@ -192,7 +209,7 @@ export const ProfileUser = ( ) => {
 
                                             {/* Work history */}
                                             <section>
-                                                <div className="mb-5 mx-auto">
+                                                <div className="mb-5 mx-auto arsenal-sc-regular">
                                                     <p className="lead fw-normal mb-1">Work History</p>
                                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
 

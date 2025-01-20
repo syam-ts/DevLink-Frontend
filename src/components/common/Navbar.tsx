@@ -146,7 +146,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat" className=''>
           <DropdownItem key="profile">
-            <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/profile/view`}>
+            <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/userProfile/view/${roleInfo?._id}/user-profile-view`}>
             Profile
             </Link>
           </DropdownItem>

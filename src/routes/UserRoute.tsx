@@ -59,7 +59,7 @@ const UserRoute = () => {
                 <Route path='/chat' element={<Chat />} />
                 <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPost />} />
-                <Route path='/userProfile/view/:userId' element={<ProfileUser />} />
+                <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
                 <Route path='/profile/edit' element={<ProfileEdit />} />
                 <Route path='/all-contracts/:userId' element={<AllContracts />} />
                 <Route path='/contract/:contractId' element={<Contract />} />

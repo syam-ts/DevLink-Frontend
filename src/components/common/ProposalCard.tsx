@@ -46,7 +46,7 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
                         <div className='flex justify-end pr-12 gap-5'>
                             <div>
                                 <button className="rounded-md border border-slate-300 py-2 px-12 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600  hover:bg-gray-300 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                    <Link to={`/client/userProfile/view/${proposal[1]?.userId}`} className='no-underline text-black '>
+                                    <Link to={`/client/userProfile/view/${proposal[1]?.userId}/client-proposal-view`} className='no-underline text-black '>
                                         View
                                     </Link>
                                   
