@@ -14,11 +14,14 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
                 jobPostId: jobPostId
             }
             const { data } = await apiInstance.axiosInstanceClient.post('http://localhost:3000/client/job/createContract', body);
+
+            console.log('THE REPOSNSE : ', data)
         } catch (err: any) {
             console.error('ERROR: ', err.message);
         }
     };
 
+    console.log('THE PROPOSAL ', proposals)
 
 
     return (

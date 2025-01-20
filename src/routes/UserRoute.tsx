@@ -12,14 +12,13 @@ import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
 import { ProfileUser } from '../pages/user/ProfileUserTest';
 import ProfileEdit from '../pages/user/ProfileEditTest';
-import Contract from '../components/common/Contract-test';
+import { Contract } from '../components/common/Contract';
 import Chat from '../pages/user/Chat';
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
 
 
-
-import AllContracts from '../pages/user/AllContracts';
+ 
 import Notifications from '../pages/user/Notification'
  
 
@@ -60,8 +59,7 @@ const UserRoute = () => {
                 <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
-                <Route path='/profile/edit' element={<ProfileEdit />} />
-                <Route path='/all-contracts/:userId' element={<AllContracts />} />
+                <Route path='/profile/edit' element={<ProfileEdit />} /> 
                 <Route path='/contract' element={<Contract />} />
                 <Route path='/notifications/:userId' element={<Notifications />} />
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />

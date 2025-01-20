@@ -20,6 +20,8 @@ import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ProfileUser } from '../pages/user/ProfileUserTest';
+import { Contract } from '../components/common/Contract';
+import AllContracts from '../components/common/AllContract'
 
 
 
@@ -60,6 +62,7 @@ const ClientRoute = () => {
                 <Route path='/userProfile/:userId' element={<UserProfile />} />
                 <Route path='/job/proposals' element={<JobPropsals />} />
                 <Route path='/job/tabs' element={<TestingTables />} />
+                <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}

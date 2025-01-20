@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signOutUser } from "../../utils/redux/slices/userSlice";
-import { signOutClient } from "../../utils/redux/slices/clientSlice";
+// import { signOutClient } from "../../utils/redux/slices/clientSlice";
 
 import {
   Dropdown,
@@ -157,7 +157,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </Link>
           </DropdownItem>
           <DropdownItem key="home">
-          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
+          <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`}>
              Contracts
           </Link>
           </DropdownItem>  

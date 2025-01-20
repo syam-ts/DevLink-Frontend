@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
  
 
-const Contract = () => {
+export const Contract = () => {
 
   const [myContract,setMyContract]: any = useState({})
   const contract = useParams()
@@ -172,6 +172,6 @@ useEffect(() => {
   } </div>
                  
   )
-}
+};
 
-export default Contract
+
