@@ -1,22 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutUser } from "../../utils/redux/slices/userSlice";
 import { signOutClient } from "../../utils/redux/slices/clientSlice";
-import JobProposalsDrawer from '../rsuite/proposalsDrawer'
+
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Button,
+  
 } from "@nextui-org/react";
 import axios from "axios";
 
-import {
-  
-  Avatar,
-  User,
-} from "@nextui-org/react";
+import {Avatar} from "@nextui-org/react";
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
@@ -29,7 +25,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       `http://localhost:3000/${roleType}/logout`,{},{withCredentials: true } 
     );
 
-
+    console.log('THE REPONSE OF LOGOUT : ', response);
 
     if(roleType === 'user') {
 
@@ -64,34 +60,36 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             {" "}
             <div className="flex shrink-0 items-start cursor-pointer">
               <img
-                className="h-8 my-2 w-auto"
+                className="h-8 my-3 w-auto"
                 src="../../public/devLink_logo.png"
                 alt="Devlink"
               />
             </div>
           </Link>
           <div className=" sm:ml-6 sm:block pl-16 ">
-            <div className="flex space-x-44 ">
+            <div className="flex space-x-28 ">
               <p className="rounded-md px-3 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
-                <Link to={`/${roleType}/home`}>
+                <Link to={`/${roleType}/home`} className='no-underline text-black'>
                   Home
               </Link>
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
+              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 About
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
+              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 Contact
               </p>
-              <p className="rounded-md px-3 py-2 text-sm font-thin text-gray-950 hover:text-gray-300">
-                <Link to={`/${roleType}/jobs`}>
+              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                <Link to={`/${roleType}/jobs`} className='no-underline text-black'>
                   <button>Jobs</button>
                 </Link>
               </p>
               {
                 roleType === 'client' &&
-              <p>
-                 <JobProposalsDrawer />
+                <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                <Link to={`/${roleType}/job/proposals`} className='no-underline text-black'>
+                  <button>proposals</button>
+                </Link>
               </p>
               } 
             </div>

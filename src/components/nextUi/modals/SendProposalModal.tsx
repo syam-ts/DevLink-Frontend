@@ -22,13 +22,13 @@ import {
           isOpen={isOpen}
           onOpenChange={onOpenChange}
         >
-          <ModalContent className='rounded-3xl '>
+          <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1">Draft Proposal</ModalHeader>
-                <ModalBody>
+                <ModalHeader className="flex flex-col gap-1 mx-auto mt-5">Draft Job Proposal</ModalHeader>
+                <ModalBody className='p-44'>
            
-                <div className='arsenal-sc-regular p-44'>
+                <div className='arsenal-sc-regular '>
                    <div className='flex gap-5'>
                    <div className='flex gap-5 m-2'>
                     <label> Propose Amount </label>
@@ -37,6 +37,7 @@ import {
                             
                         <input
                             type="number"
+                            name='bidAmount'
                             placeholder="₹200.00"
                             className="w-full h-10 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white"
                         />
@@ -48,7 +49,8 @@ import {
                             
                         <input
                             type="number"
-                            placeholder="₹200.00"
+                            name='bidDeadline'
+                            placeholder="12/hr"
                             className="w-full h-10 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white"
                         />
                         </div>
@@ -58,10 +60,14 @@ import {
                    <div className='flex gap-5 mt-5'>
                      <label> Propose Description </label>
                         <div className="relative flex items-center w-full pr-10">
-                        <textarea className="w-full h-44 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white" placeholder='I want to do this job, i am good at ......' />
+                        <textarea className="w-full h-44 p-10 pl-10 pr-4 text-gray-900 bg-gray-200 rounded-lg border-2 border-transparent outline-none transition duration-300 ease-in-out placeholder-gray-400 focus:border-gray-400 focus:bg-white focus:ring-4 focus:ring-stone-200 hover:border-gray-400 hover:bg-white" placeholder='I want to do this job, i am good at ......' />
                        
                         </div>
                     </div>
+                        <div className='mt-5 flex gap-24'>
+                            <label>Attch file*</label>
+                            <input type='file' accept="image" />
+                            </div>
                     <span className='text-sm absolute my-12'><ul>
                           <li className='list-disc'>You are requesting for a jobpost which cannot be cancelled.</li>
                         </ul></span>

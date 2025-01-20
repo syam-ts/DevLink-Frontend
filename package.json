@@ -46,7 +46,6 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
     "react-stripe-js": "^1.1.5",
-    "rsuite": "^5.76.2",
     "shadcn": "^2.1.7",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
