@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import apiInstance from "../../api/axiosInstance";
 import { ProposalCard } from "../../components/common/ProposalCard";
+import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
 
 const JobProposals = () => {
   interface Proposals {
@@ -34,14 +35,22 @@ const JobProposals = () => {
     })();
   }, []);
 
+ console.log('THE DATA ', data)
+
   return (
     <main>
       <section className="text-center mt-16 arsenal-sc-regular">
         <span className="text-3xl"> Proposals </span>
         <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
       </section>
-      <section className="pt-20 arsenal-sc-regular">
-        <ProposalCard proposals={data} clientId={clientId} />
+      <section className="pt-5 arsenal-sc-regular">
+        {
+          data.type == "" ? (
+            <ProposalCardShimmer size='10' />
+          ) : (
+            <ProposalCard proposals={data} clientId={clientId} />
+          )
+        }
       </section>
     </main>
   );
