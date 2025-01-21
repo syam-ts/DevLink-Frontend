@@ -23,6 +23,7 @@ import { ProfileUser } from '../pages/user/ProfileUserTest';
 import { Contract } from '../components/common/Contract';
 import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
+import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
 
 
 
@@ -67,6 +68,7 @@ const ClientRoute = () => {
                 <Route path='/contract/view/:contractId' element={<Contract />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
+                <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
