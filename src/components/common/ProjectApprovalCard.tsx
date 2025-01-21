@@ -1,13 +1,37 @@
 import { Link } from "react-router-dom";
 import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";
+import axios from "axios";
+import { toast } from "sonner";
+import { Sonner } from "../sonner/Toaster";
 
 
 export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
 
+
+    const approveAndCloseContract = async (contractId: string) => {
+        try{
+
+            const { data } = await axios.post(`http://localhost:3000/client/project/submit/approval/${contractId}`);
+
+            console.log('THE RESPON FROM APPROVAL : ', data);
+
+            if(data.success) {
+                toast.success(data.message)
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:5173/client/contracts/approvals';
+                }, 1000);
+            }
+
+        }catch(err: any) {
+            console.error('ERROR: ', err.message);
+        }
+    }
  
 
     return (
+
         <div>
+            <Sonner />
             {Object.entries(pendingApprovals).map((pendingApproval: any) => (
                 <div className="w-2/3 grid gap-2 border-gray-100 shadow-xl rounded-xl h-[200px] border mx-auto my-20 p-4 arsenal-sc-regular">
                     <div> 
@@ -30,15 +54,7 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                     </div>
                     <div className='text-end'>
                         <button
-                            className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                            type="button"
-                        > 
-                          <Link to='' className='no-underline text-white'>
-                          Approve Contract
-                          </Link>
-                        </button> 
-                        <button
-                            className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                            className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button"
                         > 
                           <Link to={`/client/contract/view/${pendingApproval[1]?.contractId}`} className='no-underline text-white'>
@@ -46,11 +62,19 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                           </Link>
                         </button> 
                         <button
-                            className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                            className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button"
                         > 
 
                              <ProjectSubmissionViewDrawer title={pendingApproval[1]?.jobPostData?.title} description={pendingApproval[1]?.description} progress={pendingApproval[1]?.progress} attachedFile={pendingApproval[1]?.attachedFile} />
+                        </button> 
+                        <button onClick={() => approveAndCloseContract(pendingApproval[1]?.contractId)}
+                            className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                            type="button"
+                        > 
+                          
+                          Approve Contract
+                        
                         </button> 
                       </div> 
                     <div > 

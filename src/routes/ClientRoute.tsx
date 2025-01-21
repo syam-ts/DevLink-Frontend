@@ -6,8 +6,7 @@ import OtpClient from '../pages/client/otpClient'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import VerfiyEmail from '../pages/client/VerifyEmail';
-import ResetPassword from '../pages/client/ResetPassword';
-import Index from '../pages/client/profile/index';
+import ResetPassword from '../pages/client/ResetPassword'; 
 import Jobs from '../pages/client/Jobs';
 import DraftJobPost from '../pages/client/draftJobPost';
 import PaymentSuccess from '../pages/client/SuccessPayment';
@@ -54,9 +53,8 @@ const ClientRoute = () => {
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
                 <Route path='/login' element={<LoginClient />} />
-                <Route path='/home' element={<HomeClient />} />
-                <Route path='/profile/view' element={<Profile />} />
-                <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
+                <Route path='/home' element={<HomeClient />} /> 
+                <Route path='/clientProfile/view/:clientId/:type' element={<Profile />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />
@@ -74,6 +72,7 @@ const ClientRoute = () => {
         </>
     )
 };
+
 
 export default ClientRoute;
 

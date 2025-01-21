@@ -65,7 +65,7 @@ import { toast } from "sonner";
     return (
       <>
       <Sonner />
-        <Button className='rounded-xl bg-green-600 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2' onPress={onOpen}>Apply</Button>
+        <Button className='rounded-xl bg-green-500 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2' onPress={onOpen}>Apply</Button>
         <Modal
           backdrop="opaque" size="full"
           classNames={{

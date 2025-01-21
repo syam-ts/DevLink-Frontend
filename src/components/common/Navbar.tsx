@@ -134,11 +134,9 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       <Dropdown placement="bottom-end" className='rounded-none w-full h-full text-center '>
         <DropdownTrigger>
           {
-            roleInfo.profilePicture ? (
-              <img 
-              
-            className="h-9 w-9 rounded-full ring-black ring-1 border-2  border-white"
-            src={roleInfo.profilePicture}
+            roleInfo?.profilePicture ? (
+              <img className="h-9 w-9 rounded-full ring-black ring-1 border-2  border-white"
+            src={roleInfo?.profilePicture}
           />
             ) : (
               <Avatar 
@@ -154,7 +152,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat" className=''>
           <DropdownItem key="profile">
-            <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/userProfile/view/${roleInfo?._id}/user-profile-view`}>
+            <Link className='no-underline text-black font-sans text-xl' to={`/${roleType}/${roleType}Profile/view/${roleInfo?._id}/${roleType}-profile-view`}>
             Profile
             </Link>
           </DropdownItem>

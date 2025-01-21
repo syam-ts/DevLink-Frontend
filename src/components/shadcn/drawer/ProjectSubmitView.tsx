@@ -30,13 +30,13 @@ export const ProjectSubmissionViewDrawer = ({title, description, progress, attac
         <Drawer>
             <DrawerTrigger>View Request</DrawerTrigger>
             <DrawerContent>
-                <DrawerHeader className='w-2/3 mx-auto nunito-regular h-96 p-20 '>
+                <DrawerHeader className='w-1/2 mx-auto nunito-regular h-96 p-20 '>
                   <div className='grid '>
                   <span className='text-xl nunito-bold '> Job TItle : {title} </span>
-                    <span className='nunito-regular text-lg'>
+                    <span className='nunito-regular text-md'>
                         Submission Description : {description}
                     </span>
-                <span className='mx-auto'>Total Progress: {progress}%</span>
+                <span className='mx-auto text-md'>Total Progress: {progress}%</span>
                <Progress value={progress} className={`w-[${progress}]`} />
                <span className='mx-auto'>Attahed file: {attachedFile}</span>
                   </div>

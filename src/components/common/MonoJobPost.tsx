@@ -155,7 +155,7 @@ const MonoJobPost = () => {
             <SendProposalModal jobPostId={jobPost?._id} />
           </button>
 
-          <button className="rounded-xl bg-cyan-600 py-1 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+          <button className="rounded-xl bg-[#0000ff] py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
             Save for later
           </button>
         </section>

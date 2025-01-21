@@ -60,8 +60,8 @@ const UserRoute = () => {
                 <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
-                <Route path='/profile/edit' element={<ProfileEdit />} /> 
-                <Route path='/contract' element={<Contract />} />
+                <Route path='/profile/edit' element={<ProfileEdit />} />  
+                <Route path='/contract/view/:contractId' element={<Contract />} />
                 <Route path='/notifications/:userId' element={<Notifications />} />
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />

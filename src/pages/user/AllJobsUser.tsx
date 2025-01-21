@@ -3,7 +3,7 @@ import apiInstance from '../../api/axiosInstance'
 import { JobPostCard } from "../../components/common/JobPostCard";
 
 
-const JobsRender = ({ clientId , type}: any) => {
+const JobsRender = ({ userId , type}: any) => {
 
  
     const [myJobs, setMyJobs]: any = useState({});
@@ -15,7 +15,7 @@ const JobsRender = ({ clientId , type}: any) => {
         try{
 
             (async () => {
-                const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/jobs/${type}/${clientId}`);
+                const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/user/jobs/${type}/${userId}`);
     
                 console.log('The response ', response?.data);
                 if (type === 'my-jobs') {

@@ -45,7 +45,7 @@ export const JobPostCard = ({ jobs }: Jobs) => {
               <span className="text-sm">{job[1]?.amount}.00₹</span>
               <span className="text-sm">{job[1]?.paymentType}</span>
               <span className="text-sm">{job[1]?.estimateTimeinHours}/hr</span>
-              <span className="text-sm text-green-500">
+              <span className="text-sm text-green-400 underline">
                 {job[1]?.projectType}
               </span>
               <button 
