@@ -28,7 +28,7 @@ useEffect(() => {
   return (
     <div>{
    
-        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 nunito-regular">
+        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 arsenal-sc-regular">
           <div className="sm:w-11/12 lg:w-3/5 mx-auto border-1 border-gray-300">
             <div className="flex flex-col p-4 sm:p-10 bg-white">
               <div className="flex justify-between">
@@ -52,7 +52,7 @@ useEffect(() => {
               </div>
 
             <section>
-            <div className="mt-8 grid gap-3">
+            <div className="mt-8 grid gap-3 arsenal-sc-regular">
               <div className='grid gap-3'>
                 <div className='flex gap-3'>
                 <h3 className="text-lg font-semibold text-gray-800">Contract by:  </h3> 
@@ -64,24 +64,24 @@ useEffect(() => {
               </div>
                 
 
-                <div className="sm:text-end mt-5 ">
-                  <div className="grid grid-cols-1 ">
+                <div className="sm:text-end mt-5 arsenal-sc-regular">
+                  <div className="">
                     <dl className="grid sm:grid-cols-5 gap-x-3">
-                      <dt className="col-span-3 font-semibold text-gray-800">Contract id:</dt>
-                      <dd className="col-span-2 text-gray-500">849234023jkdjfw</dd>
+                      <dt className="col-span-0 font-semibold text-gray-800">Contract id:</dt>
+                      <dd className="col-span-1 text-gray-500">849234023jkdjfw</dd>
                     </dl>
               
                     <dl className="grid sm:grid-cols-5 gap-x-3">
-                      <dt className="col-span-3 font-semibold text-gray-800">Created date:</dt>
-                      <dd className="col-span-2 text-gray-500">{contract?.createdAt}</dd>
+                      <dt className="col-span-0 font-semibold text-gray-800">Created date:</dt>
+                      <dd className="col-span-1 text-gray-500">{contract?.createdAt}</dd>
                     </dl>
                     <dl className="grid sm:grid-cols-5 gap-x-3">
-                      <dt className="col-span-3 font-semibold text-gray-800">Due date:</dt>
-                      <dd className="col-span-2 text-gray-500">{contract?.deadline}</dd>
+                      <dt className="col-span-0 font-semibold text-gray-800">Due date:</dt>
+                      <dd className="col-span-1 text-gray-500">{contract?.deadline}</dd>
                     </dl>
                     <dl className="grid sm:grid-cols-5 gap-x-3">
-                      <dt className="col-span-3 font-semibold text-gray-800">Amount:</dt>
-                      <dd className="col-span-2 text-gray-500">{contract?.amount}/hr</dd>
+                      <dt className="col-span-0 font-semibold text-gray-800">Amount:</dt>
+                      <dd className="col-span-1 text-gray-500">{contract?.amount}/hr</dd>
                     </dl>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ useEffect(() => {
             </section> 
 
             <section>
-            <div className="mt-8 sm:justify-center">
+            <div className="mt-8 sm:justify-center arsenal-sc-regular">
               <div className='py-4'>
                 <span className='text-3xl font-bold'>Parties Involved</span>
               </div>
@@ -98,7 +98,7 @@ useEffect(() => {
                 <span>CLIENT</span>
                 <hr className='bg-black '/>
                 <div>
-                    <ul className='text-xs'>
+                    <ul className='text-md'>
                         <li>Company Name : {contract?.clientData?.companyName}</li>
                         <li>Location : {contract?.clientData?.location}</li>
                         <li>Email : {contract?.clientData?.email}</li> 
@@ -111,7 +111,7 @@ useEffect(() => {
               <span>FREELANCER</span>
               <hr className='bg-black '/>
                 <div>
-                    <ul className='text-sm'>
+                    <ul className='text-md'>
                         <li>Name : {contract?.userData?.name}</li>
                         <li>Location : {contract?.userData?.location}</li>
                         <li>Email : {contract?.userData?.email}</li> 
@@ -123,7 +123,7 @@ useEffect(() => {
               <span>JOB DETAILS</span>
               <hr className='bg-black '/>
                 <div>
-                    <ul className='text-sm'>
+                    <ul className='text-md'>
                         <li>Title : {contract?.jobPostData?.title}</li>
                         <li>Description : {contract?.jobPostData?.description}</li>
                         <li>Expert Level : {contract?.jobPostData?.expertLevel}</li>

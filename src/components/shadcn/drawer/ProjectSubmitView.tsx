@@ -9,24 +9,37 @@ import {
     DrawerTrigger,
 } from "../../../components/shadcn/ui/drawer"
 
-import { Button } from "../../../components/shadcn/ui/button"
+import { Button } from "../../../components/shadcn/ui/button";
+
+import { Progress } from "../../../components/ui/progress"
+import React from "react";
 
 
-export const ProjectSubmissionViewDrawer = () => {
+
+export const ProjectSubmissionViewDrawer = ({title, description, progress, attachedFile,}: any) => {
+
+    const [progressPercernt, setProgressPercent]: any = React.useState(13);
+
+    
+  React.useEffect(() => {
+    const timer = setTimeout(() => setProgressPercent(66), 500)
+    return () => clearTimeout(timer)
+  }, [])
 
     return (
         <Drawer>
-            <DrawerTrigger>Open</DrawerTrigger>
+            <DrawerTrigger>View Request</DrawerTrigger>
             <DrawerContent>
-                <DrawerHeader className='w-1/3 mx-auto arsenal-sc-regular h-96 p-12 bg-gray-50 rounded-lg'>
-                    <span> TItle</span>
-                    <span>We are looking for an experienced Full-Stack Developer to build an app (ios/android) for buying, selling, and trading cards. The platform should include features similar to a financial order book with real-time price tracking and matching for buyers and sellers.
-
-                        The MVP should also have:
-
-                        User Registration & Profiles: Users can create accounts, manage profiles, and track their transactions.</span>
-                <span className='mx-auto'>Progress</span>
-               <span className='mx-auto'>Attahed file</span>
+                <DrawerHeader className='w-2/3 mx-auto nunito-regular h-96 p-20 '>
+                  <div className='grid '>
+                  <span className='text-xl nunito-bold '> Job TItle : {title} </span>
+                    <span className='nunito-regular text-lg'>
+                        Submission Description : {description}
+                    </span>
+                <span className='mx-auto'>Total Progress: {progress}%</span>
+               <Progress value={progress} className={`w-[${progress}]`} />
+               <span className='mx-auto'>Attahed file: {attachedFile}</span>
+                  </div>
                 </DrawerHeader>
             </DrawerContent>
         </Drawer>

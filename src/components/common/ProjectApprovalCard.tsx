@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {ProjectSubmissionViewDrawer} from "../shadcn/drawer/ProjectSubmitView";
+import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";
 
 
 export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
@@ -33,6 +33,14 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                             className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button"
                         > 
+                          <Link to='' className='no-underline text-white'>
+                          Approve Contract
+                          </Link>
+                        </button> 
+                        <button
+                            className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                            type="button"
+                        > 
                           <Link to={`/client/contract/view/${pendingApproval[1]?.contractId}`} className='no-underline text-white'>
                           View Contract
                           </Link>
@@ -40,9 +48,9 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                         <button
                             className="rounded-md bg-[#0000ff] px-12 py-2 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button"
-                        > View Request
+                        > 
 
-                             <ProjectSubmissionViewDrawer />
+                             <ProjectSubmissionViewDrawer title={pendingApproval[1]?.jobPostData?.title} description={pendingApproval[1]?.description} progress={pendingApproval[1]?.progress} attachedFile={pendingApproval[1]?.attachedFile} />
                         </button> 
                       </div> 
                     <div > 
