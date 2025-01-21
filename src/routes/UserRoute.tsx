@@ -16,6 +16,7 @@ import { Contract } from '../components/common/Contract';
 import Chat from '../pages/user/Chat';
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
+import AllContract from '../components/common/AllContract';
 
 
  
@@ -63,6 +64,8 @@ const UserRoute = () => {
                 <Route path='/contract' element={<Contract />} />
                 <Route path='/notifications/:userId' element={<Notifications />} />
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
+                <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
+
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

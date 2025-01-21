@@ -58,7 +58,7 @@ export const ProfileUser = ( ) => {
                                 <MDBCol  >
                                     <MDBCard>
                                         <section>
-                                            <div className="text-white d-flex flex-row arsenal-sc-regular" style={{ backgroundColor: '#8c919f', height: '250px' }}>
+                                            <div className="text-white d-flex flex-row arsenal-sc-regular" style={{ backgroundColor: '#191a4d', height: '250px' }}>
                                                 <div className="ms-4 mt-40 d-flex flex-column" style={{ width: '150px' }}>
                                                     <img src={user?.profilePicture}  
                                                         alt="user-image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
