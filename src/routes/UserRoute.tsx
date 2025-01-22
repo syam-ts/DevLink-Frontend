@@ -20,7 +20,7 @@ import AllContract from '../components/common/AllContract';
 
 
  
-import Notifications from '../pages/user/Notification'
+import Notifications from '../components/common/NotificationCard'
  
 
 
