@@ -6,12 +6,14 @@ import { ProfileUser } from '../../pages/user/ProfileUserTest';
 
 export const ProposalCard = ({ proposals, clientId }: any) => {
 
-    const acceptProposal = async (userId: string, jobPostId: string) => {
+    const acceptProposal = async (userId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
         try {
             const body = {
                 userId: userId,
                 clientId: clientId,
-                jobPostId: jobPostId
+                jobPostId: jobPostId,
+                bidAmount: bidAmount,
+                bidDeadline: bidDeadline
             }
             const { data } = await apiInstance.axiosInstanceClient.post('http://localhost:3000/client/job/createContract', body);
 
@@ -56,7 +58,7 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
                                 </button>
                             </div>
                             <div>
-                                <button onClick={() => acceptProposal(proposal[1]?.userId, proposal[1]?.jobPostId)} className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                <button onClick={() => acceptProposal(proposal[1]?.userId, proposal[1]?.jobPostId, proposal[1]?.bidAmount, proposal[1]?.bidDeadline)} className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                                     Accept
                                 </button>
                             </div>

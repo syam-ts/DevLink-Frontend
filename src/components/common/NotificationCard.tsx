@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { ContractRespond } from '../nextUi/modals/ContractRespond'
-
+import apiInstance from '../../api/axiosInstance';
 
 const Notification = ({role, roleId}: any) => {
 
@@ -16,7 +16,7 @@ const Notification = ({role, roleId}: any) => {
 
       try{
         (async() => {
-            const { data } = await axios.get(`http://localhost:3000/${role}/notifications/${roleId}`);
+            const { data } = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/${role}/notifications/${roleId}`);
             
             setNotifications(data?.notifications);
         

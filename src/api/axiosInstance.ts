@@ -23,9 +23,13 @@ import axios from 'axios';
 
 // Request interceptor
 axiosInstanceUser.interceptors.request.use(
-  (config) => {
-    const accessTokenU = localStorage.getItem('accessTokenU'); 
+  (config: any) => {
+    console.log('THE TKEN : ',  config.headers)
+    const accessTokenU = localStorage.getItem('accessTokenU');  
     if (accessTokenU) {
+      if (!config.headers) {
+        config.headers = {}; 
+      }
       config.headers['Authorization'] = `Bearer ${accessTokenU}`;
     }
     return config;
@@ -35,40 +39,38 @@ axiosInstanceUser.interceptors.request.use(
   }
 );
 
+
 // Response interceptor
 axiosInstanceUser.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+  (response) => response,
+  async (error) => { 
+    const originalRequest = error.config; 
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
       try {
+        const { data } = await axios.get('http://localhost:3000/user/refresh', {
+          withCredentials: true,  
+        });
  
-        const response = await axios.post(
-          'http://localhost:3000/user/refresh-token',
-          {},
-          { withCredentials: true }
-        );
-        const { accessTokenU } = response.data;
 
-       
-        localStorage.setItem('accessTokenU', accessTokenU);
-        originalRequest.headers['Authorization'] = `Bearer ${accessTokenU}`;
-        return axiosInstanceUser(originalRequest);  
-      } catch (refreshError) {
-      
-        console.error('Refresh token failed:', refreshError);
+
+        const { accessToken } = data;
+        localStorage.setItem('accessTokenU', accessToken);
+ 
+        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+ 
+        return axiosInstanceUser(originalRequest);
+      } catch (refreshError) { 
         localStorage.removeItem('accessTokenU');
-
-        window.location.href = '/user/login';  
-        return Promise.reject(refreshError);
+        window.location.href = '/user/login';
       }
     }
     return Promise.reject(error);
   }
 );
+
 
 
 //Client

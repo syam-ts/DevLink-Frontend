@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LinkAttribute from '../../components/nextUi/Link'
 import apiInstance from '../../api/axiosInstance';
 import { JobPostCard } from '../../components/common/JobPostCard'
+import { useSelector } from "react-redux";
 
  
 
@@ -11,15 +12,13 @@ const HomeUser = () => {
 
   const [clients, setClients]: any = useState({});
   const [jobs, setJobs]: any  = useState({});
- 
+  const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
   
 
   useEffect(() => {
 
     (async () => {
-      const response = await apiInstance.axiosInstanceUser.get('http://localhost:3000/user/listAllJobs');
-
-    
+      const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listAllJobs/${userId}`); 
       setJobs(response.data?.data);
     })();
 
