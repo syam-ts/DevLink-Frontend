@@ -31,7 +31,7 @@ export const JobPostCard = ({ jobs }: Jobs) => {
               <div className="flex gap-4 mt-3">
                 <span className="text-sm">{job[1]?.expertLevel}</span>
                 <span className="text-sm">{job[1]?.location}</span>
-              </div>more
+              </div>
               <span className="flex gap-3">
                 {job[1]?.requiredSkills?.map((skill: string) => (
                   <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">

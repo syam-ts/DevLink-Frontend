@@ -1,99 +1,61 @@
- import { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
-import JobPropsalUserModal from '../../components/nextUi/modals/jobProposalUserModal';
-import apiInstance from '../../api/axiosInstance';
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster';
+import { Sonner } from "../../components/sonner/Toaster";
 import { JobPostCard } from "../../components/common/JobPostCard";
- 
+import apiInstance from "../../api/axiosInstance";
+import { useSelector } from "react-redux";
 
 const Jobs = () => {
+  const [activeTab, setActiveTab] = useState("listAllJobs");
+  const [jobs, setJobs]: any = useState([]);
+  const userId = useSelector(
+    (state: any) => state?.user?.currentUser?.user?._id
+  );
 
-    const [allJobs , setAllJobs]: any = useState({});
-    // const [bestMatchJobs , setBestMatchJobs] = useState({}); 
-    const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id);
- 
- 
-    
-
-    useEffect(() => {
-      try{
-        
-        (async() => {
-            const response = await apiInstance.axiosInstanceUser.get('http://localhost:3000/user/listAllJobs');
-
-            console.log('The response ', response?.data?.data); 
-            setAllJobs(response.data?.data)
-        })();
-        
-      }catch(err: any) {
-        console.log('ERROR : ', err.message);
-        toast.warning(err.message)
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await apiInstance.axiosInstanceUser.get(
+          `http://localhost:3000/user/${activeTab}/${userId}`
+        );
+        console.log("THE RESPON S: ", data?.data);
+        setJobs(data?.data);
+      } catch (err: any) {
+        toast.error(err.message, {
+          style: {
+            backgroundColor: "red",
+            color: "white",
+          },
+        });
       }
-    }, []);
-
-
-    // useEffect(() => {
-
-    //     (async() => {
-    //         const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listJobs/bestMatches/${userId}`);
-
-    //         console.log('The response ', response?.data?.data);
-    //         setBestMatchJobs(response.data?.data)
-    //     })();
-        
-    // }, []);
-    
- 
-
+    })();
+  }, [activeTab]);
 
   return (
     <main>
-
-     <Sonner />
-        
-        <section> 
-            <div className='text-center text-4xl bellota-text-regular pt-10'>
-                 Available Jobs
-            </div>
+      <div className="text-center">
+        <Sonner />
+        <div className="justify-center mt-20">
+          <div className="tabs-container flex justify-center">
+          <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'listAllJobs' && 'border-b border-black'}`}
+             onClick={() => setActiveTab("listAllJobs")} >
+              All Jobs
+             
+            </button>
+            <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'bestMatches' && 'border-b border-black'}`}
+             onClick={() => setActiveTab("bestMatches")} >
+              Best Matches
             
-            <JobPostCard jobs={allJobs} />
- 
-        </section>
+            </button>
+          </div>
 
-        {/* <section>
-        <div className='text-center text-4xl bellota-text-regular pt-10'>
-                 Best Matches
-            </div>
-        </section> */}
-        {/* <section>
-        {
-                Object.entries(bestMatchJobs)?.map((job: any) => (
-                    <ul className="bg-[#efefef] shadow overflow-hidden sm:rounded-md max-w-full mx-60 mt-16">
-                    <li>
-                    <div className="px-4 py-5 sm:px-6">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-md leading-6 bellota-text-regular text-gray-900"> {job[1]?.description} </h3>
-                       
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">{job[1]?.paymentType}</a>
-                        </div>
-                        <div className="mt-2 grid items-center justify-between">
-                            <p className="text-sm font-medium text-gray-500"> {job[1]?.title} </p>
-                            <p className="text-sm font-medium text-gray-500"> {job[1]?.keyResponsiblities} </p>
-                        </div>
-                        <div className="mt-4 grid items-center justify-between"> */}
-                           {/* <button className="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button"> */}
-                           {/* < JobPropsalUserModal clientId={job[1]?.clientId} userId={userId} /> */}
-                            {/* </button> */}
-                        {/* </div>
-                    </div>
-                </li> 
-              </ul>
-                ))
-            } 
-        </section> */}
+          <div className="tab-content mt-8">
+            <JobPostCard jobs={jobs} />
+          </div>
+        </div>
+      </div>
     </main>
-  )
-}
+  );
+};
 
 export default Jobs;
