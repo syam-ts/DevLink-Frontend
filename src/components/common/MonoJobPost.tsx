@@ -60,6 +60,14 @@ const MonoJobPost = () => {
             <div className='text-xs'>
               <div className='flex gap-3 pb-2'>
                 <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/1491/1491165.png' alt='price-image' />
+                <span> Estimate Time </span>
+              </div>
+              <span className='px-4'> {jobPost?.estimateTimeinHours}/hr </span>
+            </div>
+
+            <div className='text-xs'>
+              <div className='flex gap-3 pb-2'>
+                <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/1491/1491165.png' alt='price-image' />
                 <span> Expertise </span>
               </div>
               <span className='px-4'> {jobPost?.expertLevel} </span>

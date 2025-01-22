@@ -55,6 +55,8 @@ import { toast } from "sonner";
               backgroundColor: 'yellow'
             }
           })
+        } else {
+          window.location.href = `http://localhost:5173/user/job/${userId}`
         }
       }catch(err: any) {
         console.error('ERROR: ', err.message);
