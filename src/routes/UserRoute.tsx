@@ -12,8 +12,7 @@ import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
 import { ProfileUser } from '../pages/user/ProfileUserTest';
 import ProfileEdit from '../pages/user/ProfileEditTest';
-import { Contract } from '../components/common/Contract';
-import Chat from '../pages/user/Chat';
+import { Contract } from '../components/common/Contract'; 
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
 import AllContract from '../components/common/AllContract';
@@ -56,8 +55,7 @@ const UserRoute = () => {
                 <Route path='/login' element={<LoginUser />} />
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
-                <Route path='/home' element={<HomeUser />} />
-                <Route path='/chat' element={<Chat />} />
+                <Route path='/home' element={<HomeUser />} /> 
                 <Route path='/jobs/' element={<JobPage />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />

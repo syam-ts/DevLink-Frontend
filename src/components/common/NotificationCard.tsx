@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { ContractRespond } from '../nextUi/modals/ContractRespond'
 import apiInstance from '../../api/axiosInstance';
+import { RateUserModal } from '../nextUi/modals/RateUserModal';
 
 const Notification = ({role, roleId}: any) => {
 
@@ -40,7 +41,7 @@ const Notification = ({role, roleId}: any) => {
         Object.entries(notifications).map((notification: any) => (
 
          
-        <div className="flex p-4 bg-white shadow-md hover:shodow-xl justify-center rounded-2xl border w-1/3">
+        <div className="flex p-4 bg-white shadow-md hover:shodow-xl justify-center rounded-2xl border w-2/4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +59,15 @@ const Notification = ({role, roleId}: any) => {
             <button  className="flex-no-shrink bg-blue-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 text-white rounded-full">
               Mark as Read
             </button>
+              {
+                notification[1]?.extra?.userId && (
+                  <div>
+                
+                  <RateUserModal notificationId={notification[1]?._id} userId={notification[1]?.extra?.userId} />
+             
+              </div>
+                )
+              }
           </div>
         </div>
         

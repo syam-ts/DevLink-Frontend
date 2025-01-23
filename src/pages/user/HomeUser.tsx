@@ -5,6 +5,7 @@ import LinkAttribute from '../../components/nextUi/Link'
 import apiInstance from '../../api/axiosInstance';
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
+import { Chatbot } from "./Chat";
 
  
 
@@ -91,6 +92,10 @@ const HomeUser = () => {
             </figcaption>
           </figure>
         </div>
+      </section>
+
+      <section>
+         <Chatbot />
       </section>
 
       <section className='text-center my-12'>
