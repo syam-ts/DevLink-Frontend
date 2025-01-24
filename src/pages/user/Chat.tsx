@@ -71,7 +71,7 @@ export const Chatbot = () => {
 
 
 
-            {chatHistory.map((chat, index) => (
+            {chatHistory.map((chat) => (
               <div className="pr-4"  >
 
                 <div className="flex gap-3 my-4 text-gray-600 text-sm flex-1"><span
