@@ -15,7 +15,10 @@ const Table = () => {
     <Sonner />
       <Card variant="outlined">
         <CardContent>
-          <Typography variant="h3">User Management</Typography>
+          <Typography variant="h3">
+            <span className='arsenal-sc-regular'>
+              User Management
+            </span> </Typography>
           <Box
             sx={{
               overflow: {

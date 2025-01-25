@@ -1,5 +1,5 @@
 import { Card, CardContent, Box, Typography } from "@mui/material";
-import ExTableClient from "../dashboards/dashboard1-components/ExTableClientTest";
+import ExTableClient from "../dashboards/dashboard1-components/ExTableClient";
 import { useEffect } from 'react';
 import axios from 'axios';
 import { Sonner } from '../../../../components/sonner/Toaster'
