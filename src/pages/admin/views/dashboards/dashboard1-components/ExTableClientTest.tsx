@@ -8,13 +8,21 @@ import {
     TableRow,
     Chip,
 } from "@mui/material";
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "../../../../../components/ui/select"
 import axios from "axios";
 import { Sonner } from '../../../../../components/sonner/ToasterBottom';
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { blockClient, deleteDatasClient, setClient, unBlockClient } from '../../../../../utils/redux/slices/adminSlice'
+import { toast } from "sonner"; 
 import ViewUserInAdmin from "../../../../../components/bootstrap/ViewUserInAdmin";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 
 
 const ExTable = () => {
@@ -23,6 +31,7 @@ const ExTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages]: any = useState([]);
     const [isSearchTriggered, setIsSearchTriggered] = useState(false);
+    const [sortType, setSortType] = useState('latest');
 
 
     const [client, setClient] = useState({});
@@ -36,7 +45,7 @@ const ExTable = () => {
         (async () => {
             try {
 
-                const { data } = await axios.get(`http://localhost:3000/admin/getAllClients?page=${currentPage}`, {
+                const { data } = await axios.get(`http://localhost:3000/admin/getAllClients?page=${currentPage}&sortType=${sortType}`, {
                     withCredentials: true
                 });
 
@@ -56,11 +65,11 @@ const ExTable = () => {
                 })
             }
         })();
-    }, [isBlocked, currentPage]);
+    }, [isBlocked, currentPage, sortType]);
 
 
-    console.log('THE DATA : ', client)
-
+    console.log('THE PAGE : ' ,client)
+ 
 
 
 
@@ -70,32 +79,35 @@ const ExTable = () => {
 
 
     const searchFunction = async (inputData: string) => {
-        try {
-
+       
+        try { 
+          if(inputData.length === 0) {
             setIsSearchTriggered(true)
-            const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/search?inputData=${inputData}`);
-
-
+           setSortType('block')
+            
+             
+          } else {
+            setIsSearchTriggered(true)
+            const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/search?inputData=${inputData}`); 
 
             if (totalPages[0] !== data?.data?.totalPages) (
                 setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
-            )
-
-            
-
+            ) 
+ 
             setClient(data.data)
-
-
-
+            
+            
+          } 
         } catch (err: any) {
             console.error('ERROR: ', err.messsage);
         }
     };
 
+  
 
 
+ 
     const blockClientFn = async (clientId: string) => {
-        console.log('THE CLIENT ID :', clientId)
         try {
 
             const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
@@ -140,41 +152,34 @@ const ExTable = () => {
     return (
         <>
 
-            <section className='my-10'>
-                <div className='flex justify-between'>
-                    <div className="w-full max-w-sm min-w-[200px]">
+            <section className='my-10 '>
+                <div className='flex justify-between '>
+                    <div className="w-[400px] my-4">
                         <div className="relative">
                             <input onChange={(e: any) => searchFunction(e.target.value)}
                                 className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-xl pl-3 pr-28 py-2.5 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                                 placeholder="Search here"
                             />
-                            <button
-                                className="absolute top-1 right-1 flex items-center rounded-xl bg-slate-800 py-1.5 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mr-2">
-                                    <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-                                </svg>
-                                Search
-                            </button>
+                         
                         </div>
                     </div>
-                    <div>
 
 
-
-                        <div className="max-w-sm mx-auto">
-                            <label className="sr-only">Underline select</label>
-                            <select onChange={(e: any) => advancedSorting(e.target.value)} id="underline_select" className="block cursor-pointer px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                                <option selected>Advaned Sorting</option>
-                                <option value="blocked">Blocked</option>
-                                <option value="unBlocked">Un Blocked</option>
-                                <option value="latest">Latest</option>
-                            </select>
-                            <hr className='bg-black w-44' />
-                        </div>
-
-
-
+                    <div> 
+                   <div>
+                   <Select onValueChange={(value) => setSortType(value)}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select a Method" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup> 
+                            <SelectItem value="latest">Latest</SelectItem>
+                            <SelectItem value="unBlock">Blocked</SelectItem>
+                            <SelectItem value="block">Unblocked</SelectItem> 
+                            </SelectGroup>
+                        </SelectContent>
+                  </Select>
+                   </div> 
                     </div>
                 </div>
             </section>
