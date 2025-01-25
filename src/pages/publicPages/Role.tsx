@@ -34,10 +34,10 @@ const Role = () => {
                 <SmallModal showModals={true}/>
             )}
 
-            <div className='text-center py-16'>
+            <div className='text-center py-16 arsenal-sc-regular'>
               <span className='font-bold text-3xl'>Join Us For Free</span>
             </div> 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center arsenal-sc-regular">
                 <form className="flex gap-20">
                     <div className='text-center' onClick={() => checkFn('freelance')}>
                         <input className="peer hidden" id="radio_1" type="radio" name="freelance" checked />
@@ -57,7 +57,7 @@ const Role = () => {
                 </form>
             </div> 
            <div className='text-center py-12'>
-             <button onClick={handleSubmit} className='w-44 bg-green-600 h-12 rounded-lg text-white font-bold'> Create Account </button>
+             <button onClick={handleSubmit} className='w-44 arsenal-sc-regular bg-green-600 h-12 rounded-lg text-white font-bold'> Create Account </button>
            </div>
        </div>
      ) 

@@ -14,17 +14,15 @@ const LandingPage = () =>  {
 
   return (
     <div>
-           <nav className="bg-white shadow-md"> 
+           <nav className="bg-white shadow-md arsenal-sc-regular"> 
                 <div className="flex flex-1 sm:items-stretch sm:justify-between py-3 ml-12">
                     <div className="flex shrink-0 items-start">
-                       <img className="h-8 w-auto" src="../../public/devLink_logo.png" alt="DevLink"/>
+                       <span className='font-bold text-2xl py-1'>DevLink</span>
                     </div>
                  <div className=" sm:ml-6 sm:block ">
-                    <div className="flex space-x-24 pr-5">
-                        <a href="#" className="p-2 text-sm comfortaa-regular text-gray-950">Home</a>
-                        <a href="#" className="p-2 text-sm comfortaa-regular text-gray-950">About</a>
-                        <a href="#" className="p-2 text-sm comfortaa-regular text-gray-950">Contact</a>
-                        <a href="#" className="p-2 text-sm comfortaa-regular text-gray-950">Projects</a>
+                    <div className="flex space-x-24 pr-44"> 
+                        <span className="p-2 text-sm comfortaa-regular text-gray-950">About</span>
+                        <span className="p-2 text-sm comfortaa-regular text-gray-950">Contact</span> 
                      </div>
                     </div>
                 </div>  
@@ -72,7 +70,7 @@ const LandingPage = () =>  {
                 </div>
         </section>
 
-        <section className='flex p-20 mt-28'>
+        <section className='flex p-20 mt-28 arsenal-sc-regular'>
             <div className='ml-44'>
                 <img src='public/landingpage_bigimage.png' alt='professional image' />
             </div>
@@ -92,8 +90,7 @@ const LandingPage = () =>  {
                         Get Started
                     </button>
             </div>
-        </section> 
-          <Footer />
+        </section>  
     </div>
   )
 }

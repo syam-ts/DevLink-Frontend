@@ -21,6 +21,7 @@ import AllContract from '../components/common/AllContract';
  
 import Notifications from '../components/common/NotificationCard'
 import NotificationsUser from '../pages/user/NotificationsUser';
+import { LoginComponent } from '../components/common/Login';
  
 
 
@@ -41,6 +42,7 @@ const UserRoute = () => {
         '/user/login',
         '/user/verify-otp',
         '/user/verify-email',
+        '/user/user-login',
         '/user/resetPassword/67697480bd289da770893f9c'
       ];
       return !restrictedPath.includes(pathname);
@@ -64,6 +66,8 @@ const UserRoute = () => {
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
                 <Route path='/notifications/:userId' element={<NotificationsUser />} />
+                <Route path='/user-login' element={<LoginComponent />} />
+
 
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}

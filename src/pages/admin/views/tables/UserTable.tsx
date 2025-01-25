@@ -1,5 +1,5 @@
 import { Card, CardContent, Box, Typography } from "@mui/material";
-import ExTableUser from "../dashboards/dashboard1-components/ExTableUser";
+import ExTableUser from "../dashboards/dashboard1-components/ExTableUserText";
 import { Sonner } from '../../../../components/sonner/Toaster'
  
 

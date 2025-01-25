@@ -8,11 +8,11 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 import { SidebarWidth } from "../../../assets/global/Theme-variable";
 import LogoIcon from "../Logo/LogoIcon.tsx";
-import Menuitems from "./data"; 
+import Menuitems from "./data";
 
 const Sidebar = (props: any) => {
   const [open, setOpen] = React.useState(true);
@@ -32,8 +32,8 @@ const Sidebar = (props: any) => {
     <Box sx={{ p: 3, height: "calc(100vh - 40px)" }}>
       <Link to="/">
         <Box sx={{ display: "flex", alignItems: "Center" }}>
-          <div className='w-32 h-32'>
-          <LogoIcon />
+          <div className="w-32 h-32">
+            <LogoIcon />
           </div>
         </Box>
       </Link>
@@ -48,8 +48,7 @@ const Sidebar = (props: any) => {
             //{/********SubHeader**********/}
 
             return (
-              <List component="li" 
-              disablePadding key={item.title}>
+              <List component="li" disablePadding key={item.title}>
                 <ListItem
                   onClick={() => handleClick(index)}
                   button
@@ -72,13 +71,15 @@ const Sidebar = (props: any) => {
                   >
                     <item.icon width="20" height="20" />
                   </ListItemIcon>
-                  <ListItemText>{item.title}</ListItemText>
+                  <ListItemText>
+                    <span className="arsenal-sc-regular">{item.title}</span>{" "}
+                  </ListItemText>
                 </ListItem>
               </List>
             );
           })}
         </List>
-      </Box> 
+      </Box>
     </Box>
   );
   if (lgUp) {

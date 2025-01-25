@@ -159,7 +159,7 @@ const Header = (props: any) => {
             <ListItemIcon>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
-            <span onClick={logout}> Logout </span>
+            <span onClick={logout} className='arsenal-sc-regular'> Logout </span>
           </MenuItem>
         </Menu>
       </Toolbar>

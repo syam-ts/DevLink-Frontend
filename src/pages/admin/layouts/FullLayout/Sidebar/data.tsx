@@ -34,12 +34,7 @@ const Menuitems: Menu[] = [
     title: "Wallet",
     icon: AutoAwesomeMosaicOutlinedIcon,
     href: "/admin/index/wallet",
-  },
-  {
-    title: "Logout",
-    icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/admin/logout",
-  },
+  } 
 ];
 
 export default Menuitems;
