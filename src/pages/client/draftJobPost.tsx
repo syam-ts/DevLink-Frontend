@@ -17,6 +17,7 @@ const DraftJobPost = () => {
     paymentType: "",
     payment: "",
     projectType: "",
+    maxProposals: "",
     description: "",
     estimateTime: "",
     location: "",
@@ -235,22 +236,39 @@ const DraftJobPost = () => {
             <option value="project updation">Project Updation</option> 
           </select>
         </div> 
-          <hr />
+          <hr className='w-72' />
         </div>
 
         </div>
 
-        <div>
+        <div className='flex justify-between'>
+
+        <div className='w-80 mx-2'>
         <label className='text-gray-500'>Expertize Level</label> 
-        <div>
+          <div>
           <select name="expertLevel" className=' py-2' onChange={handleChange}>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option> 
             <option value="advanced">Advanced</option> 
           </select>
+          </div>
+          <hr className='w-full' />
         </div>
+        
+
+        <div className='w-72 py-2.5'>
+        <label className='text-gray-500'>Maximum Proposals </label> 
+        <div>
+            <input onChange={handleChange} type='number' name='maxProposals' className='px-20' placeholder='7' />
+      
+        </div>
+        <hr className='w-full' />
+        </div>
+
+       
+         
         </div> 
-          <hr className='w-1/3' />
+         
 
         <div>
         <label className='text-gray-500'>Description</label>

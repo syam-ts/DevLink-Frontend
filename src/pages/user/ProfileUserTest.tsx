@@ -118,10 +118,19 @@ export const ProfileUser = ( ) => {
                                                     </div>
                                                     <div className='ml-36'>
                                                       
-                                                            <Link className='no-underline  text-sm font-mono text-white' to='/user/profile/edit'>
-                                                        <img className='h-5 w-5' src='https://cdn-icons-png.flaticon.com/128/10099/10099927.png' />
-                                                        
-                                                            </Link>
+                                                           {
+                                                            user?.isProfileFilled ? (
+                                                                <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/edit`}>
+                                                                <span>Edit</span>
+                                                    
+                                                        </Link>
+                                                            ) : (
+                                                                <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/verify`}>
+                                                                <span>Verify</span>
+                                                    
+                                                        </Link>
+                                                            )
+                                                           }
                                                        
                                                     </div>
                                                   </div>

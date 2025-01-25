@@ -50,6 +50,7 @@ const SignupUser = () => {
       if(response.data.type !== 'success') {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
+        
         const data = {
           userData: response.data.data,
           mailOtp: response.data.otp

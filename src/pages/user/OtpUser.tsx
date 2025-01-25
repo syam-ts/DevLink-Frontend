@@ -48,6 +48,7 @@ const OtpUser = () => {
   const handleSubmit = async () => {
         
     try {
+      console.log('mst : ', message)
       const data = {
         user: message.state.message.userData,
         mailOtp: message.state.message.mailOtp,

@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import apiInstance from "../../api/axiosInstance";
 import axios from "axios";
 import { toast } from "sonner";
+import { Sonner } from "../../components/sonner/Toaster";
 
 const ProfileUser = () => {
+
+
     
     const [userData, setUserData ] = useState({})
     const [image, setImage] = useState(null);
@@ -27,8 +30,9 @@ const ProfileUser = () => {
         experience: "",
         education: "",
     });
+    const {type} = useParams();
  
-
+ 
      
     const userId: string = useSelector((state: any) => state?.user?.currentUser?.user?._id);
 
@@ -79,7 +83,7 @@ const ProfileUser = () => {
       `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
       data
     );
-    console.log('The image url : ', response.data?.url);
+    // console.log('The image url : ', response.data?.url);
     setImage(response.data?.url);
     setImageLoading(false);
   };
@@ -104,11 +108,24 @@ const ProfileUser = () => {
         editData: formData,
         unchangedData: userData
       }
-      console.log('THE FORM DATA  :', data)
-      const response = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/edit/${userId}`,data);
 
-      if (response.data.type === "success") {
-        window.location.href = 'http://localhost:5173/user/profile/view'
+    
+      
+      const response: any = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
+
+    
+     
+console.log('THe response : ', response.data.sucess)
+      if(!response.data.sucess) {
+      
+        toast.warning(response.data.message, {
+          style: {
+            backgroundColor: "yellow"
+          }
+        })
+      } else {
+        console.log('ENTER HERE', response.data.sucess)
+        window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
       }
     } catch (err: any) { 
       toast.error(err.message);
@@ -164,6 +181,7 @@ const ProfileUser = () => {
           </div>
         </div>  */}
 
+    <Sonner />
         <section>
           <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[1300px] lg:col-span-3 lg:p-12">
             <form className="space-y-8">
