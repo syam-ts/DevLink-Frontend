@@ -12,19 +12,25 @@ import { Chatbot } from "./Chat";
 const HomeUser = () => {
 
   const [clients, setClients]: any = useState({});
-  const [jobs, setJobs]: any  = useState({});
+  const [jobs, setJobs]: any  = useState({}); 
+  const [totalJobs, setTotalJobs]: any  = useState(""); 
+  const [totalHours, setTotalHours]: any  = useState("{}"); 
+  const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
   const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
   
 
   useEffect(() => {
 
     (async () => {
-      const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listAllJobs/${userId}`); 
-      setJobs(response.data?.data);
+      const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listAllJobs/${userId}`)
+      console.log('THE DATA : ', data) 
+      setJobs(data?.data?.allJobs);
+      setTotalJobs(data?.data?.totalJobs);
+      setTotalHours(data?.data?.totalHours[0]?.sum); 
+      setVerifiedAccounts(data?.data?.verifiedAccounts);
     })();
 
   }, []);
-
  
 
 
@@ -172,6 +178,23 @@ const HomeUser = () => {
   {/* jobpost card section */}
       <section>
            <JobPostCard jobs={jobs} />
+      </section>
+         
+
+      <section className='pt-20 '>
+         <div className='bg-[#bfbabb] py-20 '>
+            <ul className='flex justify-evenly text-2xl'>
+              <li>Total Jobs 
+                <p className='text-center'>{totalJobs}</p>
+                 </li>
+              <li>Total Hours 
+              <p className='text-center'>{totalHours}/hr</p>
+              </li>
+              <li>Verified Accounts
+              <p className='text-center'>{verifiedAccounts}</p> </li>
+            </ul>
+         </div>
+
       </section>
 
     </div>

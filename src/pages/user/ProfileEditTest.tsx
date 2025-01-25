@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import apiInstance from "../../api/axiosInstance";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
+import { signInUser } from '../../utils/redux/slices/userSlice'
 
 const ProfileUser = () => {
 
@@ -31,7 +32,7 @@ const ProfileUser = () => {
         education: "",
     });
     const {type} = useParams();
- 
+    const dispatch = useDispatch();
  
      
     const userId: string = useSelector((state: any) => state?.user?.currentUser?.user?._id);
@@ -115,7 +116,7 @@ const ProfileUser = () => {
 
     
      
-console.log('THe response : ', response.data.sucess)
+// console.log('THe response : ', response.data?.data)
       if(!response.data.sucess) {
       
         toast.warning(response.data.message, {
@@ -124,8 +125,9 @@ console.log('THe response : ', response.data.sucess)
           }
         })
       } else {
-        console.log('ENTER HERE', response.data.sucess)
-        window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+        console.log('THE DATA FOR REDUX : ', response.data?.data)
+        dispatch(signInUser(response.data?.data))
+        // window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
       }
     } catch (err: any) { 
       toast.error(err.message);
