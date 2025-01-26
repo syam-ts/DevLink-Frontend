@@ -24,6 +24,7 @@ import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
 import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
 import NotificationsClient from '../pages/client/NotificationsClient';
+import Chat from '../pages/client/Chat'
 
 
 
@@ -69,6 +70,7 @@ const ClientRoute = () => {
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />
                 <Route path='/notifications/:clientId' element={<NotificationsClient />} />
+                <Route path='/chat' element={<Chat />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>
