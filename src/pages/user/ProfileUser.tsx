@@ -2,16 +2,17 @@ import { MDBCol, MDBContainer, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, 
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import Modal from '../../components/nextUi/modals/editProfileUserModal'
+ 
 import apiInstance from '../../api/axiosInstance'
 import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
 import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
+import axios from 'axios';
 
 
 
 export const ProfileUser = ( ) => {
 
-    const {userId, type} = useParams()
+    const {userId, type, clientId } = useParams()
 
     const navigate = useNavigate();
  
@@ -41,6 +42,22 @@ export const ProfileUser = ( ) => {
 
         getUserData();
     }, []);
+
+
+    const createChat = async () => {
+        try{
+            const members = {clientId, userId};
+
+            const { data } = await axios.post('http://localhost:3000/client/chat/create-chat', {
+               members
+        });
+
+            console.log('THE RESULT FROM CREATE CHAT : ', data);
+
+        }catch(err: any) {
+            console.error('ERROR: ', err.message);
+        }
+    }
 
 
      
@@ -116,7 +133,12 @@ export const ProfileUser = ( ) => {
                                                         <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/11504/11504867.png' /> </span>
                                                         <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/13424/13424066.png' /> </span>
                                                     </div>
+      
+
                                                     <div className='ml-36'>
+                                                    <button onClick={createChat} className='bg-white rounded-lg py-2 px-4 text-black mx-4'>
+                                                            Chat
+                                                        </button>
                                                       
                                                            {
                                                             user?.isProfileFilled ? (

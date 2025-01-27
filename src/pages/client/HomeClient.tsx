@@ -18,6 +18,7 @@ const HomeClient = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isClient = useSelector((store: any) => store.client.isClient);
+    const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
     
     const [modal, showModal] = useState(false);
     const [users, setUsers]: any = useState({});
@@ -81,22 +82,9 @@ const HomeClient = () => {
 
     return () => clearInterval(autoSlide);
 }, []);
-
-
-
-//   const openUserProfile = async (userId: string) => {
-  
-//     try{
-//         const response = await axios.post(`http://localhost:3000/client/getUserProfile/${userId}`);
-
-//         console.log('The response , ', response.data);
-
-//     }catch(err: any) {
-//         console.log('ERROR: ', err.message);
-//     }
-
-//   }
  
+
+
 
     return (
         <main>
@@ -205,7 +193,7 @@ const HomeClient = () => {
                         <CardHeader className="absolute z-10 top-1 flex-col !items-start">
                         <p className="text-tiny text-white font-bold">{user?.[1]?.email}</p> 
                         </CardHeader> 
-                      <Link to={`/client/userProfile/view/${user?.[1]._id}/client-home-view`}>
+                      <Link to={`/client/userProfile/view/${user?.[1]._id}/client-home-view/${clientId}`}>
                       <img 
                          
                         alt="Card background"

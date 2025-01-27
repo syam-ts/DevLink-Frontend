@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import apiInstance from '../../api/axiosInstance'
-import { ProfileUser } from '../../pages/user/ProfileUserTest';
+import { ProfileUser } from '../../pages/user/ProfileUser';
 
 
 export const ProposalCard = ({ proposals, clientId }: any) => {

@@ -10,21 +10,20 @@ import ResetPassword from '../pages/client/ResetPassword';
 import Jobs from '../pages/client/Jobs';
 import DraftJobPost from '../pages/client/draftJobPost';
 import PaymentSuccess from '../pages/client/SuccessPayment';
-import PaymentFailed from '../pages/client/FailedPayment';
-import UserProfile from '../pages/client/UserViewProfile';
+import PaymentFailed from '../pages/client/FailedPayment'; 
 import JobPropsals from '../pages/client/JobProposal';
 import TestingTables from '../pages/client/TestingTabs';
 import MonoJobPage from '../components/common/MonoJobPost';
 import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ProfileUser } from '../pages/user/ProfileUserTest';
+import { ProfileUser } from '../pages/user/ProfileUser';
 import { Contract } from '../components/common/Contract';
 import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
 import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
 import NotificationsClient from '../pages/client/NotificationsClient';
-import Chat from '../pages/client/Chat'
+import {Chat} from '../pages/client/Chat'
 
 
 
@@ -57,11 +56,11 @@ const ClientRoute = () => {
                 <Route path='/login' element={<LoginClient />} />
                 <Route path='/home' element={<HomeClient />} /> 
                 <Route path='/clientProfile/view/:clientId/:type' element={<Profile />} />
+                <Route path='/userProfile/view/:userId/:type/:clientId' element={<ProfileUser />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />
-                <Route path='/draftJobPost/payment-failed' element={<PaymentFailed />} />
-                <Route path='/userProfile/:userId' element={<UserProfile />} />
+                <Route path='/draftJobPost/payment-failed' element={<PaymentFailed />} /> 
                 <Route path='/job/proposals' element={<JobPropsals />} />
                 <Route path='/job/tabs' element={<TestingTables />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
@@ -70,7 +69,7 @@ const ClientRoute = () => {
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />
                 <Route path='/notifications/:clientId' element={<NotificationsClient />} />
-                <Route path='/chat' element={<Chat />} />
+                <Route path='/chat/view/:roleId/:roleType' element={<Chat />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
         </>

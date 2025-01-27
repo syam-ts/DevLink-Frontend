@@ -14,17 +14,17 @@ const Profile = () => {
  const [ client, setClient]: any = useState({});
  const [isVerified , setIsVerified] = useState('')
 
- const clientId = useSelector((state: any) => state?.client?.currentClient)
+ const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
   
   
- const { _id } = clientId;  
+ 
 
 useEffect(() => {
   const getClientData = async () => {
 
     try {
       
-      const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/profile/view/${_id}`,{
+      const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/profile/view/${clientId}`,{
         withCredentials: true
     }); 
    

@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
-import { ProfileUser } from '../pages/user/ProfileUserTest';
-import ProfileEdit from '../pages/user/ProfileEditTest';
+import { ProfileUser } from '../pages/user/ProfileUser';
+import ProfileEdit from '../pages/user/ProfileEdit';
 import { Contract } from '../components/common/Contract'; 
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
