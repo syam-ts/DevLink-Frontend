@@ -5,7 +5,7 @@ import LinkAttribute from '../../components/nextUi/Link'
 import apiInstance from '../../api/axiosInstance';
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
-import { Chatbot } from "./Chat";
+import { Chatbot } from "./ChatBot";
 
  
 

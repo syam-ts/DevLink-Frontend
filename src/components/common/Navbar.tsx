@@ -25,7 +25,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       `http://localhost:3000/${roleType}/logout`,{},{withCredentials: true } 
     );
 
-    console.log('THE REPONSE OF LOGOUT : ', response);
+    // console.log('THE REPONSE OF LOGOUT : ', response);
 
     if(roleType === 'user') {
 
@@ -41,18 +41,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
   
       window.location.href = '/client/login'
     }
-
-    // if (roleType === "user") {
-    //   dispatch(signOutUser());
-    //   navigate("/user/login");
-    // } else {
-    //   dispatch(signOutClient());
-    //   navigate("/client/login");
-    // }
+ 
   };
  
 
   return (
+
+    
     <nav className="bg-white border-1 shadow-md arsenal-sc-regular">
       <div className="relative flex h-16 items-center justify-between ">
         <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
