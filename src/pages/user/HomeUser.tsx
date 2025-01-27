@@ -13,27 +13,14 @@ const HomeUser = () => {
 
   const [clients, setClients]: any = useState({});
   const [jobs, setJobs]: any  = useState({}); 
+  const [latestJobs, setLatestJobs]: any  = useState({}); 
   const [totalJobs, setTotalJobs]: any  = useState(""); 
   const [totalHours, setTotalHours]: any  = useState("{}"); 
   const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
   const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
   
-
-  useEffect(() => {
-
-    (async () => {
-      const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/listAllJobs/${userId}`)
-      console.log('THE DATA : ', data) 
-      setJobs(data?.data?.allJobs);
-      setTotalJobs(data?.data?.totalJobs);
-      setTotalHours(data?.data?.totalHours[0]?.sum); 
-      setVerifiedAccounts(data?.data?.verifiedAccounts);
-    })();
-
-  }, []);
- 
-
-
+  
+  
   useEffect(() => {
     (async () => {
       try { 
@@ -47,8 +34,35 @@ const HomeUser = () => {
       }
     }
   )();
-  }, []);
+}, []);
 
+
+  useEffect(() => {
+
+    (async () => {
+      const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/home/listAllJobs`)
+      console.log('THE DATA : ', data) 
+      setJobs(data?.data?.allJobs);
+      setTotalJobs(data?.data?.totalJobs);
+      setTotalHours(data?.data?.totalHours[0]?.sum); 
+      setVerifiedAccounts(data?.data?.verifiedAccounts);
+    })();
+
+  }, []);
+ 
+
+  
+
+  useEffect(() => {
+
+    (async () => {
+      const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/home/latestJobs`)
+      console.log('THE DATA : ', data) 
+      setLatestJobs(data?.data); 
+    })();
+
+  }, []);
+ 
 
 
 
@@ -175,7 +189,7 @@ const HomeUser = () => {
       </section>
 
 
-  {/* jobpost card section */}
+  {/*top jobs jobpost card section */}
       <section>
            <JobPostCard jobs={jobs} />
       </section>
@@ -196,6 +210,24 @@ const HomeUser = () => {
          </div>
 
       </section>
+
+      
+      <section className='text-center my-12 mt-44'>
+        <span className='arsenal-sc-regular text-4xl'>Latest Jobs</span>
+        <hr className='border-gray-400 mt-12 w-2/4 mx-auto' /> 
+        <div className='text-end px-96'> 
+        <span className='arsenal-sc-regular'>  
+          <Link to='/user/jobs'>
+                <LinkAttribute text='More Jobs' />
+          </Link>
+        </span>
+        </div>
+      </section>
+
+      <section>
+           <JobPostCard jobs={latestJobs} />
+      </section>
+         
 
     </div>
   );

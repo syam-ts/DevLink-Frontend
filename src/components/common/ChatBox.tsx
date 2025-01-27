@@ -1,14 +1,57 @@
-interface ChatBoxData {
-  senderId: string,
-  chatId: string
+import axios from "axios";
+import { useEffect, useState } from "react";
+ 
+
+interface MessageBody {
+    chatId: string
+    sender: string,
+    text: string
 }
 
 
 export const ChatBox = ({chatBoxData}: any ) => {
 
     console.log('THE DATA FROM CHAT : ', chatBoxData);
+    const [chat, setChat]: any = useState({});
+    const [message, setMessage]: any = useState("");
 
-    //get sender and recieved particular message
+    useEffect(() => {
+
+        try{
+            (async() => {
+
+                const { data } = await axios.get(`http://localhost:3000/client/chat/view/${chatBoxData?.chatId}`);
+ 
+
+            })();  
+        }catch(err: any) {
+            console.error('ERROR: ', err.message);
+        }
+    });
+
+
+    const handelMessage = (e: any) => {
+         setMessage(e.target.value)
+    }
+
+    
+    const sendMessage = async () => {
+        try{
+            
+            const { data } = await axios.post('http://localhost:3000/client/chat/sendMessage', {
+                chatId: chatBoxData?.chatId,
+                sender: chatBoxData?.sender,
+                text: message
+            });
+ 
+            setChat(data?.data);
+
+        }catch(err: any) {
+            console.error('ERROR: ',err.message);
+        }
+    }
+console.log('chat : ',chat)
+
 
 
   return (
@@ -42,23 +85,20 @@ export const ChatBox = ({chatBoxData}: any ) => {
                         <div className="">
                             <div className="grid mb-2">
                                 <h5 className="text-right text-gray-900 text-sm font-semibold leading-snug pb-1">You</h5>
-                                <div className="px-3 py-2 bg-indigo-600 rounded">
-                                    <h2 className="text-white text-sm font-normal leading-snug">Yes, let’s see, send your work here</h2>
+                                {
+                                    chat?.chatHistory?.clientChat?.map((client: any) => (
+
+                                <div className="px-3 py-2 m-2 bg-indigo-600 rounded">
+                                    <h2 className="text-white text-sm font-normal leading-snug">{client.text}
+                                        </h2>
                                 </div>
+                                    ))
+                                }
                                 <div className="justify-start items-center inline-flex">
                                     <h3 className="text-gray-500 text-xs font-normal leading-4 py-1">05:14 PM</h3>
                                 </div>
                             </div>
-                            <div className="justify-center">
-                                <div className="grid w-fit ml-auto">
-                                    <div className="px-3 py-2 bg-indigo-600 rounded ">
-                                        <h2 className="text-white text-sm font-normal leading-snug">Anyone on for lunch today</h2>
-                                    </div>
-                                    <div className="justify-start items-center inline-flex">
-                                        <h3 className="text-gray-500 text-xs font-normal leading-4 py-1">You</h3>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <img src="https://pagedone.io/asset/uploads/1704091591.png" alt="Hailey image" className="w-10 h-11" />
                     </div>
@@ -70,7 +110,7 @@ export const ChatBox = ({chatBoxData}: any ) => {
                                 </g>
                             </svg>
                             {/* <input onChange={} name='message' type='text' className="grow shrink basis-0 text-black text-xs font-medium leading-4 focus:outline-none" placeholder="Type here..." /> */}
-                            <input name='message' type='text' className="grow shrink basis-0 text-black text-xs font-medium leading-4 focus:outline-none" placeholder="Type here..." />
+                            <input onChange={handelMessage} name='message' type='text' className="grow shrink basis-0 text-black text-xs font-medium leading-4 focus:outline-none" placeholder="Type here..." />
                         </div>
                         <div className="flex items-center gap-2">
                             <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -82,8 +122,8 @@ export const ChatBox = ({chatBoxData}: any ) => {
                                     </g>
                                 </g>
                             </svg>
-                            <button className="items-center flex px-3 py-2 bg-indigo-600 rounded-full shadow ">
-                            {/* <button onClick={} className="items-center flex px-3 py-2 bg-indigo-600 rounded-full shadow "> */}
+                            <button onClick={sendMessage} className="items-center flex px-3 py-2 bg-indigo-600 rounded-full shadow ">
+                           
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <g id="Send 01">
                                         <path id="icon" d="M9.04071 6.959L6.54227 9.45744M6.89902 10.0724L7.03391 10.3054C8.31034 12.5102 8.94855 13.6125 9.80584 13.5252C10.6631 13.4379 11.0659 12.2295 11.8715 9.81261L13.0272 6.34566C13.7631 4.13794 14.1311 3.03408 13.5484 2.45139C12.9657 1.8687 11.8618 2.23666 9.65409 2.97257L6.18714 4.12822C3.77029 4.93383 2.56187 5.33664 2.47454 6.19392C2.38721 7.0512 3.48957 7.68941 5.69431 8.96584L5.92731 9.10074C6.23326 9.27786 6.38623 9.36643 6.50978 9.48998C6.63333 9.61352 6.72189 9.7665 6.89902 10.0724Z" stroke="white" stroke-width="1.6" stroke-linecap="round" />

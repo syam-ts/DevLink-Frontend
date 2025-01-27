@@ -12,7 +12,7 @@ export const Chat = () => {
     const [users, setUsers] = useState({});
     const [openChatBox, setOpenChatBox] = useState(false);
     const [chatBoxData, setChatBoxData] = useState({
-        senderId: "",
+        sender: "",
         chatId: ""
     })
     const [message, setMessage] = useState('');
@@ -53,9 +53,9 @@ export const Chat = () => {
          socket.emit('sendMessage', {message})
     };
 
-    const openChatBoxFunction = (senderId: string, chatId: string ) => {
+    const openChatBoxFunction = (sender: string, chatId: string ) => {
         setChatBoxData({
-            senderId,
+            sender,
             chatId
         });
 
