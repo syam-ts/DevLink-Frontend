@@ -35,7 +35,8 @@ const ProfileUser = () => {
     const dispatch = useDispatch();
  
      
-    const userId: string = useSelector((state: any) => state?.user?.currentUser?.user?._id);
+    const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
+    const currentUser: string = useSelector((state: any) => state?.user?.currentUser);
 
       useEffect(() => {
         (async () => {
@@ -101,7 +102,7 @@ const ProfileUser = () => {
       URL.revokeObjectURL(output.src);
     };
   };
-
+ 
 
   const sumbmitForm = async () => {
     try {
@@ -110,13 +111,13 @@ const ProfileUser = () => {
         unchangedData: userData
       }
 
-    
+
       
       const response: any = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
 
-    
+      
      
-// console.log('THe response : ', response.data?.data)
+ 
       if(!response.data.sucess) {
       
         toast.warning(response.data.message, {
@@ -125,14 +126,17 @@ const ProfileUser = () => {
           }
         })
       } else {
-        console.log('THE DATA FOR REDUX : ', response.data?.data)
-        dispatch(signInUser(response.data?.data))
-        // window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+        const user = response.data.data.user;
+        console.log("Dispatching user data to Redux:", user);
+        dispatch(signInUser(user))
+         window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
       }
     } catch (err: any) { 
       toast.error(err.message);
     }
   };
+
+  console.log('THE CURRENT USER : ',currentUser)
 
 
 //skills add section

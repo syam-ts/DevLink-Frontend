@@ -30,7 +30,7 @@ import { LoginComponent } from '../components/common/Login';
 const UserRoute = () => {
 
     const currentUser = useSelector((store: any) => store.user);
-    const user: string = currentUser?.currentUser?.user;
+    const user: string = currentUser?.currentUser;
 
 
 

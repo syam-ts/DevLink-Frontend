@@ -1,30 +1,18 @@
 import {useEffect, useState} from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { signInUser } from '../../utils/redux/slices/userSlice'
-import { useSelector } from 'react-redux';
+
 import Google from '../../components/common/Google';
 
 const LoginUser = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
   const dispatch = useDispatch();
-  const currentUser = useSelector((store: any) => store.user.isUser);
- 
-  const message = useLocation();
-  const navigate = useNavigate(); 
-  
 
-  // useEffect(() => {
- 
-  //   // checking whether use exists or not 
-  //   if(currentUser) {
-  //     navigate('/user/home')
-  // }
-  //  }, []);
  
   useEffect(() => {
 
@@ -68,7 +56,7 @@ const LoginUser = () => {
         const { accessToken } = response.data;
         localStorage.setItem('accessTokenU', accessToken);
      
-        dispatch(signInUser(response.data))
+        dispatch(signInUser(response.data.user))
         window.location.href = '/user/home';
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {

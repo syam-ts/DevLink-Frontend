@@ -6,6 +6,7 @@ import apiInstance from '../../api/axiosInstance';
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
+import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal";
 
  
 
@@ -17,7 +18,22 @@ const HomeUser = () => {
   const [totalJobs, setTotalJobs]: any  = useState(""); 
   const [totalHours, setTotalHours]: any  = useState("{}"); 
   const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
-  const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
+  const userId = useSelector((state: any) => state?.user?.currentUser?._id);
+   const user = useSelector((state: any) => state?.user?.currentUser);
+ 
+ 
+
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (user.isProfileFilled) {
+      setShowModal(true);  
+    }
+  }, [user.isProfileFilled]);
+
+  const handleClose = () => {
+    setShowModal(false);  
+  };
   
   
   
@@ -41,7 +57,7 @@ const HomeUser = () => {
 
     (async () => {
       const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/home/listAllJobs`)
-      console.log('THE DATA : ', data) 
+  
       setJobs(data?.data?.allJobs);
       setTotalJobs(data?.data?.totalJobs);
       setTotalHours(data?.data?.totalHours[0]?.sum); 
@@ -57,17 +73,23 @@ const HomeUser = () => {
 
     (async () => {
       const {data} = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/home/latestJobs`)
-      console.log('THE DATA : ', data) 
+ 
       setLatestJobs(data?.data); 
     })();
 
   }, []);
  
-
+  console.log('da', user.isProfileFilled)
 
 
   return (
     <div className='arsenal-sc-regular'>
+
+ 
+       <div className='hidden'>
+         <ProfileNotFilledModal  isProfileFilled={user.isProfileFilled} userId={userId} />
+       </div>
+      
       
       <section>
         <div className="arsenal-sc-regular">
@@ -94,13 +116,9 @@ const HomeUser = () => {
                 <div>
                   <label className="mb-2 text-sm font-medium sr-only text-white">Search</label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                      </svg>
-                    </div>
-                    <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search your desire Jobs..." required />
-                    <button type="submit" className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                   
+                    <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50   " placeholder="Search your desire Jobs..." required />
+                    <button type="submit" className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-md px-4  ">
                       Search
                     </button>
                   </div>
@@ -156,7 +174,7 @@ const HomeUser = () => {
         <hr className='border-gray-700 mt-20 w-2/4 mx-auto' />
         <section> 
 
-           <div className="relative max-w-full mt-44">
+           <div className="relative max-w-full mt-44 z-0">
                 <img className="h-[600px] w-full object-cover " src="/public/user-home-img-2.png" alt="start-freelaner-image" />
                 <div className="absolute inset-0 rounded-md"></div>
                 <div className="absolute grid inset-0 items-start justify-start my-56 mx-72">

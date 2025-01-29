@@ -35,8 +35,8 @@ const Jobs = () => {
     <main>
       <div className="text-center">
         <Sonner />
-        <div className="justify-center mt-20">
-          <div className="tabs-container flex justify-center">
+        <div className="justify-center mt-44">
+          <div className="tabs-container flex justify-center ">
           <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'listAllJobs' && 'border-b border-black'}`}
              onClick={() => setActiveTab("listAllJobs")} >
               All Jobs
@@ -45,6 +45,11 @@ const Jobs = () => {
             <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'bestMatches' && 'border-b border-black'}`}
              onClick={() => setActiveTab("bestMatches")} >
               Best Matches
+            
+            </button>
+            <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'trendingJobs' && 'border-b border-black'}`}
+             onClick={() => setActiveTab("bestMatches")} >
+              Trending Jobs
             
             </button>
           </div>
