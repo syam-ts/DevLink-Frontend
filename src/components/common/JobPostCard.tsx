@@ -26,7 +26,7 @@ export const JobPostCard = ({ jobs }: Jobs) => {
         <div className="w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
           <div className="flex justify-between ">
             <div className="grid">
-              <span className="text-2xl">{job[1]?.title}</span>
+              <span className="text-2xl text-start">{job[1]?.title}</span>
               <span className="text-sm mt-2">{job[1]?.description}</span>
               <div className="flex gap-4 mt-3">
                 <span className="text-sm">{job[1]?.expertLevel}</span>

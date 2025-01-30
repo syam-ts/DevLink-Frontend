@@ -9,8 +9,9 @@ const Jobs = () => {
   const [activeTab, setActiveTab] = useState("listAllJobs");
   const [jobs, setJobs]: any = useState([]);
   const userId = useSelector(
-    (state: any) => state?.user?.currentUser?.user?._id
+    (state: any) => state?.user?.currentUser?._id
   );
+
 
   useEffect(() => {
     (async () => {
@@ -31,6 +32,7 @@ const Jobs = () => {
     })();
   }, [activeTab]);
 
+
   return (
     <main>
       <div className="text-center">
@@ -48,7 +50,7 @@ const Jobs = () => {
             
             </button>
             <button className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === 'trendingJobs' && 'border-b border-black'}`}
-             onClick={() => setActiveTab("bestMatches")} >
+             onClick={() => setActiveTab("trendingJobs")} >
               Trending Jobs
             
             </button>
