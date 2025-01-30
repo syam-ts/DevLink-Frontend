@@ -22,7 +22,7 @@ import { toast } from "sonner";
       attachedFile: ""
     });
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id)
+    const userId = useSelector((state: any) => state?.user?.currentUser?._id)
 
 
 

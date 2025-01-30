@@ -4359,6 +4359,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-navigation-menu@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "@radix-ui/react-navigation-menu@npm:1.2.4"
+  dependencies:
+    "@radix-ui/primitive": "npm:1.1.1"
+    "@radix-ui/react-collection": "npm:1.1.1"
+    "@radix-ui/react-compose-refs": "npm:1.1.1"
+    "@radix-ui/react-context": "npm:1.1.1"
+    "@radix-ui/react-direction": "npm:1.1.0"
+    "@radix-ui/react-dismissable-layer": "npm:1.1.4"
+    "@radix-ui/react-id": "npm:1.1.0"
+    "@radix-ui/react-presence": "npm:1.1.2"
+    "@radix-ui/react-primitive": "npm:2.0.1"
+    "@radix-ui/react-use-callback-ref": "npm:1.1.0"
+    "@radix-ui/react-use-controllable-state": "npm:1.1.0"
+    "@radix-ui/react-use-layout-effect": "npm:1.1.0"
+    "@radix-ui/react-use-previous": "npm:1.1.0"
+    "@radix-ui/react-visually-hidden": "npm:1.1.1"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/7b32dc6fb7a685ca1ab1b948b739d1c7e71835e92307da6735bb6afd39f31dd7c8fdea30168ab3f860dea60f73b136ce8db2dbb9d120205d6ae6c1e146036b75
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-popper@npm:1.2.1":
   version: 1.2.1
   resolution: "@radix-ui/react-popper@npm:1.2.1"
@@ -7932,6 +7964,7 @@ __metadata:
     "@mui/styled-engine": "npm:^6.2.1"
     "@nextui-org/react": "npm:^2.6.8"
     "@radix-ui/react-dialog": "npm:^1.1.4"
+    "@radix-ui/react-navigation-menu": "npm:^1.2.4"
     "@radix-ui/react-progress": "npm:^1.1.1"
     "@radix-ui/react-select": "npm:^2.1.5"
     "@radix-ui/react-separator": "npm:^1.1.1"

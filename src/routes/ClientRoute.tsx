@@ -61,7 +61,7 @@ const ClientRoute = () => {
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />
                 <Route path='/draftJobPost/payment-failed' element={<PaymentFailed />} /> 
-                <Route path='/job/proposals' element={<JobPropsals />} />
+                <Route path='/jobs/proposals' element={<JobPropsals />} />
                 <Route path='/job/tabs' element={<TestingTables />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
                 <Route path='/contract/view/:contractId' element={<Contract />} />

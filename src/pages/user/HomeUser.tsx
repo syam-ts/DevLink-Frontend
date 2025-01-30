@@ -6,7 +6,7 @@ import apiInstance from '../../api/axiosInstance';
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
-import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal";
+import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal"; 
 
  
 
@@ -83,8 +83,7 @@ const HomeUser = () => {
 
 
   return (
-    <div className='arsenal-sc-regular'>
-
+    <div className='arsenal-sc-regular'> 
  
        <div className='hidden'>
          <ProfileNotFilledModal  isProfileFilled={user.isProfileFilled} userId={userId} />

@@ -18,15 +18,15 @@ const JobProposals = () => {
     userId: 0,
   });
 
-  const clientId = useSelector(
-    (state: any) => state?.client?.currentClient?._id
+  const userId = useSelector(
+    (state: any) => state?.user?.currentUser?._id
   );
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.axiosInstanceClient.get(
-          `http://localhost:3000/client/job/proposals/${clientId}`
+        const { data } = await apiInstance.axiosInstanceUser.get(
+          `http://localhost:3000/user/job/proposals/${userId}`
         );
         setData(data?.data);
       } catch (err: any) {
@@ -34,7 +34,6 @@ const JobProposals = () => {
       }
     })();
   }, []);
-
 
  console.log('THE DATA ', data)
 
@@ -49,7 +48,7 @@ const JobProposals = () => {
           data.type == "" ? (
             <ProposalCardShimmer size='10' />
           ) : (
-            <ProposalCard proposals={data} roleType='client' roleId={clientId} />
+            <ProposalCard proposals={data} clientId={userId} />
           )
         }
       </section>

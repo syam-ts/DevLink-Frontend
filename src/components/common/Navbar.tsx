@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 
 import { Avatar } from "@nextui-org/react";
+import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
@@ -62,7 +63,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               />
             </div>
           </Link>
-          <div className=" sm:ml-6 sm:block pl-16 ">
+          {
+            roleType === 'user' ? (
+               <NavbarAutoOpen roleType={roleType} roleInfo={roleInfo} />
+            ) : (
+              <div className=" sm:ml-6 sm:block pl-10 ">
             <div className="flex space-x-28 ">
               <p className="rounded-md px-3 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/home`} className='no-underline text-black'>
@@ -85,14 +90,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                   <button>Contracts</button>
                 </Link>
               </p>
-              {
-                roleType === 'client' &&
+              
                 <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                  <Link to={`/${roleType}/job/proposals`} className='no-underline text-black'>
+                  <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>
                     <button>proposals</button>
                   </Link>
                 </p>
-              }
+              
               {
                 roleType === 'client' &&
                 <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
@@ -103,6 +107,8 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               }
             </div>
           </div>
+            )
+          }
         </div>
 
         <div className="inset-y-0 right-0 flex pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 mr-12">

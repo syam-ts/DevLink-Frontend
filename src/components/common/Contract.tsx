@@ -8,51 +8,44 @@ import html2canvas from 'html2canvas';
 
 export const Contract = () => {
 
-  const [contract, setContract]: any = useState({})
-  const { contractId } = useParams()
+  const [contract, setContract]: any = useState({});
+  const { contractId } = useParams();
+  const contentRef: any = useRef();
+
 
   useEffect(() => {
 
     (async () => {
       try {
         const { data } = await axios.get(`http://localhost:3000/client/contract/${contractId}`);
-        console.log('THE RESPONSE OF VIEW CONTRACT : ', data?.contract);
-
         setContract(data?.contract)
-      } catch (err: any) {
+        } catch (err: any) {
         console.error('ERROR: ', err.message);
-      }
-    })();
-
-  }, []);
+    }})();
+    }, []);
 
 
- 
-    const contentRef: any = useRef();
-  
-    const downloadPDF = async () => {
-      const content: any = contentRef.current;
-  
-       
-      const canvas = await html2canvas(content);
-      const imgData = canvas.toDataURL("image/png");
-  
-      
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 150; 
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;  
-  
-     
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("download.pdf");
-    };
-  
 
-    
+
+  const downloadPDF = async () => {
+    const content: any = contentRef.current;
+
+    const canvas = await html2canvas(content);
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 150;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save("download.pdf");
+  };
+
+
+
 
   return (
     <div>{
-
       <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 arsenal-sc-regular">
         <div className="sm:w-11/12 lg:w-3/5 mx-auto border-1 border-gray-300">
           <div ref={contentRef} className="flex flex-col p-4 sm:p-10 bg-white">
@@ -192,4 +185,3 @@ export const Contract = () => {
   )
 };
 
- 

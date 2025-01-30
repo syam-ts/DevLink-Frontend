@@ -4,9 +4,9 @@ import apiInstance from '../../api/axiosInstance'
 import { ProfileUser } from '../../pages/user/ProfileUser';
 
 
-export const ProposalCard = ({ proposals, clientId }: any) => {
+export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
 
-    const acceptProposal = async (userId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
+    const acceptProposal = async (userId: string, clientId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
         try {
             const body = {
                 userId: userId,
@@ -51,17 +51,21 @@ export const ProposalCard = ({ proposals, clientId }: any) => {
                         <div className='flex justify-end pr-12 gap-5'>
                             <div>
                                 <button className="rounded-md border border-slate-300 py-2 px-12 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600  hover:bg-gray-300 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                                    <Link to={`/client/userProfile/view/${proposal[1]?.userId}/client-proposal-view`} className='no-underline text-black '>
+                                    <Link to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`} className='no-underline text-black '>
                                         View
                                     </Link>
                                   
                                 </button>
                             </div>
-                            <div>
-                                <button onClick={() => acceptProposal(proposal[1]?.userId, proposal[1]?.jobPostId, proposal[1]?.bidAmount, proposal[1]?.bidDeadline)} className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                          {
+                            roleType === 'client' && (
+                                <div>
+                                <button onClick={() => acceptProposal(proposal[1]?.userId,proposal[1]?.clientId, proposal[1]?.jobPostId, proposal[1]?.bidAmount, proposal[1]?.bidDeadline)} className="rounded-md bg-slate-800 py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                                     Accept
                                 </button>
-                            </div>
+                            </div> 
+                            )
+                          }
                         </div>
                     </div>
                 ))

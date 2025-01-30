@@ -16,6 +16,7 @@ import { Contract } from '../components/common/Contract';
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
 import AllContract from '../components/common/AllContract';
+import Proposals from '../pages/user/ProposalsUser';
 
 
  
@@ -59,10 +60,11 @@ const UserRoute = () => {
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} /> 
-                <Route path='/jobs/' element={<JobPage />} />
+                <Route path='/jobs' element={<JobPage />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
                 <Route path='/profile/:type' element={<ProfileEdit />} />  
+                <Route path='/jobs/proposals' element={<Proposals />} />  
                 <Route path='/contract/view/:contractId' element={<Contract />} /> 
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
