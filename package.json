@@ -39,6 +39,8 @@
     "clsx": "^2.1.1",
     "drawer": "^0.0.2",
     "framer-motion": "^11.14.4",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.468.0",
     "mdb-react-ui-kit": "^9.0.0",

@@ -110,7 +110,7 @@ export const ChatBox = ({chatBoxData,chatId, roleType}: any ) => {
                                          chat?.chatHistory?.clientChat?.map((client: any) => (
 
                                     <div className="px-3.5 py-2 bg-gray-100 rounded justify-start  items-center gap-3 inline-flex">
-                                      {console.log('curre chat : ',)}  <h5 className="text-gray-900 text-sm font-normal leading-snug">{ client.text}</h5>
+                                       <h5 className="text-gray-900 text-sm font-normal leading-snug">{ client.text}</h5>
                                     </div>
                                          ))
                                     }

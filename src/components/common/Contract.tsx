@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 
 
 
@@ -25,12 +27,35 @@ export const Contract = () => {
   }, []);
 
 
+ 
+    const contentRef: any = useRef();
+  
+    const downloadPDF = async () => {
+      const content: any = contentRef.current;
+  
+       
+      const canvas = await html2canvas(content);
+      const imgData = canvas.toDataURL("image/png");
+  
+      
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgWidth = 150; 
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;  
+  
+     
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("download.pdf");
+    };
+  
+
+    
+
   return (
     <div>{
 
       <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 arsenal-sc-regular">
         <div className="sm:w-11/12 lg:w-3/5 mx-auto border-1 border-gray-300">
-          <div className="flex flex-col p-4 sm:p-10 bg-white">
+          <div ref={contentRef} className="flex flex-col p-4 sm:p-10 bg-white">
             <div className="flex justify-between">
               <div>
 
@@ -151,7 +176,7 @@ export const Contract = () => {
             <p className="mt-5 text-sm text-gray-500">© 2025 Devlink.</p>
           </div>
 
-          <div className="mt-6 flex justify-end gap-x-3">
+          <div className="mt-6 flex justify-end gap-x-3" onClick={downloadPDF}>
             <a className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium   bg-white text-gray-800  hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50" href="#">
               <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
               Download Contract
@@ -167,4 +192,4 @@ export const Contract = () => {
   )
 };
 
-
+ 

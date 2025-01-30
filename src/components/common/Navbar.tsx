@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOutUser } from "../../utils/redux/slices/userSlice";
+
 // import { signOutClient } from "../../utils/redux/slices/clientSlice";
 
 import {
@@ -77,6 +78,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/jobs`} className='no-underline text-black'>
                   <button>Jobs</button>
+                </Link>
+              </p>
+              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                <Link to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`} className='no-underline text-black'>
+                  <button>Contracts</button>
                 </Link>
               </p>
               {
