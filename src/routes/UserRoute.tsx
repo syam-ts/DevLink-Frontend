@@ -22,6 +22,7 @@ import AllContract from '../components/common/AllContract';
 import Notifications from '../components/common/NotificationCard'
 import NotificationsUser from '../pages/user/NotificationsUser';
 import { LoginComponent } from '../components/common/Login';
+import { Chat } from '../pages/client/Chat';
  
 
 
@@ -67,7 +68,7 @@ const UserRoute = () => {
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
                 <Route path='/notifications/:userId' element={<NotificationsUser />} />
                 <Route path='/user-login' element={<LoginComponent />} />
-
+               <Route path='/chat/view/:roleId/:roleType' element={<Chat />} />
 
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}

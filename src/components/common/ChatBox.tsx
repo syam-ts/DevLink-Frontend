@@ -1,5 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
  
 
 interface MessageBody {
@@ -9,25 +11,45 @@ interface MessageBody {
 }
 
 
-export const ChatBox = ({chatBoxData}: any ) => {
+export const ChatBox = ({chatBoxData,chatId, roleType}: any ) => {
 
-    console.log('THE DATA FROM CHAT : ', chatBoxData);
+  
     const [chat, setChat]: any = useState({});
     const [message, setMessage]: any = useState("");
 
     useEffect(() => {
+        // Fetch chat data
+        (async () => {
+            try {
+                const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/view/${chatId}`);
+                setChat(data?.data);
+            } catch (err: any) {
+                console.error('ERROR: ', err.message);
+            }
+        })();
 
-        try{
-            (async() => {
+        // Join the chat room
+        socket.emit("join_chat", chatId);
 
-                const { data } = await axios.get(`http://localhost:3000/client/chat/view/${chatBoxData?.chatId}`);
- 
+        // Listen for new messages
+        socket.on("receiveMessage", (newMessage) => {
+            setChat((prevChat: any) => ({
+                ...prevChat,
+                chatHistory: {
+                    ...prevChat.chatHistory,
+                    [newMessage.roleType === "client" ? "userChat" : "clientChat"]: [
+                        ...(prevChat.chatHistory[newMessage.roleType === "client" ? "userChat" : "clientChat"] || []),
+                        newMessage,
+                    ],
+                },
+            }));
+        });
 
-            })();  
-        }catch(err: any) {
-            console.error('ERROR: ', err.message);
-        }
-    });
+        // Cleanup on unmount
+        return () => {
+            socket.off("receiveMessage");
+        };
+    }, [chatId]);
 
 
     const handelMessage = (e: any) => {
@@ -36,21 +58,39 @@ export const ChatBox = ({chatBoxData}: any ) => {
 
     
     const sendMessage = async () => {
-        try{
-            
-            const { data } = await axios.post('http://localhost:3000/client/chat/sendMessage', {
-                chatId: chatBoxData?.chatId,
-                sender: chatBoxData?.sender,
-                text: message
-            });
- 
-            setChat(data?.data);
+        if (!message.trim()) return;
 
-        }catch(err: any) {
-            console.error('ERROR: ',err.message);
+        const newMessage = {
+            chatId: chatBoxData?.chatId,
+            sender: chatBoxData?.sender,
+            text: message,
+            roleType: roleType,
+        };
+
+        try {
+            // Send message to backend
+            await axios.post(`http://localhost:3000/${roleType}/chat/sendMessage`, newMessage);
+
+            // Emit message via socket
+            socket.emit("sendMessage", newMessage);
+
+            // Optimistically update UI
+            setChat((prevChat: any) => ({
+                ...prevChat,
+                chatHistory: {
+                    ...prevChat.chatHistory,
+                    [roleType === "client" ? "clientChat" : "userChat"]: [
+                        ...(prevChat.chatHistory[roleType === "client" ? "clientChat" : "userChat"] || []),
+                        newMessage,
+                    ],
+                },
+            }));
+
+            setMessage("");
+        } catch (err: any) {
+            console.error("ERROR:", err.message);
         }
-    }
-console.log('chat : ',chat)
+    };
 
 
 
@@ -62,28 +102,60 @@ console.log('chat : ',chat)
                             <img src="https://pagedone.io/asset/uploads/1710412177.png" alt="Shanay image" className="w-10 h-11" />
                             <div className="grid">
                                 <h5 className="text-gray-900 text-sm font-semibold leading-snug pb-1">Shanay cruz</h5>
-                                <div className="w-max grid">
+                               {
+                                roleType === 'user' ? (
+                                    <div className="w-max grid">
+
+                                    {
+                                         chat?.chatHistory?.clientChat?.map((client: any) => (
+
                                     <div className="px-3.5 py-2 bg-gray-100 rounded justify-start  items-center gap-3 inline-flex">
-                                        <h5 className="text-gray-900 text-sm font-normal leading-snug">Guts, I need a review of work. Are you ready?</h5>
+                                      {console.log('curre chat : ',)}  <h5 className="text-gray-900 text-sm font-normal leading-snug">{ client.text}</h5>
                                     </div>
-                                    <div className="justify-end items-center inline-flex mb-2.5">
-                                        <h6 className="text-gray-500 text-xs font-normal leading-4 py-1">05:14 PM</h6>
-                                    </div>
+                                         ))
+                                    }
+                                   
                                 </div>
-                                <div className="w-max grid">
-                                    <div className="px-3.5 py-2 bg-gray-100 rounded justify-start items-center gap-3 inline-flex">
-                                        <h5 className="text-gray-900 text-sm font-normal leading-snug">Let me know</h5>
+                                ) : (
+                                    <div className="w-max grid">
+
+                                    {
+                                         chat?.chatHistory?.userChat?.map((user: any) => (
+
+                                    <div className="px-3.5 py-2 bg-gray-100 rounded justify-start  items-center gap-3 inline-flex">
+                                        <h5 className="text-gray-900 text-sm font-normal leading-snug">{ user.text}</h5>
                                     </div>
-                                    <div className="justify-end items-center inline-flex mb-2.5">
-                                        <h6 className="text-gray-500 text-xs font-normal leading-4 py-1">05:14 PM</h6>
-                                    </div>
+                                         ))
+                                    }
+                                   
                                 </div>
+                                )
+                               }
+                        
                             </div>
                         </div>
                     </div>
                     <div className="flex gap-2.5 justify-end pb-40">
                         <div className="">
-                            <div className="grid mb-2">
+                         {
+                            roleType === 'user' ? (
+                                <div className="grid mb-2">
+                                <h5 className="text-right text-gray-900 text-sm font-semibold leading-snug pb-1">You</h5>
+                                {
+                                    chat?.chatHistory?.userChat?.map((user: any) => (
+
+                                <div className="px-3 py-2 m-2 bg-indigo-600 rounded">
+                                    <h2 className="text-white text-sm font-normal leading-snug">{user.text}
+                                        </h2>
+                                </div>
+                                    ))
+                                }
+                                <div className="justify-start items-center inline-flex">
+                                    <h3 className="text-gray-500 text-xs font-normal leading-4 py-1">05:14 PM</h3>
+                                </div>
+                            </div>
+                            ) : (
+                                <div className="grid mb-2">
                                 <h5 className="text-right text-gray-900 text-sm font-semibold leading-snug pb-1">You</h5>
                                 {
                                     chat?.chatHistory?.clientChat?.map((client: any) => (
@@ -98,6 +170,8 @@ console.log('chat : ',chat)
                                     <h3 className="text-gray-500 text-xs font-normal leading-4 py-1">05:14 PM</h3>
                                 </div>
                             </div>
+                            )
+                         }
                             
                         </div>
                         <img src="https://pagedone.io/asset/uploads/1704091591.png" alt="Hailey image" className="w-10 h-11" />
