@@ -24,6 +24,7 @@ import ContractApprovals from '../pages/client/ContractApproval'
 import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
 import NotificationsClient from '../pages/client/NotificationsClient';
 import {Chat} from '../pages/client/Chat'
+import ListUsers from '../pages/client/ListUsers';
 
 
 
@@ -63,6 +64,7 @@ const ClientRoute = () => {
                 <Route path='/draftJobPost/payment-failed' element={<PaymentFailed />} /> 
                 <Route path='/jobs/proposals' element={<JobPropsals />} />
                 <Route path='/job/tabs' element={<TestingTables />} />
+                <Route path='/developers/view' element={<ListUsers />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
                 <Route path='/contract/view/:contractId' element={<Contract />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />

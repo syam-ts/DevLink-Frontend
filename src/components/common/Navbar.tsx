@@ -69,29 +69,29 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             ) : (
               <div className=" sm:ml-6 sm:block pl-10 ">
             <div className="flex space-x-28 ">
-              <p className="rounded-md px-3 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
+              <p className="rounded-md px-1 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/home`} className='no-underline text-black'>
                   Home
                 </Link>
               </p>
-              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                About
+              <p className="rounded-md px-1 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
+                <Link to={`/${roleType}/developers/view`} className='no-underline text-black'>
+                  Developers
+                </Link>
               </p>
-              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                Contact
-              </p>
-              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+           
+              <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/jobs`} className='no-underline text-black'>
                   <button>Jobs</button>
                 </Link>
               </p>
-              <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+              <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                 <Link to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`} className='no-underline text-black'>
                   <button>Contracts</button>
                 </Link>
               </p>
               
-                <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                   <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>
                     <button>proposals</button>
                   </Link>
@@ -99,12 +99,18 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               
               {
                 roleType === 'client' &&
-                <p className="rounded-md px-3 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                   <Link to='/client/contracts/approvals' className='no-underline text-black'>
                     <button>Project Approvals</button>
                   </Link>
                 </p>
               }
+                 <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                About
+              </p>
+              <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                Contact
+              </p>
             </div>
           </div>
             )
