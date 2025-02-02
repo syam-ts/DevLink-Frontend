@@ -24,6 +24,7 @@ import Notifications from '../components/common/NotificationCard'
 import NotificationsUser from '../pages/user/NotificationsUser';
 import { LoginComponent } from '../components/common/Login';
 import { Chat } from '../pages/client/Chat';
+import { SignupComponent } from '../components/common/Signup';
  
 
 
@@ -45,6 +46,7 @@ const UserRoute = () => {
         '/user/verify-otp',
         '/user/verify-email',
         '/user/user-login',
+        '/user/user-signup',
         '/user/resetPassword/67697480bd289da770893f9c'
       ];
       return !restrictedPath.includes(pathname);
@@ -69,8 +71,9 @@ const UserRoute = () => {
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
                 <Route path='/notifications/:userId' element={<NotificationsUser />} />
-                <Route path='/user-login' element={<LoginComponent />} />
                <Route path='/chat/view/:roleId/:roleType' element={<Chat />} />
+                <Route path='/user-login' element={<LoginComponent />} />
+                <Route path='/user-signup' element={<SignupComponent />} />
 
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}

@@ -1,8 +1,7 @@
-import { MDBCol, MDBContainer, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
-import { useSelector } from 'react-redux';
+import { MDBCol, MDBContainer, MDBCard, MDBCardText, MDBCardBody, MDBTypography } from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from 'react-router-dom';
- 
+
 import apiInstance from '../../api/axiosInstance'
 import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
 import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
@@ -10,15 +9,12 @@ import axios from 'axios';
 
 
 
-export const ProfileUser = ( ) => {
+export const ProfileUser = () => {
 
-    const {userId, type, clientId } = useParams()
-
+    const { userId, type, clientId } = useParams()
     const navigate = useNavigate();
+    const [user, setUser]: any = useState({}); 
  
-    const [user, setUser]: any = useState({});
-
-    console.log('THE TYPE OF VIEW : ',type);
 
 
     useEffect(() => {
@@ -26,13 +22,12 @@ export const ProfileUser = ( ) => {
 
             try {
 
-                const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/profile/view/${userId}`, {
+                const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
                 });
+ 
 
-                console.log('The response ', response.data?.data)
-
-                  setUser(response.data.data);
+                setUser(response.data.data);
             } catch (err: any) {
                 if (err.response.data.message == 'No token provided') {
                     navigate('/user/login')
@@ -45,22 +40,20 @@ export const ProfileUser = ( ) => {
 
 
     const createChat = async () => {
-        try{
-            const members = {clientId, userId};
+        try {
+            const members = { clientId, userId };
 
             const { data } = await axios.post('http://localhost:3000/client/chat/create-chat', {
-               members
-        });
-
-            console.log('THE RESULT FROM CREATE CHAT : ', data);
-
-        }catch(err: any) {
+                members
+            });
+ 
+        } catch (err: any) {
             console.error('ERROR: ', err.message);
         }
     }
 
 
-     
+
 
 
     return (
@@ -77,27 +70,27 @@ export const ProfileUser = ( ) => {
                                         <section>
                                             <div className="text-white d-flex flex-row arsenal-sc-regular" style={{ backgroundColor: '#191a4d', height: '250px' }}>
                                                 <div className="ms-4 mt-40 d-flex flex-column" style={{ width: '150px' }}>
-                                                    <img src={user?.profilePicture}  
+                                                    <img src={user?.profilePicture}
                                                         alt="user-image" className="mt-4 mb-2 object-fll img-thumbnail" style={{ width: '150px', height: '150px', zIndex: '1' }} />
                                                 </div>
                                                 <div className="ms-3 my-auto flex w-full justify-between" >
                                                     <div>
                                                         <div className='flex'>
-                                                        <MDBTypography tag="h5" className='text-red-600'>
-                                                            {user?.name}
-                                                           
+                                                            <MDBTypography tag="h5" className='text-red-600'>
+                                                                {user?.name}
+
                                                             </MDBTypography>
-                                                                { user?.isBoosted ? (
-                                                                        <span className=' cursor-pointer bg-[#334155] py-2 mx-2'>
-                                                                            <img className='h-4 w-4' src='https://cdn-icons-png.freepik.com/256/13950/13950107.png?semt=ais_hybrid' />
-                                                                        </span>
-                                                                    ) : (
-                                                                        <span className=' cursor-pointer bg-transparent'>
-                                                                            <BoostPopover userId={user?._id} />
-                                                                        </span>
-                                                                    )
-                                                                }
-                                                             
+                                                            {user?.isBoosted ? (
+                                                                <span className=' cursor-pointer bg-[#334155] py-2 mx-2'>
+                                                                    <img className='h-4 w-4' src='https://cdn-icons-png.freepik.com/256/13950/13950107.png?semt=ais_hybrid' />
+                                                                </span>
+                                                            ) : (
+                                                                <span className=' cursor-pointer bg-transparent'>
+                                                                    <BoostPopover userId={user?._id} />
+                                                                </span>
+                                                            )
+                                                            }
+
                                                         </div>
                                                         <div className='text-sm grid left-0 comfortaa-regular'>
                                                             <span>{user?.location}, india</span>
@@ -108,54 +101,54 @@ export const ProfileUser = ( ) => {
                                                         </div>
 
                                                     </div>
-                                                  <div className='grid'>
-                                                  <div className='flex gap-4 mr-5'>
-                                                    {
-                                                        type === 'client-proposal-view' ? (
-                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                               Hire
-                                                            </button> 
-                                                        ) : type === 'client-home-view' ? (
-                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                              Invite
-                                                           </button> 
-                                                        ) : type === 'user-profile-view' ? (
-                                                            <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                              Invite
-                                                            </button> 
-                                                        ) : (
-                                                            <div>
+                                                    <div className='grid'>
+                                                        <div className='flex gap-4 mr-5'>
+                                                            {
+                                                                type === 'client-proposal-view' ? (
+                                                                    <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                                        Hire
+                                                                    </button>
+                                                                ) : type === 'client-home-view' ? (
+                                                                    <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                                        Invite
+                                                                    </button>
+                                                                ) : type === 'user-profile-view' ? (
+                                                                    <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                                        Invite
+                                                                    </button>
+                                                                ) : (
+                                                                    <div>
 
-                                                            </div>
-                                                        )
-                                                    }
-                                                      
-                                                        <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/11504/11504867.png' /> </span>
-                                                        <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/13424/13424066.png' /> </span>
-                                                    </div>
-      
+                                                                    </div>
+                                                                )
+                                                            }
 
-                                                    <div className='ml-36'>
-                                                    <button onClick={createChat} className='bg-white rounded-lg py-2 px-4 text-black mx-4'>
-                                                            Chat
-                                                        </button>
-                                                      
-                                                           {
-                                                            user?.isProfileFilled ? (
-                                                                <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/edit`}>
-                                                                <span>Edit</span>
-                                                    
-                                                        </Link>
-                                                            ) : (
-                                                                <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/verify`}>
-                                                                <span>Verify</span>
-                                                    
-                                                        </Link>
-                                                            )
-                                                           }
-                                                       
+                                                            <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/11504/11504867.png' /> </span>
+                                                            <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/13424/13424066.png' /> </span>
+                                                        </div>
+
+
+                                                        <div className='ml-36'>
+                                                            <button onClick={createChat} className='bg-white rounded-lg py-2 px-4 text-black mx-4'>
+                                                                Chat
+                                                            </button>
+
+                                                            {
+                                                                user?.isProfileFilled ? (
+                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/edit`}>
+                                                                        <span>Edit</span>
+
+                                                                    </Link>
+                                                                ) : (
+                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/verify`}>
+                                                                        <span>Verify</span>
+
+                                                                    </Link>
+                                                                )
+                                                            }
+
+                                                        </div>
                                                     </div>
-                                                  </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -205,27 +198,27 @@ export const ProfileUser = ( ) => {
 
                                                         </MDBCardText>
                                                         <span className='text-xl'>Skills:</span>
-                                                        <MDBCardText className="font-italic mb-1 py-3 p-3"> 
-                                                           <ul>
-                                                            {
-                                                                user?.skills.map((skill: any) => (
+                                                        <MDBCardText className="font-italic mb-1 py-3 p-3">
+                                                            <ul>
+                                                                {
+                                                                    user?.skills.map((skill: any) => (
 
-                                                                    <li className='list-disc '> {skill}</li>
-                                                                ))
-                                                            }
-                                                           </ul>
+                                                                        <li className='list-disc '> {skill}</li>
+                                                                    ))
+                                                                }
+                                                            </ul>
                                                         </MDBCardText>
 
-                                                            <span className='text-xl'>Experience:</span> 
+                                                        <span className='text-xl'>Experience:</span>
                                                         <MDBCardText className="font-italic mb-1 py-3 p-3">
                                                             <div className='py-3 p-3'>
-                                                            {user?.experience}
+                                                                {user?.experience}
                                                             </div>
                                                         </MDBCardText>
 
                                                         <span className='text-xl'>Education:</span>
                                                         <MDBCardText className="font-italic mb-1 p-3 px-4">
-                                                              {
+                                                            {
                                                                 user?.education.map((ed: any) => (
 
                                                                     <li className='list-disc'> {ed}</li>
@@ -272,7 +265,7 @@ export const ProfileUser = ( ) => {
                                                     </div>
                                                 </div>
                                             </section>
- 
+
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
@@ -288,4 +281,3 @@ export const ProfileUser = ( ) => {
 
 
 
- 

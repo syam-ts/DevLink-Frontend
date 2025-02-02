@@ -1,36 +1,26 @@
 import axios from 'axios';
 
  
- const axiosInstanceUser = axios.create({
-  baseURL: 'http://localhost:3000/user', 
+ const api = axios.create({
+  baseURL: 'http://localhost:3000', 
   withCredentials: true,  
 });
 
  
- const axiosInstanceClient = axios.create({
-  baseURL: 'http://localhost:3000/client', 
-  withCredentials: true,  
-});
-
- 
- const axiosInstanceAdmin = axios.create({
-  baseURL: 'http://localhost:3000/admin', 
-  withCredentials: true,  
-});
-
 
 //User
 
 // Request interceptor
-axiosInstanceUser.interceptors.request.use(
+api.interceptors.request.use(
   (config: any) => {
-    console.log('THE TKEN : ',  config.headers)
-    const accessTokenU = localStorage.getItem('accessTokenU');  
-    if (accessTokenU) {
+    
+    const token = localStorage.getItem('accessToken');  
+    console.log('the tkn : ', token)
+    if (token) {
       if (!config.headers) {
         config.headers = {}; 
       }
-      config.headers['Authorization'] = `Bearer ${accessTokenU}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -41,30 +31,25 @@ axiosInstanceUser.interceptors.request.use(
 
 
 // Response interceptor
-axiosInstanceUser.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   async (error) => { 
     const originalRequest = error.config; 
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const { data } = await axios.get('http://localhost:3000/user/refresh', {
-          withCredentials: true,  
-        });
- 
-
-
+        const { data } = await api.post('http://localhost:3000/user/refresh-token'); 
         const { accessToken } = data;
-        localStorage.setItem('accessTokenU', accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  
  
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
- 
-        return axiosInstanceUser(originalRequest);
+        return api(originalRequest);
       } catch (refreshError) { 
-        localStorage.removeItem('accessTokenU');
-        window.location.href = '/user/login';
+        localStorage.removeItem('accessToken');
+        window.location.href = '/login';
       }
     }
     return Promise.reject(error);
@@ -72,111 +57,6 @@ axiosInstanceUser.interceptors.response.use(
 );
 
 
-
-//Client
-// Request interceptor
-axiosInstanceClient.interceptors.request.use(
-  (config) => {
-    const accessTokenC = localStorage.getItem('accessTokenC'); 
-    if (accessTokenC) {
-      config.headers['Authorization'] = `Bearer ${accessTokenC}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Response interceptor
-axiosInstanceClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
  
-        const response = await axios.post(
-          'http://localhost:3000/client/refresh-token',
-          {},
-          { withCredentials: true }
-        );
-        const { accessTokenC } = response.data;
 
-       
-        localStorage.setItem('accessTokenC', accessTokenC);
-        originalRequest.headers['Authorization'] = `Bearer ${accessTokenC}`;
-        return axiosInstanceUser(originalRequest);  
-      } catch (refreshError) {
-      
-        console.error('Refresh token failed:', refreshError);
-        localStorage.removeItem('accessTokenC');
-
-        window.location.href = '/client/login';  
-        return Promise.reject(refreshError);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
-
-
-//Admin
-// Request interceptor
-axiosInstanceAdmin.interceptors.request.use(
-  (config) => {
-    const accessTokenA = localStorage.getItem('accessTokenA'); 
-    if (accessTokenA) {
-      config.headers['Authorization'] = `Bearer ${accessTokenA}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Response interceptor
-axiosInstanceAdmin.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
- 
-        const response = await axios.post(
-          'http://localhost:3000/admin/refresh-token',
-          {},
-          { withCredentials: true }
-        );
-        const { accessTokenA } = response.data;
-
-       
-        localStorage.setItem('accessTokenA', accessTokenA);
-        originalRequest.headers['Authorization'] = `Bearer ${accessTokenA}`;
-        return axiosInstanceUser(originalRequest);  
-      } catch (refreshError) {
-      
-        console.error('Refresh token failed:', refreshError);
-        localStorage.removeItem('accessTokenA');
-
-        window.location.href = '/admin/login';  
-        return Promise.reject(refreshError);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
-export default {
-  axiosInstanceUser,
-  axiosInstanceClient,
-  axiosInstanceAdmin,
-};
+export default api;

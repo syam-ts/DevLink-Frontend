@@ -40,7 +40,7 @@ const ProfileUser = () => {
 
       useEffect(() => {
         (async () => {
-          const response = await apiInstance.axiosInstanceUser.get(`http://localhost:3000/user/profile/view/${userId}`,{
+          const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`,{
             withCredentials: true
         });
      
@@ -113,7 +113,7 @@ const ProfileUser = () => {
 
 
       
-      const response: any = await apiInstance.axiosInstanceUser.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
+      const response: any = await apiInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
 
       
      

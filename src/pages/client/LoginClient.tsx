@@ -64,13 +64,13 @@ const LoginClient = () => {
     });
     console.log('The token', response.data);
  
-      if(response.data.type !== 'success') {
+      if(!response.data.success ) {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        const { accessToken } = response.data?.data?.client;
+        const { accessToken } = response.data;
          
-        localStorage.setItem('accessTokenC', accessToken);
-        dispatch(signInClient(response.data?.data?.client?.client?.client))
+        localStorage.setItem('accessToken', accessToken);
+        dispatch(signInClient(response.data?.client))
         navigate('/client/home', { state: { message: response.data.message } });
       }
     

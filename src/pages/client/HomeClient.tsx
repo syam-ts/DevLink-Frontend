@@ -42,7 +42,7 @@ const HomeClient = () => {
   useEffect(() => {
      const findAllUsers = async () => { 
       try {
-      const response = await apiInstance.axiosInstanceClient.get('/getHome', {
+      const response = await apiInstance.get('/getHome', {
          withCredentials: true
      });
 

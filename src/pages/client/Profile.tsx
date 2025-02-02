@@ -24,7 +24,7 @@ useEffect(() => {
 
     try {
       
-      const response = await apiInstance.axiosInstanceClient.get(`http://localhost:3000/client/profile/view/${clientId}`,{
+      const response = await apiInstance.get(`http://localhost:3000/client/profile/view/${clientId}`,{
         withCredentials: true
     }); 
    

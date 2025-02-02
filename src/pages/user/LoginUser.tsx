@@ -47,16 +47,14 @@ const LoginUser = () => {
     try {
      const response = await axios.post('http://localhost:3000/user/login', formData, {
       withCredentials: true,  
-    });
-    console.log('The token', response.data);
-  
-     
+    }); 
  
-      if(response.data.type === 'success') {
+      if(response.data.success) {
+        console.log('ENTERED HERE')
         const { accessToken } = response.data;
-        localStorage.setItem('accessTokenU', accessToken);
+        localStorage.setItem('accessToken', accessToken);
      
-        dispatch(signInUser(response.data.user))
+        dispatch(signInUser(response.data.user));
         window.location.href = '/user/home';
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
