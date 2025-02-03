@@ -40,7 +40,7 @@ const HomeUser = () => {
   useEffect(() => {
     (async () => {
       try { 
-        const { data } = await apiInstance.get('/getHome', {
+        const { data } = await apiInstance.get('/user/getHome', {
           withCredentials: true,
         });
 
@@ -56,7 +56,7 @@ const HomeUser = () => {
   useEffect(() => {
 
     (async () => {
-      const {data} = await apiInstance.get(`http://localhost:3000/user/home/listAllJobs`)
+      const {data} = await apiInstance.get(`/user/home/listAllJobs`)
   
       setJobs(data?.data?.allJobs);
       setTotalJobs(data?.data?.totalJobs);
@@ -72,7 +72,7 @@ const HomeUser = () => {
   useEffect(() => {
 
     (async () => {
-      const {data} = await apiInstance.get(`http://localhost:3000/user/home/latestJobs`)
+      const {data} = await apiInstance.get(`/user/home/latestJobs`)
  
       setLatestJobs(data?.data); 
     })();

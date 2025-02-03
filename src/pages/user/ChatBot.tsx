@@ -23,7 +23,7 @@ export const Chatbot = () => {
     e.preventDefault();
 
     try {
-      const { data } = await apiInstance.axiosInstanceUser.post(
+      const { data } = await apiInstance.post(
         "http://localhost:3000/user/chatbot",
         {
           userInput,

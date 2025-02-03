@@ -16,8 +16,8 @@ const Jobs = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.axiosInstanceUser.get(
-          `http://localhost:3000/user/${activeTab}/${userId}`
+        const { data } = await apiInstance.get(
+          `http://localhost:3000/user/job/${activeTab}/${userId}`
         );
         console.log("THE RESPON S: ", data?.data);
         setJobs(data?.data);

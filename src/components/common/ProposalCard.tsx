@@ -15,7 +15,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
                 bidAmount: bidAmount,
                 bidDeadline: bidDeadline
             }
-            const { data } = await apiInstance.axiosInstanceClient.post('http://localhost:3000/client/job/createContract', body);
+            const { data } = await apiInstance.post('http://localhost:3000/client/job/createContract', body);
 
             console.log('THE REPOSNSE : ', data)
         } catch (err: any) {

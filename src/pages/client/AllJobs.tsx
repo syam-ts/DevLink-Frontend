@@ -9,7 +9,7 @@ const JobsRender = ({ clientId, type }: any) => {
   useEffect(() => {
     try {
       (async () => {
-        const response = await apiInstance.axiosInstanceClient.get(
+        const response = await apiInstance.get(
           `http://localhost:3000/client/jobs/${type}/${clientId}`
         );
 

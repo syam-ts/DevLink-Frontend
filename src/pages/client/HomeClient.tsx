@@ -26,23 +26,23 @@ const HomeClient = () => {
  
  
 
-  useEffect(() => {
-    if (message.state) { 
+//   useEffect(() => {
+//     if (message.state) { 
 
-      toast.error(message.state?.message);  
-    };
+//       toast.error(message.state?.message);  
+//     };
 
-    // checking whether use exists or not 
-    if(!isClient) {
-      navigate('/client/login')
-  }
-   }, []);
+//     // checking whether use exists or not 
+//     if(!isClient) {
+//       navigate('/client/login')
+//   }
+//    }, []);
 
 
   useEffect(() => {
      const findAllUsers = async () => { 
       try {
-      const response = await apiInstance.get('/getHome', {
+      const response = await apiInstance.get('/client/getHome', {
          withCredentials: true
      });
 

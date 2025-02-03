@@ -14,8 +14,8 @@ import axios from 'axios';
 api.interceptors.request.use(
   (config: any) => {
     
-    const token = localStorage.getItem('accessToken');  
-    console.log('the tkn : ', token)
+    const token = localStorage.getItem('accessToken');   
+ 
     if (token) {
       if (!config.headers) {
         config.headers = {}; 
@@ -33,13 +33,17 @@ api.interceptors.request.use(
 // Response interceptor
 api.interceptors.response.use(
   (response) => response,
-  async (error) => { 
+  async (error) => {  
     const originalRequest = error.config; 
+   
 
-    if (error.response?.status === 403 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
+      console.log('THE RESPONSE STATUS : ', error.response.status)
       try {
+        alert('enter')
+      
         const { data } = await api.post('http://localhost:3000/user/refresh-token'); 
         const { accessToken } = data;
         localStorage.setItem('accessToken', accessToken);
@@ -48,6 +52,7 @@ api.interceptors.response.use(
  
         return api(originalRequest);
       } catch (refreshError) { 
+        console.error('Refresh token error:', refreshError);
         localStorage.removeItem('accessToken');
         window.location.href = '/login';
       }

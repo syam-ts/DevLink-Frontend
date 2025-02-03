@@ -62,7 +62,7 @@ const DraftJobPost = () => {
   const paymentFunction = async () => {
     try {
 
-      const response = await apiInstance.axiosInstanceClient.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
+      const response = await apiInstance.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
         formData,
       });
 

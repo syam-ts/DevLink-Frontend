@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { SendProposalModal } from "../nextUi/modals/SendProposalModal";
-
+import apiInstance from '../../api/axiosInstance'
 
 
 const MonoJobPost = () => {
@@ -14,16 +14,18 @@ const MonoJobPost = () => {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await axios.get(`http://localhost:3000/user/job/${jobPostId}`);
+ 
+        const { data } = await apiInstance.get(`/user/job/${jobPostId}`);
 
-        setJobPost(data.jobPost);
-        console.log('THE DTA  : ', data.jobPost)
+        setJobPost(data.jobPost); 
+        
       })();
 
     } catch (err: any) {
       console.error('ERROR: ', err.message);
     }
   }, []);
+
 
 
   return (

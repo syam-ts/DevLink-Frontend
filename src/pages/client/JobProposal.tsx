@@ -25,7 +25,7 @@ const JobProposals = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.axiosInstanceClient.get(
+        const { data } = await apiInstance.get(
           `http://localhost:3000/client/job/proposals/${clientId}`
         );
         setData(data?.data);

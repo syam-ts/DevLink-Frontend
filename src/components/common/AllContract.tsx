@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
 import { SubmitProject } from "../nextUi/modals/SubmitProjectModal";
+import apiInstance from '../../api/axiosInstance';
 
  
 
@@ -19,7 +20,7 @@ function AllContract() {
     try{
       
        (async () => {
-        const { data } = await axios.get(`http://localhost:3000/${roleType}/job/${contractsViewType}/${roleId}`);
+        const { data } = await apiInstance.get(`/${roleType}/job/${contractsViewType}/${roleId}`);
 
         console.log('THE RESPONSE FROM MY-CONTRRAC ',data);
         setContracts(data?.data);
