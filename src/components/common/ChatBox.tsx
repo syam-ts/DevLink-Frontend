@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createSocketConnection } from "../../utils/socket/socket";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -15,24 +16,32 @@ export const ChatBox = () => {
     const { roleType, targetId } = useParams();
     const socketRef = useRef<any>(null);
 
-    let name;
-    if (roleType === 'user') {
-        name = 'syam software developer'
-    } else {
-        name = 'nutiroux Bangalore'
-    }
-
-
-
-    let roleId;
+    let name, roleId;
 
     if (roleType === 'user') {
+        name = useSelector((state: any) => state?.user?.currentUser?.name);
         roleId = useSelector((state: any) => state?.user?.currentUser?._id);
     } else {
+        name = useSelector((state: any) => state?.client?.currentClient?.companyName);
+
         roleId = useSelector((state: any) => state?.client?.currentClient?._id);
     }
 
 
+    const fetchChatMessages = async () => {
+        const {data} = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleId}/${targetId}`, {
+            withCredentials: true
+        });
+
+         console.log(data.messages.messages)
+         setMessages(data.messages?.messages)
+
+    }
+
+
+    useEffect(() => {
+        fetchChatMessages();
+    }, []);
 
 
 
@@ -48,8 +57,9 @@ export const ChatBox = () => {
         socket.emit("joinChat", { name, roleId, targetId });
 
         socket.on("messageReceived", ({ name, text }: any) => {
-            setMessages([...messages, { name, text }]);
-            console.log('HTE MESSG : ', name, text)
+            setMessages((messages) => [...messages, { name, text }]);
+     
+            
         });
 
         return () => {
@@ -68,10 +78,12 @@ export const ChatBox = () => {
 
         socketRef.current.emit("sendMessage", {
             name,
+            roleType,
             roleId,
             targetId,
             text: newMessage,
         });
+        setNewMessage("");
     };
 
     return (
