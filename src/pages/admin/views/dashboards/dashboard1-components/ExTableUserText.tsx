@@ -20,6 +20,9 @@ import axios from "axios";
 import { Sonner } from "../../../../../components/sonner/ToasterBottom";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import apiInstance from '../../../../../api/axiosInstance'
+import { UserViewAdmin } from "../../../../../components/common/UserViewAdmin";
+
 
 const ExTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,8 +35,8 @@ const ExTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/admin/getAllUsers?page=${currentPage}&sortType=${sortType}`,
+        const { data } = await apiInstance.get(
+          `admin/getAllUsers?page=${currentPage}&sortType=${sortType}`,
           {
             withCredentials: true,
           }
@@ -71,8 +74,8 @@ const ExTable = () => {
         setSortType("block");
       } else {
         setIsSearchTriggered(true);
-        const { data } = await axios.post(
-          `http://localhost:3000/admin/getAllUsers/search?inputData=${inputData}`
+        const { data } = await apiInstance.post(
+          `/admin/getAllUsers/search?inputData=${inputData}`
         );
 
         if (totalPages[0] !== data?.data?.totalPages)
@@ -90,8 +93,8 @@ const ExTable = () => {
 
   const blockUserFn = async (userId: string) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/blockUser/${userId}`
+      const response = await apiInstance.patch(
+        `/admin/blockUser/${userId}`
       );
 
       if (response.data.type == "success") {
@@ -108,8 +111,8 @@ const ExTable = () => {
 
   const unBlockUserFn = async (userId: any) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/unblockUser/${userId}`
+      const response = await apiInstance.patch(
+        `/admin/unblockUser/${userId}`
       );
       if (response.data.type == "success") {
         setIsBlocked(false);
@@ -311,7 +314,10 @@ const ExTable = () => {
                     </TableCell>
 
                     <TableCell align="right">
-                      <Typography variant="h6"></Typography>
+                      <Typography variant="h6">
+                
+                         <UserViewAdmin />
+                         </Typography>
                     </TableCell>
 
                     <TableCell align="right">

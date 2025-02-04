@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 
 interface Messages {
     name: string,
+    roleType: string,
     text: string
 }
 
@@ -29,12 +30,12 @@ export const ChatBox = () => {
 
 
     const fetchChatMessages = async () => {
-        const {data} = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleId}/${targetId}`, {
+        const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleId}/${targetId}`, {
             withCredentials: true
         });
 
-         console.log(data.messages.messages)
-         setMessages(data.messages?.messages)
+        console.log(data.messages.messages)
+        setMessages(data.messages?.messages)
 
     }
 
@@ -56,10 +57,10 @@ export const ChatBox = () => {
 
         socket.emit("joinChat", { name, roleId, targetId });
 
-        socket.on("messageReceived", ({ name, text }: any) => {
-            setMessages((messages) => [...messages, { name, text }]);
-     
-            
+        socket.on("messageReceived", ({ name, text, roleType }: any) => {
+            setMessages((messages) => [...messages, { name, text, roleType }]);
+
+
         });
 
         return () => {
@@ -94,44 +95,74 @@ export const ChatBox = () => {
 
                 </div>
                 <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                   
-                            <div className="chat-message">
-                                <div className="grid gap-3 items-end">
-                                    {
-                                        messages.map((message: Messages) => (
-                                            <div className="flex flex-col space-y-2   text-xs max-w-xs mx-2 order-2 items-start">
-                                                <div>
-                                                   
+
+                    <div className="chat-message">
+
+                        {
+                            messages.map((message: Messages) => (
+                               <div>{
+                                roleType === 'user' ? (
+                                    <div className="grid gap-3 justify-end"  >
+                                    <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                         
+                                                <div >
+
+                                                    <div>
                                                         <div>
-                                                            <div>
-                                                                <span>{message.name}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-                                                                    {message.text}
-                                                                </span>
-                                                            </div>
+                                                            <span>{message.name}</span>
                                                         </div>
-                                                  
-                                                    
-                                                 
+                                                        <div>
+                                                            <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
+                                                                {message.text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+  
                                                 </div>
-                                            </div>
-                                        ))
-                                    }
+                                        
+
+                                           
+  
+                                    </div>
                                     <img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" className="w-6 h-6 rounded-full order-1" />
                                 </div>
-                            </div>
-                   
-                  
-                    <div className="chat-message">
-                        <div className="flex items-end justify-end">
-                            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">Your error message says permission denied, npm global installs must be given root privileges.</span></div>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" className="w-6 h-6 rounded-full order-2" />
-                        </div>
+                                ) : (
+                                    <div className="grid gap-3 justify-start"  >
+                                    <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                         
+                                                <div >
+
+                                                    <div>
+                                                        <div>
+                                                            <span>{message.name}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
+                                                                {message.text}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+  
+                                                </div>
+                                        
+
+                                           
+  
+                                    </div>
+                                    <img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" className="w-6 h-6 rounded-full order-1" />
+                                </div>
+                                )
+                                }
+                             
+                                </div>
+                            
+                            ))
+                        }
+
+
                     </div>
+
+
 
 
                 </div>

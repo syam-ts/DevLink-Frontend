@@ -8,8 +8,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
-
+import apiInstance from '../../../../api/axiosInstance';
 
 
 const Dashboard1 = () => {
@@ -27,7 +26,7 @@ useEffect(() => {
 
     try {
       
-      const response = await axios.get('http://localhost:3000/admin/dashboard',{
+      const response = await apiInstance.get('/admin/dashboard',{
         withCredentials: true
     }); 
   

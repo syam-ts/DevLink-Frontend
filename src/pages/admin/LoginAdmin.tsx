@@ -45,7 +45,7 @@ const LoginClient = () => {
      }) 
      console.log('The whoel ', response.data)
  
-      if(response.data.type !== 'success') {
+      if(!response.data.success) {
       
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
