@@ -17,7 +17,8 @@ import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
 import AllContract from '../components/common/AllContract';
 import Proposals from '../pages/user/ProposalsUser';
-
+import {ChatBox} from '../components/common/ChatBox'
+import ListAllUserChat from '../components/common/ListAllUserChat'
 
  
 import Notifications from '../components/common/NotificationCard'
@@ -70,8 +71,12 @@ const UserRoute = () => {
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
                 <Route path='/notifications/:userId' element={<NotificationsUser />} />
-               <Route path='/chat/view/:roleId/:roleType' element={<Chat />} /> 
+               {/* <Route path='/chat/view/:roleId/:roleType' element={<Chat />} />  */}
                 <Route path='/user-signup' element={<SignupComponent />} />
+
+
+                <Route path='/chat/allclient/:roleType/:roleId' element={<ListAllUserChat />} /> 
+                <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />
 
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}

@@ -190,9 +190,17 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
 
                 <DropdownItem key="home">
-                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/chat/view/${roleInfo?._id}/${roleType}`}>
+               {
+                roleType === 'user' ? (
+                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/user/chat/allclient/user/${roleInfo?._id}`}> 
+                  Chat
+                </Link>
+                ) : (
+                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/client/chat/alluser/client/${roleInfo?._id}`}> 
                     Chat
-                  </Link>
+                </Link>
+                )
+               }
                 </DropdownItem>
 
 

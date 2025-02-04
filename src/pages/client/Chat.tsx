@@ -1,7 +1,9 @@
+import { createSocketConnection } from '../../utils/socket/socket';
 import { ChatBox } from '../../components/common/ChatBox';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Socket } from 'socket.io-client';
 
 
 export const Chat = () => {
@@ -18,26 +20,18 @@ export const Chat = () => {
     const { roleId, roleType }: string | any = useParams();
 
 
+    // new codes
+    useEffect(() => {
+     
+        const socket = createSocketConnection();
+
+        socket.emit("joinChat", chatId)
+    }, []);
+
  
 
 
-
-    useEffect(() => {
-
-        try {
-            (async () => {
-
-
-                const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/${roleId}`);
-                setUsers(data?.data);
-                //  console.log('THE RESULT FROM GET ALL CHATS ', data.data);
-            })();
-
-        } catch (err: any) {
-            console.error('ERROR: ', err.message);
-        }
-    }, [chatId]);
-
+ 
 
  
  
@@ -67,13 +61,11 @@ console.log('CHAT ID : ', chatId)
                         <div onClick={() => openChatBoxFunction(roleId, user[1]?._id)} className='my-2 '>
                             <ul className='flex gap-10 bg-gray-100 shadow-md rounded-xl py-2.5'>
                                 <li><img src='https://pagedone.io/asset/uploads/1710412177.png' className='w-10 h-10' /></li>
-                                <li> {
-                                    roleType === 'user' ? (
-                                        <span className='arsenal-sc-regualr px-10 text-lg'>{user[1]?.members?.clientName}</span>
-                                    ) : (
-                                        <span className='arsenal-sc-regualr px-10 text-lg'>{user[1]?.members?.userName}</span>
-                                    )
-                                }
+                                <li>  
+                                        <span className='arsenal-sc-regualr px-10 text-lg'>Hi</span>
+                                   
+                                        <span className='arsenal-sc-regualr px-10 text-lg'>hi from opponent</span>
+                                
                                 </li>
                             </ul>
                         </div>
@@ -85,11 +77,11 @@ console.log('CHAT ID : ', chatId)
 
 
             <div className='w-full'>
-                {
+                {/* {
                     openChatBox && (
                         <ChatBox chatBoxData={chatBoxData} chatId={chatId} roleType={roleType} />
                     )
-                }
+                } */}
             </div>
 
 

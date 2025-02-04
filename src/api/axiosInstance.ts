@@ -41,8 +41,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       console.log('THE RESPONSE STATUS : ', error.response.status)
-      try {
-        alert('enter')
+      try { 
       
         const { data } = await api.post('http://localhost:3000/user/refresh-token'); 
         const { accessToken } = data;
