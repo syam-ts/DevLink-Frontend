@@ -35,13 +35,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
       // localStorage.removeItem('refreshToken');
 
-      window.location.href = '/user/login'
+      window.location.href = '/login/user'
     } else if (roleType === 'client') {
       localStorage.removeItem('accessTokenC');
       dispatch(signOutUser())
       // localStorage.removeItem('refreshToken');
 
-      window.location.href = '/client/login'
+      window.location.href = '/login/client'
     }
 
   };

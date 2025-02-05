@@ -3,14 +3,20 @@ import { userLoginSchema } from '../../utils/validation/login/userLoginSchema'
 import { Sonner } from '../sonner/Toaster';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../utils/redux/slices/userSlice';
+import { signInClient } from '../../utils/redux/slices/clientSlice';
 import axios from 'axios';
 import { toast } from 'sonner';
 import Google from '../../components/common/Google';
+import { Link, useParams } from 'react-router-dom';
 
   const LoginComponent = () => {
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
+  const { roleType } = useParams();
+
+ 
+  
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -25,21 +31,29 @@ import Google from '../../components/common/Google';
       const validForm = await userLoginSchema.validate(formData, { abortEarly: false });
       if (validForm) {
         try {
-          const { data } = await axios.post('http://localhost:3000/user/login',
+          const { data } = await axios.post(`http://localhost:3000/${roleType}/login`,
            formData, {
             withCredentials: true,
           });
         
 
-            console.log('HWOL DATA : ', data) 
+          const { accessToken } = data;
+          localStorage.setItem('accessToken', accessToken);
+            
 
           if (data.success) { 
-            const { accessToken } = data;
-            localStorage.setItem('accessToken', accessToken);
+          if(roleType === 'user') {
 
             dispatch(signInUser(data.user));
             setError([])
             window.location.href = '/user/home';
+          } else {
+       
+
+            dispatch(signInClient(data.client));
+            setError([])
+            window.location.href = '/client/home';
+          }
 
           } else {
              toast.error(data.message, {
@@ -225,7 +239,11 @@ import Google from '../../components/common/Google';
               </div>
             </form>
             <div className="mt-4 text-sm text-gray-600 text-center">
-              <p>Dont't have an account? <a href="#" className="text-black hover:underline">Signup here</a>
+              <p>Dont't have an account? <a href="#" className="text-black hover:underline">
+                <Link to={`/${roleType}/signup`} className='text-black'>
+                   Signup here
+                </Link>
+              </a>
               </p>
             </div>
           </div>

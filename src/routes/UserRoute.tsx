@@ -58,7 +58,6 @@ const UserRoute = () => {
             <Routes>
                 <Route path='/signup' element={<SignupUser />} />
                 <Route path='/verify-otp' element={<OtpUser />} />
-                <Route path='/login' element={<LoginComponent />} />
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} /> 
