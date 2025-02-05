@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signOutUser } from "../../utils/redux/slices/userSlice";
+import { clearNotifications, signOutUser } from "../../utils/redux/slices/userSlice";
 
 // import { signOutClient } from "../../utils/redux/slices/clientSlice";
 
@@ -19,7 +19,8 @@ import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
 
 const Navbar = ({ roleType, roleInfo }: any) => {
 
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
 
   const logout = async () => {
@@ -31,9 +32,12 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
     if (roleType === 'user') {
 
-      localStorage.removeItem('accessTokenU')
+      localStorage.removeItem('accessTokenU');
+      //remove trace of notification page visit
+      localStorage.removeItem('notificationsPageFirstVisit');
 
-      // localStorage.removeItem('refreshToken');
+     dispatch(clearNotifications());
+     
 
       window.location.href = '/login/user'
     } else if (roleType === 'client') {

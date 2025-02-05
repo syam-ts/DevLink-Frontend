@@ -6,7 +6,7 @@ import Notification from '../../components/common/NotificationCard'
 
 function NotificationsUser () {
  
-   const userId = useSelector((state: any) => state?.user?.currentUser?.user?._id);
+   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
 
    console.log('user id', userId)
 
