@@ -9,9 +9,10 @@ import {
   useDisclosure,
 } from "@heroui/react"; 
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import apiInstance from '../../../api/axiosInstance'
+import { addNotification } from "../../../utils/redux/slices/userSlice";
 
 
 export const SendProposalModal = ({ jobPostId }: any) => {
@@ -23,7 +24,8 @@ export const SendProposalModal = ({ jobPostId }: any) => {
     attachedFile: ""
   });
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const userId = useSelector((state: any) => state?.user?.currentUser?._id)
+  const userId = useSelector((state: any) => state?.user?.currentUser?._id);
+  const dispatch = useDispatch();
 
 
 
@@ -58,7 +60,9 @@ export const SendProposalModal = ({ jobPostId }: any) => {
           }
         })
       } else {
-       // window.location.href = `http://localhost:5173/user/job/${userId}`
+        console.log('The dat : ', data)
+          dispatch(addNotification(data?.data?.notifications))
+       window.location.href = `http://localhost:5173/user/job/${userId}`
       }
     } catch (err: any) {
       console.log('ERROR: ', err.response.data.message);
@@ -69,11 +73,13 @@ export const SendProposalModal = ({ jobPostId }: any) => {
   return (
     <>
       <Sonner />
-      <Button className='rounded-xl bg-green-500 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2' onPress={onOpen}>Apply</Button>
+      <Button className='rounded-xl bg-green-500 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2' onPress={onOpen}>
+        Apply
+        </Button>
       <Modal
-        backdrop="opaque" size="full"
+        backdrop="opaque" size="5xl"
         classNames={{
-          backdrop: "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+          backdrop: "bg-gradient-to-t w-screen from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
         }}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -120,10 +126,7 @@ export const SendProposalModal = ({ jobPostId }: any) => {
 
                     </div>
                   </div>
-                  <div className='mt-5 flex gap-24'>
-                    <label>Attch file*</label>
-                    <input onChange={handleOnChange} name='attachedFile' type='file' accept="image" />
-                  </div>
+                  
                   <span className='text-sm absolute my-12'><ul>
                     <li className='list-disc font-sans text-xs'>You are requesting for a jobpost proposal which cannot be cancelled later. if you aggreed
                       on the condition click submit

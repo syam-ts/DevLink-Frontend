@@ -17,12 +17,15 @@ interface UserState {
     currentUser: User | null,
     isUser: boolean,
     notifications: string[];
+    notificationsUnread: number;
 };
 
 const initialState: UserState = {
     currentUser: null,
     isUser: false,
-    notifications: []
+    notifications: [],
+    notificationsUnread: 0
+
 }
 
 
@@ -45,11 +48,14 @@ const userSlice = createSlice({
             state.isUser = false;
         },
         addNotification: (state: any, action: any) => {
-            
-                    const parsedNotifications = JSON.parse(action.payload);
-                 
-                        state.notifications.push(...parsedNotifications);
-          
+            const parsedNotifications = JSON.parse(action.payload);
+            state.notifications.push(...parsedNotifications);
+            state.notificationsUnread++;
+
+        },
+        markAsReadNotifications: (state: any) => { 
+            state.notificationsUnread = 0;
+
         },
         clearNotifications: (state: any) => {
             state.notifications = [];
@@ -60,4 +66,4 @@ const userSlice = createSlice({
 
 
 export default userSlice.reducer;
-export const { signInUser, updateUser, addNotification, clearNotifications, signOutUser } = userSlice.actions;
+export const { signInUser, updateUser, addNotification, markAsReadNotifications, clearNotifications, signOutUser } = userSlice.actions;

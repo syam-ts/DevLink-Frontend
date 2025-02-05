@@ -28,6 +28,7 @@ const JobProposals = () => {
         const { data } = await apiInstance.get(
           `http://localhost:3000/user/job/proposals/${userId}`
         );
+        console.log('Data fro m', data)
         setData(data?.data);
       } catch (err: any) {
         console.log("ERROR: ", err.message);
