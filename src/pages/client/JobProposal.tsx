@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux"; 
 import apiInstance from "../../api/axiosInstance";
 import { ProposalCard } from "../../components/common/ProposalCard";
 import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
+import { Sonner } from "../../components/sonner/Toaster";
 
 const JobProposals = () => {
   interface Proposals {
@@ -18,9 +18,10 @@ const JobProposals = () => {
     userId: 0,
   });
 
-  const clientId = useSelector(
-    (state: any) => state?.client?.currentClient?._id
-  );
+   
+  const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
+
+  
 
   useEffect(() => {
     (async () => {
@@ -40,6 +41,7 @@ const JobProposals = () => {
 
   return (
     <main>
+      <Sonner />
       <section className="text-center mt-16 arsenal-sc-regular">
         <span className="text-3xl"> Proposals </span>
         <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />

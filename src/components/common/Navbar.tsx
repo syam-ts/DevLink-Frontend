@@ -169,17 +169,8 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     Profile
                   </Link>
                 </DropdownItem>
-
-                <DropdownItem key="proposals">
-                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/job/proposals`}>
-                    Proposals
-                  </Link>
-                </DropdownItem>
-                <DropdownItem key="home">
-                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`}>
-                    Contracts
-                  </Link>
-                </DropdownItem>
+ 
+                
 
                 <DropdownItem key="contracts">
                   <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
@@ -244,8 +235,8 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             href="#"
             className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
           >
-            {" "}
-            Jobs{" "}
+             
+            Jobs 
           </a>
           <a
             href="#"

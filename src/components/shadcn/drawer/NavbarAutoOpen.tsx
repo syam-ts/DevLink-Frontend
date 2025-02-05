@@ -26,11 +26,11 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
       <NavigationMenuItem>
 
         
-      <NavigationMenuTrigger>
+   
         <Link to='/user/home' className='no-underline text-black'>
            Home
         </Link>
-      </NavigationMenuTrigger>
+  
           <NavigationMenuContent>
            
           </NavigationMenuContent>
@@ -46,7 +46,7 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
            Jobs
         </Link>
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-10 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="All Jobs">
@@ -62,7 +62,7 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
-          </NavigationMenuContent>
+          </NavigationMenuContent> */}
         </NavigationMenuItem>
 
         <NavigationMenuItem>
@@ -71,7 +71,7 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
                   <button>Contracts</button>
                 </Link>
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="My Contracts">
@@ -89,7 +89,7 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
               </ListItem>
              
             </ul>
-          </NavigationMenuContent>
+          </NavigationMenuContent> */}
         </NavigationMenuItem>
 
         <NavigationMenuItem>
@@ -98,7 +98,7 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
                     <button>proposals</button>
                   </Link>
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="My Proposals">
@@ -111,17 +111,16 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
               </ListItem>
              
             </ul>
-          </NavigationMenuContent>
+          </NavigationMenuContent> */}
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>About</NavigationMenuTrigger>
-         
+           About 
         </NavigationMenuItem>
   
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Contact</NavigationMenuTrigger>
+           Contact 
          
         </NavigationMenuItem>
   

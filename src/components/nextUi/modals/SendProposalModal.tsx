@@ -58,7 +58,7 @@ export const SendProposalModal = ({ jobPostId }: any) => {
           }
         })
       } else {
-        window.location.href = `http://localhost:5173/user/job/${userId}`
+       // window.location.href = `http://localhost:5173/user/job/${userId}`
       }
     } catch (err: any) {
       console.log('ERROR: ', err.response.data.message);
