@@ -19,7 +19,7 @@ export const Chatbot = () => {
   };
 
   const sendMessage = async (e: any) => {
-    // cuased the big bug!
+    // Caused the big bug!
     e.preventDefault();
 
     try {
@@ -41,7 +41,7 @@ export const Chatbot = () => {
     }
   };
 
-  console.log("char ", chatHistory);
+ 
 
   return (
     <div className="mx-auto py-96 p-3 z-3">

@@ -20,12 +20,16 @@ const HomeUser = () => {
   const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
    const user = useSelector((state: any) => state?.user?.currentUser);
+
+ 
  
  
 
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+      console.log('The current user from Redux : ', user);
+
     if (user.isProfileFilled) {
       setShowModal(true);  
     }
@@ -79,14 +83,14 @@ const HomeUser = () => {
 
   }, []);
  
-  console.log('da', user.isProfileFilled)
+ 
 
 
   return (
     <div className='arsenal-sc-regular'> 
  
        <div className='hidden'>
-         <ProfileNotFilledModal  isProfileFilled={user.isProfileFilled} userId={userId} />
+         <ProfileNotFilledModal  isProfileFilled={user.isProfileFilled} roleType='user' roleId={userId} />
        </div>
       
       

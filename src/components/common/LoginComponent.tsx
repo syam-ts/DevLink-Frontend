@@ -9,14 +9,14 @@ import { toast } from 'sonner';
 import Google from '../../components/common/Google';
 import { Link, useParams } from 'react-router-dom';
 
-  const LoginComponent = () => {
+const LoginComponent = () => {
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
   const { roleType } = useParams();
 
- 
-  
+
+
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -32,40 +32,40 @@ import { Link, useParams } from 'react-router-dom';
       if (validForm) {
         try {
           const { data } = await axios.post(`http://localhost:3000/${roleType}/login`,
-           formData, {
+            formData, {
             withCredentials: true,
           });
-        
+
 
           const { accessToken } = data;
           localStorage.setItem('accessToken', accessToken);
-            
 
-          if (data.success) { 
-          if(roleType === 'user') {
 
-            dispatch(signInUser(data.user));
-            setError([])
-            window.location.href = '/user/home';
+          if (data.success) {
+            if (roleType === 'user') {
+
+              dispatch(signInUser(data.user));
+              setError([])
+              window.location.href = '/user/home';
+            } else {
+
+
+              dispatch(signInClient(data.client));
+              setError([])
+              window.location.href = '/client/home';
+            }
+
           } else {
-       
-
-            dispatch(signInClient(data.client));
-            setError([])
-            window.location.href = '/client/home';
-          }
-
-          } else {
-             toast.error(data.message, {
+            toast.error(data.message, {
               style: {
                 backgroundColor: 'red'
               }
-             });
-             
-          } 
+            });
+
+          }
         } catch (err: any) {
           console.log(err)
-          toast.error( err.response.data.message, {
+          toast.error(err.response.data.message, {
             style: {
               backgroundColor: 'red',
               color: 'white'
@@ -167,14 +167,14 @@ import { Link, useParams } from 'react-router-dom';
             <h1 className="text-3xl font-semibold mb-6 text-black text-center"> Login </h1>
             <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to the Best Community with all time access and free </h1>
             <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
-             
-             
-                 <div> 
-                   <Google  role={'user'} />
-                 </div>
-              </div>
 
-           
+
+              <div>
+                <Google role={'user'} />
+              </div>
+            </div>
+
+
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>or with email</p>
             </div>
@@ -241,7 +241,7 @@ import { Link, useParams } from 'react-router-dom';
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Dont't have an account? <a href="#" className="text-black hover:underline">
                 <Link to={`/${roleType}/signup`} className='text-black'>
-                   Signup here
+                  Signup here
                 </Link>
               </a>
               </p>
