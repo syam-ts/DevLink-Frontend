@@ -5,7 +5,7 @@ import apiInstance from "../../api/axiosInstance";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
-import { signInUser } from '../../utils/redux/slices/userSlice'
+import { signInUser, updateUser } from '../../utils/redux/slices/userSlice'
 
 const ProfileUser = () => {
 
@@ -114,12 +114,8 @@ const ProfileUser = () => {
 
       
       const response: any = await apiInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
-
-      
-     
  
-      if(!response.data.sucess) {
-      
+      if(!response.data.sucess) { 
         toast.warning(response.data.message, {
           style: {
             backgroundColor: "yellow"
@@ -128,8 +124,8 @@ const ProfileUser = () => {
       } else {
         const user = response.data.data.user;
         console.log("Dispatching user data to Redux:", user);
-        dispatch(signInUser(user))
-         window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+        dispatch(updateUser(user))
+        window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
       }
     } catch (err: any) { 
       toast.error(err.message);

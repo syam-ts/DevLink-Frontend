@@ -6,6 +6,8 @@ import apiInstance from '../../api/axiosInstance'
 import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
 import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
 import axios from 'axios';
+import { useSelect } from '@nextui-org/react';
+import { useSelector } from 'react-redux';
 
 
 
@@ -13,8 +15,11 @@ export const ProfileUser = () => {
 
     const { userId, type, clientId } = useParams()
     const navigate = useNavigate();
-    const [user, setUser]: any = useState({}); 
- 
+    const [user, setUser]: any = useState({});
+    const currentUser = useSelector((state: any) => state?.user?.currentUser);
+
+    console.log('The current user from Redux : ', currentUser);
+
 
 
     useEffect(() => {
@@ -25,7 +30,7 @@ export const ProfileUser = () => {
                 const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
                 });
- 
+
 
                 setUser(response.data.data);
             } catch (err: any) {
@@ -46,7 +51,7 @@ export const ProfileUser = () => {
             const { data } = await axios.post('http://localhost:3000/client/chat/create-chat', {
                 members
             });
- 
+
         } catch (err: any) {
             console.error('ERROR: ', err.message);
         }
@@ -113,8 +118,8 @@ export const ProfileUser = () => {
                                                                         Invite
                                                                     </button>
                                                                 ) : type === 'user-profile-view' ? (
-                                                                    <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                                        Invite
+                                                                    <button >
+
                                                                     </button>
                                                                 ) : (
                                                                     <div>
@@ -122,9 +127,6 @@ export const ProfileUser = () => {
                                                                     </div>
                                                                 )
                                                             }
-
-                                                            <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/11504/11504867.png' /> </span>
-                                                            <span><img className='w-6 h-6 text-white' src='https://cdn-icons-png.flaticon.com/128/13424/13424066.png' /> </span>
                                                         </div>
 
 
