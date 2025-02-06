@@ -51,7 +51,19 @@ const JobProposals = () => {
           data.type == "" ? (
             <ProposalCardShimmer size='10' />
           ) : (
-            <ProposalCard proposals={data} roleType='client' roleId={clientId} />
+            <div>
+
+              {data
+                .filter((pro: any) => pro.status === "pending")
+                .map((pro: any) => (
+                  <ProposalCard key={pro._id} proposals={[pro]} roleType="client" roleId={clientId} />
+                ))
+              }
+            </div>
+ 
+             
+            
+            
           )
         }
       </section>

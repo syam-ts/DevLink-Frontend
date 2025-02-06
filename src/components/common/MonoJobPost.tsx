@@ -68,7 +68,7 @@ const MonoJobPost = () => {
    
       (async () => {
 
-        const { data } = await apiInstance.get(`/user/job/${jobPostId}`);
+        const { data } = await apiInstance.get(`/user/job/view/${jobPostId}`);
 
         setJobPost(data.jobPost);
 

@@ -17,7 +17,7 @@ const Jobs = () => {
     (async () => {
       try {
         const { data } = await apiInstance.get(
-          `http://localhost:3000/user/job/${activeTab}/${userId}`
+          `http://localhost:3000/user/jobs/view/${activeTab}/${userId}`
         );
         console.log("THE RESPON S: ", data?.data);
         setJobs(data?.data);
