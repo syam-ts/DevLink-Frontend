@@ -1,24 +1,77 @@
-import axios from "axios";
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { SendProposalModal } from "../nextUi/modals/SendProposalModal";
+ import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom" 
 import apiInstance from '../../api/axiosInstance'
+import { JobProposalModal } from "../shadcn/modal/JobProposalModal"; 
 
+
+interface JobPost {
+  _id: string
+  title: string
+  amount: number
+  clientId: string
+  estimateTime: string
+  description: string
+  estimateTimeinHours: number
+  keyResponsibilities: string[]
+  requiredSkills: string[]
+  location: string
+  expertLevel: string
+  maxProposals: number
+  proposalCount: number
+  projectType: string
+  paymentType: string
+  isPayment: boolean
+  status: string
+  createdAt: string
+}
+
+
+interface FormData {
+  bidAmount: number
+  bidDeadline: number
+  description: string
+}
 
 const MonoJobPost = () => {
 
-  const [jobPost, setJobPost]: any = useState({});
+  const [jobPost, setJobPost]: any = useState<JobPost>({
+    _id: "",
+    title: "",
+    amount: 0,
+    clientId: "",
+    estimateTime: "",
+    description: "",
+    estimateTimeinHours: 0,
+    keyResponsibilities: [],
+    requiredSkills: [],
+    location: "",
+    expertLevel: "",
+    maxProposals: 0,
+    proposalCount: 0,
+    projectType: "",
+    paymentType: "",
+    isPayment: false,
+    status: "",
+    createdAt: ""
+  });
+
   const { jobPostId } = useParams();
+  const [formData, setFormData] = useState<FormData>({
+    bidAmount: 0,
+    bidDeadline: 0,
+    description: ""
+  });
 
 
   useEffect(() => {
     try {
+   
       (async () => {
- 
+
         const { data } = await apiInstance.get(`/user/job/${jobPostId}`);
 
-        setJobPost(data.jobPost); 
-        
+        setJobPost(data.jobPost);
+
       })();
 
     } catch (err: any) {
@@ -27,10 +80,21 @@ const MonoJobPost = () => {
   }, []);
 
 
+  // updating formdata -------
+  useEffect(() => { 
+    setFormData({
+      bidAmount: jobPost.amount,
+      bidDeadline: jobPost?.estimateTimeinHours,
+      description: ""
+    }) 
+  }, [jobPost]);
+
+
+ 
 
   return (
     <>
-      <div className='h-screen mx-auto w-2/3 py-28 comfortaa-regular'>
+      <div className='h-screen mx-auto w-2/3 py-28 comfortaa-regular'> 
         <section>
           <span className='text-2xl'>{jobPost?.title}</span>
           <div className='flex gap-20 py-4 text-xs'>
@@ -162,10 +226,12 @@ const MonoJobPost = () => {
           <hr />
           <p className='text-sm'> Intrested </p>
           <button className="" type="button">
-            <SendProposalModal jobPostId={jobPost?._id} />
+            
+            <JobProposalModal jobPostId={jobPost?._id}
+              formData={formData} setFormData={setFormData} />
           </button>
 
-          <button className="rounded-xl bg-[#0000ff] py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+          <button className="rounded-xl bg-[#0000ff] py-3 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
             Save for later
           </button>
         </section>

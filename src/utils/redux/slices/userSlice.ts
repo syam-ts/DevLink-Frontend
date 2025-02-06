@@ -48,6 +48,7 @@ const userSlice = createSlice({
             state.isUser = false;
         },
         addNotification: (state: any, action: any) => {
+            console.log("The paylod ", action.payload)
             const parsedNotifications = JSON.parse(action.payload);
             state.notifications.push(...parsedNotifications);
             state.notificationsUnread++;

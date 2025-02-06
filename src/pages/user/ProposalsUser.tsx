@@ -36,20 +36,26 @@ const JobProposals = () => {
     })();
   }, []);
 
- console.log('THE DATA ', data)
+  console.log('THE DATA ', data)
 
   return (
     <main>
-      <section className="text-center mt-16 arsenal-sc-regular">
-        <span className="text-3xl"> Proposals </span>
-        <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
-      </section>
+
       <section className="pt-5 arsenal-sc-regular">
         {
           data.type == "" ? (
-            <ProposalCardShimmer size='10' />
+            <div className='flex my-64'>
+              <span className='mx-auto text-2xl '> Proposals Not Found </span> 
+            </div>
           ) : (
-            <ProposalCard proposals={data} clientId={userId} />
+            <div>
+              <section className="text-center mt-16 arsenal-sc-regular">
+                <span className="text-3xl"> Proposals </span>
+                <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
+              </section>
+
+              <ProposalCard proposals={data} clientId={userId} />
+            </div>
           )
         }
       </section>
