@@ -5,25 +5,27 @@ import { Sonner } from '../../components/sonner/Toaster';
 import apiInstance from '../../api/axiosInstance'
 import { jobPostSchema } from "../../utils/validation/login/jobPostSchema";
 
+
+interface JobPost {
+  title?: string;
+  keyResponsiblities?: string;
+  requiredSkills?: string[];
+  paymentType?: string;
+  payment?: string;
+  projectType?: string;
+  maxProposals?: number;
+  description?: string;
+  estimateTime?: string;
+  location?: string;
+}
+
 const DraftJobPost = () => {
 
 
   const [skills, setSkills] = useState<string[]>([]);
   const [error, setError] = useState([]);
+  const [formData, setFormData] = useState<JobPost>({});
   const [inputValue, setInputValue]: any = useState("");
-  const [formData, setFormData]: any = useState({
-    title: "",
-    keyResponsiblities: "",
-    requiredSkills: "",
-    paymentType: "",
-    payment: "",
-    projectType: "",
-    maxProposals: "",
-    description: "",
-    estimateTime: "",
-    location: "",
-  });
-
   const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
 
 
@@ -34,7 +36,7 @@ const DraftJobPost = () => {
 
 
   const handleChangeSkills = (e: any) => {
-    setInputValue(e.target.value); // Update the input field's value
+    setInputValue(e.target.value);
   };
 
   const handleAddSkill = (event: any, inputValue: any) => {
@@ -46,7 +48,7 @@ const DraftJobPost = () => {
   };
 
   const handleRemoveSkill = (skillToRemove: any) => {
-    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove)); // Remove a skill
+    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -66,13 +68,9 @@ const DraftJobPost = () => {
         const { data } = await apiInstance.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
           formData,
         });
-
         if (data.success) {
-
-
-          // window.location.href = data.response.url;
+          window.location.href = data.response.url;
         } else if (!data.success) {
-
           toast.error(data.message, {
             position: "bottom-right",
             style: {
@@ -82,24 +80,18 @@ const DraftJobPost = () => {
               padding: "20px",
             },
           });
-
-
         }
       } else {
         await jobPostSchema.validate(formData, { abortEarly: false });
       }
     } catch (err: any) {
       setError(err.errors);
-
-      console.error("ERROR:", err.message);
-      // navigate("/client/payment/failed");
     }
   };
 
-  console.log('Errors Array : ', error);
+
 
   return (
-
     <div className='flex justify-center py-32 gap-44'>
       <Sonner />
       <section>
@@ -119,14 +111,7 @@ const DraftJobPost = () => {
             <address className="mt-2 not-italic">282 Kevin Brook, DevLink inc, CA 58517</address>
           </div>
         </div>
-      </section>
-      {/* <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
-         
-  
-          </div>
-        </div>  */}
-
+      </section> 
 
       <section>
         <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[900px] lg:col-span-3 lg:p-12">
@@ -163,12 +148,8 @@ const DraftJobPost = () => {
                     )
                   )
                 )
-              }
-
-
-
-            </div>
-
+              } 
+            </div> 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label className='text-gray-500'>Key Responsiblities</label>
@@ -214,8 +195,7 @@ const DraftJobPost = () => {
                     )
                   ))
                 }
-              </div>
-              {/* <hr className="my-3" /> */}
+              </div> 
               <div>
                 {skills.map((skill: any, index: any) => (
                   <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
@@ -225,16 +205,11 @@ const DraftJobPost = () => {
                       className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
                     >
                       Remove
-                    </button>
-
+                    </button> 
                   </div>
-                ))}
-
-              </div>
-
-            </div>
-
-
+                ))} 
+              </div> 
+            </div> 
             <div className="grid items-center gap-3 mb-4">
               <label className='text-gray-500'>Payment Type</label>
               <div className='flex gap-5'>
@@ -268,9 +243,7 @@ const DraftJobPost = () => {
                   )
                 ))
               }
-            </div>
-
-
+            </div> 
             <div className='flex gap-44'>
               <div>
                 <label className='text-gray-500'>Amount Pay for this job</label>
@@ -291,8 +264,7 @@ const DraftJobPost = () => {
                     )
                   ))
                 }
-              </div>
-
+              </div> 
               <div>
                 <label className='text-gray-500'>Project Type</label>
                 <div>
@@ -302,12 +274,9 @@ const DraftJobPost = () => {
                   </select>
                 </div>
                 <hr className='w-72' />
-              </div>
-
-            </div>
-
-            <div className='flex justify-between'>
-
+              </div> 
+            </div> 
+            <div className='flex justify-between'> 
               <div className='w-80 mx-2'>
                 <label className='text-gray-500'>Expertize Level</label>
                 <div>
@@ -318,14 +287,11 @@ const DraftJobPost = () => {
                   </select>
                 </div>
                 <hr className='w-full' />
-              </div>
-
-
+              </div> 
               <div className='w-72 py-2.5'>
                 <label className='text-gray-500'>Maximum Proposals </label>
                 <div>
                   <input onChange={handleChange} type='number' name='maxProposals' className='px-20 outline-none' placeholder='7' />
-
                 </div>
                 <hr className='w-full' />
                 {
@@ -337,13 +303,8 @@ const DraftJobPost = () => {
                     )
                   ))
                 }
-              </div>
-
-
-
-            </div>
-
-
+              </div> 
+            </div> 
             <div>
               <label className='text-gray-500'>Description</label>
               <textarea
@@ -383,8 +344,7 @@ const DraftJobPost = () => {
                     )
                   ))
                 }
-              </div>
-
+              </div> 
               <div>
                 <label className='text-gray-500'>Location</label>
                 <input
@@ -405,9 +365,7 @@ const DraftJobPost = () => {
                   ))
                 }
               </div>
-            </div>
-
-
+            </div> 
             <div className="mt-4">
               <button
                 onClick={paymentFunction}
@@ -421,7 +379,8 @@ const DraftJobPost = () => {
         </div>
       </section >
     </div >
-  );
+  )
 };
+
 
 export default DraftJobPost;
