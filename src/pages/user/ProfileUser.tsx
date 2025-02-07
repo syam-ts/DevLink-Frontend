@@ -13,12 +13,10 @@ import { useSelector } from 'react-redux';
 
 export const ProfileUser = () => {
 
-    const { userId, type, clientId } = useParams();
-    const navigate = useNavigate();
+    const { userId, type, clientId }: any = useParams();
     const [user, setUser]: any = useState({});
     const currentUser = useSelector((state: any) => state?.user?.currentUser);
-
-    console.log('The current user from Redux : ', currentUser);
+    const navigate = useNavigate();
 
 
 
@@ -26,11 +24,9 @@ export const ProfileUser = () => {
         const getUserData = async () => {
 
             try {
-
                 const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
                 });
-
 
                 setUser(response.data.data);
             } catch (err: any) {
@@ -44,20 +40,17 @@ export const ProfileUser = () => {
     }, []);
 
 
-    const createChat = async () => {
-        try {
-            const members = { clientId, userId };
 
-            const { data } = await axios.post('http://localhost:3000/client/chat/create-chat', {
-                members
-            });
 
-        } catch (err: any) {
-            console.error('ERROR: ', err.message);
+    const fetchChatMessages = async (roleType: string, roleId: string, targetId: string) => {
+        const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`, {
+            withCredentials: true
+        });
+        if (data.success) {
+            navigate(`/client/allChats/client/${clientId}`)
         }
-    }
- 
- 
+    };
+
 
 
 
@@ -118,9 +111,12 @@ export const ProfileUser = () => {
                                                                         {/* <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
                                                                             Invite
                                                                         </button> */}
-                                                                        <Link to={`/client/chat/view/client/${userId}`} className='no-underline bg-white py-2 px-4 rounded-lg  text-black arsenal-sc-regular'>
+                                                                        {/* <Link to={`/client/chat/view/client/${userId}`} className='no-underline bg-white py-2 px-4 rounded-lg  text-black arsenal-sc-regular'>
                                                                             Chat
-                                                                        </Link>
+                                                                        </Link> */}
+                                                                        <button className='bg-white text-black px-5 font-bold py-2 rounded-lg' onClick={() => fetchChatMessages("client", clientId, userId)}>
+                                                                            Chat
+                                                                        </button>
 
                                                                     </div>
                                                                 ) : type === 'user-profile-view' ? (

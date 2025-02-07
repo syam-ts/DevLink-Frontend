@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
+import { ChatBox } from "./ChatBox";
 
 
 function ListAllUserChat() {
@@ -8,15 +9,15 @@ function ListAllUserChat() {
     const [data, setData] = useState({}); 
     const [name, setName] = useState(""); 
     const {roleType, roleId}= useParams();
+    const [currentRoleId, setCurrentRoleId] = useState("");
+
+ 
  
 
     useEffect(() => {
 
         (async () => {
-            const { data } = await axios.get(`http://localhost:3000/${roleType}/allChat/view/${roleId}`);
-
-            
-                
+            const { data } = await axios.get(`http://localhost:3000/${roleType}/allChat/view/${roleId}`); 
                 console.log('THE DATA RESPONSE : ', data)
         
             setData(data.data)
@@ -26,16 +27,17 @@ function ListAllUserChat() {
     }, []);
  
 
+   
 
 
 
     return (
-        <div className=' flex my-10 arsenal-sc-regular'>
-            <div className='mx-auto flex '>
-                <div className="relative flex w-96 flex-col rounded-lg bg-white shadow-sm">
+        <div className=' flex my-10 arsenal-sc-regular justify-between'>
+            <section className=' mx-4 '>
+                <div className="relative flex w-96 flex-col rounded-lg bg-white  ">
                     {
                         Object.entries(data).map((d: any) => (
-                            <nav className="flex rounded-xl border-black h-full border w-full flex-col gap-4 m-4">
+                            <div className="flex rounded-xl border-gray-500 border h-20 shadow-xl w-full flex-col gap-2 m-3">
                                 <div
                                     role="button"
                                     className="text-black flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
@@ -49,48 +51,36 @@ function ListAllUserChat() {
                                                 className="relative inline-block h-12 w-12 !rounded-full  object-cover object-center"
                                             />
                                         </div>
-                                        <div>
-                                        {/* {
-                                            d[1]?.messages.filter((dat) => (
-                                                dat.roleType !== roleType
-                                            )).map((d1) => (
-                                                <div>
-                                                    <h6 className="text-black font-medium">
-                                                        {d1.name}  {console.log('solo ', d1)}
-                                                    </h6>
-                                                    
-                                                </div>
-                                            ))
-                                        } */}
+                                        <div> 
                                           {
                                             roleType === 'client' && (
-                                                <div>
-                                                      <p className="text-black text-sm">
-                                               {d[1]?.userData?.userName}
+                                                <div className='cursor-pointer' onClick={() =>setCurrentRoleId(d[1]?.members[1])}>
+                                                      <p className="text-black text-xl  mx-10 my-2">
+                                               {d[1]?.userData?.userName} 
                                             </p>
-                                            <div> 
+                                            {/* <div> 
                                             <button className='bg-violet-700 py-1.5 px-4 rounded-xl text-white '>
                                                 <Link to={`/${roleType}/chat/view/${roleType}/${d[1]?.members[1]}`} className='no-underline text-white arsenal-sc-regular'>
                                                   Chat
                                                 </Link>
                                             </button>
-                                        </div>
+                                        </div> */}
                                                 </div>
                                             )
                                           }
                                           {
                                             roleType === 'user' && (
-                                                <div>
-                                                      <p className="text-black text-sm">
+                                                <div className='cursor-pointer' onClick={() =>setCurrentRoleId(d[1]?.members[0])}>
+                                                      <p className="text-black text-xl mx-10 ">
                                                {d[1]?.clientData?.companyName}
                                             </p>
-                                            <div> 
+                                            {/* <div> 
                                             <button className='bg-violet-700 py-1.5 px-4 rounded-xl text-white '>
                                                 <Link to={`/${roleType}/chat/view/${roleType}/${d[1]?.members[0]}`} className='no-underline text-white arsenal-sc-regular'>
                                                   Chat
                                                 </Link>
                                             </button>
-                                        </div>
+                                        </div> */}
                                                 </div>
                                             )
                                           }
@@ -99,13 +89,22 @@ function ListAllUserChat() {
                                     </div>
 
                                 </div>
-                            </nav>
+                            </div>
                         ))
                     }
 
 
                 </div>
-            </div>
+            </section>
+
+            <span className='inline-block mx-3 h-screen min-h-[1em] border-1  bg-black'></span>
+
+            <section className='w-full'>
+                <div> 
+                   {/* <ChatBox  /> */}
+                   <ChatBox roleType={roleType} targetId={currentRoleId}  />
+                </div>
+            </section>
         </div>
 
     )

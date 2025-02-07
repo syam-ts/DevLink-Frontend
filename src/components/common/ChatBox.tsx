@@ -10,15 +10,14 @@ interface Messages {
     text: string
 }
 
-export const ChatBox = () => {
+export const ChatBox = ({roleType, targetId}: any) => {
 
     const [messages, setMessages] = useState<Messages[]>([]);
     const [newMessage, setNewMessage] = useState("");
-    const { roleType, targetId } = useParams();
+    // const { roleType, targetId } = useParams();
     const socketRef = useRef<any>(null);
 
-    let name, roleId;
-    console.log('Role id ', roleType, targetId)
+    let name, roleId; 
 
     if (roleType === 'user') {
         name = useSelector((state: any) => state?.user?.currentUser?.name);
@@ -37,10 +36,11 @@ export const ChatBox = () => {
         setMessages(data.messages?.messages);
     };
 
+    console.log('id, ',roleId)
 
     useEffect(() => {
         fetchChatMessages();
-    }, []);
+    }, [targetId]);
 
 
 
@@ -85,7 +85,7 @@ export const ChatBox = () => {
     return (
 
         <section>
-            <div className="flex-1 p:2 my-20 sm:p-6 justify-between flex flex-col h-[40rem] w-[60rem] mx-auto  border border-gray-800">
+            <div className="flex-1 p:2 my-5 sm:p-6 justify-between flex flex-col h-[40rem] w-[60rem] mx-auto  border border-gray-800">
                 <div className="flex sm:items-center justify-between py-3">
 
                 </div>
@@ -150,8 +150,8 @@ export const ChatBox = () => {
 
                     </div>
 
-
-
+ 
+              
 
                 </div>
                 <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
