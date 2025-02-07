@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
     Drawer,
     DrawerClose,
@@ -37,7 +38,10 @@ export const ProjectSubmissionViewDrawer = ({title, description, progress, attac
                     </span>
                 <span className='mx-auto text-md'>Total Progress: {progress}%</span>
                <Progress value={progress} className={`w-[${progress}]`} />
-               <span className='mx-auto'>Attahed file: {attachedFile}</span>
+               <span className='mx-auto gap-3 flex'>
+                Attahed file: 
+                 <Link to={attachedFile}>{attachedFile}</Link>
+               </span>
                   </div>
                 </DrawerHeader>
             </DrawerContent>

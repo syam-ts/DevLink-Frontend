@@ -75,8 +75,8 @@ export const SubmitProject = ({contractId, jobTitle }: any) => {
                   <div className='flex gap-20'>
                     <label> Progress Of Project: </label>
                   <input onChange={handleOnChange} className='border rounded-lg py-2 p-3' name='progress' type='number'  placeholder='100' />
-                  <label> Attach File: </label>
-                  <input onChange={handleOnChange} className='border rounded-lg py-2 p-3' type='file' name='attachedFile' placeholder='Attach File' />
+                  <label> Attach Github: </label>
+                  <input onChange={handleOnChange} className='border rounded-lg py-2 p-3' type='url' name='attachedFile' placeholder='Attach Github link' />
 
                     </div>                
               </ModalBody>
