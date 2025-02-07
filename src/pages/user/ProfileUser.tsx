@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 export const ProfileUser = () => {
 
-    const { userId, type, clientId } = useParams()
+    const { userId, type, clientId } = useParams();
     const navigate = useNavigate();
     const [user, setUser]: any = useState({});
     const currentUser = useSelector((state: any) => state?.user?.currentUser);
@@ -56,8 +56,8 @@ export const ProfileUser = () => {
             console.error('ERROR: ', err.message);
         }
     }
-
-
+ 
+ 
 
 
 
@@ -114,15 +114,34 @@ export const ProfileUser = () => {
                                                                         Hire
                                                                     </button>
                                                                 ) : type === 'client-home-view' ? (
-                                                                    <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                                                                        Invite
-                                                                    </button>
+                                                                    <div>
+                                                                        {/* <button className="rounded-md h-7 bg-cyan-500 py-1 px-3 text-center text-sm font-mono text-white focus:bg-white focus:shadow-none active:bg-slate-700 hover:bg-white hover:text-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                                                                            Invite
+                                                                        </button> */}
+                                                                        <Link to={`/client/chat/view/client/${userId}`} className='no-underline bg-white py-2 px-4 rounded-lg  text-black arsenal-sc-regular'>
+                                                                            Chat
+                                                                        </Link>
+
+                                                                    </div>
                                                                 ) : type === 'user-profile-view' ? (
                                                                     <button >
-
+                                                                        <div className='ml-36'>
+                                                                            {
+                                                                                user?.isProfileFilled ? (
+                                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/edit`}>
+                                                                                        <span>Edit</span>
+                                                                                    </Link>
+                                                                                ) : (
+                                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/verify`}>
+                                                                                        <span>Verify</span>
+                                                                                    </Link>
+                                                                                )
+                                                                            }
+                                                                        </div>
                                                                     </button>
                                                                 ) : (
                                                                     <div>
+
 
                                                                     </div>
                                                                 )
@@ -130,26 +149,6 @@ export const ProfileUser = () => {
                                                         </div>
 
 
-                                                        <div className='ml-36'>
-                                                            <button onClick={createChat} className='bg-white rounded-lg py-2 px-4 text-black mx-4'>
-                                                                Chat
-                                                            </button>
-
-                                                            {
-                                                                user?.isProfileFilled ? (
-                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/edit`}>
-                                                                        <span>Edit</span>
-
-                                                                    </Link>
-                                                                ) : (
-                                                                    <Link className='no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md' to={`/user/profile/verify`}>
-                                                                        <span>Verify</span>
-
-                                                                    </Link>
-                                                                )
-                                                            }
-
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

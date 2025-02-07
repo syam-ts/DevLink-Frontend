@@ -33,7 +33,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
     if (roleType === 'user') {
 
-      localStorage.removeItem('accessTokenU');
+      localStorage.removeItem('accessToken');
       //remove trace of notification page visit
       localStorage.removeItem('notificationsPageFirstVisit');
 
@@ -42,7 +42,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
       window.location.href = '/login/user'
     } else if (roleType === 'client') {
-      localStorage.removeItem('accessTokenC');
+      localStorage.removeItem('accessToken');
       dispatch(signOutUser())
       // localStorage.removeItem('refreshToken');
 
@@ -201,11 +201,11 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 <DropdownItem key="home">
                   {
                     roleType === 'user' ? (
-                      <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/user/chat/allclient/user/${roleInfo?._id}`}>
+                      <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/user/allChats/${roleType}/${roleInfo?._id}`}>
                         Chat
                       </Link>
                     ) : (
-                      <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/client/chat/alluser/client/${roleInfo?._id}`}>
+                      <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/client/allChats/${roleType}/${roleInfo?._id}`}>
                         Chat
                       </Link>
                     )
@@ -218,6 +218,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     Home
                   </Link>
                 </DropdownItem>
+
                 <DropdownItem key="logout" onClick={logout} color="danger">
                   <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/home`}>
                     Logout

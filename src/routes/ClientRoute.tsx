@@ -25,7 +25,7 @@ import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/Project
 import NotificationsClient from '../pages/client/NotificationsClient';
 import {Chat} from '../pages/client/Chat'
 import ListUsers from '../pages/client/ListUsers';
-import ListAllUserChat from '../components/common/ListAllUserChat';
+import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
 
 
@@ -76,7 +76,7 @@ const ClientRoute = () => {
                 {/* <Route path='/chat/view/:roleId/:roleType' element={<Chat />} /> */}
 
 
-                <Route path='/chat/alluser/:roleType/:roleId' element={<ListAllUserChat />} />
+                <Route path='/allChats/:roleType/:roleId' element={<ListAllUserChat />} />
                <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />
             </Routes>
           { showNavAndFooter(location.pathname) && <Footer />}
