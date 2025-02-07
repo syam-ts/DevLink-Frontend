@@ -4,16 +4,20 @@ import apiInstance from '../../api/axiosInstance'
 import { ProfileUser } from '../../pages/user/ProfileUser';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
+import { addNotification } from '../../utils/redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
 
 
+    const dispatch = useDispatch();
 
 
 
     const acceptProposal = async (userId: string, clientId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
         try {
+          
             const body = {
                 userId: userId,
                 clientId: clientId,
@@ -23,7 +27,26 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
             }
             const { data } = await apiInstance.post('http://localhost:3000/client/job/createContract', body);
 
-            console.log('THE REPOSNSE : ', data)
+            console.log('THE REPOSNSE : ', data.data.newNotificationUser)
+
+            
+            if(data.success) {
+                 const notifications: any = JSON.stringify([data?.data?.newNotificationUser])
+                 dispatch(addNotification(notifications));
+                 toast.success(data.message, {
+                    style: {
+                        backgroundColor: "#00ff00",
+                        "color": "white"
+                    }
+                 })
+
+                 setTimeout(() => {
+                     window.location.href = 'http://localhost:5173/client/jobs/proposals';
+                 }, 500);
+
+             }
+
+
         } catch (err: any) {
             console.error('ERROR: ', err.message);
         }
@@ -102,7 +125,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
                                     <Link to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`} className='no-underline text-white font-bold ' >
                                         View
                                     </Link>
-
+ 
                                 </button>
                             </div>
                             {
@@ -114,7 +137,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
                                             </button>
                                         </div>
                                         <div>
-                                            <button onClick={() => acceptProposal(proposal[1]?.userId, proposal[1]?.clientId, proposal[1]?.jobPostId, proposal[1]?.bidAmount, proposal[1]?.bidDeadline)} className="rounded-full bg-[#0000ff] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700" type="button">
+                                            <button onClick={() => acceptProposal(proposal[1]?.userId, roleId, proposal[1]?.jobPostId, proposal[1]?.bidAmount, proposal[1]?.bidDeadline)} className="rounded-full bg-[#0000ff] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700" type="button">
                                                 Accept
                                             </button>
                                         </div>
