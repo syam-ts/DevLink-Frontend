@@ -27,6 +27,7 @@ import {Chat} from '../pages/client/Chat'
 import ListUsers from '../pages/client/ListUsers';
 import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
+import { Wallet } from '../components/common/Wallet';
 
 
 
@@ -72,9 +73,8 @@ const ClientRoute = () => {
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />
-                <Route path='/notifications/:clientId' element={<NotificationsClient />} />
-                {/* <Route path='/chat/view/:roleId/:roleType' element={<Chat />} /> */}
-
+                <Route path='/notifications/:clientId' element={<NotificationsClient />} /> 
+                <Route path='/wallet/view/:roleId' element={<Wallet roleType="client" />} />
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllUserChat />} />
                <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />

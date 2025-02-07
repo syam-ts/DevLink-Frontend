@@ -214,6 +214,12 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
 
                 <DropdownItem key="home">
+                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/wallet/view/${roleInfo?._id}`}>
+                    Wallet
+                  </Link>
+                </DropdownItem>
+
+                <DropdownItem key="home">
                   <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/home`}>
                     Home
                   </Link>
