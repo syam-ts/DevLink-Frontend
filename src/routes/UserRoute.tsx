@@ -19,7 +19,7 @@ import AllContract from '../components/common/AllContract';
 import Proposals from '../pages/user/ProposalsUser';
 import {ChatBox} from '../components/common/ChatBox'
 import ListAllClientChat from '../components/common/ViewAllChats'
-
+import Wallet from '../components/common/Wallet';
  
 import Notifications from '../components/common/NotificationCard'
 import NotificationsUser from '../pages/user/NotificationsUser'; 
@@ -71,6 +71,7 @@ const UserRoute = () => {
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
                 <Route path='/notifications/:userId' element={<NotificationsUser />} /> 
                 <Route path='/user-signup' element={<SignupComponent />} />
+                <Route path='/wallet/view/:roleId' element={<Wallet roleType="user" />} />
 
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllClientChat />} />  

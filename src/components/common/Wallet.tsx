@@ -2,17 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 
-interface WalletProps {
-    balance: number,
-    transactions: []
+ 
+
+interface Transactions {
+    type: string,
+    amount: number,
+    from: string,
+    createdAt: string
 }
 
-
-
-export const Wallet = ({ roleType }: any) => {
+  const Wallet = ({roleType}: any) => {
 
     const [balance, setBalance] = useState(0);
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions]: any = useState([]);
     const { roleId } = useParams();
 
     useEffect(() => {
@@ -80,25 +82,25 @@ export const Wallet = ({ roleType }: any) => {
                         </thead>
                         <tbody>
                             {
-                                transactions.map((tra) => (
+                                transactions.map((tra: any) => (
 
                                     <tr>
-                                        <td className="py-4 border-b border-blue-gray-50">
+                                        <td className="py-4 px-4 border-b border-blue-gray-50">
                                             <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                                 {tra[0].type}  
                                             </p>
                                         </td>
-                                        <td className="py-4 border-b border-blue-gray-50">
+                                        <td className="py-4 px-4 border-b border-blue-gray-50">
                                             <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                             {tra[0].amount}  
                                             </p>
                                         </td>
-                                        <td className="py-4 border-b border-blue-gray-50">
+                                        <td className="py-4 px-4 border-b border-blue-gray-50">
                                             <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
                                             {tra[0].from}  
                                             </p>
                                         </td>
-                                        <td className="py-4 border-b border-blue-gray-50">
+                                        <td className="py-4 px-4 border-b border-blue-gray-50">
                                             <a href="#" className="block arsenal-sc-regular text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                             {tra[0].date}  
                                             </a>

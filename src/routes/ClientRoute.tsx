@@ -22,12 +22,11 @@ import { Contract } from '../components/common/Contract';
 import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
 import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
-import NotificationsClient from '../pages/client/NotificationsClient';
-import {Chat} from '../pages/client/Chat'
+import NotificationsClient from '../pages/client/NotificationsClient'; 
 import ListUsers from '../pages/client/ListUsers';
 import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
-import { Wallet } from '../components/common/Wallet';
+import Wallet from '../components/common/Wallet';
 
 
 
