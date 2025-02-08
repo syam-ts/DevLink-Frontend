@@ -22,8 +22,7 @@ import ListAllClientChat from '../components/common/ViewAllChats'
 import Wallet from '../components/common/Wallet';
  
 import Notifications from '../components/common/NotificationCard'
-import NotificationsUser from '../pages/user/NotificationsUser'; 
-import { Chat } from '../pages/client/Chat';
+import NotificationsUser from '../pages/user/NotificationsUser';  
 import { SignupComponent } from '../components/common/Signup';
  
 

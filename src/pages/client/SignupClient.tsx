@@ -46,7 +46,7 @@ const SignupClient = () => {
     try { 
       const response = await axios.post('http://localhost:3000/client/signup', formData); 
 
-      if(response.data.type !== 'success') {
+      if(!response.data.success) {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
         const data = {

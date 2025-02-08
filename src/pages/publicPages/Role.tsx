@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Role = () => {
 
    const [checkBox, setCheckBox] = useState('');
-   const [modal, showModal] = useState(false);
+   const [modal, showModal] = useState<boolean>(false);
    const navigate = useNavigate();
 
    const checkFn = (role: any) => {

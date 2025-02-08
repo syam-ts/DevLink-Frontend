@@ -10,6 +10,7 @@ import axios from "axios";
 
 export const RateUserModal = ({ notificationId, userId }: any) => {
   const [rating, setRating]: any = useState(0);
+  const [review, setReview]: any = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("2xl");
 
@@ -23,6 +24,7 @@ export const RateUserModal = ({ notificationId, userId }: any) => {
       const body = {
         rating,
         userId,
+        review
       };
 console.log('the body', body, notificationId)
       const { data } = await axios.post(
@@ -34,7 +36,7 @@ console.log('the body', body, notificationId)
       console.log("THE RESPONSE FROM RATE SUBMIT : ", data);
 
       if(data.success) {
-        window.location.href = `http://localhost:5173/client/home`
+         window.location.href = `http://localhost:5173/client/home`
       }
     } catch (err: any) {
       console.error("ERROR: ", err.message);
@@ -55,13 +57,13 @@ console.log(rating, userId)
           Rate User
         </Button>
       </div>
-      <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
+      <Modal isOpen={isOpen} size={"xl"} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalBody>
-                <div className="h-96 w-full py-6 p-10 flex flex-col justify-center sm:py-12">
-                  <div className="  w-full flex flex-col items-center">
+                <div className="h-full flex flex-col justify-center ">
+                  <div className="   flex flex-col items-center">
                     <div className="flex flex-col items-center py-6 space-y-3">
                       <span className="text-lg text-gray-800">
                         How was the user performance?
@@ -127,6 +129,14 @@ console.log(rating, userId)
                     {/* <div className="w-3/4 flex flex-col">
                       <textarea className="p-4 border text-gray-500 rounded-xl resize-none">Leave a message, if you want</textarea>
                      </div> */}
+                   </div>
+                   <div className='my-4 grid'>
+                    <span className='font-bold text-lg '>
+                       Review
+                    </span>
+                     <textarea onChange={(e: any) => setReview(e.target.value)} className='border rounded-lg h-44 p-10' placeholder='review goes here'>
+
+                     </textarea>
                    </div>
                   <button
                     onClick={submitRating}

@@ -10,7 +10,7 @@ export const Chat = () => {
 
 
     const [users, setUsers] = useState({});
-    const [openChatBox, setOpenChatBox] = useState(false);
+    const [openChatBox, setOpenChatBox] = useState<boolean>(false);
     const [chatBoxData, setChatBoxData] = useState({
         sender: "",
         chatId: ""

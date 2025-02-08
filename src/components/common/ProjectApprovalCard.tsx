@@ -23,10 +23,10 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                 withCredentials: true
             });
 
-            console.log('THE RESPON FROM APPROVAL : ', data.data.newNotificationUser);
+            console.log('THE RESPON FROM APPROVAL : ', data.data.newNotificationClient);
 
             if (data.success) {
-                const notificationClient: any = JSON.stringify([data.data.newNotificationUser])
+                const notificationClient: any = JSON.stringify([data.data.newNotificationClient])
                 dispatch(addNotification(notificationClient))
                 toast.success("Contract closed succssfully", {
                     style: {
@@ -34,9 +34,9 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                         color: "white"
                     }
                 })
-                setTimeout(() => {
-                   window.location.href = 'http://localhost:5173/client/contracts/approvals';
-                }, 1000);
+                // setTimeout(() => {
+                //    window.location.href = 'http://localhost:5173/client/contracts/approvals';
+                // }, 1000);
             }
 
         } catch (err: any) {
@@ -85,11 +85,11 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
 
                             <ProjectSubmissionViewDrawer title={pendingApproval[1]?.jobPostData?.title} description={pendingApproval[1]?.description} progress={pendingApproval[1]?.progress} attachedFile={pendingApproval[1]?.attachedFile} />
                         </button>
-                        <button
+                        {/* <button
                             className="rounded-full bg-[#ff2453] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button" >
                             Reject Approval
-                        </button>
+                        </button> */}
                         <button onClick={() => approveAndCloseContract(pendingApproval[1]?.contractId, pendingApproval[1]?.progress)}
                             className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             type="button" >

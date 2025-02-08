@@ -7,6 +7,7 @@ import { RateUserModal } from '../nextUi/modals/RateUserModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNotification, markAsReadNotifications } from '../../utils/redux/slices/userSlice';
 import { useSelect } from '@nextui-org/react';
+import { addNotificationClient } from '../../utils/redux/slices/clientSlice';
 
 const Notification = ({ role, roleId }: any) => {
 
@@ -14,9 +15,15 @@ const Notification = ({ role, roleId }: any) => {
   const [notifications, setNotifications] = useState({});
   const user = useParams();
   const dispatch = useDispatch();
+  let notification, notificationsUnread;
 
-  const notification = useSelector((state: any) => state?.user?.notifications);
-  const notificationsUnread = useSelector((state: any) => state?.user?.notificationsUnread);
+if(role === 'user') {
+   notification = useSelector((state: any) => state?.user?.notifications);
+   notificationsUnread = useSelector((state: any) => state?.user?.notificationsUnread);
+} else {
+   notification = useSelector((state: any) => state?.client?.notifications);
+   notificationsUnread = useSelector((state: any) => state?.client?.notificationsUnread);
+}
 
   const getTimeAgo = (timestamp: string) => {
     const now = new Date();
@@ -38,26 +45,32 @@ const Notification = ({ role, roleId }: any) => {
        dispatch(markAsReadNotifications())
   }, []);
 
-
+ 
 
   useEffect(() => {
 
     try {
 
       const hasVisited = localStorage.getItem("notificationsPageFirstVisit");
-      console.log('Is visited teh page : ', hasVisited)
+    
 
       if (!hasVisited) { 
      
         (async () => {
           const { data } = await apiInstance.get(`/${role}/notifications/${roleId}`);
 
-          console.log('noti', data.notifications)
-
-          setNotifications(data?.notifications);
+          
+          
           const notifications: any = JSON.stringify(data?.notifications);
-          dispatch(addNotification(notifications));
+          if(role === 'user') {
+            dispatch(addNotification(notifications));
+          setNotifications(notifications);
+          } else {
+            dispatch(addNotificationClient(notifications));
+          setNotifications(notifications);
+          }
 
+          console.log('Live no', notification)
           localStorage.setItem("notificationsPageFirstVisit", "true");
 
         })();
@@ -105,10 +118,10 @@ const Notification = ({ role, roleId }: any) => {
               Mark as Read
             </button> */}
                 {
-                  notif[1]?.extra?.userId && (
+                  notif[1]?.type === 'contract-close' && (
                     <div>
 
-                      <RateUserModal notificationId={notif[1]?._id} userId={notif[1]?.extra?.userId} />
+                      <RateUserModal notificationId={notif[1]?._id} userId={notif[1]?.extra?.documentId} />
 
                     </div>
                   )

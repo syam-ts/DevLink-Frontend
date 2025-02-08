@@ -33,8 +33,8 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 
 const FullLayout = () => {
   //
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   return (
     <MainWrapper>

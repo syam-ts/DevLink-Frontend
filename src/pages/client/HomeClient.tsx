@@ -20,7 +20,7 @@ const HomeClient = () => {
     const isClient = useSelector((store: any) => store.client.isClient);
     const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
     
-    const [modal, showModal] = useState(false);
+    const [modal, showModal] = useState<boolean>(false);
     const [users, setUsers]: any = useState({});
   
  

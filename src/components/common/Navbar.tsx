@@ -36,13 +36,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       localStorage.removeItem('accessToken');
       //remove trace of notification page visit
       localStorage.removeItem('notificationsPageFirstVisit');
-
+      dispatch(signOutUser())
       dispatch(clearNotifications());
 
 
       window.location.href = '/login/user'
     } else if (roleType === 'client') {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('notificationsPageFirstVisit');
       dispatch(signOutUser())
       // localStorage.removeItem('refreshToken');
 

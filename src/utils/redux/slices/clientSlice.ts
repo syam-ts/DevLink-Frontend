@@ -6,28 +6,58 @@ interface Client {
     mobile: number;
 };
 
-const initialState = {
-    currentClient: null,
-    isClient: false
+
+ 
+
+interface ClientState {
+    currentUser: Client | null,
+    isUser: boolean,
+    notifications: string[];
+    notificationsUnread: number;
 };
+
+const initialState: ClientState = {
+    currentUser: null,
+    isUser: false,
+    notifications: [],
+    notificationsUnread: 0
+
+}
+
 
 const clientSlice = createSlice({
     name: 'client',
     initialState,
     reducers: {
-        signInClient: (state: any, action: PayloadAction<Client>) => {
+        signInClient: (state: any, action: PayloadAction<Client>) => { 
             state.currentClient = action.payload;
             state.isClient = true;
         },
-        
+        updateClient: (state: any, action: PayloadAction<Client>) => { 
+            state.currentClient = action.payload;
+        },
+
         signOutClient: (state: any) => {
             state.currentClient = null;
             state.isClient = false;
         },
+        addNotificationClient: (state: any, action: any) => { 
+            const parsedNotifications = JSON.parse(action.payload);
+            state.notifications.push(...parsedNotifications);
+            state.notificationsUnread++;
+
+        },
+        markAsReadNotifications: (state: any) => { 
+            state.notificationsUnread = 0;
+
+        },
+        clearNotifications: (state: any) => {
+            state.notifications = [];
+        }
 
     }
 });
 
 
 export default clientSlice.reducer;
-export const { signInClient, signOutClient} = clientSlice.actions;
+export const { signInClient, updateClient, addNotificationClient, markAsReadNotifications, clearNotifications, signOutClient } = clientSlice.actions;

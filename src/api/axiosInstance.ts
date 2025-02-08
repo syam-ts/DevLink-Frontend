@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'; 
 
  
  const api = axios.create({
@@ -6,16 +6,13 @@ import axios from 'axios';
   withCredentials: true,  
 });
 
- 
-
-//User
+  
 
 // Request interceptor
 api.interceptors.request.use(
-  (config: any) => {
+  (config: any) => { 
     
-    const token = localStorage.getItem('accessToken');   
- 
+    const token = localStorage.getItem('accessToken');  
     if (token) {
       if (!config.headers) {
         config.headers = {}; 
@@ -34,28 +31,38 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error) => {  
-    const originalRequest = error.config; 
-   
+    const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401) { 
+      if (originalRequest._retry) {
+        console.log('Redirecting to /landingpage due to failed token refresh');
+        localStorage.removeItem('accessToken');
+        window.location.href = '/landingpage';
+        return Promise.reject(error);
+      }
+
       originalRequest._retry = true;
 
-      console.log('THE RESPONSE STATUS : ', error.response.status)
-      try { 
-      
-        const { data } = await api.post('http://localhost:3000/user/refresh-token'); 
+      try {
+        const { data } = await api.post('http://localhost:3000/user/refresh-token');
         const { accessToken } = data;
+
+        if (!accessToken) {
+          throw new Error('No new access token received');
+        }
+
         localStorage.setItem('accessToken', accessToken);
         api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  
- 
+
         return api(originalRequest);
-      } catch (refreshError) { 
-        console.error('Refresh token error:', refreshError);
+      } catch (refreshError) {
+        console.error('Refresh token failed:', refreshError); 
+      
         localStorage.removeItem('accessToken');
-        window.location.href = '/login';
+        window.location.href = '/landingpage'; 
+        return Promise.reject(refreshError);
       }
-    }
+    } 
     return Promise.reject(error);
   }
 );

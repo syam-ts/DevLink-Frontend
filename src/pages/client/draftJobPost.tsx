@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import apiInstance from '../../api/axiosInstance'
-import { jobPostSchema } from "../../utils/validation/login/jobPostSchema";
+import { jobPostSchema } from "../../utils/validation/jobPostSchema";
 
 
 interface JobPost {

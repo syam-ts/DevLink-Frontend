@@ -1,16 +1,13 @@
 import { Navigate , Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux'; 
-import LoginUser from '../../pages/user/LoginUser'
-import axiosInstance from '../../api/axiosInstance'
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';   
 
 
 export const UserProctedRoute = () => { 
   const isUserAuth = useSelector((state: any) => state?.user?.isUser);
-  const user = useSelector((state: any) => state?.user?.isUser)
-  console.log('THE USER : ', user)
+ 
+ console.log('THe user auth :', isUserAuth)
      
-  return isUserAuth !== undefined ? <Outlet /> : <Navigate to="/user/login" />;
+  return isUserAuth !== undefined ? <Outlet /> : <Navigate to="/login/user" />;
 };
 
 

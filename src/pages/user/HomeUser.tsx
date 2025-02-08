@@ -25,7 +25,7 @@ const HomeUser = () => {
  
  
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
       console.log('The current user from Redux : ', user);
@@ -35,12 +35,7 @@ const HomeUser = () => {
     }
   }, [user.isProfileFilled]);
 
-  const handleClose = () => {
-    setShowModal(false);  
-  };
-  
-  
-  
+ 
   useEffect(() => {
     (async () => {
       try { 

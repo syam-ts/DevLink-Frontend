@@ -58,7 +58,7 @@ const OtpClient = () => {
       withCredentials: true, 
     }) 
  
-      if(response.data.type !== 'success') {
+      if(!response.data.sucess) {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
         navigate('/client/login', { state: { message: response.data.message }});
