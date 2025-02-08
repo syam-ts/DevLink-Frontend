@@ -23,10 +23,10 @@ const DraftJobPost = () => {
 
 
   const [skills, setSkills] = useState<string[]>([]);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<string[]>([]);
   const [formData, setFormData] = useState<JobPost>({});
-  const [inputValue, setInputValue]: any = useState("");
-  const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
+  const [inputValue, setInputValue]: any = useState<string>("");
+  const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id);
 
 
 
