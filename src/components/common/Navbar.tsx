@@ -26,26 +26,26 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
   const logout = async () => {
     const response = await axios.post(
-      `http://localhost:3000/${roleType}/logout`, {}, { withCredentials: true }
+      `http://localhost:3000/${roleType}/logout`, {}, 
+      { withCredentials: true }
     );
 
-    // console.log('THE REPONSE OF LOGOUT : ', response);
+ 
 
     if (roleType === 'user') {
 
+      // MOVE ALL TO LOGOUT SLICE
+      //remove trace of notification page visit 
+      localStorage.removeItem('notificationsPageFirstVisit'); 
       localStorage.removeItem('accessToken');
-      //remove trace of notification page visit
-      localStorage.removeItem('notificationsPageFirstVisit');
-      dispatch(signOutUser())
-      dispatch(clearNotifications());
+      dispatch(signOutUser());
+      dispatch(clearNotifications()); 
+      window.location.href = '/login/user';
 
-
-      window.location.href = '/login/user'
     } else if (roleType === 'client') {
-      localStorage.removeItem('accessToken');
       localStorage.removeItem('notificationsPageFirstVisit');
-      dispatch(signOutUser())
-      // localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+      dispatch(signOutUser()); 
 
       window.location.href = '/login/client'
     }

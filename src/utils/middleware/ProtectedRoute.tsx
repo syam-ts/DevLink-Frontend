@@ -15,7 +15,7 @@ export const UserProctedRoute = () => {
 export const ClientProctedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
      
-    return isClientAuth === undefined ? <Outlet /> : <Navigate to="/client/login" />;
+    return isClientAuth === undefined ? <Outlet /> : <Navigate to="/login/client" />;
 };
 
 

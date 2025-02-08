@@ -7,7 +7,7 @@ import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
 import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal"; 
-
+import {apiUserInstance} from '../../api/axiosInstanceRequest/axiosUserRequest';
  
 
 const HomeUser = () => {
@@ -39,7 +39,7 @@ const HomeUser = () => {
   useEffect(() => {
     (async () => {
       try { 
-        const { data } = await apiInstance.get('/user/getHome', {
+        const { data } = await apiUserInstance.get('/getHome', {
           withCredentials: true,
         });
 
@@ -55,7 +55,7 @@ const HomeUser = () => {
   useEffect(() => {
 
     (async () => {
-      const {data} = await apiInstance.get(`/user/home/listAllJobs`)
+      const {data} = await apiUserInstance.get(`/home/listAllJobs`)
   
       setJobs(data?.data?.allJobs);
       setTotalJobs(data?.data?.totalJobs);
@@ -71,7 +71,7 @@ const HomeUser = () => {
   useEffect(() => {
 
     (async () => {
-      const {data} = await apiInstance.get(`/user/home/latestJobs`)
+      const {data} = await apiUserInstance.get(`/home/latestJobs`)
  
       setLatestJobs(data?.data); 
     })();

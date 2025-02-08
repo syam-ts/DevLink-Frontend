@@ -3,6 +3,8 @@ import apiInstance from "../../api/axiosInstance";
 import { JobPostCard } from "../../components/common/JobPostCard";
 
 const JobsRender = ({ clientId, type }: any) => {
+
+  
   const [myJobs, setMyJobs]: any = useState({});
   const [progressingJobs, setProgressingJobs]: any = useState({});
 
