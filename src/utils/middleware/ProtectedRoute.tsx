@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux';
 export const UserProctedRoute = () => { 
   const isUserAuth = useSelector((state: any) => state?.user?.isUser);
  
- console.log('THe user auth :', isUserAuth)
+ console.log('THe user auth :', isUserAuth);
+
+ //CHEKS IT IF IT IS WORKIng
      
-  return isUserAuth !== undefined ? <Outlet /> : <Navigate to="/login/user" />;
+  return isUserAuth ? <Outlet /> : <Navigate to="/login/user" />;
 };
 
 

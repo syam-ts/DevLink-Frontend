@@ -7,7 +7,7 @@ import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
 import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal"; 
-import {apiUserInstance} from '../../api/axiosInstanceRequest/axiosUserRequest';
+import {apiUserInstance} from '../../api/axiosInstance/axiosUserInstance';
  
 
 const HomeUser = () => {

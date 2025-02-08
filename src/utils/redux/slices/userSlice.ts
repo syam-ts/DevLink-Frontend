@@ -44,6 +44,7 @@ const userSlice = createSlice({
         },
 
         signOutUser: (state: any) => {
+            console.log("reached singout user")
             state.currentUser = null;
             state.isUser = false;
         },

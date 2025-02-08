@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearNotifications, signOutUser } from "../../utils/redux/slices/userSlice";
-
-// import { signOutClient } from "../../utils/redux/slices/clientSlice";
-
 import {
   Dropdown,
   DropdownTrigger,
@@ -18,36 +15,36 @@ import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
-
-
+ 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userNotificationsUnread = useSelector((state: any) => state?.user?.notificationsUnread)
 
 
   const logout = async () => {
     const response = await axios.post(
-      `http://localhost:3000/${roleType}/logout`, {}, 
+      `http://localhost:3000/${roleType}/logout`, {},
       { withCredentials: true }
     );
 
- 
+
 
     if (roleType === 'user') {
 
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit 
-      localStorage.removeItem('notificationsPageFirstVisit'); 
+      localStorage.removeItem('notificationsPageFirstVisit');
       localStorage.removeItem('accessToken');
       dispatch(signOutUser());
       dispatch(clearNotifications()); 
-      window.location.href = '/login/user';
+      navigate('/login/user');
 
     } else if (roleType === 'client') {
       localStorage.removeItem('notificationsPageFirstVisit');
       localStorage.removeItem('accessToken');
-      dispatch(signOutUser()); 
+      dispatch(signOutUser());
 
-      window.location.href = '/login/client'
+      navigate('/login/client');
     }
 
   };

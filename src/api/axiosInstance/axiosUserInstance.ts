@@ -1,17 +1,50 @@
-import { useDispatch } from 'react-redux';
-import {apiUserInstance} from '../axiosInstance/axiosUserInstance';
+import axios from 'axios'; 
+import { useDispatch } from 'react-redux'; 
 import { signOutUser } from '../../utils/redux/slices/userSlice';
+import store from '../../utils/redux/store/mainStore'
 
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL;
- 
-const dispatch = useDispatch();
 
-// Response interceptor
-export default apiUserInstance.interceptors.response.use(
+ 
+ export const apiUserInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_SERVER_URL}/user`, 
+  withCredentials: true,  
+});
+
+ 
+
+// Request interceptor
+apiUserInstance.interceptors.request.use(
+  
+  (config: any) => { 
+ 
+    
+
+
+    const token = localStorage.getItem('accessToken');  
+ 
+    if (token) {
+      if (!config.headers) {
+        config.headers = {}; 
+      }
+      config.headers.Authorization = `Bearer ${token}`;
+    
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+
+
+apiUserInstance.interceptors.response.use(
 
 
     (response) => response, 
     async (error) => {  
+      // const dispatch = useDispatch();
       console.log('reched here')
       const originalRequest = error.config;
   
@@ -43,7 +76,7 @@ export default apiUserInstance.interceptors.response.use(
         
           localStorage.removeItem('accessToken');
 
-          //  dispatch(signOutUser());
+          store.dispatch(signOutUser());
           window.location.href = '/login/user'; 
           return Promise.reject(refreshError);
         }
