@@ -25,6 +25,9 @@ import ListUsers from '../pages/client/ListUsers';
 import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
 import Wallet from '../components/common/Wallet';
+import SignupComponent from '../components/common/SignupComponent'
+
+
 
 
 
@@ -37,6 +40,7 @@ const ClientRoute = () => {
     const showNavAndFooter: any = (pathname: string) => {
     
       const restrictedPath = [
+        '/client/signup/client',
         '/client/signup',
         '/client/login',
         '/client/verify-otp',
@@ -50,6 +54,9 @@ const ClientRoute = () => {
         <>
           { showNavAndFooter(location.pathname) && <Navbar roleType='client' roleInfo={client} />}
             <Routes>
+                <Route path='/signup/client' element={<SignupComponent />} />
+
+
                 <Route path='/signup' element={<SignupClient />} />
                 <Route path='/verify-otp' element={<OtpClient />} />
                 <Route path='/verify-email' element={<VerfiyEmail />} />

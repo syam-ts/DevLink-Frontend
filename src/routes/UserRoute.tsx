@@ -22,8 +22,7 @@ import ListAllClientChat from '../components/common/ViewAllChats'
 import Wallet from '../components/common/Wallet';
  
 import Notifications from '../components/common/NotificationCard'
-import NotificationsUser from '../pages/user/NotificationsUser';  
-import { SignupComponent } from '../components/common/Signup';
+import NotificationsUser from '../pages/user/NotificationsUser';   
  
 
 
@@ -68,8 +67,7 @@ const UserRoute = () => {
                 <Route path='/contract/view/:contractId' element={<Contract />} /> 
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
-                <Route path='/notifications/:userId' element={<NotificationsUser />} /> 
-                <Route path='/user-signup' element={<SignupComponent />} />
+                <Route path='/notifications/:userId' element={<NotificationsUser />} />  
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="user" />} />
 
 

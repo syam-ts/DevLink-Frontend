@@ -6,27 +6,52 @@ import { signInUser } from '../../utils/redux/slices/userSlice';
 import { signInClient } from '../../utils/redux/slices/clientSlice';
 import axios from 'axios';
 import { toast } from 'sonner';
-import Google from '../../components/common/Google';
+import Google from './Google';
 import { Link, useParams } from 'react-router-dom';
+import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/signupSchema';
 
-const LoginComponent = () => {
+
+
+const SignupComponent = () => {
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
-  const { roleType } = useParams(); 
+  const { roleType } = useParams();
 
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    let formData = {
-      email: event.target[0].value,
-      password: event.target[1].value
-    }
+    let formData;
+
+    if (roleType === 'user') {
+      formData = {
+        name: event.target[0].value,
+        mobile: event.target[1].value,
+        email: event.target[2].value,
+        password: event.target[3].value
+      }
+    } else {
+      formData = {
+        name: event.target[0].value,
+        email: event.target[1].value,
+        password: event.target[2].value
+      }
+    };
+
+
 
     try {
 
-      const validForm = await userLoginSchema.validate(formData, { abortEarly: false });
+      console.log('The form : ', formData)
+      let validForm;
+      if (roleType === 'user') {
+        validForm = await signupSchemaUser.validate(formData, { abortEarly: false });
+      } else {
+        validForm = await signupSchemaClient.validate(formData, { abortEarly: false });
+      }
+
+
       if (validForm) {
         try {
           const { data } = await axios.post(`http://localhost:3000/${roleType}/login`,
@@ -162,7 +187,7 @@ const LoginComponent = () => {
         </div>
         <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
           <div className="max-w-md w-full p-6">
-            <h1 className="text-3xl font-semibold mb-6 text-black text-center"> Login </h1>
+            <h1 className="text-3xl font-semibold mb-6 text-black text-center"> SIGNUP </h1>
             <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to the Best Community with all time access and free </h1>
             <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
 
@@ -177,6 +202,64 @@ const LoginComponent = () => {
               <p>or with email</p>
             </div>
             <form onSubmit={handleSubmit} method="POST" className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                <div>
+                  {
+                    error.some((err: any) => err.includes("Name is required")) ? ( 
+                        error.map((err: any, index: number) => (
+                          err.includes('Name is required') && (
+                            <div className='text-center'>
+                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                            </div>
+                          )
+                        )) 
+                    ) : ( 
+                        error.map((err: any, index: number) => (
+                          err.includes('Name should be') && (
+                            <div className='text-center'>
+                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                            </div>
+                          )
+                        )) 
+                    )
+                  } 
+            
+                </div>
+
+              </div>
+
+              {
+                roleType === 'user' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Mobile</label>
+                    <input type="number" name="mobile" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                    <div>
+                      {
+                        error.map((err: any, index: number) => (
+                          err.includes('Mobile Number is required') && (
+                            <div className='text-center'>
+                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                            </div>
+                          )
+                        ))
+                      }
+                      {
+                        error.map((err: any, index: number) => (
+                          err.includes('Number should be valid') && (
+                            <div className='text-center'>
+                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                            </div>
+                          )
+                        ))
+                      }
+                    </div>
+
+                  </div>
+                )
+              }
+
               <div>
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input type="text" name="email" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
@@ -202,48 +285,50 @@ const LoginComponent = () => {
                 </div>
 
               </div>
+
+
               <div>
                 <label className="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
               </div>
               <div>
-            
-                 {
+
+                {
                   error.some((err: any) => err.includes("Password is required")) ? (
-                  
-                      error.map((err: any, index: number) => (
-                        err.includes('Password is required') && (
-                          <div className='text-center'>
-                            <span className='text-red-400 text-sm '>{error[index]}</span>
-                          </div>
-                        )
-                      ))
-                 
+
+                    error.map((err: any, index: number) => (
+                      err.includes('Password is required') && (
+                        <div className='text-center'>
+                          <span className='text-red-400 text-sm '>{error[index]}</span>
+                        </div>
+                      )
+                    ))
+
                   ) : (
                     error.map((err: any, index: number) => (
-                      err.includes('minimum 8 characters need') && (
+                      err.includes('Minimum 8 characters needed') && (
                         err[index] !== 'Password is required' && (
                           <div className='text-center'>
                             <span className='text-red-400 text-sm '>{error[index]}</span>
                           </div>
                         )
                       )
-  
+
                     ))
                   )
-              }
-           
+                }
+
               </div>
               <div>
                 <button type="submit" className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black   focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">
-                  Login
+                  Signup
                 </button>
               </div>
             </form>
             <div className="mt-4 text-sm text-gray-600 text-center">
-              <p>Dont't have an account? <a href="#" className="text-black hover:underline">
-                <Link to={`/signup/${roleType}`} className='text-black'>
-                  Signup here
+              <p>Already have an account? <a href="#" className="text-black hover:underline">
+                <Link to={`/login/${roleType}`} className='text-black'>
+                  Login here
                 </Link>
               </a>
               </p>
@@ -255,4 +340,4 @@ const LoginComponent = () => {
   )
 }
 
-export default LoginComponent;
+export default SignupComponent;
