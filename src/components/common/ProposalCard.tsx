@@ -1,14 +1,15 @@
 
-import { Link } from 'react-router-dom';
-import apiInstance from '../../api/axiosInstance'
+import { Link } from 'react-router-dom'; 
 import { ProfileUser } from '../../pages/user/ProfileUser';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
 import { addNotification } from '../../utils/redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 
 
-export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
+
+export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [string], roleType: string, roleId: string}) => {
 
 
     const dispatch = useDispatch();
@@ -25,9 +26,9 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
                 bidAmount: bidAmount,
                 bidDeadline: bidDeadline
             }
-            const { data } = await apiInstance.post('http://localhost:3000/client/job/createContract', body);
+            const { data } = await apiUserInstance.post('http://localhost:3000/client/job/createContract', body);
 
-            console.log('THE REPOSNSE : ', data.data.newNotificationUser)
+ 
 
             
             if(data.success) {
@@ -60,7 +61,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: any) => {
                 clientId: roleId,
                 jobPostId: jobPostId
             }
-            const { data } = await apiInstance.put('http://localhost:3000/client/job/proposal/reject', body);
+            const { data } = await apiUserInstance.put('http://localhost:3000/client/job/proposal/reject', body);
 
 
             if (data.success) {

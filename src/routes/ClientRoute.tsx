@@ -11,8 +11,7 @@ import Jobs from '../pages/client/Jobs';
 import DraftJobPost from '../pages/client/draftJobPost';
 import PaymentSuccess from '../pages/client/SuccessPayment';
 import PaymentFailed from '../pages/client/FailedPayment'; 
-import JobPropsals from '../pages/client/JobProposal';
-import TestingTables from '../pages/client/TestingTabs';
+import JobPropsals from '../pages/client/JobProposal'; 
 import MonoJobPage from '../components/common/MonoJobPost';
 import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
@@ -21,8 +20,7 @@ import { ProfileUser } from '../pages/user/ProfileUser';
 import { Contract } from '../components/common/Contract';
 import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
-import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView';
-import NotificationsClient from '../pages/client/NotificationsClient'; 
+import { ProjectSubmissionViewDrawer } from '../components/shadcn/drawer/ProjectSubmitView'; 
 import ListUsers from '../pages/client/ListUsers';
 import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
@@ -65,14 +63,13 @@ const ClientRoute = () => {
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />
                 <Route path='/draftJobPost/payment-failed' element={<PaymentFailed />} /> 
                 <Route path='/jobs/proposals' element={<JobPropsals />} />
-                <Route path='/job/tabs' element={<TestingTables />} />
+                {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
                 <Route path='/developers/view' element={<ListUsers />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
                 <Route path='/contract/view/:contractId' element={<Contract />} />
                 <Route path='/job/:jobPostId' element={<MonoJobPage />} />
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
-                <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />
-                <Route path='/notifications/:clientId' element={<NotificationsClient />} /> 
+                <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} /> 
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="client" />} />
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllUserChat />} />

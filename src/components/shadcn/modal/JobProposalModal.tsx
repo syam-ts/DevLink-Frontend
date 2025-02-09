@@ -10,11 +10,11 @@ import {
 import { Input } from "../../../components/shadcn/ui/input.tsx";
 import { Label } from "../../../components/ui/label.tsx";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import apiInstance from '../../../api/axiosInstance'
+import { useState } from "react"; 
 import { toast } from "sonner";
 import { addNotification } from "../../../utils/redux/slices/userSlice.ts";
 import { Sonner } from "../../../components/sonner/Toaster.tsx";
+import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts"
 
 
 
@@ -66,7 +66,7 @@ export const JobProposalModal = (props: ProposalProps) => {
                 bidDeadline: formData.bidDeadline
             }
 
-            const { data } = await apiInstance.post('http://localhost:3000/user/job/createProposal', {
+            const { data } = await apiUserInstance.post('http://localhost:3000/user/job/createProposal', {
                 body
             });
 

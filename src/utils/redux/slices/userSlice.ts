@@ -34,7 +34,6 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         signInUser: (state: any, action: PayloadAction<User>) => {
-            console.log("Payload received in reducer:", action.payload);
             state.currentUser = action.payload;
             state.isUser = true;
         },
@@ -44,7 +43,6 @@ const userSlice = createSlice({
         },
 
         signOutUser: (state: any) => {
-            console.log("reached singout user")
             state.currentUser = null;
             state.isUser = false;
         },

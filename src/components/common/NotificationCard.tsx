@@ -1,13 +1,13 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { ContractRespond } from '../nextUi/modals/ContractRespond'
-import apiInstance from '../../api/axiosInstance';
+import { useParams } from 'react-router-dom'; 
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { RateUserModal } from '../nextUi/modals/RateUserModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNotification, markAsReadNotifications } from '../../utils/redux/slices/userSlice';
-import { useSelect } from '@nextui-org/react';
+import { addNotification, markAsReadNotifications } from '../../utils/redux/slices/userSlice'; 
 import { addNotificationClient } from '../../utils/redux/slices/clientSlice';
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
+
+
 
 const Notification = ({ role, roleId }: any) => {
 
@@ -47,21 +47,20 @@ if(role === 'user') {
 
  
 
-  useEffect(() => {
-
+  useEffect(() => { 
     try {
 
-      const hasVisited = localStorage.getItem("notificationsPageFirstVisit");
-    
-
-      if (!hasVisited) { 
-     
+      const hasVisited = localStorage.getItem("notificationsPageFirstVisit");  
+      if (!hasVisited) {  
         (async () => {
-          const { data } = await apiInstance.get(`/${role}/notifications/${roleId}`);
+          let response;
+          if(role === 'user') {
+            response = await apiUserInstance.get(`/notifications/${roleId}`);
+          } else {
+            response = await apiClientInstance.get(`/client/notifications/${roleId}`);
+          } 
 
-          
-          
-          const notifications: any = JSON.stringify(data?.notifications);
+          const notifications: any = JSON.stringify(response?.data?.notifications);
           if(role === 'user') {
             dispatch(addNotification(notifications));
           setNotifications(notifications);
@@ -69,18 +68,15 @@ if(role === 'user') {
             dispatch(addNotificationClient(notifications));
           setNotifications(notifications);
           }
-
-          console.log('Live no', notification)
-          localStorage.setItem("notificationsPageFirstVisit", "true");
-
-        })();
+ 
+          localStorage.setItem("notificationsPageFirstVisit", "true"); 
+          })();
       } else {
-        return
+         return;
       }
     } catch (err: any) {
       console.error('ERROR: ', err.message);
-    }
-
+    } 
   }, []);
 
 

@@ -1,8 +1,8 @@
-import axios from "axios";
 import { createSocketConnection } from "../../utils/socket/socket";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux"; 
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 interface Messages {
     name: string,
@@ -29,11 +29,19 @@ export const ChatBox = ({roleType, targetId}: any) => {
 
 
     const fetchChatMessages = async () => {
-        const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`, {
-            withCredentials: true
-        });
-        console.log(data.messages.messages);
-        setMessages(data.messages?.messages);
+        let response;
+        if(roleType === 'user') {
+            response = await apiUserInstance.get(`/chat/view/${roleType}/${roleId}/${targetId}`, {
+                withCredentials: true
+            });
+        } else {
+            response = await apiClientInstance.get(`/chat/view/${roleType}/${roleId}/${targetId}`, {
+                withCredentials: true
+            });
+        }
+     
+        console.log(response.data.messages.messages);
+        setMessages(response.data.messages?.messages);
     };
 
     console.log('id, ',roleId)

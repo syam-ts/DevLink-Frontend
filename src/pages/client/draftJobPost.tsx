@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster';
-import apiInstance from '../../api/axiosInstance'
-import { jobPostSchema } from "../../utils/validation/jobPostSchema";
+import { Sonner } from '../../components/sonner/Toaster';  
+import { jobPostSchema } from "../../utils/validation/jobPostSchema"; 
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 
 interface JobPost {
@@ -65,7 +65,7 @@ const DraftJobPost = () => {
       console.log("Form data : ", formData)
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
       if (validForm) {
-        const { data } = await apiInstance.post(`http://localhost:3000/client/jobPost/payment-stripe/${clientId}`, {
+        const { data } = await apiClientInstance.post(`/jobPost/payment-stripe/${clientId}`, {
           formData,
         });
         if (data.success) {

@@ -1,16 +1,13 @@
  
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 
-function SuccessPayment() {
- 
-
+function SuccessPayment() { 
  
 
     return (
-        <div>
-
+        <div> 
             <div className="h-screen py-44">
                 <div className="bg-white p-6  md:mx-auto">
                     <svg viewBox="0 0 24 24" className="text-red-600 w-16 h-16 mx-auto my-6">
@@ -35,4 +32,5 @@ function SuccessPayment() {
     )
 }
 
-export default SuccessPayment
+
+export default SuccessPayment;

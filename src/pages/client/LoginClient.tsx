@@ -1,32 +1,23 @@
 import {useEffect, useState} from 'react';
 import { Link, useNavigate ,useLocation} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { useDispatch } from 'react-redux'; 
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { signInClient } from '../../utils/redux/slices/clientSlice'
  import { useSelector } from 'react-redux';
 import Google from '../../components/common/Google';
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 const LoginClient = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
-  const dispatch = useDispatch();
-  const currentClient = useSelector((store: any) => store.client.isClient);
+  const dispatch = useDispatch(); 
 
  
- 
-    const message = useLocation();
+  
   const navigate = useNavigate(); 
  
-   
-  // useEffect(() => {
  
-  //   // checking whether client exists or not 
-  //   if(currentClient) {
-  //     navigate('/client/home')
-  // }
-  //  }, []);
  
   useEffect(() => {
 
@@ -59,7 +50,7 @@ const LoginClient = () => {
   const handleSubmit = async () => {
         
     try {
-     const response = await axios.post('http://localhost:3000/client/login', formData, {
+     const response = await apiClientInstance.post('/login', formData, {
       withCredentials: true,  
     });
     console.log('The token', response.data);

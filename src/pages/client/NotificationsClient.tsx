@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Notification from '../../components/common/NotificationCard'
-import React from 'react'
+ 
 
 function NotificationsClient() {
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import apiInstance from "../../api/axiosInstance";
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
+
 import { JobPostCard } from "../../components/common/JobPostCard";
 
 const JobsRender = ({ clientId, type }: any) => {
@@ -11,7 +12,7 @@ const JobsRender = ({ clientId, type }: any) => {
   useEffect(() => {
     try {
       (async () => {
-        const response = await apiInstance.get(
+        const response = await apiClientInstance.get(
           `http://localhost:3000/client/jobs/${type}/${clientId}`
         );
 

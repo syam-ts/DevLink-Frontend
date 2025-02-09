@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ChatBox } from "./ChatBox";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 
 function ListAllUserChat() {
 
     const [data, setData] = useState({}); 
-    const [name, setName] = useState(""); 
-    const {roleType, roleId}= useParams();
-    const [currentRoleId, setCurrentRoleId] = useState("");
+    const {roleType, roleId}= useParams<{roleType?: string, roleId?: string}>();
+    const [currentRoleId, setCurrentRoleId] = useState<string>("");
 
  
  
@@ -17,10 +17,15 @@ function ListAllUserChat() {
     useEffect(() => {
 
         (async () => {
-            const { data } = await axios.get(`http://localhost:3000/${roleType}/allChat/view/${roleId}`); 
-                console.log('THE DATA RESPONSE : ', data)
-        
-            setData(data.data)
+            let response;
+
+            if(roleType === 'user') {
+                 response = await apiUserInstance.get(`/allChat/view/${roleId}`); 
+            } else {
+                 response = await apiClientInstance.get(`/allChat/view/${roleId}`); 
+            }
+               
+            setData(response.data.data)
 
         })();
 

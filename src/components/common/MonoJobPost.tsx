@@ -1,7 +1,7 @@
  import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom" 
-import apiInstance from '../../api/axiosInstance'
+import { useParams } from "react-router-dom"  
 import { JobProposalModal } from "../shadcn/modal/JobProposalModal"; 
+import axios from "axios";
 
 
 interface JobPost {
@@ -68,7 +68,7 @@ const MonoJobPost = () => {
    
       (async () => {
 
-        const { data } = await apiInstance.get(`/user/job/view/${jobPostId}`);
+        const { data } = await axios.get(`/user/job/view/${jobPostId}`);
 
         setJobPost(data.jobPost);
 

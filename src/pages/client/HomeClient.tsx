@@ -1,48 +1,31 @@
-import {Card, CardHeader, Image} from "@nextui-org/react";
+import {Card, CardHeader } from "@nextui-org/react";
  
 import { useEffect, useState } from "react"; 
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { toast } from "sonner";
-import { Sonner } from '../../components/sonner/Toaster'; 
+import { useNavigate } from 'react-router-dom';
+import { toast } from "sonner"; 
 import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
 import { Link } from 'react-router-dom';
-import apiInstance from '../../api/axiosInstance'
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 
 
 const HomeClient = () => {
 
-    
-    let message: any = useLocation();
+     
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const isClient = useSelector((store: any) => store.client.isClient);
-    const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
-    
-    const [modal, showModal] = useState<boolean>(false);
+    const dispatch = useDispatch(); 
+    const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id)
+     
     const [users, setUsers]: any = useState({});
-  
+   
  
- 
-
-//   useEffect(() => {
-//     if (message.state) { 
-
-//       toast.error(message.state?.message);  
-//     };
-
-//     // checking whether use exists or not 
-//     if(!isClient) {
-//       navigate('/client/login')
-//   }
-//    }, []);
 
 
   useEffect(() => {
      const findAllUsers = async () => { 
       try {
-      const response = await apiInstance.get('/client/getHome', {
+      const response = await apiClientInstance.get('/getHome', {
          withCredentials: true
      });
 

@@ -1,4 +1,4 @@
-import axios from "axios";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest"; 
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ function ListUsers() {
 
     try {
       (async () => {
-        const { data } = await axios.get('http://localhost:3000/client/developers/allDevelopers');
+        const { data } = await apiClientInstance.get('/developers/allDevelopers');
         console.log(data.developers);
         setDevelopers(data.developers);
       })();

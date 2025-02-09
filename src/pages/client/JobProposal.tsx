@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux"; 
-import apiInstance from "../../api/axiosInstance";
+import { useSelector } from "react-redux";  
 import { ProposalCard } from "../../components/common/ProposalCard";
 import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
 import { Sonner } from "../../components/sonner/Toaster";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+ 
 
 const JobProposals = () => {
   interface Proposals {
@@ -26,9 +27,7 @@ const JobProposals = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.get(
-          `http://localhost:3000/client/job/proposals/${clientId}`
-        );
+        const { data } = await apiClientInstance.get(`/job/proposals/${clientId}`);
         setData(data?.data);
       } catch (err: any) {
         console.log("ERROR: ", err.message);

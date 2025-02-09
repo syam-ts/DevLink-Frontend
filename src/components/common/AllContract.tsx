@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom";
-import { SubmitProject } from "../nextUi/modals/SubmitProjectModal";
-import apiInstance from '../../api/axiosInstance';
+import { SubmitProject } from "../nextUi/modals/SubmitProjectModal"; 
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
  
 
@@ -11,19 +11,24 @@ function AllContract() {
 
   const [contracts, setContracts] = useState({});
   const [contractsViewType, setContractsViewType]: any = useState('myContracts');
-
-  const [state , setState]: any = useState('')
-
+  
   const { roleId, roleType } = useParams(); 
 
   useEffect(() => {
     try{
       
        (async () => {
-        const { data } = await apiInstance.get(`/${roleType}/job/${contractsViewType}/${roleId}`);
+        let response;
 
-        console.log('THE RESPONSE FROM MY-CONTRRAC ',data);
-        setContracts(data?.data);
+        if(roleType === 'user') { 
+            response = await apiUserInstance.get(`/job/${contractsViewType}/${roleId}`);
+        } else {
+            response = await apiClientInstance.get(`/job/${contractsViewType}/${roleId}`);
+
+        }
+
+        console.log('THE RESPONSE FROM MY-CONTRRAC ',response.data);
+        setContracts(response.data?.data);
        })();
     }catch(err: any) {
       console.error('ERROR: ', err.message);

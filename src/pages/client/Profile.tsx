@@ -1,18 +1,14 @@
- 
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'; 
+import { useEffect, useState } from "react"; 
 import EditModal from '../../components/nextUi/modals/editProfileClientModal'
-import apiInstance from '../../api/axiosInstance'
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 
 const Profile = () => {
- 
- const navigate = useNavigate();
-//  const isClient = useSelector((state: any) => state?.client?.isClient);
+  
 
  const [ client, setClient]: any = useState({});
- const [isVerified , setIsVerified] = useState('')
+ const [isVerified , setIsVerified] = useState<boolean>(false);
 
  const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
   
@@ -20,35 +16,22 @@ const Profile = () => {
  
 
 useEffect(() => {
-  const getClientData = async () => {
-
+  const getClientData = async () => { 
     try {
       
-      const response = await apiInstance.get(`http://localhost:3000/client/profile/view/${clientId}`,{
+      const response = await apiClientInstance.get(`/profile/view/${clientId}`,{
         withCredentials: true
     }); 
-   
-      console.log("the data : ", response.data.data)
+    
       setIsVerified(response.data?.data?.isVerified)
       setClient(response.data?.data);
     } catch (err: any) { 
-    if(err.response.data.message == 'No token provided') {
-      navigate('/client/login')
+         console.log(err.message);
     }
-    }
-  }
-
+  };
+ 
   getClientData();
 }, []);
- 
-
-// useEffect(() => {
-//   console.log('Enterd')
-//   if(isClient=== undefined) {
-//       navigate('/client/login')
-//   }
-
-// }, []);
  
  
 
