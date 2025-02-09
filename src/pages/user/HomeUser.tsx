@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader } from "@nextui-org/react"; 
 import { Link } from 'react-router-dom'; 
-import LinkAttribute from '../../components/nextUi/Link'
-import apiInstance from '../../api/axiosInstance';
+import LinkAttribute from '../../components/nextUi/Link' 
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
 import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal"; 
-import {apiUserInstance} from '../../api/axiosInstance/axiosUserInstance';
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
  
 
 const HomeUser = () => {

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import apiInstance from "../../api/axiosInstance";
+import { useSelector } from "react-redux"; 
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { ProposalCard } from "../../components/common/ProposalCard";
-import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
+// import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
 
 const JobProposals = () => {
 
@@ -34,7 +33,7 @@ const JobProposals = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.get(
+        const { data } = await apiUserInstance.get(
           `http://localhost:3000/user/job/proposals/${userId}`
         );
         // console.log('Data fro m', data?.proposals)

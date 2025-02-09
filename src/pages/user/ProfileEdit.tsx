@@ -1,53 +1,81 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import apiInstance from "../../api/axiosInstance";
-import axios from "axios";
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance'; 
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
-import { signInUser, updateUser } from '../../utils/redux/slices/userSlice'
+import { updateUser } from '../../utils/redux/slices/userSlice';
+
+
+interface UserData {
+  name: string
+  budget: string
+  location: string
+  mobile: string
+  skills: string
+  profilePicture: any
+  domain: string
+  githubLink: string
+  description: string
+  whyHireMe: string
+  experience: string
+  education: string
+}
+
 
 const ProfileUser = () => {
 
 
-    
-    const [userData, setUserData ] = useState({})
-    const [image, setImage] = useState(null);
-    const [skills, setSkills]: any = useState([]);  
-    const [education, setEducation]: any = useState([]);  
-    const [inputValue, setInputValue]: any = useState(""); 
-    const [imageLoading, setImageLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        name: "",
-        budget: "",
-        location: "",
-        mobile: "",
-        skills: "",
-        profilePicture: null, 
-        domain: "",
-        githubLink: "",
-        description: "",
-        whyHireMe: "",
-        experience: "",
-        education: "",
-    });
-    const {type} = useParams();
-    const dispatch = useDispatch();
- 
-     
-    const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
-    const currentUser: string = useSelector((state: any) => state?.user?.currentUser);
 
-      useEffect(() => {
-        (async () => {
-          const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`,{
-            withCredentials: true
-        });
-     
-        setUserData(response?.data?.data);
-        })(); 
-     
-      }, []);
+  const [userData, setUserData] = useState<UserData>({
+    name: '',
+    budget: '',
+    location: '',
+    mobile: '',
+    skills: '',
+    profilePicture: null,
+    domain: '',
+    githubLink: '',
+    description: '',
+    whyHireMe: '',
+    experience: '',
+    education: '',
+  })
+  const [image, setImage] = useState<string>("");
+  const [skills, setSkills]: any = useState([]);
+  const [education, setEducation]: any = useState<string[]>([]);
+  const [inputValue, setInputValue]: any = useState<string>("");
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<UserData>({
+    name: "",
+    budget: "",
+    location: "",
+    mobile: "",
+    skills: "",
+    profilePicture: "",
+    domain: "",
+    githubLink: "",
+    description: "",
+    whyHireMe: "",
+    experience: "",
+    education: "",
+  });
+  const { type } = useParams();
+  const dispatch = useDispatch();
+
+
+  const userId: string = useSelector((state: any) => state?.user?.currentUser?._id); 
+
+  useEffect(() => {
+    (async () => {
+      const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
+        withCredentials: true
+      });
+
+      setUserData(response?.data?.data);
+    })();
+
+  }, []);
 
   useEffect(() => {
     formData.profilePicture = image;
@@ -81,7 +109,7 @@ const ProfileUser = () => {
       data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
-    const response = await axios.post(
+    const response = await apiUserInstance.post(
       `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
       data
     );
@@ -92,9 +120,9 @@ const ProfileUser = () => {
 
 
   var loadFile: any = function (event: any) {
-    var input = event.target;
-    var file = input.files[0];
-    var type = file.type;
+    // var input = event.target;
+    // var file = input.files[0];
+    // var type = file.type;
     var output: any = document.getElementById("preview_img");
 
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -102,7 +130,7 @@ const ProfileUser = () => {
       URL.revokeObjectURL(output.src);
     };
   };
- 
+
 
   const sumbmitForm = async () => {
     try {
@@ -112,10 +140,10 @@ const ProfileUser = () => {
       }
 
 
-      
-      const response: any = await apiInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`,data);
- 
-      if(!response.data.sucess) { 
+
+      const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
+
+      if (!response.data.sucess) {
         toast.warning(response.data.message, {
           style: {
             backgroundColor: "yellow"
@@ -127,49 +155,49 @@ const ProfileUser = () => {
         dispatch(updateUser(user))
         window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
       }
-    } catch (err: any) { 
+    } catch (err: any) {
       toast.error(err.message);
     }
   };
 
-  console.log('THE CURRENT USER : ',currentUser)
+ 
 
 
-//skills add section
+  //skills add section
   const handleChangeSkills = (e: any) => {
-    setInputValue(e.target.value);  
+    setInputValue(e.target.value);
   };
 
-  const handleAddSkill = (event: any,inputValue: any) => {
-    event.preventDefault(); 
+  const handleAddSkill = (event: any, inputValue: any) => {
+    event.preventDefault();
     if (inputValue.trim() && !skills.includes(inputValue)) {
-      setSkills((prevSkills: any) => [...prevSkills, inputValue.trim()]); 
-      setInputValue(""); 
+      setSkills((prevSkills: any) => [...prevSkills, inputValue.trim()]);
+      setInputValue("");
     }
   };
- 
+
   const handleRemoveSkill = (skillToRemove: any) => {
-    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));  
+    setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));
   };
- 
 
-//eduction add section
+
+  //eduction add section
   const handleChangeEducation = (e: any) => {
-    setInputValue(e.target.value);  
+    setInputValue(e.target.value);
   };
 
-  const handleAddEducation = (event: any,inputValue: any) => {
-    event.preventDefault(); 
+  const handleAddEducation = (event: any, inputValue: any) => {
+    event.preventDefault();
     if (inputValue.trim() && !education.includes(inputValue)) {
-      setEducation((prevEducation: any) => [...prevEducation, inputValue.trim()]); 
-      setInputValue(""); 
+      setEducation((prevEducation: any) => [...prevEducation, inputValue.trim()]);
+      setInputValue("");
     }
   };
- 
+
   const handleRemoveEducation = (educationToRemove: any) => {
-    setSkills((prevEducation: any) => prevEducation.filter((skill: any) => skill !== educationToRemove));  
+    setSkills((prevEducation: any) => prevEducation.filter((skill: any) => skill !== educationToRemove));
   };
- 
+
 
   return (
     <>
@@ -183,40 +211,40 @@ const ProfileUser = () => {
           </div>
         </div>  */}
 
-    <Sonner />
+        <Sonner />
         <section>
           <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[1300px] lg:col-span-3 lg:p-12">
             <form className="space-y-8">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-              <label className='text-sm text-gray-500'>Full Name</label>
-                <input
-                    onChange={handleChange}
-                  className="w-full py-2 text-xs px-3"
-                  placeholder=" Elon musk"
-                  name="name"
-                  type="text"
-                />
-                <hr />
-              </div>
-              <div>
-              <label className='text-xs text-gray-500'>Budget Per Hour</label>
-                <input
-                    onChange={handleChange}
-                  className="w-full py-2 text-xs px-3"
-                  placeholder="150/hr"
-                  name="budget"
-                  type="number"
-                />
-                <hr />
-              </div>
-
-                </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                <label className='text-xs text-gray-500'>Location</label>
+                  <label className='text-sm text-gray-500'>Full Name</label>
                   <input
-                      onChange={handleChange}
+                    onChange={handleChange}
+                    className="w-full py-2 text-xs px-3"
+                    placeholder=" Elon musk"
+                    name="name"
+                    type="text"
+                  />
+                  <hr />
+                </div>
+                <div>
+                  <label className='text-xs text-gray-500'>Budget Per Hour</label>
+                  <input
+                    onChange={handleChange}
+                    className="w-full py-2 text-xs px-3"
+                    placeholder="150/hr"
+                    name="budget"
+                    type="number"
+                  />
+                  <hr />
+                </div>
+
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className='text-xs text-gray-500'>Location</label>
+                  <input
+                    onChange={handleChange}
                     className="w-full py-2 text-xs px-3"
                     placeholder="Bangalore"
                     name="location"
@@ -225,10 +253,10 @@ const ProfileUser = () => {
                   <hr />
                 </div>
                 <div>
-                <label className='text-xs text-gray-500'>Mobile</label>
+                  <label className='text-xs text-gray-500'>Mobile</label>
 
                   <input
-                      onChange={handleChange}
+                    onChange={handleChange}
                     className="w-full py-2 text-xs px-3"
                     placeholder="952342*****"
                     name="mobile"
@@ -238,11 +266,11 @@ const ProfileUser = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
+                <div>
                   <div>
                     <input
-                        value={inputValue}
-                        onChange={handleChangeSkills}
+                      value={inputValue}
+                      onChange={handleChangeSkills}
                       className="w-auto p-3 text-sm border border-gray-300 rounded"
                       placeholder="Add a skill"
                       name="skills"
@@ -258,16 +286,16 @@ const ProfileUser = () => {
                   {/* <hr className="my-3" /> */}
                   <div>
                     {skills.map((skill: any, index: any) => (
-                  <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
-                    <span className="text-sm">{skill}</span>
-                    <button
-                        onClick={() => handleRemoveSkill(skill)}
-                      className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
+                      <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
+                        <span className="text-sm">{skill}</span>
+                        <button
+                          onClick={() => handleRemoveSkill(skill)}
+                          className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -277,7 +305,7 @@ const ProfileUser = () => {
                   <div className="shrink-0 ">
                     <img
                       id="preview_img"
-                        onChange={handleChange}
+                      onChange={handleChange}
                       className="h-[150px] w-[150px] object-cover rounded-md border"
                       src={
                         "https://img.freepik.com/premium-vector/influencer-icon-vector-image-can-be-used-digital-nomad_120816-263441.jpg?semt=ais_hybrid"
@@ -285,43 +313,43 @@ const ProfileUser = () => {
                       alt="Current profile photo"
                     />
                   </div>
-                 {
+                  {
                     !imageLoading ? (
 
-                  <label
-                    className="block"
-                     onChange={(event: any) => loadFile(event)}
-                  >
-                    <input
-                      type="file"
-                      name="profilePicture"
-                      onChange={handleFileUpload}
-                      accept="image/*"
-                      className="block w-full text-xs text-white pt-3 px-8
+                      <label
+                        className="block"
+                        onChange={(event: any) => loadFile(event)}
+                      >
+                        <input
+                          type="file"
+                          name="profilePicture"
+                          onChange={handleFileUpload}
+                          accept="image/*"
+                          className="block w-full text-xs text-white pt-3 px-8
                               file:mr-4 file:py-2 file:px-2
                               file:rounded-full file:border-0
                               file:text-sm file:font-semibold
                               file:bg-violet-200 file:text-violet-700
                               hover:file:bg-violet-100"
-                    />
-                  </label>
-                    ) :(
-                  <label className='px-3 mx-5 mt-3 text-center py-2 rounded-full  text-sm font-bold bg-violet-200  text-violet-700 hover:bg-violet-100'>
-                     Loading....
-                 </label>
-                        
+                        />
+                      </label>
+                    ) : (
+                      <label className='px-3 mx-5 mt-3 text-center py-2 rounded-full  text-sm font-bold bg-violet-200  text-violet-700 hover:bg-violet-100'>
+                        Loading....
+                      </label>
+
                     )
-                 }
+                  }
                 </div>
               </div>
 
-              
+
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                <label className='text-xs text-gray-500'>Domain</label>
+                  <label className='text-xs text-gray-500'>Domain</label>
 
                   <input
-                      onChange={handleChange}
+                    onChange={handleChange}
                     className="w-full py-2 text-xs px-3"
                     placeholder="Clound Engineering"
                     name="domain"
@@ -330,24 +358,24 @@ const ProfileUser = () => {
                   <hr />
                 </div>
                 <div>
-                <label className='text-sm text-gray-500'>Github link</label>
+                  <label className='text-sm text-gray-500'>Github link</label>
                   <input
                     type="text"
-                    name="githubLink" 
-                      onChange={handleChange}
+                    name="githubLink"
+                    onChange={handleChange}
                     className="w-full py-2 text-xs px-3"
                     placeholder="https://devlink-github.com"
-              
+
                   />
                   <hr />
                 </div>
               </div>
 
               <div>
-              <label className='text-xs text-gray-500'>Description</label>
+                <label className='text-xs text-gray-500'>Description</label>
 
                 <textarea
-                   onChange={handleChange}
+                  onChange={handleChange}
                   className="w-full py-2 text-xs px-3"
                   placeholder=" am a graduated Telecommunications Engineer who pivoted his career to work in Cloud in the early days. Now, a few years have passed, and I have worked for a few tech companies."
                   name="description"
@@ -355,10 +383,10 @@ const ProfileUser = () => {
                 <hr />
               </div>
               <div>
-              <label className='text-xs text-gray-500'>Why Hire Me</label>
+                <label className='text-xs text-gray-500'>Why Hire Me</label>
 
                 <textarea
-                    onChange={handleChange}
+                  onChange={handleChange}
                   className="w-full py-2 text-xs px-3"
                   placeholder="Whether you need to do a small troubleshooting or an enterprise-level project, I am the right person to help you.
                      Below you will find some of the most common services and technologies I normally work with:"
@@ -367,10 +395,10 @@ const ProfileUser = () => {
                 <hr />
               </div>
               <div>
-              <label className='text-xs text-gray-500'>Experience</label>
+                <label className='text-xs text-gray-500'>Experience</label>
 
                 <textarea
-                    onChange={handleChange}
+                  onChange={handleChange}
                   className="w-full py-2 text-xs px-3"
                   placeholder="2+ years years of experience in cloud engineering"
                   name="experience"
@@ -378,39 +406,39 @@ const ProfileUser = () => {
                 <hr />
               </div>
               <div>
-                  <div>
-                    <input
-                        value={inputValue}
-                         onChange={handleChangeEducation}
-                      className="w-2/3 p-3 text-sm border border-gray-300 rounded"
-                      placeholder="Add a Education"
-                      name="education"
-                      type="text"
-                    />
-                    <button
+                <div>
+                  <input
+                    value={inputValue}
+                    onChange={handleChangeEducation}
+                    className="w-2/3 p-3 text-sm border border-gray-300 rounded"
+                    placeholder="Add a Education"
+                    name="education"
+                    type="text"
+                  />
+                  <button
                     onClick={(e) => handleAddEducation(e, inputValue)}
-                      className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
-                    >
-                      Add
-                    </button>
-                  </div>
-                  {/* <hr className="my-3" /> */}
-                  <div>
-                    {education.map((education: any, index: any) => (
-                  <div key={index} className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2">
-                    <span className="text-sm">{education}</span>
-                    <button
-                       onClick={() => handleRemoveEducation(education)}
-                      className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-                  </div>
+                    className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                  >
+                    Add
+                  </button>
                 </div>
+                {/* <hr className="my-3" /> */}
+                <div>
+                  {education.map((education: any, index: any) => (
+                    <div key={index} className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2">
+                      <span className="text-sm">{education}</span>
+                      <button
+                        onClick={() => handleRemoveEducation(education)}
+                        className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-                
+
 
               <div className="pt-16">
                 <button

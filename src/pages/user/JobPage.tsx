@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { JobPostCard } from "../../components/common/JobPostCard";
-import apiInstance from "../../api/axiosInstance";
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { useSelector } from "react-redux";
 
 const Jobs = () => {
@@ -16,7 +16,7 @@ const Jobs = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.get(
+        const { data } = await apiUserInstance.get(
           `http://localhost:3000/user/jobs/view/${activeTab}/${userId}`
         );
         console.log("THE RESPON S: ", data?.data);

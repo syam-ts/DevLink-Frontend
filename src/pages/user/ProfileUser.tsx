@@ -1,22 +1,54 @@
 import { MDBCol, MDBContainer, MDBCard, MDBCardText, MDBCardBody, MDBTypography } from 'mdb-react-ui-kit';
 import { useEffect, useState } from "react";
-import { useNavigate, Link, useParams } from 'react-router-dom';
-
-import apiInstance from '../../api/axiosInstance'
+import { useNavigate, Link, useParams } from 'react-router-dom'; 
 import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
 import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
-import axios from 'axios';
-import { useSelect } from '@nextui-org/react';
-import { useSelector } from 'react-redux';
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+
+interface User {
+    _id: string
+    name: string
+    budget: number
+    location: string
+    email: string
+    mobile: number
+    skills: [string]
+    profilePicture: string
+    domain: string
+    githugLink: string
+    description: string
+    whyHireMe: string
+    experience: string
+    education: [string]
+    isBoosted: boolean
+    isProfileFilled: boolean
+  }
 
 
 
 export const ProfileUser = () => {
 
-    const { userId, type, clientId }: any = useParams();
-    const [user, setUser]: any = useState({});
-    const currentUser = useSelector((state: any) => state?.user?.currentUser);
+    const { userId, type, clientId }: any = useParams<{userId?: string, type?: string, clientId?: string,}>();
+    const [user, setUser] = useState<User>({
+        _id: "",
+        name: "",
+        email: "",
+        budget: 0,
+        location: "",
+        mobile: 0,
+        skills: [""],
+        profilePicture: "",
+        domain: "",
+        githugLink: "",
+        description: "",
+        whyHireMe: "",
+        experience: "",
+        education: [""],
+        isBoosted: false,
+        isProfileFilled: false
+    }); 
     const navigate = useNavigate();
+
 
 
 
@@ -24,7 +56,7 @@ export const ProfileUser = () => {
         const getUserData = async () => {
 
             try {
-                const response = await apiInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
+                const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
                 });
 
@@ -43,7 +75,7 @@ export const ProfileUser = () => {
 
 
     const fetchChatMessages = async (roleType: string, roleId: string, targetId: string) => {
-        const { data } = await axios.get(`http://localhost:3000/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`, {
+        const { data } = await apiUserInstance.get(`http://localhost:3000/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`, {
             withCredentials: true
         });
         if (data.success) {

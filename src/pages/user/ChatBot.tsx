@@ -1,5 +1,5 @@
 import { useState } from "react";
-import apiInstance from "../../api/axiosInstance";
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 // import ChatHistory from "../../pages/user/chatbot/ChatHistroy";
 // import Loading from "../../pages/user/chatbot/Loading";
 
@@ -23,7 +23,7 @@ export const Chatbot = () => {
     e.preventDefault();
 
     try {
-      const { data } = await apiInstance.post(
+      const { data } = await apiUserInstance.post(
         "http://localhost:3000/user/chatbot",
         {
           userInput,
