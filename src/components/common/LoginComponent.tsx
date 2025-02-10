@@ -7,13 +7,15 @@ import { signInClient } from '../../utils/redux/slices/clientSlice';
 import axios from 'axios';
 import { toast } from 'sonner';
 import Google from '../../components/common/Google';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const LoginComponent = () => {
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
-  const { roleType } = useParams(); 
+  const [searchParams] = useSearchParams();
+  const rt = searchParams.get("rt")
+ 
 
 
   const handleSubmit = async (event: any) => {
@@ -29,7 +31,7 @@ const LoginComponent = () => {
       const validForm = await userLoginSchema.validate(formData, { abortEarly: false });
       if (validForm) {
         try {
-          const { data } = await axios.post(`http://localhost:3000/${roleType}/login`,
+          const { data } = await axios.post(`http://localhost:3000/${rt}/login`,
             formData, {
             withCredentials: true,
           });
@@ -40,7 +42,7 @@ const LoginComponent = () => {
 
 
           if (data.success) {
-            if (roleType === 'user') {
+            if (rt === 'user') {
 
               dispatch(signInUser(data.user));
               setError([])
@@ -239,18 +241,20 @@ const LoginComponent = () => {
                   Login
                 </button>
               </div>
-            </form>
+            </form> 
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Dont't have an account? <a href="#" className="text-black hover:underline">
-                <Link to={`/signup/${roleType}`} className='text-black'>
+        
+                  <Link to={`/${rt}/signup?rt=${rt}`} className='text-black'>
                   Signup here
                 </Link>
+               
               </a>
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </div>o
     </div>
   )
 }

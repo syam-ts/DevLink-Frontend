@@ -1,7 +1,6 @@
 
 import HomeClient from '../pages/client/HomeClient'
-import SignupClient from '../pages/client/SignupClient'
-import LoginClient from '../pages/client/LoginClient'
+import SignupClient from '../pages/client/SignupClient' 
 import OtpClient from '../pages/client/otpClient'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
@@ -26,6 +25,7 @@ import ListAllUserChat from '../components/common/ViewAllChats';
 import { ChatBox } from '../components/common/ChatBox';
 import Wallet from '../components/common/Wallet';
 import SignupComponent from '../components/common/SignupComponent'
+import LoginComponent from '../components/common/LoginComponent';
 
 
 
@@ -54,14 +54,14 @@ const ClientRoute = () => {
         <>
           { showNavAndFooter(location.pathname) && <Navbar roleType='client' roleInfo={client} />}
             <Routes>
-                <Route path='/signup/client' element={<SignupComponent />} />
+            <Route path='/login?' element={<LoginComponent />} />
+            <Route path='/signup?' element={<SignupComponent />} />
 
 
                 <Route path='/signup' element={<SignupClient />} />
                 <Route path='/verify-otp' element={<OtpClient />} />
                 <Route path='/verify-email' element={<VerfiyEmail />} />
-                <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
-                <Route path='/login' element={<LoginClient />} />
+                <Route path='/resetPassword/:clientId' element={<ResetPassword />} /> 
                 <Route path='/home' element={<HomeClient />} /> 
                 <Route path='/clientProfile/view/:clientId/:type' element={<Profile />} />
                 <Route path='/userProfile/view/:userId/:type/:clientId' element={<ProfileUser />} />

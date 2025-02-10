@@ -7,7 +7,7 @@ import { signInClient } from '../../utils/redux/slices/clientSlice';
 import axios from 'axios';
 import { toast } from 'sonner';
 import Google from './Google';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/signupSchema';
 
 
@@ -16,7 +16,8 @@ const SignupComponent = () => {
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
-  const { roleType } = useParams();
+  const [searchParams] = useSearchParams();
+  const rt = searchParams.get("rt")
 
 
   const handleSubmit = async (event: any) => {
@@ -24,7 +25,7 @@ const SignupComponent = () => {
 
     let formData;
 
-    if (roleType === 'user') {
+    if (rt === 'user') {
       formData = {
         name: event.target[0].value,
         mobile: event.target[1].value,
@@ -45,7 +46,7 @@ const SignupComponent = () => {
 
       console.log('The form : ', formData)
       let validForm;
-      if (roleType === 'user') {
+      if (rt === 'user') {
         validForm = await signupSchemaUser.validate(formData, { abortEarly: false });
       } else {
         validForm = await signupSchemaClient.validate(formData, { abortEarly: false });
@@ -54,7 +55,7 @@ const SignupComponent = () => {
 
       if (validForm) {
         try {
-          const { data } = await axios.post(`http://localhost:3000/${roleType}/login`,
+          const { data } = await axios.post(`http://localhost:3000/${rt}/login`,
             formData, {
             withCredentials: true,
           });
@@ -65,7 +66,7 @@ const SignupComponent = () => {
 
 
           if (data.success) {
-            if (roleType === 'user') {
+            if (rt === 'user') {
 
               dispatch(signInUser(data.user));
               setError([])
@@ -207,31 +208,45 @@ const SignupComponent = () => {
                 <input type="text" name="name" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                 <div>
                   {
-                    error.some((err: any) => err.includes("Name is required")) ? ( 
-                        error.map((err: any, index: number) => (
-                          err.includes('Name is required') && (
-                            <div className='text-center'>
-                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                    error.some((err: any) => err.includes("Name is required")) ? (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Name is required")  
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
                             </div>
-                          )
-                        )) 
-                    ) : ( 
-                        error.map((err: any, index: number) => (
-                          err.includes('Name should be') && (
-                            <div className='text-center'>
-                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Name is required") ||
+                          err.includes("Invalid name (minimum 5 characters)") ||
+                          err.includes("Invalid name (maximum 20 characters)")
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
                             </div>
-                          )
-                        )) 
+                          );
+                        }
+                        return null;
+                      })
                     )
-                  } 
-            
+                    
+                  }
+
+
                 </div>
 
               </div>
 
               {
-                roleType === 'user' && (
+                rt === 'user' && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Mobile</label>
                     <input type="number" name="mobile" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
@@ -306,7 +321,7 @@ const SignupComponent = () => {
 
                   ) : (
                     error.map((err: any, index: number) => (
-                      err.includes('Minimum 8 characters needed') && (
+                      err.includes('Incorrect (minimum 8 characters)') && (
                         err[index] !== 'Password is required' && (
                           <div className='text-center'>
                             <span className='text-red-400 text-sm '>{error[index]}</span>
@@ -327,7 +342,7 @@ const SignupComponent = () => {
             </form>
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Already have an account? <a href="#" className="text-black hover:underline">
-                <Link to={`/login/${roleType}`} className='text-black'>
+                <Link to={`/${rt}/login?rt=${rt}`} className='text-black'>
                   Login here
                 </Link>
               </a>
