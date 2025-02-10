@@ -14,7 +14,7 @@ import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/sig
 
 const SignupComponent = () => {
 
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<string[]>([]);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt")
@@ -24,7 +24,6 @@ const SignupComponent = () => {
     event.preventDefault();
 
     let formData;
-
     if (rt === 'user') {
       formData = {
         name: event.target[0].value,
@@ -55,7 +54,7 @@ const SignupComponent = () => {
 
       if (validForm) {
         try {
-          const { data } = await axios.post(`http://localhost:3000/${rt}/login`,
+          const { data } = await axios.post(`http://localhost:3000/${rt}/signup`,
             formData, {
             withCredentials: true,
           });
@@ -70,13 +69,13 @@ const SignupComponent = () => {
 
               dispatch(signInUser(data.user));
               setError([])
-              window.location.href = '/user/home';
+           //   window.location.href = '/user/home';
             } else {
 
 
               dispatch(signInClient(data.client));
               setError([])
-              window.location.href = '/client/home';
+             // window.location.href = '/client/home';
             }
 
           } else {
@@ -103,10 +102,9 @@ const SignupComponent = () => {
     } catch (err: any) {
       console.log(err.errors);
       setError(err.errors);
-    }
+    } 
+  };
 
-
-  }
 
 
   return (
@@ -190,15 +188,11 @@ const SignupComponent = () => {
           <div className="max-w-md w-full p-6">
             <h1 className="text-3xl font-semibold mb-6 text-black text-center"> SIGNUP </h1>
             <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to the Best Community with all time access and free </h1>
-            <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
-
-
+            <div className="mt-4 flex flex-col lg:flex-row items-center justify-center"> 
               <div>
                 <Google role={'user'} />
               </div>
-            </div>
-
-
+            </div> 
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>or with email</p>
             </div>
@@ -251,24 +245,38 @@ const SignupComponent = () => {
                     <label className="block text-sm font-medium text-gray-700">Mobile</label>
                     <input type="number" name="mobile" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                     <div>
-                      {
-                        error.map((err: any, index: number) => (
-                          err.includes('Mobile Number is required') && (
-                            <div className='text-center'>
-                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                    {
+                    error.some((err: any) => err.includes("Mobile Number is required")) ? (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Mobile Number is required")  
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
                             </div>
-                          )
-                        ))
-                      }
-                      {
-                        error.map((err: any, index: number) => (
-                          err.includes('Number should be valid') && (
-                            <div className='text-center'>
-                              <span className='text-red-400 text-sm '>{error[index]}</span>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Name is required") ||
+                          err.includes("Invalid Number (must be at least 10 digits)") ||
+                          err.includes("Invalid Number (must be positive)")
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
                             </div>
-                          )
-                        ))
-                      }
+                          );
+                        }
+                        return null;
+                      })
+                    )
+                    
+                  }
                     </div>
 
                   </div>
@@ -282,7 +290,7 @@ const SignupComponent = () => {
                   {
                     error.map((err: any, index: number) => (
                       err.includes('Email is required') && (
-                        <div className='text-center'>
+                        <div key={index} className='text-center'>
                           <span className='text-red-400 text-sm '>{error[index]}</span>
                         </div>
                       )
@@ -291,7 +299,7 @@ const SignupComponent = () => {
                   {
                     error.map((err: any, index: number) => (
                       err.includes('Email is invalid') && (
-                        <div className='text-center'>
+                        <div key={index} className='text-center'>
                           <span className='text-red-400 text-sm '>{error[index]}</span>
                         </div>
                       )
@@ -308,30 +316,38 @@ const SignupComponent = () => {
               </div>
               <div>
 
-                {
-                  error.some((err: any) => err.includes("Password is required")) ? (
-
-                    error.map((err: any, index: number) => (
-                      err.includes('Password is required') && (
-                        <div className='text-center'>
-                          <span className='text-red-400 text-sm '>{error[index]}</span>
-                        </div>
-                      )
-                    ))
-
-                  ) : (
-                    error.map((err: any, index: number) => (
-                      err.includes('Incorrect (minimum 8 characters)') && (
-                        err[index] !== 'Password is required' && (
-                          <div className='text-center'>
-                            <span className='text-red-400 text-sm '>{error[index]}</span>
-                          </div>
-                        )
-                      )
-
-                    ))
-                  )
-                }
+              {
+                    error.some((err: any) => err.includes("Password is required")) ? (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Password is required")  
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      error.map((err: any, index: number) => {
+                        if (
+                          err.includes("Password is required") ||
+                          err.includes("Incorrect (minimum 8 characters)") ||
+                          err.includes("Password must include at least one number, lowercase letter, uppercase letter")
+                        ) {
+                          return (
+                            <div key={index} className="text-center">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })
+                    )
+                    
+                  }
 
               </div>
               <div>
