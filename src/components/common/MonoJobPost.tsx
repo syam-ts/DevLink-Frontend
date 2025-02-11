@@ -32,6 +32,8 @@ interface FormData {
   description: string
 }
 
+ 
+
 const MonoJobPost = () => {
 
   const [jobPost, setJobPost]: any = useState<JobPost>({
@@ -55,22 +57,28 @@ const MonoJobPost = () => {
     createdAt: ""
   });
 
-  const { jobPostId } = useParams();
   const [formData, setFormData] = useState<FormData>({
     bidAmount: 0,
     bidDeadline: 0,
     description: ""
   });
+  const { jobPostId, type } = useParams();
 
 
   useEffect(() => {
     try {
    
       (async () => {
+  
+        let response: any; 
+        if(type === 'user') {
+         response = await axios.get(`/user/job/view/${jobPostId}`);
 
-        const { data } = await axios.get(`/user/job/view/${jobPostId}`);
+        } else { 
+          setJobPost(response?.jobPost);
+        }
 
-        setJobPost(data.jobPost);
+
 
       })();
 
@@ -81,9 +89,9 @@ const MonoJobPost = () => {
 
 
   // updating formdata -------
-  useEffect(() => { 
+  useEffect(() => {  
     setFormData({
-      bidAmount: jobPost.amount,
+      bidAmount: jobPost?.amount,
       bidDeadline: jobPost?.estimateTimeinHours,
       description: ""
     }) 

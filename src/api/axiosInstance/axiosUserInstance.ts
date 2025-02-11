@@ -1,5 +1,4 @@
-import axios from 'axios'; 
-import { useDispatch } from 'react-redux'; 
+import axios from 'axios';  
 import { signOutUser } from '../../utils/redux/slices/userSlice';
 import store from '../../utils/redux/store/mainStore'
 
@@ -53,7 +52,7 @@ apiUserInstance.interceptors.response.use(
         if (originalRequest._retry) {
           console.log('Redirecting to login due to failed token refresh');
           localStorage.removeItem('accessToken');
-          window.location.href = '/login/user';
+          window.location.href = '/user/login?rt=user';
           return Promise.reject(error);
         }
   
@@ -77,7 +76,7 @@ apiUserInstance.interceptors.response.use(
           localStorage.removeItem('accessToken');
 
           store.dispatch(signOutUser());
-          window.location.href = '/login/user'; 
+          window.location.href = '/user/login?rt=user'; 
           return Promise.reject(refreshError);
         }
       } 

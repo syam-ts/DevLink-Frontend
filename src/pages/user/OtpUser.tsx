@@ -48,7 +48,7 @@ const OtpUser = () => {
   const handleSubmit = async () => {
         
     try {
-      console.log('mst : ', message)
+ 
       const data = {
         user: message.state.message.userData,
         mailOtp: message.state.message.mailOtp,
@@ -59,10 +59,10 @@ const OtpUser = () => {
       withCredentials: true, 
     }) 
  
-      if(response.data.type !== 'success') {
+      if(!response.data.success) {
         setSonner({ message: response.data.message, timestamp: Date.now() });
       } else {
-        navigate('/user/login', { state: { message: response.data.message }});
+        navigate('/user/login?rt=user', { state: { message: response.data.message }});
       }
     
    } catch (err: any) {

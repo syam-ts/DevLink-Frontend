@@ -16,8 +16,9 @@ interface Jobs {
 
 
 
-export const JobPostCard = ({ jobs }: Jobs) => {
+export const JobPostCard = ({ jobs ,role,  type }: {jobs: Jobs, role: string, type: string}) => {
  
+
 
 
   return (
@@ -52,7 +53,7 @@ export const JobPostCard = ({ jobs }: Jobs) => {
                 className="rounded-md bg-black px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                 type="button"
               >
-                <Link to={`/user/job/${job[1]?._id}`} className='no-underline text-white'>
+                <Link to={`/${role}/job/${job[1]?._id}/${type}`} className='no-underline text-white'>
                      View
                 </Link>
               </button>

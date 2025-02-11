@@ -5,11 +5,8 @@ import { useSelector } from 'react-redux';
 export const UserProctedRoute = () => { 
   const isUserAuth = useSelector((state: any) => state?.user?.isUser);
  
- console.log('THe user auth :', isUserAuth);
-
- //CHEKS IT IF IT IS WORKIng
-     
-  return isUserAuth ? <Outlet /> : <Navigate to="/login/user" />;
+  
+ return isUserAuth !== undefined ? <Outlet /> : <Navigate to="/user/login?rt=user" />;
 };
 
 
@@ -17,7 +14,7 @@ export const UserProctedRoute = () => {
 export const ClientProctedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.currentClient?.client?.isClient);
      
-    return isClientAuth === undefined ? <Outlet /> : <Navigate to="/login/client" />;
+    return isClientAuth === undefined ? <Outlet /> : <Navigate to="/client/login?rt=client" />;
 };
 
 

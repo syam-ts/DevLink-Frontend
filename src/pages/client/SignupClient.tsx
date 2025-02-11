@@ -10,8 +10,7 @@ const SignupClient = () => {
   
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
 
-  const navigate: any = useNavigate();
-  let message: string = '';
+  const navigate: any = useNavigate(); 
   const [formData, setFormData] = useState({
     companyName: "",
     password: "",
@@ -41,8 +40,7 @@ const SignupClient = () => {
     }));
   }
 
-  const handleSubmit = async () => {
-       
+  const handleSubmit = async () => { 
     try { 
       const response = await axios.post('http://localhost:3000/client/signup', formData); 
 

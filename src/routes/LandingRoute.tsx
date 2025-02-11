@@ -9,8 +9,7 @@ const LandingRoute = () => {
  
 
     return (
-        <>
-        
+        <> 
             <Routes>
                 <Route path='/landingpage' element={<LandingPage />} />
                 <Route path='/role' element={<Role />} /> 

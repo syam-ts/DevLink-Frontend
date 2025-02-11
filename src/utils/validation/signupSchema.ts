@@ -12,7 +12,7 @@ export const signupSchemaUser = yup.object().shape({
         .trim()
         .required("Mobile Number is required")
         .test("is-positive", "Invalid Number (must be positive)", (val) => !val.startsWith("-"))
-        .test("is-10-digits", "Invalid Number (must be exactly 10 digits)", (val) => {
+        .test("is-10-digits", "Invalid Number (must be at least 10 digits)", (val) => {
             if (val.startsWith("-")) return true;
             return /^\d{10}$/.test(val);
         }),
@@ -26,7 +26,7 @@ export const signupSchemaUser = yup.object().shape({
     password: yup.string()
         .trim()
         .min(8, "Incorrect (minimum 8 characters)")
-        .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/, "Password must include at least one number, lowercase letter, uppercase letter")
+        .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/, "Include at least one number, uppercase letter")
         .required("Password is required")
 });
 
@@ -45,10 +45,10 @@ export const signupSchemaClient = yup.object().shape({
     .required("Email is required"),
 
     password: yup.string()
-    .trim()
-    .min(8, "Incorrect (minimum 8 characters)")
-    .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/, "Password must include at least one number, lowercase letter, uppercase letter")
-    .required("Password is required")
+        .trim()
+        .min(8, "Incorrect (minimum 8 characters)")
+        .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/, "Include at least one number, uppercase letter")
+        .required("Password is required")
 });
 
 

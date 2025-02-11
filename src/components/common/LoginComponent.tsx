@@ -10,12 +10,13 @@ import Google from '../../components/common/Google';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const LoginComponent = () => {
+ 
 
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt")
- 
+ console.log(rt)
 
 
   const handleSubmit = async (event: any) => {

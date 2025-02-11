@@ -57,7 +57,7 @@ const Jobs = () => {
           </div>
 
           <div className="tab-content mt-8">
-            <JobPostCard jobs={jobs} />
+            <JobPostCard jobs={jobs} role='user' type='user-view' />
           </div>
         </div>
       </div>

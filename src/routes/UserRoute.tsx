@@ -1,6 +1,5 @@
 
 import HomeUser from '../pages/user/HomeUser'
-import SignupUser from '../pages/user/SignupUser' 
 import OtpUser from '../pages/user/OtpUser'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
@@ -57,16 +56,15 @@ const UserRoute = () => {
             <Routes>
 
 
-              <Route path='/login?' element={<LoginComponent />} />
-              <Route path='/signup?' element={<SignupComponent />} />
-{/* 
-                <Route path='/signup' element={<SignupUser />} /> */}
+               <Route path='/login' element={<LoginComponent />} />
+               <Route path='/signup' element={<SignupComponent />} />
+            {/*  <Route path='/signup' element={<SignupUser />} /> */}
                 <Route path='/verify-otp' element={<OtpUser />} />
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} /> 
                 <Route path='/jobs' element={<JobPage />} />
-                <Route path='/job/:jobPostId' element={<MonoJobPost />} />
+                <Route path='/job/:jobPostId/:type' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
                 <Route path='/profile/:type' element={<ProfileEdit />} />  
                 <Route path='/jobs/proposals' element={<Proposals />} />  

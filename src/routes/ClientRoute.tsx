@@ -39,8 +39,7 @@ const ClientRoute = () => {
 
     const showNavAndFooter: any = (pathname: string) => {
     
-      const restrictedPath = [
-        '/client/signup/client',
+      const restrictedPath = [ 
         '/client/signup',
         '/client/login',
         '/client/verify-otp',

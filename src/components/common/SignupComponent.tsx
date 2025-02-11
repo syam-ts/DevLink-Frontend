@@ -1,13 +1,9 @@
-import { useState } from 'react';
-import { userLoginSchema } from '../../utils/validation/loginSchema'
-import { Sonner } from '../sonner/Toaster';
-import { useDispatch } from 'react-redux';
-import { signInUser } from '../../utils/redux/slices/userSlice';
-import { signInClient } from '../../utils/redux/slices/clientSlice';
 import axios from 'axios';
-import { toast } from 'sonner';
 import Google from './Google';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Sonner } from '../sonner/Toaster';
+import { toast } from 'sonner';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/signupSchema';
 
 
@@ -15,9 +11,9 @@ import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/sig
 const SignupComponent = () => {
 
   const [error, setError] = useState<string[]>([]);
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  const rt = searchParams.get("rt")
+  const rt = searchParams.get("rt");
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (event: any) => {
@@ -38,53 +34,44 @@ const SignupComponent = () => {
         password: event.target[2].value
       }
     };
+ 
+    
+    try { 
 
-
-
-    try {
-
-      console.log('The form : ', formData)
       let validForm;
       if (rt === 'user') {
         validForm = await signupSchemaUser.validate(formData, { abortEarly: false });
       } else {
         validForm = await signupSchemaClient.validate(formData, { abortEarly: false });
       }
-
-
+ 
       if (validForm) {
         try {
-          const { data } = await axios.post(`http://localhost:3000/${rt}/signup`,
+          const response = await axios.post(`http://localhost:3000/${rt}/signup`,
             formData, {
             withCredentials: true,
-          });
+          }); 
 
-
-          const { accessToken } = data;
-          localStorage.setItem('accessToken', accessToken);
-
-
-          if (data.success) {
-            if (rt === 'user') {
-
-              dispatch(signInUser(data.user));
-              setError([])
-           //   window.location.href = '/user/home';
-            } else {
-
-
-              dispatch(signInClient(data.client));
-              setError([])
-             // window.location.href = '/client/home';
-            }
-
+          if (response.data.success) {
+            if (rt === 'user') { 
+              const data = {
+                userData: response.data,
+                mailOtp: response.data.otp
+              }
+              navigate('/user/verify-otp', { state: { message: data, color: 'success' } });
+            } else { 
+              const data = {
+                userData: response.data,
+                mailOtp: response.data.otp
+              }
+              navigate('/client/verify-otp', { state: { message: data, color: 'success' } });
+            } 
           } else {
-            toast.error(data.message, {
+            toast.error(response.data.message, {
               style: {
                 backgroundColor: 'red'
               }
-            });
-
+            }); 
           }
         } catch (err: any) {
           console.log(err)
@@ -96,13 +83,11 @@ const SignupComponent = () => {
           });
           setError([]);
         }
-      } else {
-        await userLoginSchema.validate(formData, { abortEarly: false })
       }
     } catch (err: any) {
       console.log(err.errors);
       setError(err.errors);
-    } 
+    }
   };
 
 
@@ -188,11 +173,11 @@ const SignupComponent = () => {
           <div className="max-w-md w-full p-6">
             <h1 className="text-3xl font-semibold mb-6 text-black text-center"> SIGNUP </h1>
             <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to the Best Community with all time access and free </h1>
-            <div className="mt-4 flex flex-col lg:flex-row items-center justify-center"> 
+            <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
               <div>
                 <Google role={'user'} />
               </div>
-            </div> 
+            </div>
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>or with email</p>
             </div>
@@ -205,7 +190,7 @@ const SignupComponent = () => {
                     error.some((err: any) => err.includes("Name is required")) ? (
                       error.map((err: any, index: number) => {
                         if (
-                          err.includes("Name is required")  
+                          err.includes("Name is required")
                         ) {
                           return (
                             <div key={index} className="text-center">
@@ -231,7 +216,7 @@ const SignupComponent = () => {
                         return null;
                       })
                     )
-                    
+
                   }
 
 
@@ -245,38 +230,38 @@ const SignupComponent = () => {
                     <label className="block text-sm font-medium text-gray-700">Mobile</label>
                     <input type="number" name="mobile" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                     <div>
-                    {
-                    error.some((err: any) => err.includes("Mobile Number is required")) ? (
-                      error.map((err: any, index: number) => {
-                        if (
-                          err.includes("Mobile Number is required")  
-                        ) {
-                          return (
-                            <div key={index} className="text-center">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error.map((err: any, index: number) => {
-                        if (
-                          err.includes("Name is required") ||
-                          err.includes("Invalid Number (must be at least 10 digits)") ||
-                          err.includes("Invalid Number (must be positive)")
-                        ) {
-                          return (
-                            <div key={index} className="text-center">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                    
-                  }
+                      {
+                        error.some((err: any) => err.includes("Mobile Number is required")) ? (
+                          error.map((err: any, index: number) => {
+                            if (
+                              err.includes("Mobile Number is required")
+                            ) {
+                              return (
+                                <div key={index} className="text-center">
+                                  <span className="text-red-400 text-sm">{err}</span>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })
+                        ) : (
+                          error.map((err: any, index: number) => {
+                            if (
+                              err.includes("Name is required") ||
+                              err.includes("Invalid Number (must be at least 10 digits)") ||
+                              err.includes("Invalid Number (must be positive)")
+                            ) {
+                              return (
+                                <div key={index} className="text-center">
+                                  <span className="text-red-400 text-sm">{err}</span>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })
+                        )
+
+                      }
                     </div>
 
                   </div>
@@ -316,38 +301,38 @@ const SignupComponent = () => {
               </div>
               <div>
 
-              {
-                    error.some((err: any) => err.includes("Password is required")) ? (
-                      error.map((err: any, index: number) => {
-                        if (
-                          err.includes("Password is required")  
-                        ) {
-                          return (
-                            <div key={index} className="text-center">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error.map((err: any, index: number) => {
-                        if (
-                          err.includes("Password is required") ||
-                          err.includes("Incorrect (minimum 8 characters)") ||
-                          err.includes("Password must include at least one number, lowercase letter, uppercase letter")
-                        ) {
-                          return (
-                            <div key={index} className="text-center">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                    
-                  }
+                {
+                  error.some((err: any) => err.includes("Password is required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Password is required")
+                      ) {
+                        return (
+                          <div key={index} className="text-center">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Password is required") ||
+                        err.includes("Incorrect (minimum 8 characters)") ||
+                        err.includes("Include at least one number, uppercase letter")
+                      ) {
+                        return (
+                          <div key={index} className="text-center">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+
+                }
 
               </div>
               <div>

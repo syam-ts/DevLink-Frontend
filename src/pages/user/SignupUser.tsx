@@ -1,4 +1,4 @@
-numberimport {useEffect, useState} from 'react';
+ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Link ,useNavigate} from 'react-router-dom';  
 import Google from '../../components/common/Google';
@@ -11,7 +11,7 @@ const SignupUser = () => {
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
 
   const navigate: any = useNavigate();
-  // let message: string = '';
+ 
   const [formData, setFormData] = useState({
     name: "",
     password: "",

@@ -59,6 +59,8 @@ const DraftJobPost = () => {
     }));
   };
 
+  console.log('Error', error)
+
 
   const paymentFunction = async () => {
     try {
