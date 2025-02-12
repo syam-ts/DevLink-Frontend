@@ -51,6 +51,7 @@ const LoginComponent = () => {
             } else {
 
 
+              console.log('d', data.client)
               dispatch(signInClient(data.client));
               setError([])
               window.location.href = '/client/home';

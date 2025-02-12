@@ -6,11 +6,7 @@ interface User {
     mobile: number;
 };
 
-
-
-// interface Notification {
-//     message: string
-// }
+ 
 
 
 interface UserState {

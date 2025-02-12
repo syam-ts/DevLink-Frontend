@@ -36,13 +36,13 @@ const JobsRender = ({ clientId, type }: any) => {
       {type === "my-jobs" ? (
         <>
           <section className="bg-transparent shadow-sm">
-            <JobPostCard jobs={myJobs} />
+            <JobPostCard jobs={myJobs} role='client' type={type} />
           </section>
         </>
       ) : type === "progressing-jobs" ? (
         <>
           <section>
-            <JobPostCard jobs={progressingJobs} />
+            <JobPostCard jobs={progressingJobs} role='client' type={type} />
           </section>
         </>
       ) : null}

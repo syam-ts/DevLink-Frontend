@@ -3,7 +3,7 @@ import ClientRoute from './routes/ClientRoute'
 import AdminRoute from './routes/AdminRoute'
 import LandingRoute from './routes/LandingRoute';
 import NotFound from './pages/404/NotFound'; 
-import { UserProctedRoute, ClientProctedRoute, AdminProctedRoute } from './utils/middleware/ProtectedRoute';
+import { UserProtectedRoute, ClientProtectedRoute, AdminProtectedRoute } from './utils/middleware/ProtectedRoute';
 import { Routes, Route } from 'react-router-dom'; 
 
 
@@ -15,15 +15,15 @@ const App = () => {
 
           <Route path='/*' element={<LandingRoute />} />
           
-          <Route element={<UserProctedRoute />} >
+          <Route element={<UserProtectedRoute />} >
              <Route path='user/*' element={<UserRoute />} />
           </Route>
 
-          <Route element={<ClientProctedRoute />} >
+          <Route element={<ClientProtectedRoute />} >
              <Route path='client/*' element={<ClientRoute />} />
           </Route>
          
-          <Route element={<AdminProctedRoute />} >
+          <Route element={<AdminProtectedRoute />} >
              <Route path='admin/*' element={<AdminRoute />} />
           </Route>
          

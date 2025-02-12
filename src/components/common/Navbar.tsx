@@ -37,14 +37,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       localStorage.removeItem('accessToken');
       dispatch(signOutUser());
       dispatch(clearNotifications()); 
-      navigate('/login/user');
+      navigate('/user/login?rt=user');
 
     } else if (roleType === 'client') {
       localStorage.removeItem('notificationsPageFirstVisit');
       localStorage.removeItem('accessToken');
       dispatch(signOutUser());
 
-      navigate('/login/client');
+      navigate('/client/login?rt=client');
     }
 
   };

@@ -4,7 +4,7 @@ import OtpUser from '../pages/user/OtpUser'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import LoginComponent from '../components/common/LoginComponent'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
@@ -33,8 +33,7 @@ const UserRoute = () => {
 
     const currentUser = useSelector((store: any) => store.user);
     const user: string = currentUser?.currentUser;
-
-
+ 
 
     const showNavAndFooter: any = (pathname: string) => {
   

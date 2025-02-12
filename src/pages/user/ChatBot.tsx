@@ -1,18 +1,22 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";  
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
-// import ChatHistory from "../../pages/user/chatbot/ChatHistroy";
-// import Loading from "../../pages/user/chatbot/Loading";
+
+
+interface ChatMessage {
+  type: "user" | "bot";
+  message: string;
+}
 
 export const Chatbot = () => {
-  interface ChatMessage {
-    type: "user" | "bot";
-    message: string;
-  }
+
 
   const [open, setOpen] = useState<boolean>(false);
-  const [userInput, setUserInput] = useState("");
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userInput, setUserInput] = useState<string>("");
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]); 
+  const userProfile = useSelector((state: any ) => state.user.currentUser.profilePicture);
+ 
+
 
   const handleUserInput = (e: any) => {
     setUserInput(e.target.value);
@@ -35,7 +39,7 @@ export const Chatbot = () => {
         { type: "user", message: userInput },
         { type: "bot", message: data?.queryResult },
       ]);
-      // console.log('TEH RESULT OF CHAT BOT  :', data?.queryResult);
+      // console.log(data?.queryResult);
     } catch (err: any) {
       console.log("ERROR: ", err.message);
     }
@@ -91,7 +95,7 @@ export const Chatbot = () => {
 
                       <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
                         <div className="rounded-full bg-gray-100 border p-1">
-                          <img src='https://cdn-icons-png.flaticon.com/128/64/64572.png' />
+                          <img src={userProfile || 'https://cdn-icons-png.flaticon.com/128/64/64572.png'} alt='user-profilepicture' />
                         </div>
                       </span>
                       <p className="leading-relaxed">

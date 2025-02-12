@@ -33,8 +33,9 @@ import LoginComponent from '../components/common/LoginComponent';
 
 const ClientRoute = () => {
 
-    const currentClient = useSelector((store: any) => store.client);
+    const currentClient = useSelector((state: any) => state.client);
     const client: string = currentClient?.currentClient; 
+    console.log('clent from rout', client)
 
 
     const showNavAndFooter: any = (pathname: string) => {

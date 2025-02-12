@@ -10,15 +10,15 @@ interface Client {
  
 
 interface ClientState {
-    currentUser: Client | null,
-    isUser: boolean,
+    currentClient: Client | null,
+    isClient: boolean,
     notifications: string[];
     notificationsUnread: number;
 };
 
 const initialState: ClientState = {
-    currentUser: null,
-    isUser: false,
+    currentClient: null,
+    isClient: false,
     notifications: [],
     notificationsUnread: 0
 
@@ -30,6 +30,7 @@ const clientSlice = createSlice({
     initialState,
     reducers: {
         signInClient: (state: any, action: PayloadAction<Client>) => { 
+            console.log('slice',action.payload)
             state.currentClient = action.payload;
             state.isClient = true;
         },
