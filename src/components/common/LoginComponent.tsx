@@ -246,8 +246,8 @@ const LoginComponent = () => {
             </form> 
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Dont't have an account? <a href="#" className="text-black hover:underline">
-        
-                  <Link to={`/${rt}/signup?rt=${rt}`} className='text-black'>
+    
+                  <Link to={`/user/signup?rt=${rt}`} className='text-black'>
                   Signup here
                 </Link>
                

@@ -4,6 +4,13 @@ import { useSelector } from 'react-redux';
 export const UserProtectedRoute = () => {
     const isUserAuth = useSelector((state: any) => state?.user?.isUser);
     const location = useLocation(); 
+    console.log('Path : ', location.pathname);
+
+    if (location.pathname.startsWith("/user/signup")) {
+        console.log('Ener')
+        return <Outlet />;
+    }
+
 
     if (!isUserAuth) {
         return location.pathname === "/user/login" ? <Outlet /> : <Navigate to="/user/login?rt=user" replace />;

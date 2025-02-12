@@ -51,3 +51,30 @@ const JobsRender = ({ clientId, type }: any) => {
 };
 
 export default JobsRender;
+
+
+
+
+ 
+
+
+// {
+//   error.some((err: any) => err.includes(" is required"))
+//     ? error
+//       .filter((err: any) => err.includes(" is required"))
+//       .map((err: any, index: number) => (
+//         <div key={index} className="text-start">
+//           <span className="text-red-400 text-sm">{err}</span>
+//         </div>
+//       ))
+//     : error
+//       .filter((err: any) =>
+//         ["  ",
+//           "  "].some(msg => err.includes(msg))
+//       )
+//       .map((err: any, index: number) => (
+//         <div key={index} className="text-start">
+//           <span className="text-red-400 text-sm">{err}</span>
+//         </div>
+//       ))
+// }
