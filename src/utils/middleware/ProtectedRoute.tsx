@@ -1,57 +1,52 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';   
+import { useSelector } from 'react-redux'; 
 
- 
- 
- 
- 
 export const UserProtectedRoute = () => {
     const isUserAuth = useSelector((state: any) => state?.user?.isUser);
-    const location = useLocation();
- 
- 
+    const location = useLocation(); 
+
     if (!isUserAuth) {
         return location.pathname === "/user/login" ? <Outlet /> : <Navigate to="/user/login?rt=user" replace />;
     }
- 
+
     if (location.pathname.startsWith("/user/login")) {
         return <Navigate to="/user/home" replace />;
     }
- 
+
     return <Outlet />;
 };
 
 
 export const ClientProtectedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.client?.isClient);
-    const location = useLocation(); 
- 
+    const location = useLocation();
+
     if (!isClientAuth) {
         return location.pathname === "/client/login" ? <Outlet /> : <Navigate to="/client/login?rt=client" replace />;
     }
- 
+
     if (location.pathname.startsWith("/client/login")) {
         return <Navigate to="/client/home" replace />;
     }
- 
+
     return <Outlet />;
 };
 
 
- 
+
 export const AdminProtectedRoute = () => {
-    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin); 
+    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
 
     return isAdminAuth ? <Outlet /> : <Navigate to="/admin/login" replace />;
 };
 
- 
+
 export const ProtectedRoute = () => {
     const isUserAuth = useSelector((state: any) => state?.user?.isUser);
     const isClientAuth = useSelector((state: any) => state?.client?.isClient);
-    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin); 
- 
-   
+    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
+
+
     if (isClientAuth) {
         return <Navigate to="/client/home" replace />;
     } else if (isUserAuth) {
@@ -59,6 +54,6 @@ export const ProtectedRoute = () => {
     } else if (isAdminAuth) {
         return <Navigate to="/admin/index/dashboard" replace />;
     }
- 
+
     return <Outlet />;
 };
