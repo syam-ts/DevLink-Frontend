@@ -5,10 +5,7 @@ import { Sonner } from '../../../../components/sonner/Toaster'
 
 
 const Table = () => {
-  
- 
- 
- 
+    
 
   return (
     <Box>

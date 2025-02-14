@@ -13,8 +13,11 @@ interface Transactions {
 
   const Wallet = ({roleType}: any) => {
 
-    const [balance, setBalance] = useState(0);
-    const [transactions, setTransactions]: any = useState([]);
+    const [balance, setBalance] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number[]>([]); 
+    const [transactions, setTransactions] = useState<Transactions[]>([]);
+    
     const { roleId } = useParams();
 
     useEffect(() => {

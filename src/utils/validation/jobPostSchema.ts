@@ -41,6 +41,23 @@ export const jobPostSchema = yup.object().shape({
     //     .min(1000, "Minimum is 1000 for fixed rate")
     //     .max(70000, "Maximum is 70000 for fixed rate"),
     // }),
+
+    paymentType: yup
+    .string()
+    .oneOf(["hourly", "fixed"], "Payment type must be either 'hourly' or 'fixed'")
+    .required("Payment type is required"),
+
+    payment: yup
+    .number()
+    .transform((value, originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
+    .typeError("Payment must be a valid number")
+    .required("Payment is required")
+    .when("paymentType", {
+      is: "hourly",
+      then: (schema) => schema.min(100, "Hourly rate must be at least 100rs").max(1500, "Hourly rate must be at most 1500rs"),
+      otherwise: (schema) => schema.min(2000, "Fixed price must be at least 2000rs").max(70000, "Fixed price must be at most 70000rs"),
+    }),
+  
  
  
 

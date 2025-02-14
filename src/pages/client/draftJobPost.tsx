@@ -11,11 +11,11 @@ interface JobPost {
   keyResponsiblities?: string;
   requiredSkills?: string[];
   paymentType?: string;
-  payment?: string;
+  payment: number;
   projectType?: string;
   maxProposals?: number;
   description?: string;
-  estimateTime?: string;
+  estimateTime?: number;
   location?: string;
 }
 
@@ -24,9 +24,20 @@ const DraftJobPost = () => {
 
   const [skills, setSkills] = useState<string[]>([]);
   const [error, setError] = useState<string[]>([]);
-  const [formData, setFormData] = useState<JobPost>({});
-  const [inputValue, setInputValue]: any = useState<string>("");
+  const [inputValue, setInputValue]: any = useState();
   const [paymentType, setPaymentType]: any = useState<string>("hourly");
+  const [formData, setFormData] = useState<JobPost>({
+    title: "",
+    keyResponsiblities: "",
+    requiredSkills: [], 
+    paymentType: "hourly", 
+    payment: 0, 
+    projectType: "",
+    maxProposals: 0, 
+    description: "",
+    estimateTime: 0,  
+    location: ""
+});
   const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id);
 
 
@@ -53,20 +64,24 @@ const DraftJobPost = () => {
     setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));
   };
 
+ 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData: any) => ({
-      ...prevData,
-      [name]: value,
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: ["payment", "maxProposals", "estimateTime"].includes(name) ? Number(value) || 0 : value,
     }));
   };
+  
+
 
   console.log('Error', error)
 
 
   const paymentFunction = async () => {
-
-    try {
+ 
+    try { 
       console.log("Form data : ", formData)
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
       if (validForm) {
@@ -269,8 +284,7 @@ const DraftJobPost = () => {
                     type="radio"
                     value="hourly"
                     name="paymentType"
-                    className="w-4 h-4"
-                    checked
+                    className="w-4 h-4" 
                   />
                   Hourly
                 </label>
