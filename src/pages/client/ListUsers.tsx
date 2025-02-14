@@ -43,7 +43,7 @@ function ListUsers() {
           Object.entries(developers).map((developer: any) => (
             <div className="relative rounded-lg group gap-20 transition-all border duration-500 w-[248px] h-[350px]">
             <div>
-              <Link to={`/client/userProfile/view/${developer[1]?._id}/client-home-view/${clientId}`}>
+              <Link to={`/client/userProfile/view/${developer[1]?._id}/client-view`}>
               <img className="transition-all duration-500 group-hover:grayscale-0 rounded-lg object-cover group-hover:rounded-br-[80px] w-[248px] h-[248px]" 
               src={developer[1]?.profilePicture || 'https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg'} alt='developer-image' />
               </Link>

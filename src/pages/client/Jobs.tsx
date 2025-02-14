@@ -1,9 +1,27 @@
-import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
- import ClientJobTabs from '../../pages/client/TestingTabs' 
+import { Link } from "react-router-dom"; 
+ import JobRender from './AllJobs';
+ import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
+
+import { useSelector } from "react-redux";
  
 
 const Jobs = () => {
+
+    const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
+    let tabs = [
+        {
+          id: "my-jobs",
+          label: "My Jobs",
+          content:
+          <JobRender clientId={clientId} type='my-jobs' />
+         },
+        {
+          id: "progressing-jobs",
+          label: "Progressing Jobs",
+          content:
+            <JobRender clientId={clientId} type='progressing-jobs' />
+        },
+      ];
 
 
   return (
@@ -38,9 +56,17 @@ const Jobs = () => {
 
         </section>
 
-        <ClientJobTabs />
-
-      
+        <div className="flex w-full flex-col my-44">
+      <Tabs className='bg-white mx-auto ' aria-label="Dynamic tabs" items={tabs}>
+        {(item) => ( 
+          <Tab className='comfortaa-regular text-xl ' key={item.id} title={item.label}>
+            <Card>
+              <CardBody>{item.content}</CardBody>
+            </Card>
+          </Tab> 
+        )}
+      </Tabs>
+    </div>
  
     </main>
   )

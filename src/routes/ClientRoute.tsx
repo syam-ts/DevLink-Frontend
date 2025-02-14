@@ -15,7 +15,7 @@ import MonoJobPage from '../components/common/MonoJobPost';
 import Profile from '../pages/client/Profile'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ProfileUser } from '../pages/user/ProfileUser';
+import { UserProfile } from '../components/common/UserProfile';
 import { Contract } from '../components/common/Contract';
 import AllContracts from '../components/common/AllContract'
 import ContractApprovals from '../pages/client/ContractApproval'
@@ -64,7 +64,7 @@ const ClientRoute = () => {
                 <Route path='/resetPassword/:clientId' element={<ResetPassword />} /> 
                 <Route path='/home' element={<HomeClient />} /> 
                 <Route path='/clientProfile/view/:clientId/:type' element={<Profile />} />
-                <Route path='/userProfile/view/:userId/:type/:clientId' element={<ProfileUser />} />
+                <Route path='/userProfile/view/:userId/:type' element={<UserProfile />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/draftJobPost' element={<DraftJobPost />} />
                 <Route path='/draftJobPost/payment-success/:clientId/:data' element={<PaymentSuccess />} />

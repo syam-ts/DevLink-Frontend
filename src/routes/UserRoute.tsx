@@ -4,12 +4,12 @@ import OtpUser from '../pages/user/OtpUser'
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import LoginComponent from '../components/common/LoginComponent'
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
-import { ProfileUser } from '../pages/user/ProfileUser';
+import { UserProfile } from '../components/common/UserProfile';
 import ProfileEdit from '../pages/user/ProfileEdit';
 import { Contract } from '../components/common/Contract'; 
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
@@ -64,7 +64,7 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} /> 
                 <Route path='/jobs' element={<JobPage />} />
                 <Route path='/job/:jobPostId/:type' element={<MonoJobPost />} />
-                <Route path='/userProfile/view/:userId/:type' element={<ProfileUser />} />
+                <Route path='/userProfile/view/:userId/:type' element={<UserProfile />} />
                 <Route path='/profile/:type' element={<ProfileEdit />} />  
                 <Route path='/jobs/proposals' element={<Proposals />} />  
                 <Route path='/contract/view/:contractId' element={<Contract />} /> 

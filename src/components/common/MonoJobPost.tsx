@@ -68,20 +68,14 @@ const MonoJobPost = () => {
   useEffect(() => {
     try {
    
-      (async () => {
-  
+      (async () => { 
         let response: any; 
         if(type === 'user') {
-         response = await axios.get(`/user/job/view/${jobPostId}`);
-
+         response = await axios.get(`/user/job/view/${jobPostId}`); 
         } else { 
           setJobPost(response?.jobPost);
-        }
-
-
-
+        } 
       })();
-
     } catch (err: any) {
       console.error('ERROR: ', err.message);
     }
@@ -90,6 +84,7 @@ const MonoJobPost = () => {
 
   // updating formdata -------
   useEffect(() => {  
+    
     setFormData({
       bidAmount: jobPost?.amount,
       bidDeadline: jobPost?.estimateTimeinHours,
