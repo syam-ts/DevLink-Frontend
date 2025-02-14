@@ -16,7 +16,6 @@ const LoginComponent = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt")
- console.log(rt)
 
 
   const handleSubmit = async (event: any) => {
@@ -50,13 +49,11 @@ const LoginComponent = () => {
               window.location.href = '/user/home';
             } else {
 
-
               console.log('d', data.client)
               dispatch(signInClient(data.client));
               setError([])
               window.location.href = '/client/home';
             }
-
           } else {
             toast.error(data.message, {
               style: {
@@ -66,7 +63,6 @@ const LoginComponent = () => {
 
           }
         } catch (err: any) {
-          console.log(err)
           toast.error(err.response.data.message, {
             style: {
               backgroundColor: 'red',

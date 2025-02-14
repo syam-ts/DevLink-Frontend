@@ -5,6 +5,7 @@ import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from '../../utils/redux/slices/userSlice';
+import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
 
 
 interface UserData {
@@ -40,12 +41,7 @@ const ProfileUser = () => {
     whyHireMe: '',
     experience: '',
     education: '',
-  })
-  const [image, setImage] = useState<string>("");
-  const [skills, setSkills]: any = useState([]);
-  const [education, setEducation]: any = useState<string[]>([]);
-  const [inputValue, setInputValue]: any = useState<string>("");
-  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  });
   const [formData, setFormData] = useState<UserData>({
     name: "",
     budget: "",
@@ -60,6 +56,12 @@ const ProfileUser = () => {
     experience: "",
     education: "",
   });
+  const [image, setImage] = useState<string>("");
+  const [skills, setSkills]: any = useState<string[]>([]);
+  const [education, setEducation]: any = useState<string[]>([]);
+  const [inputValue, setInputValue]: any = useState<string>("");
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string[]>([]);
   const { type } = useParams();
   const dispatch = useDispatch();
 
@@ -67,14 +69,32 @@ const ProfileUser = () => {
   const userId: string = useSelector((state: any) => state?.user?.currentUser?._id); 
 
   useEffect(() => {
-    (async () => {
-      const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
-        withCredentials: true
-      });
 
-      setUserData(response?.data?.data);
-    })();
-
+    try{
+      (async () => {
+        const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
+          withCredentials: true
+        });
+        console.log(response.data)
+      if(!response.data.success) {
+        toast.error(response.data.message, {
+          style: {
+            backgroundColor: "red",
+            color: "white"
+          }
+        })
+      } else {
+        setUserData(response?.data?.data);
+      }
+      })();
+    } catch(err) {
+      toast.error("Error Loading profile", {
+        style: {
+          backgroundColor: "red",
+          color: "white"
+        }
+      })
+    }
   }, []);
 
   useEffect(() => {
@@ -133,34 +153,57 @@ const ProfileUser = () => {
 
 
   const sumbmitForm = async () => {
+
     try {
-      const data = {
-        editData: formData,
-        unchangedData: userData
-      }
+      console.log('Form : ', formData);
+      let validForm;
+      if(type === 'verify') {
+        validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
 
-
-
-      const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
-
-      if (!response.data.sucess) {
-        toast.warning(response.data.message, {
-          style: {
-            backgroundColor: "yellow"
-          }
-        })
       } else {
-        const user = response.data.data.user;
-        console.log("Dispatching user data to Redux:", user);
-        dispatch(updateUser(user))
-        window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+         validForm = await userProfileEditSchema.validate(formData, { abortEarly: false }); 
+
       }
+
+      if(validForm) {
+        const data = {
+          editData: formData,
+          unchangedData: userData
+        } 
+  
+        const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
+  
+        if (!response.data.sucess) {
+          toast.warning(response.data.message, {
+            style: {
+              backgroundColor: "yellow"
+            }
+          })
+        } else {
+          const user = response.data.data.user;
+          console.log("Dispatching user data to Redux:", user);
+          dispatch(updateUser(user))
+          window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+        }
+      } else {
+        if(type === 'verify') {
+          validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
+  
+        } else {
+           validForm = await userProfileEditSchema.validate(formData, { abortEarly: false }); 
+  
+        }
+      }
+      
+    
     } catch (err: any) {
       toast.error(err.message);
+      setError(err.errors)
     }
   };
 
  
+  console.log('The Total Errors: ', error);
 
 
   //skills add section
