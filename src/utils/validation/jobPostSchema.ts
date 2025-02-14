@@ -21,26 +21,7 @@ export const jobPostSchema = yup.object().shape({
         .max(10,"Maximum 10 skills are allowed")
         .required("Skills are required"),
 
-     
- 
-         
-        //FIX: ACCORDING TO PAYMENT TYPE
-
-    // payment: yup
-    // .number()
-    // .typeError("Payment must be a number")
-    // .required("Payment is required")
-    // .when("paymentType", {
-    //   is: "hourly",
-    //   then: yup
-    //     .number()
-    //     .min(100, "Minimum is 100 for hourly rate")
-    //     .max(1500, "Maximum is 1500 for hourly rate"),
-    //   otherwise: yup
-    //     .number()
-    //     .min(1000, "Minimum is 1000 for fixed rate")
-    //     .max(70000, "Maximum is 70000 for fixed rate"),
-    // }),
+  
 
     paymentType: yup
     .string()
@@ -49,7 +30,7 @@ export const jobPostSchema = yup.object().shape({
 
     payment: yup
     .number()
-    .transform((value, originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
+    .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
     .typeError("Payment must be a valid number")
     .required("Payment is required")
     .when("paymentType", {
@@ -75,12 +56,18 @@ export const jobPostSchema = yup.object().shape({
         .required("Description is required"),
 
 
-        //FIX: ACCORDING TO PAYMENT TYPE
-    estimateTime: yup
+ 
+
+        estimateTime: yup
         .number()
-        .min(5, "Minimum 5 hours required")
-        .max(48, "Maximum 48 hours")
-        .required("Choose an estimate time"),
+        .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
+        .typeError("Estimate time must be a valid number")
+        .required("Estimate time is required")
+        .when("paymentType", {
+          is: "hourly",
+          then: (schema) => schema.min(5, "Estimate time must be at least 5hr").max(48, "Estimate time must be at most 48hrs"),
+          otherwise: (schema) => schema.min(10, "Estimate time must be at least 10hr").max(120, "Estimate time must be at most 120hrs"),
+        }),
 
     location: yup
         .string()
