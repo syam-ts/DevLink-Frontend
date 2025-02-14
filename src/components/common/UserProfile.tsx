@@ -5,6 +5,7 @@ import BoostPopover from '../../components/nextUi/popover/BoostAcc-Pop';
 import { ProfileShimmer } from '../../components/shimmer/ProfileShimmer'
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { useSelector } from 'react-redux';
+import { InviteModal } from '../nextUi/modals/InviteUserModal';
 
 interface User {
     _id: string
@@ -142,8 +143,8 @@ export const UserProfile = () => {
                                                             {
                                                                 type === 'client-view' ? (
                                                                     <div className='flex gap-3 h-10'> 
-                                                                        <button className='bg-white text-black px-5 font-bold py-2 rounded-lg' onClick={() => fetchChatMessages("client", clientId, userId)}>
-                                                                            Invite
+                                                                        <button >
+                                                                            <InviteModal />
                                                                         </button>
 
                                                                         <button className='bg-white text-black px-5 font-bold py-2 rounded-lg' onClick={() => fetchChatMessages("client", clientId, userId)}>
