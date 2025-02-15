@@ -12,6 +12,7 @@ import axios from "axios";
 
 import { Avatar } from "@nextui-org/react";
 import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
+import useUserVerified from "../../hooks/userUserVerified";
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
@@ -27,10 +28,9 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       { withCredentials: true }
     );
 
-
-
-    if (roleType === 'user') {
-
+ 
+    let userVerified; 
+    if (roleType === 'user') { 
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit 
       localStorage.removeItem('notificationsPageFirstVisit');
@@ -94,11 +94,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     </Link>
                   </p>
 
-                  <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
+                  
+                    <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                     <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>
                       <button>proposals</button>
                     </Link>
                   </p>
+               
 
                   <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
                     <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>

@@ -1,7 +1,8 @@
- import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"  
-import { JobProposalModal } from "../shadcn/modal/JobProposalModal"; 
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { JobProposalModal } from "../shadcn/modal/JobProposalModal";
 import axios from "axios";
+import useUserVerified from "../../hooks/userUserVerified";
 
 
 interface JobPost {
@@ -32,7 +33,7 @@ interface FormData {
   description: string
 }
 
- 
+
 
 const MonoJobPost = () => {
 
@@ -64,17 +65,19 @@ const MonoJobPost = () => {
   });
   const { jobPostId, type } = useParams();
 
+  const userVerified = useUserVerified();
+  console.log('The user : ', userVerified)
 
   useEffect(() => {
     try {
-   
-      (async () => { 
-        let response: any; 
-        if(type === 'user') {
-         response = await axios.get(`/user/job/view/${jobPostId}`); 
-        } else { 
+
+      (async () => {
+        let response: any;
+        if (type === 'user') {
+          response = await axios.get(`/user/job/view/${jobPostId}`);
+        } else {
           setJobPost(response?.jobPost);
-        } 
+        }
       })();
     } catch (err: any) {
       console.error('ERROR: ', err.message);
@@ -83,21 +86,21 @@ const MonoJobPost = () => {
 
 
   // updating formdata -------
-  useEffect(() => {  
-    
+  useEffect(() => {
+
     setFormData({
       bidAmount: jobPost?.amount,
       bidDeadline: jobPost?.estimateTimeinHours,
       description: ""
-    }) 
+    })
   }, [jobPost]);
 
 
- 
+
 
   return (
     <>
-      <div className='h-screen mx-auto w-2/3 py-28 comfortaa-regular'> 
+      <div className='h-screen mx-auto w-2/3 py-28 comfortaa-regular'>
         <section>
           <span className='text-2xl'>{jobPost?.title}</span>
           <div className='flex gap-20 py-4 text-xs'>
@@ -228,15 +231,23 @@ const MonoJobPost = () => {
 
           <hr />
           <p className='text-sm'> Intrested </p>
-          <button className="" type="button">
-            
-            <JobProposalModal jobPostId={jobPost?._id}
-              formData={formData} setFormData={setFormData} />
-          </button>
+          {
+            userVerified && (
+              <button className="" type="button">
+                <JobProposalModal jobPostId={jobPost?._id}
+                  formData={formData} setFormData={setFormData} />
+              </button>
+            )
+          }
 
-          <button className="rounded-xl bg-[#0000ff] py-3 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-            Save for later
-          </button>
+          {
+            userVerified && (
+              <button className="rounded-xl bg-[#0000ff] py-3 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                Save for later
+              </button>
+            )
+          }
+
         </section>
 
         {/* Similar Jobs */}

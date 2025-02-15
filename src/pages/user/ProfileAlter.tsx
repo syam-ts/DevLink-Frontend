@@ -65,6 +65,7 @@ const UserProfileAlter = () => {
   const navigate = useNavigate();
   const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
 
+ 
 
 
   useEffect(() => {
@@ -83,8 +84,7 @@ const UserProfileAlter = () => {
             }
           })
         } else {
-          setUserData(response?.data?.data);
-          navigate(`/user/userProfile/view/${userId}`)
+          setUserData(response?.data?.data); 
         }
       })();
     } catch (err) {
@@ -156,6 +156,7 @@ const UserProfileAlter = () => {
 
     try {
       console.log('Form : ', formData);
+    
       let validForm;
       if (type === 'verify') {
         validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
@@ -173,7 +174,7 @@ const UserProfileAlter = () => {
 
         const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
 
-        if (!response.data.sucess) {
+        if (!response.data.success) {
           toast.warning(response.data.message, {
             style: {
               backgroundColor: "yellow"
@@ -183,7 +184,7 @@ const UserProfileAlter = () => {
           const user = response.data.data.user;
           console.log("Dispatching user data to Redux:", user);
           dispatch(updateUser(user))
-          window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-profile-view`
+           window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
         }
       } else {
         if (type === 'verify') {
@@ -196,9 +197,9 @@ const UserProfileAlter = () => {
       }
 
 
-    } catch (err: any) {
-      toast.error(err.message);
-      setError(err.errors)
+    } catch (err: any) { 
+      setError(err.errors);
+      console.error('ERROR: ', err.errors);
     }
   };
 
@@ -420,7 +421,7 @@ const UserProfileAlter = () => {
                     />
                     <button
                       onClick={(e) => handleAddSkill(e, inputValue)}
-                      className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                      className="px-4 py-2 text-sm text-white bg-[#0000ff] font-bold rounded hover:bg-blue-600"
                     >
                       Add
                     </button>
@@ -462,7 +463,7 @@ const UserProfileAlter = () => {
                         <span className="text-sm">{skill}</span>
                         <button
                           onClick={() => handleRemoveSkill(skill)}
-                          className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+                          className="px-2 py-1 text-xs text-white bg-[#ff0000] font-bold rounded hover:bg-red-600"
                         >
                           Remove
                         </button>
@@ -714,7 +715,7 @@ const UserProfileAlter = () => {
                   />
                   <button
                     onClick={(e) => handleAddEducation(e, inputValue)}
-                    className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                    className="px-4 py-2 text-sm text-white bg-[#0000ff] font-bold rounded hover:bg-blue-600"
                   >
                     Add
                   </button>
@@ -757,7 +758,7 @@ const UserProfileAlter = () => {
                       <span className="text-sm">{education}</span>
                       <button
                         onClick={() => handleRemoveEducation(education)}
-                        className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+                        className="px-2 py-2 text-xs text-white bg-[#ff0000] font-bold rounded hover:bg-red-600"
                       >
                         Remove
                       </button>

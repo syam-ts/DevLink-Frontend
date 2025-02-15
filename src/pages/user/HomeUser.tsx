@@ -21,9 +21,6 @@ const HomeUser = () => {
   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
    const user = useSelector((state: any) => state?.user?.currentUser);
 
- const userVerified = useUserVerified();
- 
- console.log('The user : ', userVerified)
  
  
 
