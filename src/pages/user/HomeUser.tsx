@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader } from "@nextui-org/react"; 
 import { Link } from 'react-router-dom'; 
+import useUserVerified from '../../hooks/userUserVerified';
 import LinkAttribute from '../../components/nextUi/Link' 
 import { JobPostCard } from '../../components/common/JobPostCard'
 import { useSelector } from "react-redux";
@@ -20,7 +21,9 @@ const HomeUser = () => {
   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
    const user = useSelector((state: any) => state?.user?.currentUser);
 
+ const userVerified = useUserVerified();
  
+ console.log('The user : ', userVerified)
  
  
 
@@ -206,7 +209,7 @@ const HomeUser = () => {
 
   {/*top jobs jobpost card section */}
       <section>
-           <JobPostCard jobs={jobs} />
+           <JobPostCard jobs={jobs} role="user" type="user-view" />
       </section>
          
 
@@ -240,7 +243,7 @@ const HomeUser = () => {
       </section>
 
       <section>
-           <JobPostCard jobs={latestJobs} />
+           <JobPostCard jobs={latestJobs}  role="user" type="user-view" />
       </section>
          
 

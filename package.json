@@ -42,6 +42,7 @@
     "drawer": "^0.0.2",
     "framer-motion": "^11.14.4",
     "html2canvas": "^1.4.1",
+    "input-otp": "^1.4.2",
     "jspdf": "^2.5.2",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.468.0",

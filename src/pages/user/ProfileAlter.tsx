@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
@@ -12,7 +12,7 @@ interface UserData {
   name: string
   budget: number
   location: string
-  mobile: unknown
+  mobile?: unknown
   skills: string[]
   profilePicture: any
   domain: string
@@ -31,7 +31,6 @@ const UserProfileAlter = () => {
     name: '',
     budget: 0,
     location: '',
-    mobile: 0,
     skills: [],
     profilePicture: null,
     domain: '',
@@ -63,6 +62,7 @@ const UserProfileAlter = () => {
   const [error, setError] = useState<string[]>([]);
   const { type } = useParams<{ type: string }>();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
 
 
@@ -84,6 +84,7 @@ const UserProfileAlter = () => {
           })
         } else {
           setUserData(response?.data?.data);
+          navigate(`/user/userProfile/view/${userId}`)
         }
       })();
     } catch (err) {
