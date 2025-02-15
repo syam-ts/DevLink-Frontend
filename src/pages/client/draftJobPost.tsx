@@ -24,8 +24,8 @@ const DraftJobPost = () => {
 
   const [skills, setSkills] = useState<string[]>([]);
   const [error, setError] = useState<string[]>([]);
-  const [inputValue, setInputValue]: any = useState();
-  const [paymentType, setPaymentType]: any = useState<string>("");
+  const [inputValue, setInputValue] = useState<string | number>();
+  const [paymentType, setPaymentType] = useState<string>("");
   const [formData, setFormData] = useState<JobPost>({
     title: "",
     keyResponsiblities: "",
@@ -43,6 +43,7 @@ const DraftJobPost = () => {
 
 
   useEffect(() => {
+    
     formData.requiredSkills = skills;
   }, [skills]);
 
@@ -76,13 +77,12 @@ const DraftJobPost = () => {
 
 
 
-  console.log('Error', error)
+  console.log('Errors', error);
 
 
   const paymentFunction = async () => {
 
-    try {
-      console.log("Form data : ", formData)
+    try { 
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
       if (validForm) {
         const { data } = await apiClientInstance.post(`/jobPost/payment-stripe/${clientId}`, {
@@ -145,9 +145,7 @@ const DraftJobPost = () => {
                 name="title"
                 type="text"
               />
-              <hr />
-
-
+              <hr /> 
               {
                 error?.some((err: any) => err.includes("Title is required")) ? (
                   error.map((err: any, index: number) => {
@@ -178,10 +176,9 @@ const DraftJobPost = () => {
                     return null;
                   })
                 )
-              }
-
-
+              } 
             </div>
+
             <div className="grid grid-cols-0 gap-4 sm:grid-cols-2">
               <div>
                 <label className='text-black'>Key Responsiblities</label>
@@ -192,8 +189,7 @@ const DraftJobPost = () => {
                   name="keyResponsiblities"
                   type="text"
                 />
-                <hr />
-
+                <hr /> 
                 {
                   error?.some((err: any) => err.includes("KeyResponsiblities is required")) ? (
                     error.map((err: any, index: number) => {
@@ -224,10 +220,9 @@ const DraftJobPost = () => {
                       return null;
                     })
                   )
-                }
-
-
+                } 
               </div>
+
               <div>
                 <input
                   value={inputValue}
@@ -242,9 +237,7 @@ const DraftJobPost = () => {
                   className="px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
                 >
                   Add
-                </button>
-
-
+                </button>  
                 {
                   error.some((err: any) => err.includes("Skills are required"))
                     ? error
@@ -264,10 +257,8 @@ const DraftJobPost = () => {
                           <span className="text-red-400 text-sm">{err}</span>
                         </div>
                       ))
-                }
-
-
-              </div>
+                }  
+              </div> 
               <div>
                 {skills.map((skill: any, index: any) => (
                   <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
@@ -308,8 +299,7 @@ const DraftJobPost = () => {
                   />
                   Fixed
                 </label>
-              </div>
-
+              </div> 
               {
                 error?.some((err: any) => err.includes("Payment type is required")) ? (
                   error.map((err: any, index: number) => {
@@ -339,9 +329,9 @@ const DraftJobPost = () => {
                     return null;
                   })
                 )
-              }
-
+              } 
             </div>
+
             <div className='flex gap-44'>
               {
                 paymentType === 'hourly' ? (
@@ -357,10 +347,8 @@ const DraftJobPost = () => {
                       type="number"
                       min="100"
                       max="1500"
-                    />
-
-                    <hr />
-
+                    /> 
+                    <hr /> 
                     {
                       error.some((err: any) => err.includes("Payment is required"))
                         ? error
@@ -380,8 +368,7 @@ const DraftJobPost = () => {
                               <span className="text-red-400 text-sm">{err}</span>
                             </div>
                           ))
-                    }
-
+                    } 
                   </div>
                 ) : (
                   <div>
@@ -416,8 +403,7 @@ const DraftJobPost = () => {
                     }
                   </div>
                 )
-              }
-
+              } 
               <div>
                 <label className='text-black'>Project Type</label>
                 <div>
@@ -442,16 +428,13 @@ const DraftJobPost = () => {
                 </div>
                 <hr className='w-full' />
               </div>
+
               <div className='w-72 py-2.5'>
                 <label className='text-black'>Maximum Proposals </label>
                 <div>
                   <input onChange={handleChange} type='number' name='maxProposals' className='px-10 outline-none' placeholder='proposals (7)' />
                 </div>
-                <hr className='w-full' />
-
-
-
-
+                <hr className='w-full' /> 
                 {
                   error?.some((err: any) => err.includes("Maximum proposal is required")) ? (
                     error.map((err: any, index: number) => {
@@ -482,13 +465,10 @@ const DraftJobPost = () => {
                       return null;
                     })
                   )
-                }
-
-
-
-
+                } 
               </div>
             </div>
+
             <div>
               <label className='text-black'>Description</label>
               <textarea
@@ -497,10 +477,7 @@ const DraftJobPost = () => {
                 placeholder="Cloud engineer urgent requirement with experties of more than 3 years....."
                 name="description"
               />
-              <hr />
-
-
-
+              <hr /> 
               {
                 error?.some((err: any) => err.includes("Description is required")) ? (
                   error.map((err: any, index: number) => {
@@ -531,9 +508,9 @@ const DraftJobPost = () => {
                     return null;
                   })
                 )
-              }
-
+              } 
             </div>
+
             <div className='flex gap-16'>
               {
                 paymentType === 'hourly' ? (
@@ -549,10 +526,8 @@ const DraftJobPost = () => {
                       type="number"
                       min="100"
                       max="1500"
-                    />
-
-                    <hr />
-
+                    /> 
+                    <hr /> 
                     {
                       error.some((err: any) => err.includes("Estimate time is required"))
                         ? error
@@ -572,8 +547,7 @@ const DraftJobPost = () => {
                               <span className="text-red-400 text-sm">{err}</span>
                             </div>
                           ))
-                    }
-
+                    } 
                   </div>
                 ) : (
                   <div>
@@ -609,6 +583,7 @@ const DraftJobPost = () => {
                   </div>
                 )
               }
+
               <div>
                 <label className='text-black'>Location</label>
                 <input
@@ -618,10 +593,7 @@ const DraftJobPost = () => {
                   name="location"
                   type="string"
                 />
-                <hr />
-
-
-
+                <hr /> 
                 {
                   error?.some((err: any) => err.includes("Location is required")) ? (
                     error.map((err: any, index: number) => {
@@ -652,12 +624,10 @@ const DraftJobPost = () => {
                       return null;
                     })
                   )
-                }
-
-
-
+                } 
               </div>
             </div>
+            
             <div className="mt-4">
               <button
                 onClick={paymentFunction}
