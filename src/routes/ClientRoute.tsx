@@ -26,6 +26,7 @@ import { ChatBox } from '../components/common/ChatBox';
 import Wallet from '../components/common/Wallet';
 import SignupComponent from '../components/common/SignupComponent'
 import LoginComponent from '../components/common/LoginComponent';
+import Notifications from '../components/common/NotificationCard';
 
 
 
@@ -78,6 +79,7 @@ const ClientRoute = () => {
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} /> 
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="client" />} />
+                <Route path='/notifications/:roleId' element={<Notifications />} />
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllUserChat />} />
                <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />

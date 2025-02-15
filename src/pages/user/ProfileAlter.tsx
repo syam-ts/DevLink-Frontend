@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from '../../utils/redux/slices/userSlice';
 import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
+import axios from "axios";
 
 
 interface UserData {
@@ -65,7 +66,7 @@ const UserProfileAlter = () => {
   const navigate = useNavigate();
   const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
 
- 
+
 
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const UserProfileAlter = () => {
             }
           })
         } else {
-          setUserData(response?.data?.data); 
+          setUserData(response?.data?.data);
         }
       })();
     } catch (err) {
@@ -118,6 +119,13 @@ const UserProfileAlter = () => {
     }));
   };
 
+  const cloudinaryInstance = axios.create({
+    baseURL: "https://api.cloudinary.com/v1_1/dusbc29s2/image/upload",
+    headers: {
+        "Content-Type": "multipart/form-data",  
+    },
+});
+
 
   const handleFileUpload = async (e: any) => {
     setImageLoading(true)
@@ -126,23 +134,28 @@ const UserProfileAlter = () => {
 
     const data = new FormData();
     data.append("file", file),
+    console.log('rist', data)
+    //PUT TO ENV
       data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
-    const response = await apiUserInstance.post(
-      `https://api.cloudinary.com/v1_1/dusbc29s2/image/upload`,
-      data
-    );
-    // console.log('The image url : ', response.data?.url);
-    setImage(response.data?.url);
-    setImageLoading(false);
+    try {
+console.log('file', [...data.entries()])
+const response = await cloudinaryInstance.post("", data); 
+      console.log('The respnose', response)
+      console.log('The image url : ', response.data?.url);
+      setImage(response.data?.url);
+      setImageLoading(false);
+    } catch (err: any) {
+      console.log(err.message)
+    }
   };
 
 
   var loadFile: any = function (event: any) {
-    // var input = event.target;
-    // var file = input.files[0];
-    // var type = file.type;
+    var input = event.target;
+    var file = input.files[0];
+    var type = file.type;
     var output: any = document.getElementById("preview_img");
 
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -156,7 +169,7 @@ const UserProfileAlter = () => {
 
     try {
       console.log('Form : ', formData);
-    
+
       let validForm;
       if (type === 'verify') {
         validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
@@ -184,7 +197,7 @@ const UserProfileAlter = () => {
           const user = response.data.data.user;
           console.log("Dispatching user data to Redux:", user);
           dispatch(updateUser(user))
-           window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
+          window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
         }
       } else {
         if (type === 'verify') {
@@ -197,7 +210,7 @@ const UserProfileAlter = () => {
       }
 
 
-    } catch (err: any) { 
+    } catch (err: any) {
       setError(err.errors);
       console.error('ERROR: ', err.errors);
     }
@@ -749,7 +762,7 @@ const UserProfileAlter = () => {
                         return null;
                       })
                     )
-                  } 
+                  }
                 </div>
                 {/* <hr className="my-3" /> */}
                 <div>

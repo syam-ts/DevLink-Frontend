@@ -3,11 +3,11 @@ import * as yup from "yup";
 const validFileExtensions: any = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'] };
 
 function isValidFileType(fileName: any, fileType: any) {
-  return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
+    return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
 }
 
 const MAX_FILE_SIZE = 102400;
- 
+
 
 export const userProfileVerifySchema = yup.object().shape({
     name: yup
@@ -23,7 +23,7 @@ export const userProfileVerifySchema = yup.object().shape({
         .required("Budget is required")
         .min(100, "Hourly rate must be at least 100rs")
         .max(1500, "Hourly rate must be at most 1500rs"),
- 
+
 
     skills: yup
         .array()
@@ -99,107 +99,102 @@ export const userProfileVerifySchema = yup.object().shape({
         .array()
         .min(2, "Minimum 2 eduction information needed")
         .max(6, "Maximum 6 eduction information allowed")
-        .required("Eduction informations are required"),  
+        .required("Eduction informations are required"),
 
 });
 
 
-// {
-//     error?.some((err: any) => err.includes("Budget is required")) ? (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Budget is required")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     ) : (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Budget is required") ||
-//           err.includes("Hourly rate must be at least 100rs") ||
-//           err.includes("Hourly rate must be at most 1500rs")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     )
-//   } 
-
+ 
 
 export const userProfileEditSchema = yup.object().shape({
-    fullName: yup
+    name: yup
         .string()
         .trim()
-        .min(3, "Must be atleast 3 characters")
-        .max(20, "Must be under 20 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("fullName") 
+                ? schema.min(3, "Must be at least 3 characters").max(20, "Must be under 20 characters") 
+                : schema
+        ),
 
     budget: yup
         .number()
-        .min(100, "Hourly rate must be at least 100rs")
-        .max(1500, "Hourly rate must be at most 1500rs"),
-
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("budget") 
+                ? schema.min(100, "Hourly rate must be at least 100rs").max(1500, "Hourly rate must be at most 1500rs") 
+                : schema
+        ),
 
     skills: yup
         .array()
-        .min(3, "Minimum 3 skills required")
-        .max(10, "Maximum 10 skills are allowed"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("skills") 
+                ? schema.min(3, "Minimum 3 skills required").max(10, "Maximum 10 skills are allowed") 
+                : schema
+        ),
+
     location: yup
         .string()
         .trim()
-        .min(4, "Must be atleast 4 characters")
-        .max(20, "Must be under 20 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("location") 
+                ? schema.min(4, "Must be at least 4 characters").max(20, "Must be under 20 characters") 
+                : schema
+        ),
 
-    // CHEKCK VLID IMAGE (JPG, PNG )
-    picture: yup
-        .string(),
+    picture: yup.string().optional(), // You can add image validation if needed
 
     domain: yup
         .string()
         .trim()
-        .min(10, "Must be atleast 10 characters")
-        .max(20, "Must be under 20 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("domain") 
+                ? schema.min(10, "Must be at least 10 characters").max(20, "Must be under 20 characters") 
+                : schema
+        ),
 
-    // CHECKS IF HTTP OR NOT
     githubLink: yup
         .string()
         .trim()
-        .min(10, "Must be atleast 10 characters")
-        .max(20, "Must be under 20 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("githubLink") 
+                ? schema.min(10, "Must be at least 10 characters").max(20, "Must be under 20 characters") 
+                : schema
+        ),
 
     description: yup
         .string()
         .trim()
-        .min(20, "Must be atleast 20 characters")
-        .max(100, "Must be under 100 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("description") 
+                ? schema.min(20, "Must be at least 20 characters").max(100, "Must be under 100 characters") 
+                : schema
+        ),
 
     whyHireMe: yup
         .string()
         .trim()
-        .min(20, "Must be atleast 20 characters")
-        .max(60, "Must be under 60 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("whyHireMe") 
+                ? schema.min(20, "Must be at least 20 characters").max(60, "Must be under 60 characters") 
+                : schema
+        ),
 
     experience: yup
         .string()
         .trim()
-        .min(20, "Must be atleast 20 characters")
-        .max(60, "Must be under 60 characters"),
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("experience") 
+                ? schema.min(20, "Must be at least 20 characters").max(60, "Must be under 60 characters") 
+                : schema
+        ),
 
     education: yup
         .array()
-        .min(2, "Minimum 2 eduction information needed")
-        .max(2, "Maximum 6 eduction information allowed"),
-
+        .when("$editingFields", (editingFields, schema) =>
+            editingFields?.includes("education") 
+                ? schema.min(2, "Minimum 2 education information needed").max(6, "Maximum 6 education information allowed") 
+                : schema
+        ),
 });
 
 

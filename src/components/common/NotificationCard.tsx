@@ -10,7 +10,7 @@ import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 
 const Notification = ({ role, roleId }: any) => {
-
+alert(roleId)
 
   const [notifications, setNotifications] = useState({});
   const user = useParams();
@@ -24,7 +24,7 @@ if(role === 'user') {
    notification = useSelector((state: any) => state?.client?.notifications);
    notificationsUnread = useSelector((state: any) => state?.client?.notificationsUnread);
 }
-
+ 
   const getTimeAgo = (timestamp: string) => {
     const now = new Date();
     const past = new Date(timestamp);

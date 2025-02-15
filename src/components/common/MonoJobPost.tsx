@@ -64,17 +64,20 @@ const MonoJobPost = () => {
     description: ""
   });
   const { jobPostId, type } = useParams();
+ 
 
-  const userVerified = useUserVerified();
-  console.log('The user : ', userVerified)
+  const userVerified = useUserVerified(); 
+ 
 
   useEffect(() => {
     try {
 
       (async () => {
         let response: any;
-        if (type === 'user') {
-          response = await axios.get(`/user/job/view/${jobPostId}`);
+        if (type === 'user-view') {
+          response = await axios.get(`http://localhost:3000/user/job/view/${jobPostId}`);
+          console.log('THe resp ', response)
+          setJobPost(response?.data?.jobPost);
         } else {
           setJobPost(response?.jobPost);
         }
