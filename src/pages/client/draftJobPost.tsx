@@ -25,12 +25,12 @@ const DraftJobPost = () => {
   const [skills, setSkills] = useState<string[]>([]);
   const [error, setError] = useState<string[]>([]);
   const [inputValue, setInputValue]: any = useState();
-  const [paymentType, setPaymentType]: any = useState<string>("hourly");
+  const [paymentType, setPaymentType]: any = useState<string>("");
   const [formData, setFormData] = useState<JobPost>({
     title: "",
     keyResponsiblities: "",
     requiredSkills: [], 
-    paymentType: "hourly", 
+    paymentType: "", 
     payment: 0, 
     projectType: "",
     maxProposals: 0, 
@@ -195,27 +195,36 @@ const DraftJobPost = () => {
                 <hr />
 
                 {
-                  error.some((err: any) => err.includes("KeyResponsiblities is required"))
-                    ? error
-                      .filter((err: any) => err.includes("KeyResponsiblities is required"))
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                    : error
-                      .filter((err: any) =>
-                        ["KeyResponsiblities must be between (20 to 50 characters)",
-                          "KeyResponsiblities should under 60"].some(msg => err.includes(msg))
-                      )
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                }
-
-
+                  error?.some((err: any) => err.includes("KeyResponsiblities is required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("KeyResponsiblities is required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("KeyResponsiblities is required") ||
+                        err.includes("KeyResponsiblities must be between (20 to 50 characters") ||
+                        err.includes("KeyResponsiblities should under 60")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                } 
 
 
               </div>
@@ -301,6 +310,37 @@ const DraftJobPost = () => {
                 </label>
               </div>
 
+              {
+                error?.some((err: any) => err.includes("Payment type is required")) ? (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("Payment type is required")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                ) : (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("Payment type is required") ||
+                      err.includes("Payment type must be either 'hourly' or 'fixed'") 
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                )
+              }
+
             </div>
             <div className='flex gap-44'>
               {
@@ -332,8 +372,8 @@ const DraftJobPost = () => {
                           ))
                         : error
                           .filter((err: any) =>
-                            ["Minimum is 100 for hourly rate",
-                              "Maximum is 1500 for hourly rate"].some(msg => err.includes(msg))
+                            ["Hourly rate must be at least 100rs",
+                              "Hourly rate must be at most 1500rs"].some(msg => err.includes(msg))
                           )
                           .map((err: any, index: number) => (
                             <div key={index} className="text-start">
@@ -354,7 +394,26 @@ const DraftJobPost = () => {
                       type="number"
                     />
                     <hr />
-
+                    {
+                      error.some((err: any) => err.includes("Payment is required"))
+                        ? error
+                          .filter((err: any) => err.includes("Payment is required"))
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                        : error
+                          .filter((err: any) =>
+                            ["Fixed price must be at least 2000rs",
+                              "Fixed price must be at most 70000rs"].some(msg => err.includes(msg))
+                          )
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                    }
                   </div>
                 )
               }
@@ -391,26 +450,39 @@ const DraftJobPost = () => {
                 <hr className='w-full' />
 
 
-                {
-                  error.some((err: any) => err.includes("Maximum proposal is required"))
-                    ? error
-                      .filter((err: any) => err.includes("Maximum proposal is required"))
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                    : error
-                      .filter((err: any) =>
-                        ["Minimum 3 proposals are mandatory",
-                          "Maximum proposals are 10"].some(msg => err.includes(msg))
-                      )
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                }
+              
+
+  {
+    error?.some((err: any) => err.includes("Maximum proposal is required")) ? (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Maximum proposal is required")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    ) : (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Maximum proposal is required") ||
+          err.includes("Minimum 3 proposals are mandatory") ||
+          err.includes("Maximum proposals are 10")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    )
+  }
 
 
 
@@ -430,41 +502,78 @@ const DraftJobPost = () => {
 
 
               {
-                  error.some((err: any) => err.includes("Description is required"))
-                    ? error
-                      .filter((err: any) => err.includes("Description is required"))
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                    : error
-                      .filter((err: any) =>
-                        ["Description should have atleast 20 200 characters",
-                          "Maximum characters are 200"].some(msg => err.includes(msg))
-                      )
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                }
-
+    error?.some((err: any) => err.includes("Description is required")) ? (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Description is required")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    ) : (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Description is required") ||
+          err.includes("Description should have atleast 20 200 characters") ||
+          err.includes("Maximum characters are 200")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    )
+  }
 
             </div>
             <div className='flex gap-16'>
-              {
+            {
                 paymentType === 'hourly' ? (
                   <div>
-                    <label className='text-black'>Estimate Time</label>
+                    <label className="text-black"> Estimate Time </label>
                     <input
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
                       className="w-full px-4 pt-3 outline-none text-sm"
-                      placeholder="16/hr"
+                      placeholder="250rs"
                       name="estimateTime"
                       type="number"
+                      min="100"
+                      max="1500"
                     />
+
                     <hr />
+
+                    {
+                      error.some((err: any) => err.includes("Estimate time is required"))
+                        ? error
+                          .filter((err: any) => err.includes("Estimate time is required"))
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                        : error
+                          .filter((err: any) =>
+                            ["Estimate time must be at least 5hr",
+                              "Estimate time must be at most 48hrs"].some(msg => err.includes(msg))
+                          )
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                    }
+
                   </div>
                 ) : (
                   <div>
@@ -472,11 +581,31 @@ const DraftJobPost = () => {
                     <input
                       onChange={handleChange}
                       className="w-full px-4 pt-3 outline-none text-sm"
-                      placeholder="120hr"
+                      placeholder="15000"
                       name="estimateTime"
                       type="number"
                     />
                     <hr />
+                    {
+                      error.some((err: any) => err.includes("Estimate time is required"))
+                        ? error
+                          .filter((err: any) => err.includes("Estimate time is required"))
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                        : error
+                          .filter((err: any) =>
+                            ["Estimate time must be at least 10hr",
+                              "Estimate time must be at most 120hrs"].some(msg => err.includes(msg))
+                          )
+                          .map((err: any, index: number) => (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          ))
+                    }
                   </div>
                 )
               }
@@ -493,27 +622,37 @@ const DraftJobPost = () => {
 
 
 
-                {
-                  error.some((err: any) => err.includes("Location is required"))
-                    ? error
-                      .filter((err: any) => err.includes("Location is required"))
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                    : error
-                      .filter((err: any) =>
-                      ["Location need to be valid(3 characters)",
-                        "Location need to be valid(25 characters maximum)"
-                      ].some(msg => err.includes(msg))
-                      )
-                      .map((err: any, index: number) => (
-                        <div key={index} className="text-start">
-                          <span className="text-red-400 text-sm">{err}</span>
-                        </div>
-                      ))
-                }
+                  {
+    error?.some((err: any) => err.includes("Location is required")) ? (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Location is required")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    ) : (
+      error.map((err: any, index: number) => {
+        if (
+          err.includes("Location is required") ||
+          err.includes("Location need to be valid(3 characters)") ||
+          err.includes("Location need to be valid(25 characters maximum)")
+        ) {
+          return (
+            <div key={index} className="text-start">
+              <span className="text-red-400 text-sm">{err}</span>
+            </div>
+          );
+        }
+        return null;
+      })
+    )
+  }
 
 
 

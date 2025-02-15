@@ -61,7 +61,7 @@ export const jobPostSchema = yup.object().shape({
     estimateTime: yup
         .number()
         .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
-        .typeError("Estimate time must be a valid number")
+        .typeError("Estimate Time must be a valid number")
         .required("Estimate time is required")
         .when("paymentType", {
             is: "hourly",
@@ -76,3 +76,6 @@ export const jobPostSchema = yup.object().shape({
         .max(25, "Location need to be valid(25 characters maximum)")
         .required("Location is required")
 });
+
+
+ 
