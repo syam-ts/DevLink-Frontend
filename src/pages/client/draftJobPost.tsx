@@ -29,15 +29,15 @@ const DraftJobPost = () => {
   const [formData, setFormData] = useState<JobPost>({
     title: "",
     keyResponsiblities: "",
-    requiredSkills: [], 
-    paymentType: "", 
-    payment: 0, 
+    requiredSkills: [],
+    paymentType: "",
+    payment: 0,
     projectType: "",
-    maxProposals: 0, 
+    maxProposals: 0,
     description: "",
-    estimateTime: 0,  
+    estimateTime: 0,
     location: ""
-});
+  });
   const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id);
 
 
@@ -64,24 +64,24 @@ const DraftJobPost = () => {
     setSkills((prevSkills: any) => prevSkills.filter((skill: any) => skill !== skillToRemove));
   };
 
- 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-  
+
     setFormData((prev) => ({
       ...prev,
       [name]: ["payment", "maxProposals", "estimateTime"].includes(name) ? Number(value) || 0 : value,
     }));
   };
-  
+
 
 
   console.log('Error', error)
 
 
   const paymentFunction = async () => {
- 
-    try { 
+
+    try {
       console.log("Form data : ", formData)
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
       if (validForm) {
@@ -224,7 +224,7 @@ const DraftJobPost = () => {
                       return null;
                     })
                   )
-                } 
+                }
 
 
               </div>
@@ -293,7 +293,7 @@ const DraftJobPost = () => {
                     type="radio"
                     value="hourly"
                     name="paymentType"
-                    className="w-4 h-4" 
+                    className="w-4 h-4"
                   />
                   Hourly
                 </label>
@@ -328,7 +328,7 @@ const DraftJobPost = () => {
                   error.map((err: any, index: number) => {
                     if (
                       err.includes("Payment type is required") ||
-                      err.includes("Payment type must be either 'hourly' or 'fixed'") 
+                      err.includes("Payment type must be either 'hourly' or 'fixed'")
                     ) {
                       return (
                         <div key={index} className="text-start">
@@ -450,39 +450,39 @@ const DraftJobPost = () => {
                 <hr className='w-full' />
 
 
-              
 
-  {
-    error?.some((err: any) => err.includes("Maximum proposal is required")) ? (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Maximum proposal is required")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    ) : (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Maximum proposal is required") ||
-          err.includes("Minimum 3 proposals are mandatory") ||
-          err.includes("Maximum proposals are 10")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    )
-  }
+
+                {
+                  error?.some((err: any) => err.includes("Maximum proposal is required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Maximum proposal is required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Maximum proposal is required") ||
+                        err.includes("Minimum 3 proposals are mandatory") ||
+                        err.includes("Maximum proposals are 10")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                }
 
 
 
@@ -502,40 +502,40 @@ const DraftJobPost = () => {
 
 
               {
-    error?.some((err: any) => err.includes("Description is required")) ? (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Description is required")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    ) : (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Description is required") ||
-          err.includes("Description should have atleast 20 200 characters") ||
-          err.includes("Maximum characters are 200")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    )
-  }
+                error?.some((err: any) => err.includes("Description is required")) ? (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("Description is required")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                ) : (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("Description is required") ||
+                      err.includes("Description should have atleast 20 200 characters") ||
+                      err.includes("Maximum characters are 200")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                )
+              }
 
             </div>
             <div className='flex gap-16'>
-            {
+              {
                 paymentType === 'hourly' ? (
                   <div>
                     <label className="text-black"> Estimate Time </label>
@@ -622,37 +622,37 @@ const DraftJobPost = () => {
 
 
 
-                  {
-    error?.some((err: any) => err.includes("Location is required")) ? (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Location is required")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    ) : (
-      error.map((err: any, index: number) => {
-        if (
-          err.includes("Location is required") ||
-          err.includes("Location need to be valid(3 characters)") ||
-          err.includes("Location need to be valid(25 characters maximum)")
-        ) {
-          return (
-            <div key={index} className="text-start">
-              <span className="text-red-400 text-sm">{err}</span>
-            </div>
-          );
-        }
-        return null;
-      })
-    )
-  }
+                {
+                  error?.some((err: any) => err.includes("Location is required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Location is required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Location is required") ||
+                        err.includes("Location need to be valid(3 characters)") ||
+                        err.includes("Location need to be valid(25 characters maximum)")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                }
 
 
 
