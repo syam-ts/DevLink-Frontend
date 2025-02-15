@@ -10,7 +10,7 @@ import VerfiyEmail from '../pages/user/VerifyEmailFP';
 import ResetPassword from '../pages/user/ResetPassword';
 import JobPage from '../pages/user/JobPage';
 import { UserProfile } from '../components/common/UserProfile';
-import ProfileEdit from '../pages/user/ProfileEdit';
+import ProfileAlter from '../pages/user/ProfileAlter';
 import { Contract } from '../components/common/Contract'; 
 import BoostPaymentSuccess from '../pages/user/BoostAcc-Success';
 import MonoJobPost from '../components/common/MonoJobPost'
@@ -66,7 +66,7 @@ const UserRoute = () => {
                 <Route path='/jobs' element={<JobPage />} />
                 <Route path='/job/:jobPostId/:type' element={<MonoJobPost />} />
                 <Route path='/userProfile/view/:userId/:type' element={<UserProfile />} />
-                <Route path='/profile/:type' element={<ProfileEdit />} />  
+                <Route path='/profile/:type' element={<ProfileAlter />} />  
                 <Route path='/jobs/proposals' element={<Proposals />} />  
                 <Route path='/contract/view/:contractId' element={<Contract />} /> 
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
