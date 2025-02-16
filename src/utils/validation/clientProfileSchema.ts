@@ -1,13 +1,5 @@
 import * as yup from "yup";
 
-const validFileExtensions: any = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'] };
-
-function isValidFileType(fileName: any, fileType: any) {
-    return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
-}
-
-
-
 
 export const clientProfileVerifySchema = yup.object().shape({
 
