@@ -1,4 +1,3 @@
-import { Button } from "../ui/button"
 import {
   Dialog,
   DialogContent,
@@ -7,10 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../ui/dialog"
+} from "../../ui/dialog";
+import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../../ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { clientProfileEditSchema, clientProfileVerifySchema } from '../../../utils/validation/clientProfileSchema';
+import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
+import { useDispatch } from "react-redux";
+import { addRequest } from "../../../utils/redux/slices/adminSlice";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
+import { useNavigate } from "react-router-dom";
 
 interface Client {
   companyName: string,
@@ -21,92 +28,245 @@ interface Client {
 }
 
 
-export const ClientProfileAlter = ({clientId, type}: {clientId: string, type: string}) => {
+const ClientProfileAlter = ({ clientId, type }: { clientId: string, type: string }) => {
 
-const [clientData, setClientData] = useState<Client>({
-  companyName: "",
-  location: "",
-  description: "",
-  numberOfEmployees: 0,
-  since: 0
-});
-const [formData, setFormData] = useState<Client>({
+  const [clientData, setClientData] = useState<Client>({
     companyName: "",
     location: "",
     description: "",
     numberOfEmployees: 0,
     since: 0
   });
+  const [formData, setFormData] = useState<Client>({
+    companyName: "",
+    location: "",
+    description: "",
+    numberOfEmployees: 0,
+    since: 0
+  });
+  const [error , setError] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  //Loads client existing data's
+  useEffect(() => {
+    (async () => {
+      const response = await apiClientInstance.get(`/profile/view/${clientId}`, {
+        withCredentials: true
+      });
+      setClientData(response?.data?.data);
+    })();
+  }, []);
 
 
 
-   
+  const handleChange = (e: any) => {
+    console.log('targe', e.target.value, '')
+    const { id, value }: { id: number, value: string | number } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  console.log('Fomr data  ', formData)
+
+
+  const submitForm = async () => {
+    try {
+
+      let validForm;
+      if (type === 'verify') {
+        validForm = await clientProfileVerifySchema.validate(formData, { abortEarly: false });
+      } else {
+        validForm = await clientProfileEditSchema.validate(formData, { abortEarly: false });
+
+      }
+
+      if(validForm) {
+
+        try{
+          const data = {
+            editData: formData,
+            unhangedData: clientData
+          }
+    
+          const response = await apiClientInstance.post(`/profile/${type}/${clientId}`, data, {
+            withCredentials: true
+          });
+    
+          console.log('The rfspons e', response.data)
+    
+          if (response.data.success) {
+            dispatch(addRequest(response.data))
+            toast.success(response.data.message);
+            navigate('/client/profile/profile');
+          } else {
+            toast.error(response.data.message, {
+              style: {
+                backgroundColor: "red",
+                color: "white"
+              }
+            });
+          }
+        }catch(err: any) {
+          toast.error(err.message, {
+            style: {
+              backgroundColor: "red",
+              color: "white"
+            }
+          });
+    
+          console.log('ERROR: ', err.message);
+        }
+      }  
+    }catch(err: any) {
+      console.log(err.errors);
+      setError(err.errors);
+    } 
+  };
+
+
+
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger >
+        <Sonner />
         <Button className='bg-transparent font-bold text-lg'> {type} </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[1200px] h-[800px] justify-center">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>{type} profile</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-44">
+          <div className="flex items-center gap-3">
+       
             <Label htmlFor="name" className="text-right">
               CompanyName
             </Label>
-            <Input id="name" name="companyName" className="col-span-3" />
+            <Input onChange={handleChange} id="companyName" className="col-span-3" />
+            
           </div>
+            <div className='flex'>
+            {
+                error?.some((err: any) => err.includes("CompanyName type is required")) ? (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("CompanyName type is required")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                ) : (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("CompanyName type is required") ||
+                      err.includes("Must be atleast 10 characters") ||
+                      err.includes("Must be under 30 characters") 
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                )
+              }
+            </div>
 
-        
-          <div className="grid grid-cols-4 items-center gap-44">
+
+          <div className="flex items-center gap-3">
             <Label htmlFor="name" className="text-right">
               Description
             </Label>
-            <Input id="name" name="description" className="col-span-3" />
+            <Input onChange={handleChange} id="description" className="col-span-3" />
           </div>
 
-        
+          <div className='flex'>
+            {
+                error?.some((err: any) => err.includes("CompanyName type is required")) ? (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("CompanyName type is required")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                ) : (
+                  error.map((err: any, index: number) => {
+                    if (
+                      err.includes("CompanyName type is required") ||
+                      err.includes("Must be atleast 10 characters") ||
+                      err.includes("Must be under 30 characters") 
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                )
+              }
+            </div>
+
           <div className="grid grid-cols-4 items-center gap-44">
             <Label htmlFor="name" className="text-right">
               Loacation
             </Label>
-            <Input id="name" name="location" className="col-span-3" />
+            <Input onChange={handleChange} id="location" className="col-span-3" />
           </div>
 
-        
+
           <div className="grid grid-cols-4 items-center gap-44">
             <Label htmlFor="name" className="text-right">
               Domain
             </Label>
-            <Input id="name" name="domain" className="col-span-3" />
+            <Input onChange={handleChange} id="domain" className="col-span-3" />
           </div>
 
-        
+
           <div className="grid grid-cols-4 items-center gap-44">
             <Label htmlFor="name" className="text-right">
               Since
             </Label>
-            <Input id="name" name="since" className="col-span-3" />
+            <Input onChange={handleChange} id="since" className="col-span-3" />
           </div>
 
-        
+
           <div className="grid grid-cols-4 items-center gap-44">
             <Label htmlFor="name" className="text-right">
               Total Employees
             </Label>
-            <Input id="name" name="numberOfEmployees" className="col-span-3" />
+            <Input onChange={handleChange} id="numberOfEmployees" className="col-span-3" />
           </div>
 
-        
+
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button onClick={submitForm} type="submit"> Submit </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   )
 }
+
+
+export default ClientProfileAlter;

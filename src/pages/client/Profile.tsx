@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react"; 
 import EditModal from '../../components/nextUi/modals/editProfileClientModal'
 import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
-import { ClientProfileAlter } from '../../components/shadcn/modal/clientProfileAlterModal';
+import ClientProfileAlter from '../../components/shadcn/modal/clientProfileAlterModal';
 
 const Profile = () => {
   
