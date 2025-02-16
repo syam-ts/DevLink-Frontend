@@ -57,15 +57,14 @@ const SignupComponent = () => {
               const data = {
                 userData: response.data,
                 mailOtp: response.data.otp
-              } 
-              // window.location.href = `http://localhost:5173/user/verify-otp`
+              }  
               navigate('/verify-otp?rt=user', { state: { message: data, color: 'success' } });
             } else { 
               const data = {
                 userData: response.data,
                 mailOtp: response.data.otp
               }
-              navigate('/client/verify-otp?rt=client', { state: { message: data, color: 'success' } });
+              navigate('/verify-otp?rt=client', { state: { message: data, color: 'success' } });
             } 
           } else {
             toast.error(response.data.message, {

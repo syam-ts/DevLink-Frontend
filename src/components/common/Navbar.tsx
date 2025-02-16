@@ -159,14 +159,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </svg>
         </button>  
 
-          {roleInfo && (
-            <div className="mx-4 py-2 font-thin">
-              <span className="arsenal-sc-regular text-lg"> {roleInfo.name || roleInfo.companyName}</span>
-            </div>
-          )}
-
-
-          {/* Profile Section */}
+        
+        
+        {/* Profile Section */}
+        {roleInfo && (
+          <div className="mx-4 py-2 font-thin">
+            <span className="arsenal-sc-regular text-lg"> {roleInfo.name || roleInfo.companyName}</span>
+          </div>
+        )}
           <div>
             <Dropdown placement="bottom-end" className='rounded-none w-full h-full text-center arsenal-sc-regular'>
               <DropdownTrigger>

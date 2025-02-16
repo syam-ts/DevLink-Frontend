@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react"; 
 import EditModal from '../../components/nextUi/modals/editProfileClientModal'
 import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
-
+import { ClientProfileAlter } from '../../components/shadcn/modal/clientProfileAlterModal';
 
 const Profile = () => {
   
@@ -40,8 +40,8 @@ useEffect(() => {
 
       {
         !isVerified ? (
-          <div className='text-center p-44'>
-            <div className='grid text-lg comfortaa-regular'>
+          <div className='text-center p-44 arsenal-sc-regular'>
+            <div className='grid text-lg'>
               <span>{client?.companyName}</span>
               <span>{client?.email}</span>
             </div>
@@ -53,7 +53,8 @@ useEffect(() => {
              <div className="w-full mx-auto py-10">
                 <div className="py-6 px-3 mt-32 sm:mt-0">
                   <button className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" type="button">
-                      <EditModal clientId={clientId?._id} type={'verification'} />
+                      {/* <EditModal clientId={clientId?._id} type={'verification'} /> */}
+                      <ClientProfileAlter clientId={clientId} type="verify" />
                   </button>
                 </div>
               </div>
