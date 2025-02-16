@@ -50,6 +50,13 @@ export const clientProfileVerifySchema = yup.object().shape({
         .max(20, "Must be under 20 characters")
         .required("Location is required"),
 
+    domain: yup
+        .string()
+        .trim()
+        .min(10, "Domain must be atleast 10 characters")
+        .max(25, "Domain must be under 25 characters")
+        .required("Domain is required"),
+
 
     description: yup
         .string()
@@ -68,8 +75,8 @@ export const clientProfileVerifySchema = yup.object().shape({
 
     since: yup
         .number()
-        .min(10, "Establishment Year must be valid(after 1990)")
-        .max(1500, "Establishment Year must be valid(before 2025)")
+        .min(1990, "Establishment Year must be valid(after 1990)")
+        .max(2025, "Establishment Year must be valid(before 2025)")
         .required("Establishment Year is required"),
 
 });

@@ -22,7 +22,8 @@ import { Sonner } from '../../../../../components/sonner/ToasterBottom';
 import { toast } from "sonner"; 
 import ViewUserInAdmin from "../../../../../components/bootstrap/ViewUserInAdmin";
 import { useEffect, useState } from "react"; 
-import apiInstance from '../../../../../api/axiosInstance'
+import axios from "axios";
+// import axios from '../../../../../api/axiosInstance'
 
 
 const ExTable = () => {
@@ -45,7 +46,7 @@ const ExTable = () => {
         (async () => {
             try {
 
-                const { data } = await apiInstance.get(`/admin/getAllClients?page=${currentPage}&sortType=${sortType}`, {
+                const { data } = await axios.get(`http://localhost:3000/admin/getAllClients?page=${currentPage}&sortType=${sortType}`, {
                     withCredentials: true
                 });
 
@@ -88,7 +89,7 @@ const ExTable = () => {
              
           } else {
             setIsSearchTriggered(true)
-            const { data } = await apiInstance.post(`/admin/getAllClients/search?inputData=${inputData}`); 
+            const { data } = await axios.post(`http://localhost:3000/admin/getAllClients/search?inputData=${inputData}`); 
 
             if (totalPages[0] !== data?.data?.totalPages) (
                 setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
@@ -110,7 +111,7 @@ const ExTable = () => {
     const blockClientFn = async (clientId: string) => {
         try {
 
-            const response = await apiInstance.patch(`/admin/blockClient/${clientId}`);
+            const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
 
             console.log('The response', response.data.message)
             if (response.data.type == 'success') {
@@ -133,7 +134,7 @@ const ExTable = () => {
     const unBlockClientFn = async (clientId: any) => {
         try {
 
-            const response = await apiInstance.patch(`/admin/unblockClient/${clientId}`);
+            const response = await axios.patch(`http://localhost:3000/admin/unblockClient/${clientId}`);
 
             console.log('The response', response.data.message)
             if (response.data.type == 'success') {

@@ -19,9 +19,8 @@ import {
 import axios from "axios";
 import { Sonner } from "../../../../../components/sonner/ToasterBottom";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
-import apiInstance from '../../../../../api/axiosInstance'
-import { UserViewAdmin } from "../../../../../components/common/UserViewAdmin";
+import { useEffect, useState } from "react"; 
+  // import { UserViewAdmin } from '../../../../../components/common/UserProfile'
 
 
 const ExTable = () => {
@@ -35,8 +34,8 @@ const ExTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiInstance.get(
-          `admin/getAllUsers?page=${currentPage}&sortType=${sortType}`,
+        const { data } = await axios.get(
+          `http://localhost:3000/admin/getAllUsers?page=${currentPage}&sortType=${sortType}`,
           {
             withCredentials: true,
           }
@@ -74,7 +73,7 @@ const ExTable = () => {
         setSortType("block");
       } else {
         setIsSearchTriggered(true);
-        const { data } = await apiInstance.post(
+        const { data } = await axios.post(
           `/admin/getAllUsers/search?inputData=${inputData}`
         );
 
@@ -93,7 +92,7 @@ const ExTable = () => {
 
   const blockUserFn = async (userId: string) => {
     try {
-      const response = await apiInstance.patch(
+      const response = await axios.patch(
         `/admin/blockUser/${userId}`
       );
 
@@ -111,7 +110,7 @@ const ExTable = () => {
 
   const unBlockUserFn = async (userId: any) => {
     try {
-      const response = await apiInstance.patch(
+      const response = await axios.patch(
         `/admin/unblockUser/${userId}`
       );
       if (response.data.type == "success") {
@@ -316,7 +315,7 @@ const ExTable = () => {
                     <TableCell align="right">
                       <Typography variant="h6">
                 
-                         <UserViewAdmin />
+                         {/* <UserViewAdmin /> */}
                          </Typography>
                     </TableCell>
 

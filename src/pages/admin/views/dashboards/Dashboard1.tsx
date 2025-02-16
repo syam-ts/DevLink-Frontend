@@ -8,48 +8,49 @@ import {
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import apiInstance from '../../../../api/axiosInstance';
+import axios from "axios";
+
 
 
 const Dashboard1 = () => {
-  
- const navigate = useNavigate();
- const isAdmin = useSelector((state: any) => state?.admin?.isAdmin);
 
- const [ users, setUsers ] = useState({});
+  const navigate = useNavigate();
+  const isAdmin = useSelector((state: any) => state?.admin?.isAdmin);
 
-console.log('The admin ', isAdmin)
+  const [users, setUsers] = useState({});
+
+  console.log('The admin ', isAdmin)
 
 
-useEffect(() => {
-  const getDashboard = async () => {
+  useEffect(() => {
+    const getDashboard = async () => {
 
-    try {
-      
-      const response = await apiInstance.get('/admin/dashboard',{
-        withCredentials: true
-    }); 
-  
-  
-      setUsers(response.data.data.allUsers);
-    } catch (err: any) {
-      console.log('The err', err.response.data.message)
-    if(err.response.data.message == 'No token provided') {
+      try {
+
+        const response = await axios.get('http://localhost:3000/admin/dashboard', {
+          withCredentials: true
+        });
+
+
+        setUsers(response.data.data.allUsers);
+      } catch (err: any) {
+        console.log('The err', err.response.data.message)
+        if (err.response.data.message == 'No token provided') {
+          navigate('/admin/login')
+        }
+      }
+    }
+
+    getDashboard();
+  }, []);
+
+  useEffect(() => {
+    console.log('Enterd')
+    if (isAdmin === undefined) {
       navigate('/admin/login')
     }
-    }
-  }
 
-  getDashboard();
-}, []);
-
-useEffect(() => {
-  console.log('Enterd')
-  if(isAdmin === undefined) {
-      navigate('/admin/login')
-  }
-
-}, []);
+  }, []);
 
   return (
     <Box>
