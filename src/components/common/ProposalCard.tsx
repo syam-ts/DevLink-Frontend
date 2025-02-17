@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import { ProfileUser } from '../../pages/user/ProfileUser';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
@@ -9,7 +9,7 @@ import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 
 
 
-export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [string], roleType: string, roleId: string}) => {
+export const ProposalCard = ({ proposals, roleType, roleId }: { proposals: [string], roleType: string, roleId: string }) => {
 
 
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [strin
 
     const acceptProposal = async (userId: string, clientId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
         try {
-          
+
             const body = {
                 userId: userId,
                 clientId: clientId,
@@ -28,30 +28,26 @@ export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [strin
             }
             const { data } = await apiUserInstance.post('http://localhost:3000/client/job/createContract', body);
 
- 
 
-            
-            if(data.success) {
-                 const notifications: any = JSON.stringify([data?.data?.newNotificationUser])
-                 dispatch(addNotification(notifications));
-                 toast.success(data.message, {
+            if (data.success) {
+                const notifications: any = JSON.stringify([data?.data?.newNotificationUser])
+                dispatch(addNotification(notifications));
+                toast.success(data.message, {
                     style: {
                         backgroundColor: "#00ff00",
                         "color": "white"
                     }
-                 })
+                })
 
-                 setTimeout(() => {
-                     window.location.href = 'http://localhost:5173/client/jobs/proposals';
-                 }, 500);
-
-             }
-
-
+                setTimeout(() => {
+                 //   window.location.href = 'http://localhost:5173/client/jobs/proposals';
+                }, 500);
+            }
         } catch (err: any) {
             console.error('ERROR: ', err.message);
         }
     };
+
 
     const rejectProposal = async (userId: string, clientId: string, jobPostId: string) => {
         try {
@@ -72,7 +68,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [strin
                     }
                 })
                 setTimeout(() => {
-                   window.location.href = 'http://localhost:5173/client/jobs/proposals'
+                    window.location.href = 'http://localhost:5173/client/jobs/proposals'
                 }, 500);
             } else {
                 toast.error(data.message, {
@@ -94,15 +90,8 @@ export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [strin
         <div>
 
             {
-                Object.entries(proposals).map((proposal: any) => (
-
-
-
-                    <div className='w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3'>
-
-
-
-
+                Object.entries(proposals).map((proposal: any) => (  
+                    <div className='w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3'> 
                         <div className='h-16 w-16 '>
                             <img className='w-12 h-12 rounded-full object-cover' src={proposal[1]?.userData?.profilePicture} alt='user-profile' />
                         </div>
@@ -126,7 +115,7 @@ export const ProposalCard = ({ proposals, roleType, roleId }: {proposals: [strin
                                     <Link to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`} className='no-underline text-white font-bold ' >
                                         View
                                     </Link>
- 
+
                                 </button>
                             </div>
                             {

@@ -31,6 +31,7 @@ interface FormData {
   bidAmount: number
   bidDeadline: number
   description: string
+  paymentType: string
 }
 
 
@@ -61,7 +62,8 @@ const MonoJobPost = () => {
   const [formData, setFormData] = useState<FormData>({
     bidAmount: 0,
     bidDeadline: 0,
-    description: ""
+    description: "",
+    paymentType: ""
   });
   const { jobPostId, type } = useParams();
  
@@ -94,7 +96,8 @@ const MonoJobPost = () => {
     setFormData({
       bidAmount: jobPost?.amount,
       bidDeadline: jobPost?.estimateTimeinHours,
-      description: ""
+      description: "",
+      paymentType: jobPost?.paymentType
     })
   }, [jobPost]);
 
@@ -238,7 +241,7 @@ const MonoJobPost = () => {
             userVerified && (
               <button className="" type="button">
                 <JobProposalModal jobPostId={jobPost?._id}
-                  formData={formData} setFormData={setFormData} />
+                  formData={formData} setFormData={setFormData} paymentType={jobPost?.paymentType} />
               </button>
             )
           }
