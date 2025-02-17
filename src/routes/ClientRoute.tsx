@@ -79,7 +79,7 @@ const ClientRoute = () => {
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} /> 
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="client" />} />
-                <Route path='/notifications/:roleId' element={<Notifications />} />
+                <Route path='/notifications/:roleId/:role' element={<Notifications />} />
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllUserChat />} />
                <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />

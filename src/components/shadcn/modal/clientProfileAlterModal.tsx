@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { clientProfileEditSchema, clientProfileVerifySchema } from '../../../utils/validation/clientProfileSchema';
 import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
 import { useDispatch } from "react-redux";
-import { addRequest } from "../../../utils/redux/slices/adminSlice";
+import { addRequest } from "../../../redux/slices/adminSlice";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { useNavigate } from "react-router-dom";

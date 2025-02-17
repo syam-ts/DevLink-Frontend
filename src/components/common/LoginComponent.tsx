@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { userLoginSchema } from '../../utils/validation/loginSchema'
 import { Sonner } from '../sonner/Toaster';
 import { useDispatch } from 'react-redux';
-import { signInUser } from '../../utils/redux/slices/userSlice';
-import { signInClient } from '../../utils/redux/slices/clientSlice';
+import { signInUser } from '../../redux/slices/userSlice';
+import { signInClient } from '../../redux/slices/clientSlice';
 import axios from 'axios';
 import { toast } from 'sonner';
 import Google from '../../components/common/Google';

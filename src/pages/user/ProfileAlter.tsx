@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
-import { updateUser } from '../../utils/redux/slices/userSlice';
+import { updateUser } from '../../redux/slices/userSlice';
 import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
 import axios from "axios";
 

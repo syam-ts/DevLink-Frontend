@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ProfileUser } from '../../pages/user/ProfileUser';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
-import { addNotification } from '../../utils/redux/slices/userSlice';
+import { addNotification } from '../../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 

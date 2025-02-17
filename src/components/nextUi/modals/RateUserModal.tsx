@@ -36,15 +36,13 @@ console.log('the body', body, notificationId)
       console.log("THE RESPONSE FROM RATE SUBMIT : ", data);
 
       if(data.success) {
-         window.location.href = `http://localhost:5173/client/home`
+      //   window.location.href = `http://localhost:5173/client/home`
       }
     } catch (err: any) {
       console.error("ERROR: ", err.message);
     }
   };
-
-
-console.log(rating, userId)
+ 
 
   return (
     <>

@@ -12,7 +12,7 @@ import { Label } from "../../../components/ui/label.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react"; 
 import { toast } from "sonner";
-import { addNotification } from "../../../utils/redux/slices/userSlice.ts";
+import { addNotification } from "../../../redux/slices/userSlice.ts";
 import { Sonner } from "../../../components/sonner/Toaster.tsx";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts"
 

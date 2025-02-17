@@ -1,6 +1,6 @@
 import axios from 'axios';  
-import { signOutUser } from '../../utils/redux/slices/userSlice';
-import store from '../../utils/redux/store/mainStore'
+import { signOutUser } from '../../redux/slices/userSlice';
+import store from '../../redux/store/mainStore'
 
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL;
 

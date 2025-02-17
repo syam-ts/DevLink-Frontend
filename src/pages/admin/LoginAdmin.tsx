@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sonner } from '../../components/sonner/Toaster';
 import { toast } from "sonner";
-import { signInAdmin } from '../../utils/redux/slices/adminSlice';
+import { signInAdmin } from '../../redux/slices/adminSlice';
 import { useDispatch } from 'react-redux';
 
 

@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { signOutAdmin } from '../../../../../utils/redux/slices/adminSlice';
+import { signOutAdmin } from '../../../../../redux/slices/adminSlice';
 import { useDispatch } from 'react-redux';
  
 

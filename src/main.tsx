@@ -3,7 +3,7 @@ import App from "./App.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux'
-import { store, persistor } from "./utils/redux/store/mainStore.ts";
+import { store, persistor } from "./redux/store/mainStore.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

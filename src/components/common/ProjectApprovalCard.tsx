@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../sonner/Toaster";
 import { useDispatch } from "react-redux";
-import { addNotification } from "../../utils/redux/slices/userSlice";
+import { addNotification } from "../../redux/slices/userSlice";
 
 
 export const ProjectApprovalCard = ({ pendingApprovals }: any) => {

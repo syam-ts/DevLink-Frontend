@@ -1,35 +1,35 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { RateUserModal } from '../nextUi/modals/RateUserModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNotification, markAsReadNotifications } from '../../utils/redux/slices/userSlice'; 
-import { addNotificationClient } from '../../utils/redux/slices/clientSlice';
+import { addNotification, markAsReadNotifications } from '../../redux/slices/userSlice';
+import { addNotificationClient } from '../../redux/slices/clientSlice';
 import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 
 
-const Notification = ({ role, roleId }: any) => {
-alert(roleId)
+const Notification = () => {
 
   const [notifications, setNotifications] = useState({});
-  const user = useParams();
+  const { role, roleId } = useParams<{ role: string, roleId: string }>();
   const dispatch = useDispatch();
-  let notification, notificationsUnread;
+  let notification, notificationsUnread: boolean;
 
-if(role === 'user') {
-   notification = useSelector((state: any) => state?.user?.notifications);
-   notificationsUnread = useSelector((state: any) => state?.user?.notificationsUnread);
-} else {
-   notification = useSelector((state: any) => state?.client?.notifications);
-   notificationsUnread = useSelector((state: any) => state?.client?.notificationsUnread);
-}
- 
+
+  if (role === 'user') {
+    notification = useSelector((state: any) => state?.user?.notifications);
+    notificationsUnread = useSelector((state: any) => state?.user?.notificationsUnread);
+  } else {
+    notification = useSelector((state: any) => state?.client?.notifications);
+    notificationsUnread = useSelector((state: any) => state?.client?.notificationsUnread);
+  }
+
   const getTimeAgo = (timestamp: string) => {
-    const now = new Date();
-    const past = new Date(timestamp);
-    const diffInSeconds = Math.floor((now.getTime() - past.getTime()) / 1000);
-  
+    const now: Date = new Date();
+    const past: Date = new Date(timestamp);
+    const diffInSeconds: number = Math.floor((now.getTime() - past.getTime()) / 1000);
+
     if (diffInSeconds < 60) {
       return `${diffInSeconds} seconds ago`;
     } else if (diffInSeconds < 3600) {
@@ -41,58 +41,58 @@ if(role === 'user') {
     }
   };
 
+
+
   useEffect(() => {
-       dispatch(markAsReadNotifications())
+    dispatch(markAsReadNotifications())
   }, []);
 
- 
 
-  useEffect(() => { 
+
+  useEffect(() => {
     try {
 
-      const hasVisited = localStorage.getItem("notificationsPageFirstVisit");  
-      if (!hasVisited) {  
+      const hasVisited = localStorage.getItem("notificationsPageFirstVisit");
+      if (!hasVisited) {
         (async () => {
           let response;
-          if(role === 'user') {
+          if (role === 'user') {
             response = await apiUserInstance.get(`/notifications/${roleId}`);
           } else {
             response = await apiClientInstance.get(`/client/notifications/${roleId}`);
-          } 
+          }
 
           const notifications: any = JSON.stringify(response?.data?.notifications);
-          if(role === 'user') {
+          if (role === 'user') {
             dispatch(addNotification(notifications));
-          setNotifications(notifications);
+            setNotifications(notifications);
           } else {
             dispatch(addNotificationClient(notifications));
-          setNotifications(notifications);
+            setNotifications(notifications);
           }
- 
-          localStorage.setItem("notificationsPageFirstVisit", "true"); 
-          })();
+
+          localStorage.setItem("notificationsPageFirstVisit", "true");
+        })();
       } else {
-         return;
+        return;
       }
     } catch (err: any) {
       console.error('ERROR: ', err.message);
-    } 
+    }
   }, []);
 
 
-
-
-
+ 
 
 
   return (
     <div className='text-center text-xl py-12 arsenal-sc-regular mt-20'>
-      <div className=" flex-col space-y-4 min-w-screen animated fadeIn faster  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none">
+      <div className=" flex-col space-y-10 min-w-screen animated fadeIn faster left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none">
         {
           Object.entries(notification).map((notif: any) => (
 
 
-            <div className="flex p-4 bg-white shadow-md hover:shodow-xl justify-center rounded-2xl border w-2/4">
+            <div className="flex p-2 bg-white shadow-md hover:shodow-xl rounded-lg justify-center border w-2/4">
               <div className="flex  items-center justify-between">
                 <div className="flex gap-20 items-center">
                   <svg xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +107,7 @@ if(role === 'user') {
                     </p>
                   </div>
                   <div>
-                  <span>{getTimeAgo(notif[1].createdAt)}</span>
+                    <span>{getTimeAgo(notif[1].createdAt)}</span>
                   </div>
                 </div>
                 {/* <button  className="flex-no-shrink bg-blue-500 px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 text-white rounded-full">

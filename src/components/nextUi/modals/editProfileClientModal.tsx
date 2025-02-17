@@ -10,7 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
-import { addRequest } from '../../../utils/redux/slices/adminSlice'
+import { addRequest } from '../../../redux/slices/adminSlice'
 import { useDispatch } from "react-redux";
 
 export default function App({ clientId, type }: any) {

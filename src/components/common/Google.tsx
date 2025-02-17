@@ -2,7 +2,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInUser } from '../../utils/redux/slices/userSlice' 
+import { signInUser } from '../../redux/slices/userSlice' 
 import { useDispatch } from 'react-redux';
 
 import axios from 'axios';

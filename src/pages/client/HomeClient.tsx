@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner"; 
-import { signOutClient } from '../../utils/redux/slices/clientSlice'; 
+import { signOutClient } from '../../redux/slices/clientSlice'; 
 import { Link } from 'react-router-dom';
 import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 

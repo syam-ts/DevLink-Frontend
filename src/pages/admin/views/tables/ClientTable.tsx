@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Sonner } from '../../../../components/sonner/Toaster'
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { setClient, deleteDatasClient } from '../../../../utils/redux/slices/adminSlice';
+import { setClient, deleteDatasClient } from '../../../../redux/slices/adminSlice';
 
 const Table = () => {
 
