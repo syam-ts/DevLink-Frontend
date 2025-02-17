@@ -138,7 +138,7 @@ export const JobProposalModal = (props: ProposalProps) => {
                                         ? error
                                             .filter((err: any) => err.includes("Bid Amount is required"))
                                             .map((err: any, index: number) => (
-                                                <div key={index} className="text-start">
+                                                <div key={index} className="text-center">
                                                     <span className="text-red-400 text-sm">{err}</span>
                                                 </div>
                                             ))
@@ -161,7 +161,7 @@ export const JobProposalModal = (props: ProposalProps) => {
                                         ? error
                                             .filter((err: any) => err.includes("Bid Amount is required"))
                                             .map((err: any, index: number) => (
-                                                <div key={index} className="text-start">
+                                                <div key={index} className="text-center">
                                                     <span className="text-red-400 text-sm">{err}</span>
                                                 </div>
                                             ))
@@ -196,7 +196,7 @@ export const JobProposalModal = (props: ProposalProps) => {
                                         ? error
                                             .filter((err: any) => err.includes("Estimate time is required"))
                                             .map((err: any, index: number) => (
-                                                <div key={index} className="text-start">
+                                                <div key={index} className="text-center">
                                                     <span className="text-red-400 text-sm">{err}</span>
                                                 </div>
                                             ))
@@ -229,7 +229,7 @@ export const JobProposalModal = (props: ProposalProps) => {
                                                     "Estimate deadline must be at most 120hrs"].some(msg => err.includes(msg))
                                             )
                                             .map((err: any, index: number) => (
-                                                <div key={index} className="text-start">
+                                                <div key={index} className="text-center">
                                                     <span className="text-red-400 text-sm">{err}</span>
                                                 </div>
                                             ))

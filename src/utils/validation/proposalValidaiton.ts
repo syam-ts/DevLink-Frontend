@@ -5,7 +5,7 @@ export const proposalSchema = yup.object().shape({
     bidAmount: yup
         .number()
         .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
-        .typeError("Bid Amount must be a valid number")
+        .typeError("Bid Amount is required")
         .required("Bid Amount is required")
         .when("paymentType", {
             is: "hourly",
@@ -21,7 +21,7 @@ export const proposalSchema = yup.object().shape({
     bidDeadline: yup
         .number()
         .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
-        .typeError("Estimate Deadline must be a valid number")
+        .typeError("Bid Deadline is required")
         .required("Bid Deadline is required")
         .when("paymentType", {
             is: "hourly",

@@ -62,7 +62,7 @@ export const InputOtpComponent = () => {
       if (response.data.success) {
         console.log("New OTP:", response.data.newOtp);
         toast.success(response.data.message, { style: { backgroundColor: "white", color: "black" } });
-        message.state.message.mailOtp = response.data.newOtp; // Update OTP in message state
+        message.state.message.mailOtp = response.data.newOtp;  
       }
     } catch (err: any) {
       toast.error(err.message, { style: { backgroundColor: "red", color: "white" } });
