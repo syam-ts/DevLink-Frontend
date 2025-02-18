@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "sonner";
 import {
   Modal,
   ModalContent,
@@ -8,17 +9,25 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import axios from "axios";
-import { toast } from "sonner";
+import { apiUserInstance } from '../../../api/axiosInstance/axiosUserInstance';
 import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
+import { useSelector } from "react-redux";
+
+
+interface SubmitProjectProps {
+  contractId: string | undefined;
+  jobTitle: string;
+  coverImageUrl: string;
+};
+
 
 interface FormData {
   description: string,
   progress: number,
   attachedFile: string
-}
+};
 
-export const SubmitProject = ({ contractId, jobTitle }: any) => {
+export const SubmitProject: React.FC<SubmitProjectProps> = ({ contractId, jobTitle }) => {
 
   const [formData, setFormData] = useState<FormData>({
     description: "",
@@ -27,12 +36,13 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
   });
   const [progress, setProgress] = useState<string>("completed");
   const [error, setError] = useState<string[]>([]);
+  const [size, setSize] = useState<string>("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = React.useState("md");
+  const userId = useSelector((state: any) => state.user.currentUser._id);
 
 
-  const handleOnChange = (e: any) => {
-    const { name, value } = e.target;
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -44,48 +54,46 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
     onOpen();
   };
 
+
   const handleComplete = () => {
     formData.progress = 100;
-  }
+  };
+
 
   const submitProject = async () => {
     try {
 
-      console.log('Fomr : ', formData);
       const validForm = await projectSubmissionSchema.validate(formData, { abortEarly: false });
 
       if (validForm) {
         try {
+          const { data } = await apiUserInstance.post(`http://localhost:3000/user/project/submit/${contractId}`,
+            { formData }
+          );
 
+          data.success ? (
+            window.location.href = `http://localhost:5173/user/job/myContracts/${userId}/user`
+          ) : (
+            toast.error(data.message)
+          )
         } catch (err: any) {
-
+          console.log(err.message)
         }
-      }
-
-      const { data } = await axios.post(`http://localhost:3000/user/project/submit/${contractId}`, { formData });
-
-      console.log('DATA RESPONSE ', data)
-      data.success ? (
-        window.location.href = `http://localhost:5173/user/job/myContracts/${contractId}/user`
-      ) : (
-        toast.error(data.message)
-      )
+      } 
     } catch (err: any) {
       setError(err.errors);
     }
   }
 
-  console.log('ERRORS: ', error);
+  // console.log('ERRORS: ', error);
 
 
   return (
     <>
       <div>
-
         <Button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-md shadow-xl" key="5xl" onPress={() => handleOpen(size)}>
           Submit Project
         </Button>
-
       </div>
       <Modal isOpen={isOpen} size="5xl" backdrop="blur" onClose={onClose}>
         <ModalContent className='belleza-regular px-5 py-2'>
@@ -128,7 +136,6 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                   )
                 }
 
-
                 <div className='flex gap-6 mt-7'>
                   <label> Progress Of Project: </label>
                   <div className='flex gap-3'>
@@ -140,7 +147,6 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                       <input type="radio" onClick={() => setProgress("incomplete")} name="default-radio" className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300" />
                       <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">incomplete</label>
                     </div>
-
                   </div>
                   <div>
                     {
@@ -153,8 +159,6 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                       )
                     }
                   </div>
-
-
 
                   <div>
                     <label> Attach Github: </label>
@@ -191,6 +195,7 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                       )
                     }
                   </div>
+
                 </div>  {
                   error?.some((err: any) => err.includes("Progress required")) ? (
                     error.map((err: any, index: number) => {
@@ -222,25 +227,22 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                     })
                   )
                 }
-
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-
                 <button onClick={submitProject} className="py-2 px-4 bg-[#0000ff] text-white rounded-md shadow-xl" key="5xl" >
-
                   Submit
                 </button>
-
-
               </ModalFooter>
             </>
           )}
         </ModalContent>
       </Modal>
     </>
-  );
-}
+  )
+};
+
+
 
