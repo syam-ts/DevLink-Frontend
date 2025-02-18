@@ -10,6 +10,7 @@ import {
 } from "@heroui/react";
 import axios from "axios";
 import { toast } from "sonner";
+import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
 
 interface FormData {
   description: string,
@@ -25,6 +26,7 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
     attachedFile: ""
   });
   const [progress, setProgress] = useState<string>("completed");
+  const [error, setError] = useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState("md");
 
@@ -50,22 +52,30 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
     try {
 
       console.log('Fomr : ', formData);
+      const validForm = await projectSubmissionSchema.validate(formData, { abortEarly: false });
 
-      // const { data } = await axios.post(`http://localhost:3000/user/project/submit/${contractId}`, {formData});
+      if (validForm) {
+        try {
 
-      // console.log('DATA RESPONSE ', data)
-      // data.success ? (
+        } catch (err: any) {
 
-      //    // window.location.href = `http://localhost:5173/user/job/myContracts/${contractId}/user`
+        }
+      }
 
-      // ) : (
-      //     toast.error(data.message)
-      // )
+      const { data } = await axios.post(`http://localhost:3000/user/project/submit/${contractId}`, { formData });
+
+      console.log('DATA RESPONSE ', data)
+      data.success ? (
+        window.location.href = `http://localhost:5173/user/job/myContracts/${contractId}/user`
+      ) : (
+        toast.error(data.message)
+      )
     } catch (err: any) {
-      console.error("ERROR: ", err.message);
+      setError(err.errors);
     }
   }
 
+  console.log('ERRORS: ', error);
 
 
   return (
@@ -81,14 +91,46 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
         <ModalContent className='belleza-regular px-5 py-2'>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Project Submit: {jobTitle}</ModalHeader>
+              <ModalHeader className="flex flex-col text-xl gap-1 underline">Project Submit: {jobTitle}</ModalHeader>
               <ModalBody>
                 <label>Description About The Contract</label>
                 <textarea onChange={handleOnChange} className='border rounded-lg h-44 p-10' name='description' placeholder='description' />
-                <div className='flex gap-6'>
+
+                {
+                  error?.some((err: any) => err.includes("Description is required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Description is required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Description is required") ||
+                        err.includes("Description should have atleast 20 - 200 characters") ||
+                        err.includes("Maximum characters are 200")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                }
+
+
+                <div className='flex gap-6 mt-7'>
                   <label> Progress Of Project: </label>
-
-
                   <div className='flex gap-3'>
                     <div className="flex items-center  ">
                       <input type="radio" onChange={handleComplete} value='100' onClick={() => setProgress("completed")} name="default-radio" className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 " />
@@ -102,8 +144,8 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                   </div>
                   <div>
                     {
-                      progress === "incomplete" ? ( 
-                        <input onChange={handleOnChange} className='border rounded-lg p-2 w-12 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none' name='progress' type='number' placeholder='70' />
+                      progress === "incomplete" ? (
+                        <input onChange={handleOnChange} className='border-gray-400 border-1 px-3 rounded-lg p-2 w-12 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none' name='progress' type='number' placeholder='70' />
                       ) : (
                         <div className='w-12'>
                         </div>
@@ -112,11 +154,75 @@ export const SubmitProject = ({ contractId, jobTitle }: any) => {
                     }
                   </div>
 
-                  <label> Attach Github: </label>
-                  <input onChange={handleOnChange} className='border rounded-lg py-2 p-3' type='url' name='attachedFile' placeholder='Attach Github link' />
 
-                </div>
-            
+
+                  <div>
+                    <label> Attach Github: </label>
+                    <input onChange={handleOnChange} className='border rounded-lg py-2 p-3' type='url' name='attachedFile' placeholder='Attach Github link' />
+                    {
+                      error?.some((err: any) => err.includes("Attachment required")) ? (
+                        error.map((err: any, index: number) => {
+                          if (
+                            err.includes("Attachment required")
+                          ) {
+                            return (
+                              <div key={index} className="text-start">
+                                <span className="text-red-400 text-sm">{err}</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })
+                      ) : (
+                        error.map((err: any, index: number) => {
+                          if (
+                            err.includes("Attachment required") ||
+                            err.includes("Must be at least 10 characters") ||
+                            err.includes("Must be under 20 characters")
+                          ) {
+                            return (
+                              <div key={index} className="text-start">
+                                <span className="text-red-400 text-sm">{err}</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })
+                      )
+                    }
+                  </div>
+                </div>  {
+                  error?.some((err: any) => err.includes("Progress required")) ? (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Progress required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    error.map((err: any, index: number) => {
+                      if (
+                        err.includes("Progress reProgress need to be under 100%Progress need to be under 100%uired") ||
+                        err.includes("Progress should atlest 10%") ||
+                        err.includes("Progress need to be under 100%")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">{err}</span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                }
+
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
