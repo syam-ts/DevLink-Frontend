@@ -162,10 +162,10 @@ const response = await cloudinaryInstance.post("", data);
     output.onload = function () {
       URL.revokeObjectURL(output.src);
     };
-  };
+  }; 
 
 
-  const sumbmitForm = async () => {
+  const submitForm = async () => {
 
     try {
       console.log('Form : ', formData);
@@ -174,9 +174,10 @@ const response = await cloudinaryInstance.post("", data);
       if (type === 'verify') {
         validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
 
-      } else {
+      } else if(type === 'edit') {
+     
         validForm = await userProfileEditSchema.validate(formData, { abortEarly: false });
-
+ 
       }
 
       if (validForm) {
@@ -184,21 +185,22 @@ const response = await cloudinaryInstance.post("", data);
           editData: formData,
           unchangedData: userData
         }
+        setError([])
 
-        const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
+      //   const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
 
-        if (!response.data.success) {
-          toast.warning(response.data.message, {
-            style: {
-              backgroundColor: "yellow"
-            }
-          })
-        } else {
-          const user = response.data.data.user;
-          console.log("Dispatching user data to Redux:", user);
-          dispatch(updateUser(user))
-          window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
-        }
+      //   if (!response.data.success) {
+      //     toast.warning(response.data.message, {
+      //       style: {
+      //         backgroundColor: "yellow"
+      //       }
+      //     })
+      //   } else {
+      //     const user = response.data.data.user;
+      //     console.log("Dispatching user data to Redux:", user);
+      //     dispatch(updateUser(user))
+      //  //   window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
+      //   }
       } else {
         if (type === 'verify') {
           validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
@@ -211,13 +213,13 @@ const response = await cloudinaryInstance.post("", data);
 
 
     } catch (err: any) {
-      setError(err.errors);
-      console.error('ERROR: ', err.errors);
+      console.log("THE eror ", err.errors)
+      setError(err.errors); 
     }
   };
 
 
-  console.log('The Total Errors: ', error);
+  console.log('ERRORS: ', error);
 
 
   //skills add section
@@ -254,7 +256,7 @@ const response = await cloudinaryInstance.post("", data);
   const handleRemoveEducation = (educationToRemove: any) => {
     setSkills((prevEducation: any) => prevEducation.filter((skill: any) => skill !== educationToRemove));
   };
-  console.log('Errors : ', error);
+ 
 
   return (
     <>
@@ -285,7 +287,7 @@ const response = await cloudinaryInstance.post("", data);
                   <hr />
                   {
                     error?.some((err: any) => err.includes("FullName is required")) ? (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("FullName is required")
                         ) {
@@ -298,7 +300,7 @@ const response = await cloudinaryInstance.post("", data);
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("FullName is required") ||
                           err.includes("Must be atleast 3 characters") ||
@@ -328,7 +330,7 @@ const response = await cloudinaryInstance.post("", data);
                   <hr />
                   {
                     error?.some((err: any) => err.includes("Budget is required")) ? (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Budget is required")
                         ) {
@@ -341,7 +343,7 @@ const response = await cloudinaryInstance.post("", data);
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Budget is required") ||
                           err.includes("Hourly rate must be at least 100rs") ||
@@ -373,7 +375,7 @@ const response = await cloudinaryInstance.post("", data);
                   <hr />
                   {
                     error?.some((err: any) => err.includes("Location is required")) ? (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Location is required")
                         ) {
@@ -386,7 +388,7 @@ const response = await cloudinaryInstance.post("", data);
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Location is required") ||
                           err.includes("Must be atleast 4 characters") ||
@@ -440,7 +442,7 @@ const response = await cloudinaryInstance.post("", data);
                     </button>
                     {
                       error?.some((err: any) => err.includes("Minimum 3 skills required")) ? (
-                        error.map((err: any, index: number) => {
+                        error?.map((err: any, index: number) => {
                           if (
                             err.includes("Minimum 3 skills required")
                           ) {
@@ -453,7 +455,7 @@ const response = await cloudinaryInstance.post("", data);
                           return null;
                         })
                       ) : (
-                        error.map((err: any, index: number) => {
+                        error?.map((err: any, index: number) => {
                           if (
                             err.includes("Minimum 3 skills required") ||
                             err.includes("Maximum 10 skills are allowed")
@@ -542,7 +544,7 @@ const response = await cloudinaryInstance.post("", data);
                   <hr />
                   {
                     error?.some((err: any) => err.includes("Domain is required")) ? (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Domain is required")
                         ) {
@@ -555,7 +557,7 @@ const response = await cloudinaryInstance.post("", data);
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Domain is required") ||
                           err.includes("Domain must be atleast 10 characters") ||
@@ -599,7 +601,7 @@ const response = await cloudinaryInstance.post("", data);
 
                 {
                   error?.some((err: any) => err.includes("Description is required")) ? (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Description is required")
                       ) {
@@ -612,7 +614,7 @@ const response = await cloudinaryInstance.post("", data);
                       return null;
                     })
                   ) : (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Description is required") ||
                         err.includes("Description must be atleast 20 characters") ||
@@ -642,7 +644,7 @@ const response = await cloudinaryInstance.post("", data);
                 <hr />
                 {
                   error?.some((err: any) => err.includes("Hire me field is required")) ? (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Hire me field is required")
                       ) {
@@ -655,7 +657,7 @@ const response = await cloudinaryInstance.post("", data);
                       return null;
                     })
                   ) : (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Hire me field is required") ||
                         err.includes("Hire me filed must be atleast 20 characters") ||
@@ -685,7 +687,7 @@ const response = await cloudinaryInstance.post("", data);
 
                 {
                   error?.some((err: any) => err.includes("Experiences are required")) ? (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Experiences are required")
                       ) {
@@ -698,7 +700,7 @@ const response = await cloudinaryInstance.post("", data);
                       return null;
                     })
                   ) : (
-                    error.map((err: any, index: number) => {
+                    error?.map((err: any, index: number) => {
                       if (
                         err.includes("Experiences are required") ||
                         err.includes("Experience must be atleast 20 characters") ||
@@ -734,7 +736,7 @@ const response = await cloudinaryInstance.post("", data);
                   </button>
                   {
                     error?.some((err: any) => err.includes("Eduction informations are required")) ? (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Eduction informations are required")
                         ) {
@@ -747,7 +749,7 @@ const response = await cloudinaryInstance.post("", data);
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error?.map((err: any, index: number) => {
                         if (
                           err.includes("Eduction informations are required") ||
                           err.includes("Minimum 2 eduction information needed") ||
@@ -784,7 +786,7 @@ const response = await cloudinaryInstance.post("", data);
 
               <div className="pt-16">
                 <button
-                  onClick={sumbmitForm}
+                  onClick={submitForm}
                   type="button"
                   className="inline-block w-full rounded-xl bg-black px-4 py-3 font-medium text-white sm:w-auto"
                 >
