@@ -22,7 +22,7 @@ import InviteComponent from '../components/common/Invite'
  
 import Notifications from '../components/common/NotificationCard'
 import NotificationsUser from '../pages/user/NotificationsUser';   
-import SignupComponent from '../components/common/SignupComponent';
+import SignupComponent from '../components/common/SignupComponent'; 
  
  
 
@@ -72,7 +72,7 @@ const UserRoute = () => {
                 <Route path='/notifications/:roleId/:role' element={<NotificationsUser />} />  
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="user" />} />
                 <Route path='/invite/view/:roleId/:type' element={<InviteComponent />} />
-
+ 
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllClientChat />} />  
                 <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />

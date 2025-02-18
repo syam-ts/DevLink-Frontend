@@ -8,20 +8,15 @@ import {
 } from "@heroui/react";
 import axios from "axios";
 
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
-import Typography from "@mui/material/Typography";
-
 interface RateUserProps {
   notificationId: string;
   userId: string;
 }
 
-export const RateUserModal: React.FC<RateUserProps> = ({
+export const ModalMui: React.FC<RateUserProps> = ({
   notificationId,
   userId,
 }) => {
-  const [value, setValue] = React.useState<number | null>(2);
   const [rating, setRating] = useState<number | null>(0);
   const [review, setReview] = useState<string>("");
   const [size, setSize] = useState<string>("2xl");
@@ -67,48 +62,30 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           Rate User
         </Button>
       </div>
-      <Modal isOpen={isOpen} size={"5xl"} backdrop="blur" onClose={onClose}>
+      <Modal isOpen={isOpen} size={"xl"} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalBody>
-                <div className="h-full flex flex-col justify-center arsenal-sc-regular">
-                  <div className="flex flex-col items-center">
+                <div className="h-full flex flex-col justify-center ">
+                  <div className="   flex flex-col items-center">
                     <div className="flex flex-col items-center py-6 space-y-3">
-                      <span className="text-2xl text-black font-bold">
+                      <span className="text-lg text-gray-800">
                         How was the user performance?
                       </span>
-
-                      <section>
-                        <Box sx={{ "& > legend": { mt: 2 } }}>
-                          <Rating
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                            sx={{ fontSize: "2.3rem" }}
-                          />
-                        </Box>
-                      </section>
+               
                     </div>
+                    {/* <div className="w-3/4 flex flex-col">
+                      <textarea className="p-4 border text-gray-500 rounded-xl resize-none">Leave a message, if you want</textarea>
+                     </div> */}
                   </div>
-                  <div className="text-center">
-                    <span className="font-bold text-2xl text-center">Review</span>
-                    <section> 
-                        <div className="relative w-full mt-3 p-10">
-                          <textarea
-                            className="peer p-5 h-full min-h-[200px] w-full resize-none rounded-2xl border border-black  font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0"
-                            placeholder="Your review goes here...."
-                          ></textarea>
-                    
-                        </div> 
-                    </section>
-                  </div>
+                  <div className="my-4 grid">
+                    <span className="font-bold text-lg ">Review</span>
                   
+                  </div>
                   <button
                     onClick={submitRating}
-                    className="py-3 mb-6 w-1/3 mx-auto text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
+                    className="py-3 my-8 w-full mx-auto text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
                   >
                     Rate now
                   </button>
