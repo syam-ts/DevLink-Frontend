@@ -1,38 +1,33 @@
-import axios from "axios"; 
+import axios from "axios";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom"
-
+import { Link, useParams } from "react-router-dom"; 
 
 
 function SuccessPayment() {
 
-    const { clientId , data}: any = useParams();
-
+    const { clientId, data }: any = useParams<{ clientId: string, data: string }>();
     const finalData = JSON.parse(decodeURIComponent(data));
-    
-    console.log('params', clientId, finalData)
 
-useEffect(() => {
 
-    try{
+    useEffect(() => {
+        try {
+            (async () => {
+                console.log('TEH CREADENTIOAL DATA ', finalData)
+                const response = await axios.post(`http://localhost:3000/client/payment/success/${clientId}`, { data: finalData }, {
+                    withCredentials: true
+                })
 
-        (async() => {
-            console.log('TEH CREADENTIOAL DATA ', finalData)
-            const response = await axios.post(`http://localhost:3000/client/payment/success/${clientId}`,{data: finalData}, {
-                withCredentials: true
-            })
-            
-            console.log('THRE RESULT FROM FRONTEND : ', response.data);
-        })();
+                console.log('THRE RESULT FROM FRONTEND : ', response.data);
+            })();
 
-    }catch(err: any) {
-        console.error('ERROR: ', err.messsage);
-    }
-}, []);
+        } catch (err: any) {
+            console.error('ERROR: ', err.messsage);
+        }
+    }, []);
+
 
     return (
         <div>
-
             <div className="h-screen py-44">
                 <div className="bg-white p-6  md:mx-auto">
                     <svg viewBox="0 0 24 24" className="text-green-600 w-16 h-16 mx-auto my-6">
@@ -46,9 +41,9 @@ useEffect(() => {
                         <p> Have a great day!  </p>
                         <div className="py-10 text-center">
                             <Link to='/client/home'>
-                            <a href="#" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
-                                GO BACK
-                            </a>
+                                <a href="#" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
+                                    GO BACK
+                                </a>
                             </Link>
                         </div>
                     </div>
@@ -58,4 +53,4 @@ useEffect(() => {
     )
 }
 
-export default SuccessPayment
+export default SuccessPayment;

@@ -47,14 +47,10 @@ export const ProfileUser = () => {
         isBoosted: false,
         isProfileFilled: false
     }); 
-    const navigate = useNavigate();
-
-
-
+    const navigate = useNavigate();   
 
     useEffect(() => {
-        const getUserData = async () => {
-
+        const getUserData = async () => { 
             try {
                 const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
@@ -69,9 +65,7 @@ export const ProfileUser = () => {
         }
 
         getUserData();
-    }, []);
-
-
+    }, []); 
 
 
     const fetchChatMessages = async (roleType: string, roleId: string, targetId: string) => {
@@ -82,8 +76,7 @@ export const ProfileUser = () => {
             navigate(`/client/allChats/client/${clientId}`)
         }
     };
-
-
+ 
 
 
     return (

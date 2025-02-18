@@ -1,26 +1,20 @@
 import {
     Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
+    ModalContent, 
+    ModalBody, 
     Button,
     useDisclosure,
-  } from "@nextui-org/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+  } from "@nextui-org/react"; 
+import {  useState } from "react";
 import { useParams } from "react-router-dom";
  
   
   export const ViewRole = () => {
 
-   const {roleId, roleInfo}: any = useParams()
-
-   
-    console.log('THE MODAL OPENED', roleId)
-
+   const {roleId, roleInfo} = useParams<{roleId: string, roleInfo: string}>(); 
     const [ role , setRole] = useState({});
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    console.log(roleId)
 
     // useEffect(()=> {
     //   try{

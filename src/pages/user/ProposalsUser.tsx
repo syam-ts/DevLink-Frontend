@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { ProposalCard } from "../../components/common/ProposalCard";
 // import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
+import { UserState } from '../../config/state/allState';
+
 
 const JobProposals = () => {
 
@@ -24,10 +26,10 @@ const JobProposals = () => {
 
 
   const [data, setData]: any = useState<Proposals[]>([]);
-  const [proposalLoadType, setProposalLoadType] = useState("pending");
+  const [proposalLoadType, setProposalLoadType] = useState<string>("pending");
 
-  const userId = useSelector(
-    (state: any) => state?.user?.currentUser?._id
+  const userId: string = useSelector(
+    (state: UserState) => state?.user?.currentUser?._id
   );
 
   useEffect(() => {
@@ -81,7 +83,7 @@ const JobProposals = () => {
                 {data
                   .filter((pro: any) => pro.status === proposalLoadType)
                   .map((pro: any) => (
-                    <ProposalCard key={pro._id} proposals={[pro]} clientId={userId} />
+                    <ProposalCard key={pro._id} proposals={[pro]} roleId={userId} roleType="client" />
                   ))
                 }
 

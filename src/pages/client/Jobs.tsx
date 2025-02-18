@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom"; 
  import JobRender from './AllJobs';
  import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
+ import { ClientState } from '../../config/state/allState';
 
 import { useSelector } from "react-redux";
  
 
 const Jobs = () => {
 
-    const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
+    const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id);
     let tabs = [
         {
           id: "my-jobs",

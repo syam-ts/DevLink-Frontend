@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster';
 import { jobPostSchema } from "../../utils/validation/jobPostSchema";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-
+import { ClientState } from '../../config/state/allState'
 
 interface JobPost {
   title?: string;
@@ -38,7 +38,7 @@ const DraftJobPost = () => {
     estimateTime: 0,
     location: ""
   });
-  const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id);
+  const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id);
 
 
 

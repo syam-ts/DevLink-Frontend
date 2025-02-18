@@ -12,9 +12,7 @@ import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 export const ProposalCard = ({ proposals, roleType, roleId }: { proposals: [string], roleType: string, roleId: string }) => {
 
 
-    const dispatch = useDispatch();
-
-
+    const dispatch = useDispatch(); 
 
     const acceptProposal = async (userId: string, clientId: string, jobPostId: string, bidAmount: number, bidDeadline: number) => {
         try {

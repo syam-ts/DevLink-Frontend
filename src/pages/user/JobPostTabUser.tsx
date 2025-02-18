@@ -1,11 +1,12 @@
 import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
 import JobRender from '../../pages/client/AllJobs';
 import { useSelector } from "react-redux";
+import { ClientState } from '../../config/state/allState'
 
 
 export default function ClientJobTabs() {
  
-    const clientId = useSelector((state: any) => state?.client?.currentClient?._id);
+    const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id);
 
   
   let tabs = [

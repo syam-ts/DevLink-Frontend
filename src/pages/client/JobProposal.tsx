@@ -4,23 +4,23 @@ import { ProposalCard } from "../../components/common/ProposalCard";
 import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
 import { Sonner } from "../../components/sonner/Toaster";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { ClientState } from "../../config/state/allState";
  
+interface Proposals {
+  type: string;
+  description: string;
+  userId: number;
+}
 
 const JobProposals = () => {
-  interface Proposals {
-    type: string;
-    description: string;
-    userId: number;
-  }
 
-  const [data, setData]: any = useState<Proposals>({
+  const [data, setData] = useState<Proposals>({
     type: "",
     description: "",
     userId: 0,
   });
-
-   
-  const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
+ 
+  const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id)
 
   
 
@@ -35,9 +35,7 @@ const JobProposals = () => {
     })();
   }, []);
 
-
- console.log('THE DATA ', data)
-
+ 
   return (
     <main>
       <Sonner />
@@ -58,11 +56,7 @@ const JobProposals = () => {
                   <ProposalCard key={pro._id} proposals={[pro]} roleType="client" roleId={clientId} />
                 ))
               }
-            </div>
- 
-             
-            
-            
+            </div> 
           )
         }
       </section>

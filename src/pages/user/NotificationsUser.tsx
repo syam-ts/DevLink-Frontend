@@ -1,19 +1,18 @@
 import { useSelector } from 'react-redux';
 import Notification from '../../components/common/NotificationCard'
-
+import { UserState } from '../../config/state/allState';
 
  
 
 function NotificationsUser () {
  
-   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
-
-   console.log('user id', userId)
+   const userId: string = useSelector((state: UserState) => state?.user?.currentUser?._id);
+ 
 
   return (
     <div>
        
-        <Notification role='user' roleId={userId} />
+        <Notification  />
     </div>
   )
 }

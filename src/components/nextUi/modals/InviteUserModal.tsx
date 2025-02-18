@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Modal,
     ModalContent,
@@ -11,7 +11,7 @@ import {
 
 export const InviteModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [size, setSize] = React.useState("md");
+    const [size, setSize] = useState<string>("md");
 
     const handleOpen = (size: string) => {
         setSize(size);

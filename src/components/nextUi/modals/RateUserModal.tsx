@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import {
   Modal,
-  ModalContent, 
+  ModalContent,
   ModalBody,
   Button,
   useDisclosure,
 } from "@heroui/react";
 import axios from "axios";
 
-export const RateUserModal = ({ notificationId, userId }: any) => {
-  const [rating, setRating]: any = useState(0);
-  const [review, setReview]: any = useState("");
+interface RateUserProps {
+  notificationId: string;
+  userId: string;
+}
+
+export const RateUserModal: React.FC<RateUserProps> = ({
+  notificationId,
+  userId,
+}) => {
+  const [rating, setRating] = useState<number | null>(0);
+  const [review, setReview] = useState<string>("");
+  const [size, setSize] = useState<string>("2xl");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = React.useState("2xl");
 
   const handleOpen = (size: string) => {
     setSize(size);
@@ -24,9 +32,9 @@ export const RateUserModal = ({ notificationId, userId }: any) => {
       const body = {
         rating,
         userId,
-        review
+        review,
       };
-console.log('the body', body, notificationId)
+      console.log("the body", body, notificationId);
       const { data } = await axios.post(
         `http://localhost:3000/client/rate/user/${notificationId}`,
         {
@@ -35,14 +43,13 @@ console.log('the body', body, notificationId)
       );
       console.log("THE RESPONSE FROM RATE SUBMIT : ", data);
 
-      if(data.success) {
-      //   window.location.href = `http://localhost:5173/client/home`
+      if (data.success) {
+        //   window.location.href = `http://localhost:5173/client/home`
       }
     } catch (err: any) {
       console.error("ERROR: ", err.message);
     }
   };
- 
 
   return (
     <>
@@ -127,15 +134,15 @@ console.log('the body', body, notificationId)
                     {/* <div className="w-3/4 flex flex-col">
                       <textarea className="p-4 border text-gray-500 rounded-xl resize-none">Leave a message, if you want</textarea>
                      </div> */}
-                   </div>
-                   <div className='my-4 grid'>
-                    <span className='font-bold text-lg '>
-                       Review
-                    </span>
-                     <textarea onChange={(e: any) => setReview(e.target.value)} className='border rounded-lg h-44 p-10' placeholder='review goes here'>
-
-                     </textarea>
-                   </div>
+                  </div>
+                  <div className="my-4 grid">
+                    <span className="font-bold text-lg ">Review</span>
+                    <textarea
+                      onChange={(e: any) => setReview(e.target.value)}
+                      className="border rounded-lg h-44 p-10"
+                      placeholder="review goes here"
+                    ></textarea>
+                  </div>
                   <button
                     onClick={submitRating}
                     className="py-3 my-8 w-full mx-auto text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"

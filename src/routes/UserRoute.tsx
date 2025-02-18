@@ -1,6 +1,5 @@
 
-import HomeUser from '../pages/user/HomeUser'
-import OtpUser from '../pages/user/OtpUser'
+import HomeUser from '../pages/user/HomeUser' 
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 import LoginComponent from '../components/common/LoginComponent'
@@ -58,8 +57,7 @@ const UserRoute = () => {
 
                <Route path='/login' element={<LoginComponent />} />
                <Route path='/signup' element={<SignupComponent />} />
-            {/*  <Route path='/signup' element={<SignupUser />} /> */}
-                <Route path='/verify-otp' element={<OtpUser />} />
+            {/*  <Route path='/signup' element={<SignupUser />} /> */} 
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />
                 <Route path='/home' element={<HomeUser />} /> 

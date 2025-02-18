@@ -2,6 +2,7 @@
 import { InputOtpComponent } from '../../components/shadcn/OtpComponents'
 
 function OtpVerify() {
+  
   return (
     <>
    <div className="flex h-screen arsenal-sc-regular">

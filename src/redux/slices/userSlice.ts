@@ -5,7 +5,6 @@ interface User {
     email: string;
     mobile: number;
 };
-
  
 
 

@@ -1,3 +1,4 @@
+import { ClientState } from "../../config/state/allState";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
@@ -7,7 +8,7 @@ import { Link } from "react-router-dom";
 function ListUsers() {
 
   const [developers, setDevelopers] = useState({});
-  const clientId = useSelector((state: any) => state?.client?.currentClient?._id)
+  const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id)
 
   useEffect(() => {
 
@@ -35,10 +36,7 @@ function ListUsers() {
       </section>
 
       <section>
-
-
-        <div className='flex flex-wrap mt-20 gap-12 px-60 mx-auto justify-center arsenal-sc-regular'>
-
+        <div className='flex flex-wrap mt-20 gap-12 px-60 mx-auto justify-center arsenal-sc-regular'> 
           {
             Object.entries(developers).map((developer: any) => (
               <div className="relative rounded-lg group gap-20 transition-all border duration-500 w-[248px] h-[350px]">
@@ -61,16 +59,8 @@ function ListUsers() {
               </div>
             ))
           }
-
-
-
-
-
-
-
-
         </div>
-      </section> 
+      </section>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from '../../redux/slices/userSlice';
 import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
 import axios from "axios";
-
+import { UserState } from '../../config/state/allState';
 
 interface UserData {
   name: string
@@ -64,7 +64,7 @@ const UserProfileAlter = () => {
   const { type } = useParams<{ type: string }>();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId: string = useSelector((state: any) => state?.user?.currentUser?._id);
+  const userId: string = useSelector((state: UserState) => state?.user?.currentUser?._id);
 
 
 

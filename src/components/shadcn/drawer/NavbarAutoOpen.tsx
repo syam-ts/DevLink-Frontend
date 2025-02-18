@@ -1,7 +1,7 @@
-"use client"
-import * as React from "react" 
+"use client";
+import * as React from "react";
 
-import { cn } from "../../../lib/utils" 
+import { cn } from "../../../lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,43 +10,29 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "../../../components/ui/navigation-menu"
-import { Link } from "react-router-dom"
+} from "../../../components/ui/navigation-menu";
+import { Link } from "react-router-dom";
 
-  
- 
-
-export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
+export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
   return (
-    <div> 
-  
-    <NavigationMenu>
-      <NavigationMenuList className='flex gap-16 py-2.5'>
-       
-      <NavigationMenuItem>
+    <div>
+      <NavigationMenu>
+        <NavigationMenuList className="flex gap-16 py-2.5">
+          <NavigationMenuItem>
+            <Link to="/user/home" className="no-underline text-black">
+              Home
+            </Link>
 
-        
-   
-        <Link to='/user/home' className='no-underline text-black'>
-           Home
-        </Link>
-  
-          <NavigationMenuContent>
-           
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-       
-      <NavigationMenuItem>
+            <NavigationMenuContent></NavigationMenuContent>
+          </NavigationMenuItem>
 
-        
-        
-
-          <NavigationMenuTrigger>
-          <Link to='/user/jobs' className='no-underline text-black'>
-           Jobs
-        </Link>
-          </NavigationMenuTrigger>
-          {/* <NavigationMenuContent>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>
+              <Link to="/user/jobs" className="no-underline text-black">
+                Jobs
+              </Link>
+            </NavigationMenuTrigger>
+            {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-10 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="All Jobs">
@@ -63,15 +49,18 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
               </ListItem>
             </ul>
           </NavigationMenuContent> */}
-        </NavigationMenuItem>
+          </NavigationMenuItem>
 
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>
-          <Link to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`} className='no-underline text-black'>
-                  <button>Contracts</button>
-                </Link>
-          </NavigationMenuTrigger>
-          {/* <NavigationMenuContent>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>
+              <Link
+                to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`}
+                className="no-underline text-black"
+              >
+                <button>Contracts</button>
+              </Link>
+            </NavigationMenuTrigger>
+            {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="My Contracts">
@@ -90,21 +79,27 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
              
             </ul>
           </NavigationMenuContent> */}
-        </NavigationMenuItem>
+          </NavigationMenuItem>
 
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>
-          <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>
-                    <button>proposals</button>
-                  </Link>
-          </NavigationMenuTrigger>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>
+              <Link
+                to={`/${roleType}/jobs/proposals`}
+                className="no-underline text-black"
+              >
+                <button>proposals</button>
+              </Link>
+            </NavigationMenuTrigger>
 
-          <NavigationMenuTrigger>
-          <Link to={`/${roleType}/invite/view/${roleInfo?._id}/user`} className='no-underline text-black'>
-                    <button>Invites</button>
-                  </Link>
-          </NavigationMenuTrigger>
-          {/* <NavigationMenuContent>
+            <NavigationMenuTrigger>
+              <Link
+                to={`/${roleType}/invite/view/${roleInfo?._id}/user`}
+                className="no-underline text-black"
+              >
+                <button>Invites</button>
+              </Link>
+            </NavigationMenuTrigger>
+            {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            
               <ListItem href="/docs" title="My Proposals">
@@ -118,22 +113,16 @@ export const NavbarAutoOpen = ({roleType, roleInfo}: any) => {
              
             </ul>
           </NavigationMenuContent> */}
-        </NavigationMenuItem>
+          </NavigationMenuItem>
 
-        <NavigationMenuItem>
-           About 
-        </NavigationMenuItem> 
+          <NavigationMenuItem>About</NavigationMenuItem>
 
-        <NavigationMenuItem>
-           Contact 
-         
-        </NavigationMenuItem>
-  
-      </NavigationMenuList>
-    </NavigationMenu>
+          <NavigationMenuItem>Contact</NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     </div>
-  )
-}
+  );
+};
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -157,6 +146,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";

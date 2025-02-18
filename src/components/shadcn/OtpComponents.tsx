@@ -8,25 +8,23 @@ export const InputOtpComponent = () => {
   const [value, setValue] = useState<string[]>(["", "", "", ""]);
   const [formData, setFormData] = useState<{ otp: string }>({ otp: "" });
   const [searchParams] = useSearchParams();
-  const rt = searchParams.get("rt");
+  const rt: string | null = searchParams.get("rt");
   const message = useLocation();
   const navigate = useNavigate();
+
 
   const handleChange = (index: number, inputValue: string) => {
     if (!/^\d?$/.test(inputValue)) return;
     const newOtp = [...value];
     newOtp[index] = inputValue;
-    setValue(newOtp);
-
+    setValue(newOtp); 
     const otpString = newOtp.join("");
     setFormData({ otp: otpString });
   };
-  console.log("From ", formData)
 
 
   const handleSubmit = async () => {
-    try {
-      console.log('meain ', formData.otp)
+    try { 
       const data = {
         user: message.state.message.userData,
         mailOtp: message.state.message.mailOtp,
@@ -54,6 +52,7 @@ export const InputOtpComponent = () => {
     }
   };
 
+  
   // Resend OTP
   const resendOtp = async () => {
     try {

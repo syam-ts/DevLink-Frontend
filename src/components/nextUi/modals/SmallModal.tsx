@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -10,22 +10,27 @@ import {
   useDraggable,
 } from "@nextui-org/react";
 
-export const SmallModal = ( {showModals}: any ) => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const targetRef = React.useRef(null);
-  const {moveProps} = useDraggable({targetRef, isDisabled: !isOpen});
-    console.log('modal page')
+interface SmallModalProps {
+  showModals: string | boolean;
+}
 
-    useEffect(() => {
+export const SmallModal: React.FC<SmallModalProps> = ({ showModals }) => {
+  const targetRef = React.useRef<null>(null);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { moveProps } = useDraggable({ targetRef, isDisabled: !isOpen });
+
+  useEffect(() => {
     if (showModals) {
-      onOpen(); 
+      onOpen();
       showModals = false;
     }
   }, [showModals, onOpen]);
 
   return (
     <>
-      <Button className='hidden' onPress={onOpen}>Open Modal</Button>
+      <Button className="hidden" onPress={onOpen}>
+        Open Modal
+      </Button>
       <Modal ref={targetRef} isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -34,12 +39,14 @@ export const SmallModal = ( {showModals}: any ) => {
                 Join Us Here
               </ModalHeader>
               <ModalBody>
-                <p className='comfortaa-regular '>
-                 Please Chose one Role
-                </p>
+                <p className="comfortaa-regular ">Please Chose one Role</p>
               </ModalBody>
-              <ModalFooter> 
-                <Button className='text-white font-bold' color="success" onPress={onClose}>
+              <ModalFooter>
+                <Button
+                  className="text-white font-bold"
+                  color="success"
+                  onPress={onClose}
+                >
                   Okay
                 </Button>
               </ModalFooter>
@@ -49,5 +56,4 @@ export const SmallModal = ( {showModals}: any ) => {
       </Modal>
     </>
   );
-}
-
+};

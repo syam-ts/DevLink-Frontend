@@ -20,7 +20,6 @@ export const JobPostCard = ({ jobs, role, type }: { jobs: Jobs, role: string, ty
 
 
 
-
   return (
     <div>
       {Object.entries(jobs).map((job: any) => (

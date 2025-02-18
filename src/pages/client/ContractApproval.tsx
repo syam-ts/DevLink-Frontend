@@ -2,18 +2,14 @@ import { ProjectApprovalCard } from '../../components/common/ProjectApprovalCard
 import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { ClientState } from '../../config/state/allState'
 
 
 
 function ContractApproval() {
 
-    const clientId: string = useSelector((state: any) => state?.client?.currentClient?._id);
-
-
-    const [pendingApprovals, setPendingApprovals] = useState({});
-
-
-
+    const [pendingApprovals, setPendingApprovals] = useState({}); 
+    const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id); 
 
     useEffect(() => {
         try {

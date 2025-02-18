@@ -1,13 +1,50 @@
-import { useEffect, useState } from "react";
-import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
-
+import React, { useEffect, useState } from "react";
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest'; 
 import { JobPostCard } from "../../components/common/JobPostCard";
 
-const JobsRender = ({ clientId, type }: any) => {
+
+interface JobsRenderProps {
+  clientId: string;
+  type: string
+}
+
+interface Jobs {
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string 
+};
+
+const JobsRender: React.FC<JobsRenderProps> = ({ clientId, type }) => {
 
   
-  const [myJobs, setMyJobs]: any = useState({});
-  const [progressingJobs, setProgressingJobs]: any = useState({});
+  const [myJobs, setMyJobs]: any = useState<Jobs>({
+    _id: "",
+    title: "",
+    description: "",
+    expertLevel: "",
+    location: "",
+    amount: 0,
+    paymentType: "",
+    estimateTimeinHours: "",
+    projectType: ""
+  });
+  const [progressingJobs, setProgressingJobs]: any = useState<Jobs>({
+    _id: "",
+    title: "",
+    description: "",
+    expertLevel: "",
+    location: "",
+    amount: 0,
+    paymentType: "",
+    estimateTimeinHours: "",
+    projectType: ""
+  });
 
   useEffect(() => {
     try {
@@ -53,28 +90,5 @@ const JobsRender = ({ clientId, type }: any) => {
 export default JobsRender;
 
 
-
-
  
-
-
-// {
-//   error.some((err: any) => err.includes(" is required"))
-//     ? error
-//       .filter((err: any) => err.includes(" is required"))
-//       .map((err: any, index: number) => (
-//         <div key={index} className="text-start">
-//           <span className="text-red-400 text-sm">{err}</span>
-//         </div>
-//       ))
-//     : error
-//       .filter((err: any) =>
-//         ["  ",
-//           "  "].some(msg => err.includes(msg))
-//       )
-//       .map((err: any, index: number) => (
-//         <div key={index} className="text-start">
-//           <span className="text-red-400 text-sm">{err}</span>
-//         </div>
-//       ))
-// }
+ 
