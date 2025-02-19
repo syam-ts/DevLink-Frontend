@@ -63,7 +63,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
     })();
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,

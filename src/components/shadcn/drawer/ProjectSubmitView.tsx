@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import {
-  Drawer, 
-  DrawerContent, 
-  DrawerHeader, 
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
   DrawerTrigger,
 } from "../../../components/shadcn/ui/drawer";
 import { Progress } from "../../../components/ui/progress";
@@ -18,14 +18,12 @@ interface ProjectSubmissionViewDrawerProps {
 export const ProjectSubmissionViewDrawer: React.FC<
   ProjectSubmissionViewDrawerProps
 > = ({ title, description, progress, attachedFile }) => {
-
   const [progressPercent, setProgressPercent] = useState<number>(13);
 
   useEffect(() => {
     const timer: number = setTimeout(() => setProgressPercent(66), 500);
     return () => clearTimeout(timer);
   }, []);
-
 
   return (
     <Drawer>
@@ -49,4 +47,3 @@ export const ProjectSubmissionViewDrawer: React.FC<
     </Drawer>
   );
 };
-

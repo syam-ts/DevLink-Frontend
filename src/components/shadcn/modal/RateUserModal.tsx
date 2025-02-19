@@ -1,50 +1,49 @@
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../../ui/label";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import React, { useState } from "react";
-import { Modal, ModalContent, ModalBody, useDisclosure } from "@heroui/react";
+import { useDisclosure } from "@heroui/react";
 import axios from "axios";
-
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import Typography from "@mui/material/Typography";
 
 interface RateUserProps {
   notificationId: string;
   userId: string;
 }
 
+interface FormData {
+  rating: number;
+  review: string | null;
+}
+
 export const RateUserModal: React.FC<RateUserProps> = ({
   notificationId,
   userId,
 }) => {
-  const [value, setValue] = React.useState<number | null>(2);
-  const [rating, setRating] = useState<number | null>(0);
-  const [review, setReview] = useState<string>("");
-  const [size, setSize] = useState<string>("2xl");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [formData, setFormData] = useState<FormData>({
+    rating: 0,
+    review: null,
+  });
 
-  const handleOpen = (size: string) => {
-    setSize(size);
-    onOpen();
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value }: { name: string; value: string | number } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
+
+  console.log("The form data: ", formData);
 
   const submitRating = async () => {
     try {
       const body = {
-        rating,
+       
         userId,
-        review,
+       
       };
       console.log("the body", body, notificationId);
       const { data } = await axios.post(
@@ -63,6 +62,10 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     }
   };
 
+
+  console.log('The rating: ', formData.rating, 'The review: ', formData.review)
+
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -76,7 +79,6 @@ export const RateUserModal: React.FC<RateUserProps> = ({
               How was the user performance?
             </span>
           </section>
-          
 
           <section className="mt-5 mx-auto ">
             <span className="text-center mx-12 ">Rate</span>
@@ -86,11 +88,8 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           <section className="mt-3 mx-auto">
             <Box sx={{ "& > legend": { mt: 2 } }}>
               <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
+                name="rating"
+                onChange={(e: any) => handleChange(e)}
                 sx={{ fontSize: "1.5rem" }}
               />
             </Box>
@@ -104,19 +103,25 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           <section>
             <div className=" w-full p-10">
               <textarea
-                className="peer p-3 h-full min-h-[150px] w-full rounded-2xl border-2 border-gray-400  text-sm  "
+                onChange={handleChange}
+                name="review"
+                className="peer p-5 h-full min-h-[300px] w-full rounded-2xl border-2 border-gray-400  text-sm  outline-none"
                 placeholder="Your review goes here...."
               ></textarea>
             </div>
           </section>
 
           <section className="w-full text-center">
-            <button
+          {
+            formData.review && formData.rating !== 0 && (
+              <button
               onClick={submitRating}
-              className="py-2 mb-6 w-1/4 mx-auto text-lg bg-[#0000ff] font-bold  rounded-xl text-white"
+              className="py-1.5 mb-6 w-1/4 mx-auto text-md bg-[#0000ff] font-thin  rounded-xl text-white"
             >
-              Rate now
+              Rate User
             </button>
+            )
+          }
           </section>
         </div>
       </SheetContent>
