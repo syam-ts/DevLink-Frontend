@@ -6,23 +6,17 @@ import { Suspense } from "react";
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.tsx"));
 /****End Layouts*****/
-
-/*****dashboard******/
-const Dashboard = lazy(() => import("../views/dashboards/Dashboard1.js"));
-
-/*****Tables******/ 
+ 
+const Dashboard = lazy(() => import("../views/dashboards/Dashboard1.js")); 
 const ClientTable = lazy(() => import("../views/tables/ClientTable.js"));
-const UserTable = lazy(() => import("../views/tables/UserTable.js"));
-
-const Requests = lazy(() => import('../views/extra/Requests.tsx'));
-
-
-const Contracts = lazy(() => import('../views/extra/Contracts.tsx'))
-const Wallet = lazy(() => import('../views/extra/Wallet.tsx'))
+const UserTable = lazy(() => import("../views/tables/UserTable.js")); 
+const Requests = lazy(() => import('../views/extra/Requests.tsx')); 
+const Contracts = lazy(() => import('../views/extra/Contracts.tsx')); 
+const MonoContract = lazy(() => import('../views/extra/MonoContract.tsx')); 
+const Wallet = lazy(() => import('../views/extra/Wallet.tsx'));
 
 
 /*****Routes******/
-
 const ThemeRoutes = [
   {
     path: "/",
@@ -68,6 +62,12 @@ const ThemeRoutes = [
       
         <Suspense fallback={<div>Loading...</div>}>
           <Contracts />
+        </Suspense>
+      ) } ,
+      { path: "/monoContract/:contractId", element:( 
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <MonoContract />
         </Suspense>
       ) } 
     ],

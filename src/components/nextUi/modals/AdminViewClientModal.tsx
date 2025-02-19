@@ -39,6 +39,7 @@ export const ViewClient: React.FC<ViewClientProps> = ({ clientId }) => {
     setSize(size);
     onOpen();
   };
+  
 
   return (
     <>
