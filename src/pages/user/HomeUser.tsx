@@ -20,10 +20,8 @@ const HomeUser = () => {
   const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
    const user = useSelector((state: any) => state?.user?.currentUser);
-
  
- 
-
+   
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {

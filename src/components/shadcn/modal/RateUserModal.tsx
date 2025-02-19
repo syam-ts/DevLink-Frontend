@@ -1,10 +1,12 @@
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import React, { useState } from "react";
-import { useDisclosure } from "@heroui/react";
+import React, { useState } from "react"; 
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
+
 
 interface RateUserProps {
   notificationId: string;
@@ -20,11 +22,13 @@ export const RateUserModal: React.FC<RateUserProps> = ({
   notificationId,
   userId,
 }) => {
+
   const [formData, setFormData] = useState<FormData>({
     rating: 0,
     review: null,
   });
-
+  
+  // alert(userId)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,38 +40,45 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     }));
   };
 
-  console.log("The form data: ", formData);
+
 
   const submitRating = async () => {
     try {
-      const body = {
-       
-        userId,
-       
-      };
-      console.log("the body", body, notificationId);
+      const { rating, review }: { rating: number; review: string | null } =
+        formData;
+
       const { data } = await axios.post(
         `http://localhost:3000/client/rate/user/${notificationId}`,
         {
-          body,
+          userId,
+          rating,
+          review,
         }
       );
       console.log("THE RESPONSE FROM RATE SUBMIT : ", data);
 
       if (data.success) {
-        //   window.location.href = `http://localhost:5173/client/home`
+         window.location.href = `http://localhost:5173/client/notifications/${userId}/client`
+      } else {
+        alert('hi')
+        toast.error(data.message)
       }
     } catch (err: any) {
-      console.error("ERROR: ", err.message);
+      toast.error(err.response?.data?.message, {
+        style: {
+          backgroundColor: "red",
+          color: "white",  
+          border: "none"
+        },
+        position: "top-center"
+      });
     }
   };
 
 
-  console.log('The rating: ', formData.rating, 'The review: ', formData.review)
-
-
   return (
     <Sheet>
+      <Sonner />
       <SheetTrigger>
         <Button variant="outline">Rate User</Button>
       </SheetTrigger>
@@ -112,16 +123,14 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           </section>
 
           <section className="w-full text-center">
-          {
-            formData.review && formData.rating !== 0 && (
+            {formData.review && formData.rating !== 0 && (
               <button
-              onClick={submitRating}
-              className="py-1.5 mb-6 w-1/4 mx-auto text-md bg-[#0000ff] font-thin  rounded-xl text-white"
-            >
-              Rate User
-            </button>
-            )
-          }
+                onClick={submitRating}
+                className="py-1.5 mb-6 w-1/4 mx-auto text-md bg-[#0000ff] font-thin  rounded-xl text-white"
+              >
+                Rate User
+              </button>
+            )}
           </section>
         </div>
       </SheetContent>

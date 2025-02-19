@@ -116,9 +116,7 @@ const Notification = () => {
                 {
                   notif[1]?.type === 'contract-close' && (
                     <div>
-
                       <RateUserModal notificationId={notif[1]?._id} userId={notif[1]?.extra?.documentId} />
-
                     </div>
                   )
                 }
