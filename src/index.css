@@ -51,6 +51,12 @@
   font-style: italic;
 }
 
+/* user rating modal  */
+.sheet-content {
+  width: 550px !important;
+  max-width: none !important;
+}
+
 
 @layer base {
   :root {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
-import { RateUserModal } from '../nextUi/modals/RateUserModal';
+import { RateUserModal } from '../shadcn/modal/RateUserModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNotification, markAsReadNotifications } from '../../redux/slices/userSlice';
 import { addNotificationClient } from '../../redux/slices/clientSlice';
