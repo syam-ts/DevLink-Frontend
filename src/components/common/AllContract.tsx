@@ -34,8 +34,7 @@ function AllContract() {
       console.error('ERROR: ', err.message);
     }
   }, [contractsViewType]);
-
-
+ 
   
 
   return (
@@ -87,15 +86,17 @@ function AllContract() {
           </div>
            <div className='flex justify-between'>
            <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-md shadow-xl">
-            <Link to={`/${roleType}/contract/view/${contract[1]?._id}`} className='no-underline text-white'>
+            <Link to={`/${roleType}/contract/${contract[1]?._id}/${roleType}`} className='no-underline text-white'>
               View Contract 
             </Link>
              </button>
            
               {
                 roleType === 'user' && contractsViewType === 'myContracts' && (
-
-                  <SubmitProject contractId={contract[1]?._id} jobTitle={contract[1]?.jobPostData?.title} />
+                      <div>
+                        
+                    {/* <SubmitProject contractId={contract[1]?._id} jobTitle={contract[1]?.jobPostData?.title} /> */}
+                      </div>
                 )
               }
            

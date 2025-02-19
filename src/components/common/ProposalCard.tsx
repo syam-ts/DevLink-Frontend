@@ -100,6 +100,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
 
   return (
     <div>
+ 
       {Object.entries(proposals).map((proposal: any) => (
         <div className="w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3">
           <div className="h-16 w-16 ">
@@ -184,6 +185,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           </div>
         </div>
       ))}
+      
     </div>
   );
 };

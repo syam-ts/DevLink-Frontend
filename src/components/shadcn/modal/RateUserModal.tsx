@@ -1,12 +1,11 @@
+import React, { useState } from "react";
+import axios from "axios";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import React, { useState } from "react"; 
-import axios from "axios";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
-
 
 interface RateUserProps {
   notificationId: string;
@@ -27,7 +26,6 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     rating: 0,
     review: null,
   });
-   
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,12 +37,11 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     }));
   };
 
-
-
   const submitRating = async () => {
     try {
-      const { rating, review }: { rating: number; review: string | null } =
-        formData;
+      const { rating, review }: 
+      {rating: number; review: string | null}
+       = formData;
 
       const { data } = await axios.post(
         `http://localhost:3000/client/rate/user/${notificationId}`,
@@ -54,32 +51,30 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           review,
         }
       );
-      
 
       if (data.success) {
-         window.location.href = `http://localhost:5173/client/notifications/${userId}/client`
+        window.location.href = `http://localhost:5173/client/notifications/${userId}/client?rateUser=${true}`;
       } else {
-        alert('hi')
-        toast.error(data.message)
+        alert("hi");
+        toast.error(data.message);
       }
     } catch (err: any) {
       toast.error(err.response?.data?.message, {
         style: {
           backgroundColor: "red",
-          color: "white",  
-          border: "none"
+          color: "white",
+          border: "none",
         },
-        position: "top-center"
+        position: "top-center",
       });
     }
   };
-
 
   return (
     <Sheet>
       <Sonner />
       <SheetTrigger>
-        <Button variant="outline">Rate User</Button>
+        <Button variant="link" className='border shadow-xl bg-yellow-400 text-black font-bold'>Rate User</Button>
       </SheetTrigger>
 
       <SheetContent className="sheet-content">
