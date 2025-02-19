@@ -66,29 +66,7 @@ const ExTable = () => {
     setCurrentPage(page);
   };
 
-  const searchFunction = async (inputData: string) => {
-    try {
-      if (inputData.length === 0) {
-        setIsSearchTriggered(true);
-        setSortType("block");
-      } else {
-        setIsSearchTriggered(true);
-        const { data } = await axios.post(
-          `/admin/getAllUsers/search?inputData=${inputData}`
-        );
-
-        if (totalPages[0] !== data?.data?.totalPages)
-          setTotalPages((prevPages: any) => [
-            ...prevPages,
-            data?.data?.totalPages,
-          ]);
-
-        setUser(data.data);
-      }
-    } catch (err: any) {
-      console.error("ERROR: ", err.messsage);
-    }
-  };
+   
 
   const blockUserFn = async (userId: string) => {
     try {
@@ -130,27 +108,13 @@ const ExTable = () => {
     <>
       {/* Search section */}
       <section className="my-10 arsenal-sc-regular">
-        <div className="flex justify-between">
-          <div className="w-full max-w-sm min-w-[200px]">
-            <div className="relative">
-              <input
-                onChange={(e: any) => searchFunction(e.target.value)}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-xl pl-3 pr-28 py-2.5 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                placeholder="Search here"
-              />
-              <button 
-                className="absolute top-1 right-1 flex items-center rounded-lg bg-[#0000ff] py-1.5 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-          <div>
+        <div className="flex justify-end">
+ 
+          
             <div>
               <Select onValueChange={(value) => setSortType(value)}>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a Method" />
+                  <SelectValue placeholder="Sort User" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -161,7 +125,6 @@ const ExTable = () => {
                 </SelectContent>
               </Select>
             </div>
-          </div>
         </div>
       </section>
 

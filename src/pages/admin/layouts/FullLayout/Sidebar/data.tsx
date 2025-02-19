@@ -31,6 +31,11 @@ const Menuitems: Menu[] = [
     href: "/admin/index/requests",
   },
   {
+    title: "Contracts",
+    icon: AutoAwesomeMosaicOutlinedIcon,
+    href: "/admin/index/contracts",
+  },
+  {
     title: "Wallet",
     icon: AutoAwesomeMosaicOutlinedIcon,
     href: "/admin/index/wallet",

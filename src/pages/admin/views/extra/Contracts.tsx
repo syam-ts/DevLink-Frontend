@@ -17,11 +17,11 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "../../../../../components/ui/select" 
-import { Sonner } from '../../../../../components/sonner/ToasterBottom';
-import { toast } from "sonner"; 
-import ViewUserInAdmin from "../../../../../components/bootstrap/ViewUserInAdmin";
-import { useEffect, useState } from "react"; 
+} from "../../../../components/ui/select"
+import { Sonner } from '../../../../components/sonner/ToasterBottom';
+import { toast } from "sonner";
+import ViewUserInAdmin from "../../../../components/bootstrap/ViewUserInAdmin";
+import { useEffect, useState } from "react";
 import axios from "axios";
 // import axios from '../../../../../api/axiosInstance'
 
@@ -29,14 +29,12 @@ import axios from "axios";
 const ExTable = () => {
 
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages]: any = useState([]);
-    const [isSearchTriggered, setIsSearchTriggered] = useState(false);
-    const [sortType, setSortType] = useState('latest');
+    const [currentPage, setCurrentPage]: any = useState<number>(1);
+    const [totalPages, setTotalPages]: any = useState<number[]>([]);
+    const [sortType, setSortType] = useState<string>('latest');
 
 
-    const [client, setClient] = useState({});
-    const [isBlocked, setIsBlocked]: any = useState()
+    const [contracts, setContracts]: any = useState({});
 
 
 
@@ -46,18 +44,16 @@ const ExTable = () => {
         (async () => {
             try {
 
-                const { data } = await axios.get(`http://localhost:3000/admin/getAllClients?page=${currentPage}&sortType=${sortType}`, {
+                const { data } = await axios.get(`http://localhost:3000/admin/getAllContracts`, {
                     withCredentials: true
                 });
 
-                if (totalPages[0] !== data?.data?.totalPages) (
-                    setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
-                )
-
-                setClient(data?.data)
+                // if (totalPages[0] !== data?.data?.totalPages) (
+                //     setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
+                // )
 
 
-
+                setContracts(data?.contracts);
             } catch (err: any) {
                 toast.error(err.message, {
                     style: {
@@ -66,11 +62,7 @@ const ExTable = () => {
                 })
             }
         })();
-    }, [isBlocked, currentPage, sortType]);
-
-
-    console.log('THE PAGE : ' ,client)
- 
+    }, [currentPage, sortType]);
 
 
 
@@ -78,76 +70,33 @@ const ExTable = () => {
         setCurrentPage(page);
     };
 
-
-  
-
-  
+    console.log('The contracts: ', contracts);
 
 
- 
-    const blockClientFn = async (clientId: string) => {
-        try {
-
-            const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
-
-            console.log('The response', response.data.message)
-            if (response.data.type == 'success') {
-                setIsBlocked(true);
-                toast.success(response.data.message, {
-                    position: 'top-center'
-                })
-            }
-        } catch (err: any) {
-            console.log(err.message)
-        }
-    }
-
-
-
-
-
-
-
-    const unBlockClientFn = async (clientId: any) => {
-        try {
-
-            const response = await axios.patch(`http://localhost:3000/admin/unblockClient/${clientId}`);
-
-            console.log('The response', response.data.message)
-            if (response.data.type == 'success') {
-                setIsBlocked(false)
-                toast.success(response.data.message, {
-                    position: 'top-center'
-                })
-            }
-        } catch (err: any) {
-            console.log(err.message)
-        }
-    }
 
 
 
     return (
-        <>
+        <div className='border-1 !border-gray-400 rounded-3xl px-5 py-2 my-20'>
 
             <section className='my-10 '>
                 <div className='flex justify-end '>
-   
-                    
-                   <Select onValueChange={(value) => setSortType(value)}>
+
+
+                    <Select onValueChange={(value) => setSortType(value)}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Sort Client" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectGroup> 
-                            <SelectItem value="latest">Latest</SelectItem>
-                            <SelectItem value="unBlock">Blocked</SelectItem>
-                            <SelectItem value="block">Unblocked</SelectItem> 
+                            <SelectGroup>
+                                <SelectItem value="latest">Latest</SelectItem>
+                                <SelectItem value="unBlock">Blocked</SelectItem>
+                                <SelectItem value="block">Unblocked</SelectItem>
                             </SelectGroup>
                         </SelectContent>
-                  </Select>
-                  
-                    
+                    </Select>
+
+
                 </div>
             </section>
 
@@ -165,41 +114,50 @@ const ExTable = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>
+                                <Typography className='text-black' color="textSecondary" variant="h6">
+                                    <span className='arsenal-sc-regular'>
+                                        Title
+                                    </span>
+                                </Typography>
+                            </TableCell>
+
+                            <TableCell>
                                 <Typography color="textSecondary" variant="h6">
-                                    Name
+                                    <span className='arsenal-sc-regular'>
+                                        Amount
+                                    </span>
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography color="textSecondary" variant="h6">
-                                    Email
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography color="textSecondary" variant="h6">
-                                    Block/Unblock
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography color="textSecondary" variant="h6">
-                                    view
+                                    <span className='arsenal-sc-regular'>
+                                        Deadline
+                                    </span>
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Typography color="textSecondary" variant="h6">
-                                    Total Jobs
+                                    <span className='arsenal-sc-regular'>
+                                        Status
+                                    </span>
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Typography color="textSecondary" variant="h6">
-                                    Total Hours
+                                    <span className='arsenal-sc-regular'>
+                                        View
+                                    </span>
                                 </Typography>
                             </TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {Object.entries(client).map((cl: any) => (
-                            <TableRow key={cl[1]?.companyName}>
 
+
+                    <TableBody className=''>
+
+
+                        {Object.entries(contracts)?.map((contract: any) => (
+                            <TableRow key={contract[1]._id}> 
                                 <TableCell>
                                     <Box
                                         sx={{
@@ -209,35 +167,35 @@ const ExTable = () => {
                                     >
                                         <Box>
                                             <Typography
+                                                className='arsenal-sc-regular'
                                                 variant="h6"
                                                 sx={{
                                                     fontWeight: "600",
                                                 }}
                                             >
-                                                {cl[1]?.companyName}
+                                               <span className='arsenal-sc-bold'> {contract[1].jobPostData.title}</span>
                                             </Typography>
                                         </Box>
                                     </Box>
                                 </TableCell>
-                                <TableCell>
-                                    <Typography color="textSecondary" variant="h6">
-                                        {cl[1]?.email}
-                                    </Typography>
-                                </TableCell>
+
                                 <TableCell>
                                     {
-                                        cl[1].isBlocked ? (
-                                            <Chip onClick={() => unBlockClientFn(cl[1]._id)}
-                                                sx={{
-                                                    pl: "4px", pr: "4px", backgroundColor: 'red', color: "#fff",
-                                                }} size="small" label='unBlock'
-                                            ></Chip>
+                                        contract[1].amount < 1500 ? (
+                                            <div>
+                                                <span className='arsenal-sc-regular'>
+
+                                                {contract[1].amount}/hr
+                                                </span>
+                                            </div>
                                         ) : (
-                                            <Chip onClick={() => blockClientFn(cl[1]._id)}
-                                                sx={{
-                                                    pl: "4px", pr: "4px", backgroundColor: 'green', color: "#fff",
-                                                }} size="small" label='block'
-                                            ></Chip>
+                                            <div>
+                                           <span className='arsenal-sc-regular'>
+
+                                                {contract[1].amount}/day
+                                           </span>
+
+                                            </div>
                                         )
                                     }
                                 </TableCell>
@@ -246,18 +204,29 @@ const ExTable = () => {
                                 <TableCell align="left">
                                     <Typography variant="h6">
                                         <div className='text-left'>
-                                            <ViewUserInAdmin roleId={cl[1]?._id} roleInfo='client' />
+                                           <span className='arsenal-sc-regular'>
+                                           {contract[1].deadline}
+                                           </span>
                                         </div>
                                     </Typography>
                                 </TableCell>
 
                                 <TableCell align="right">
-                                    <Typography variant="h6">{cl[1]?.totalSpend}</Typography>
+                                    <Typography variant="h6" className='arsenal-sc-regular'>
+                                        <span className='arsenal-sc-regular'>
+                                            {contract[1].status}
+                                        </span>
+                                    </Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Typography variant="h6" className='arsenal-sc-regular'>
+                                        <span className='arsenal-sc-regular'>
+                                         <img className='w-4 h-4' src='https://cdn-icons-png.freepik.com/256/13945/13945108.png?ga=GA1.1.1399868062.1739958213&semt=ais_hybrid' />
+                                        </span>
+                                    </Typography>
                                 </TableCell>
 
-                                <TableCell align="right">
-                                    <Typography variant="h6">{cl[1]?.totalHours}</Typography>
-                                </TableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
@@ -323,9 +292,12 @@ const ExTable = () => {
                     </div>
 
                 </div>
-            </section> 
-     
-        </>
+            </section>
+
+
+
+
+        </div>
     );
 };
 

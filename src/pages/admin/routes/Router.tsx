@@ -14,7 +14,10 @@ const Dashboard = lazy(() => import("../views/dashboards/Dashboard1.js"));
 const ClientTable = lazy(() => import("../views/tables/ClientTable.js"));
 const UserTable = lazy(() => import("../views/tables/UserTable.js"));
 
-const Requests = lazy(() => import('../views/extra/Requests.tsx'))
+const Requests = lazy(() => import('../views/extra/Requests.tsx'));
+
+
+const Contracts = lazy(() => import('../views/extra/Contracts.tsx'))
 const Wallet = lazy(() => import('../views/extra/Wallet.tsx'))
 
 
@@ -59,6 +62,12 @@ const ThemeRoutes = [
       
         <Suspense fallback={<div>Loading...</div>}>
           <Wallet />
+        </Suspense>
+      ) }, 
+      { path: "/contracts", element:( 
+      
+        <Suspense fallback={<div>Loading...</div>}>
+          <Contracts />
         </Suspense>
       ) } 
     ],

@@ -27,8 +27,7 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     rating: 0,
     review: null,
   });
-  
-  // alert(userId)
+   
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -55,7 +54,7 @@ export const RateUserModal: React.FC<RateUserProps> = ({
           review,
         }
       );
-      console.log("THE RESPONSE FROM RATE SUBMIT : ", data);
+      
 
       if (data.success) {
          window.location.href = `http://localhost:5173/client/notifications/${userId}/client`
