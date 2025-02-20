@@ -1,11 +1,6 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/z7dBjtRFoLo
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import axios from 'axios';
 import { useEffect } from 'react'
 import {Link, useParams} from 'react-router-dom'
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 
 export default function Component() {
 
@@ -21,7 +16,7 @@ export default function Component() {
 
     (async () => {
 
-       const response: any = await axios.patch(`http://localhost:3000/user/profile/boost/success/${user?.userId}`)
+       const response: any = await apiUserInstance.patch(`/profile/boost/success/${user?.userId}`)
   
     })();
   }, []);

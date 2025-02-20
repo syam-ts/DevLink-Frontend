@@ -122,9 +122,9 @@ const UserProfileAlter = () => {
   const cloudinaryInstance = axios.create({
     baseURL: "https://api.cloudinary.com/v1_1/dusbc29s2/image/upload",
     headers: {
-        "Content-Type": "multipart/form-data",  
+      "Content-Type": "multipart/form-data",
     },
-});
+  });
 
 
   const handleFileUpload = async (e: any) => {
@@ -134,14 +134,14 @@ const UserProfileAlter = () => {
 
     const data = new FormData();
     data.append("file", file),
-    console.log('rist', data)
+      console.log('rist', data)
     //PUT TO ENV
-      data.append("upload_preset", "devlink-userProfle"),
+    data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
     try {
-console.log('file', [...data.entries()])
-const response = await cloudinaryInstance.post("", data); 
+      console.log('file', [...data.entries()])
+      const response = await cloudinaryInstance.post("", data);
       console.log('The respnose', response)
       console.log('The image url : ', response.data?.url);
       setImage(response.data?.url);
@@ -162,7 +162,7 @@ const response = await cloudinaryInstance.post("", data);
     output.onload = function () {
       URL.revokeObjectURL(output.src);
     };
-  }; 
+  };
 
 
   const submitForm = async () => {
@@ -174,10 +174,10 @@ const response = await cloudinaryInstance.post("", data);
       if (type === 'verify') {
         validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
 
-      } else if(type === 'edit') {
-     
+      } else if (type === 'edit') {
+
         validForm = await userProfileEditSchema.validate(formData, { abortEarly: false });
- 
+
       }
 
       if (validForm) {
@@ -187,20 +187,20 @@ const response = await cloudinaryInstance.post("", data);
         }
         setError([])
 
-      //   const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
+          const response: any = await apiUserInstance.put(`http://localhost:3000/user/profile/${type}/${userId}`, data);
 
-      //   if (!response.data.success) {
-      //     toast.warning(response.data.message, {
-      //       style: {
-      //         backgroundColor: "yellow"
-      //       }
-      //     })
-      //   } else {
-      //     const user = response.data.data.user;
-      //     console.log("Dispatching user data to Redux:", user);
-      //     dispatch(updateUser(user))
-      //  //   window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
-      //   }
+          if (!response.data.success) {
+            toast.warning(response.data.message, {
+              style: {
+                backgroundColor: "yellow"
+              }
+            })
+          } else {
+            const user = response.data.data.user;
+            console.log("Dispatching user data to Redux:", user);
+            dispatch(updateUser(user))
+             window.location.href = `http://localhost:5173/user/userProfile/view/${userId}/user-view`
+          }
       } else {
         if (type === 'verify') {
           validForm = await userProfileVerifySchema.validate(formData, { abortEarly: false });
@@ -214,7 +214,7 @@ const response = await cloudinaryInstance.post("", data);
 
     } catch (err: any) {
       console.log("THE eror ", err.errors)
-      setError(err.errors); 
+      setError(err.errors);
     }
   };
 
@@ -256,7 +256,7 @@ const response = await cloudinaryInstance.post("", data);
   const handleRemoveEducation = (educationToRemove: any) => {
     setSkills((prevEducation: any) => prevEducation.filter((skill: any) => skill !== educationToRemove));
   };
- 
+
 
   return (
     <>
@@ -276,7 +276,7 @@ const response = await cloudinaryInstance.post("", data);
             <form className="space-y-8">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className='text-sm text-gray-500'>Full Name</label>
+                  <label className="text-sm text-gray-500">Full Name</label>
                   <input
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
@@ -285,42 +285,46 @@ const response = await cloudinaryInstance.post("", data);
                     type="text"
                   />
                   <hr />
-                  {
-                    error?.some((err: any) => err.includes("FullName is required")) ? (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("FullName is required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("FullName is required") ||
-                          err.includes("Must be atleast 3 characters") ||
-                          err.includes("Must be at least 3 characters and under 20 characters") ||
-                          err.includes("Must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                  }
+                  {error?.some((err: any) =>
+                    err.includes("FullName is required")
+                  )
+                    ? error?.map((err: any, index: number) => {
+                      if (err.includes("FullName is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("FullName is required") ||
+                        err.includes("Must be atleast 3 characters") ||
+                        err.includes(
+                          "Must be at least 3 characters and under 20 characters"
+                        ) ||
+                        err.includes("Must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
                 <div>
-                  <label className='text-xs text-gray-500'>Budget Per Hour</label>
+                  <label className="text-xs text-gray-500">
+                    Budget Per Hour
+                  </label>
                   <input
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
@@ -329,43 +333,43 @@ const response = await cloudinaryInstance.post("", data);
                     type="number"
                   />
                   <hr />
-                  {
-                    error?.some((err: any) => err.includes("Budget is required")) ? (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Budget is required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Budget is required") ||
-                          err.includes("Hourly rate must be at least 100rs") ||
-                          err.includes("Hourly rate must be at most 1500rs")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                  }
+                  {error?.some((err: any) => err.includes("Budget is required"))
+                    ? error?.map((err: any, index: number) => {
+                      if (err.includes("Budget is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("Budget is required") ||
+                        err.includes("Hourly rate must be at least 100rs") ||
+                        err.includes("Hourly rate must be at most 1500rs") ||
+                        err.includes(
+                          "Hourly rate must be at least 100rs - 1500rs characters"
+                        )
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
-
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className='text-xs text-gray-500'>Location</label>
+                  <label className="text-xs text-gray-500">Location</label>
                   <input
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
@@ -374,56 +378,66 @@ const response = await cloudinaryInstance.post("", data);
                     type="text"
                   />
                   <hr />
-                  {
-                    error?.some((err: any) => err.includes("Location is required")) ? (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Location is required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Location is required") ||
-                          err.includes("Must be atleast 4 characters") ||
-                          err.includes("Must be at least 4 characters and under 20 character") ||
-                          err.includes("Must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                  }
+                  {error?.some((err: any) =>
+                    err.includes("Location is required")
+                  )
+                    ? error?.map((err: any, index: number) => {
+                      if (err.includes("Location is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("Location is required") ||
+                        err.includes("Must be atleast 4 characters") ||
+                        err.includes(
+                          "Must be at least 4 characters and under 20 character"
+                        ) ||
+                        err.includes("Must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
-                {
-                  type === 'edit' && (
-                    <div>
-                      <label className='text-xs text-gray-500'>Mobile</label>
-                      <input
-                        onChange={handleChange}
-                        className="outline-none w-full py-2 text-xs px-3"
-                        placeholder="952342*****"
-                        name="mobile"
-                        type="number"
-                      />
-                      <hr />
-
-                    </div>
-                  )
-                }
+                {type === "edit" && (
+                  <div>
+                    <label className="text-xs text-gray-500">Mobile</label>
+                    <input
+                      onChange={handleChange}
+                      className="outline-none w-full py-2 text-xs px-3"
+                      placeholder="952342*****"
+                      name="mobile"
+                      type="number"
+                    />
+                    <hr />
+                    {
+                      error?.map((err: any, index: number) => {
+                        if (err.includes("Need valid number (10 digits only)")) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                )}
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
@@ -442,41 +456,45 @@ const response = await cloudinaryInstance.post("", data);
                     >
                       Add
                     </button>
-                    {
-                      error?.some((err: any) => err.includes("Minimum 3 skills required")) ? (
-                        error?.map((err: any, index: number) => {
-                          if (
-                            err.includes("Minimum 3 skills required")
-                          ) {
-                            return (
-                              <div key={index} className="text-start">
-                                <span className="text-red-400 text-sm">{err}</span>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })
-                      ) : (
-                        error?.map((err: any, index: number) => {
-                          if (
-                            err.includes("Minimum 3 skills required") ||
-                            err.includes("Maximum 10 skills are allowed")
-                          ) {
-                            return (
-                              <div key={index} className="text-start">
-                                <span className="text-red-400 text-sm">{err}</span>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })
-                      )
-                    }
+                    {error?.some((err: any) =>
+                      err.includes("Minimum 3 skills required")
+                    )
+                      ? error?.map((err: any, index: number) => {
+                        if (err.includes("Minimum 3 skills required")) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">
+                                {err}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })
+                      : error?.map((err: any, index: number) => {
+                        if (
+                          err.includes("Minimum 3 skills required") ||
+                          err.includes("Maximum 10 skills are allowed") ||
+                          err.includes("Skill Filed must be at least 2 - 6 data")
+                        ) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">
+                                {err}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
                   </div>
                   {/* <hr className="my-3" /> */}
                   <div>
                     {skills.map((skill: any, index: any) => (
-                      <div key={index} className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2">
+                      <div
+                        key={index}
+                        className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2"
+                      >
                         <span className="text-sm">{skill}</span>
                         <button
                           onClick={() => handleRemoveSkill(skill)}
@@ -489,53 +507,45 @@ const response = await cloudinaryInstance.post("", data);
                   </div>
                 </div>
 
-
-
                 <div className=" items-center space-x-6 ">
                   <div className="shrink-0 ">
                     <img
                       id="preview_img"
                       onChange={handleChange}
                       className="outline-none h-[150px] w-[150px] object-cover rounded-md border"
-                      src={
-                        "https://img.freepik.com/premium-vector/influencer-icon-vector-image-can-be-used-digital-nomad_120816-263441.jpg?semt=ais_hybrid"
-                      }
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Y1gfFOnYmK1eAHFrXdkJT6WLCzw6lQLj_37RtB_JsILz0dlOegv06kCtgvPonHutlOU&usqp=CAU"
                       alt="Current profile photo"
                     />
                   </div>
-                  {
-                    !imageLoading ? (
-
-                      <label
-                        className="block"
-                        onChange={(event: any) => loadFile(event)}
-                      >
-                        <input
-                          type="file"
-                          name="profilePicture"
-                          onChange={handleFileUpload}
-                          accept="image/*"
-                          className="block w-full text-xs text-white pt-3 px-8
-                              file:mr-4 file:py-2 file:px-2
+                  {!imageLoading ? (
+                    <label
+                      className="block"
+                      onChange={(event: any) => loadFile(event)}
+                    >
+                      <input
+                        type="file"
+                        name="profilePicture"
+                        onChange={handleFileUpload}
+                        accept="image/*"
+                        className="block w-full text-xs text-white pt-3 px-3
+                              file:mr-4 file:py-2 file:px-
                               file:rounded-full file:border-0
                               file:text-sm file:font-semibold
                               file:bg-violet-200 file:text-violet-700
                               hover:file:bg-violet-100"
-                        />
-                      </label>
-                    ) : (
-                      <label className='px-3 mx-5 mt-3 text-center py-2 rounded-full  text-sm font-bold bg-violet-200  text-violet-700 hover:bg-violet-100'>
-                        Loading....
-                      </label>
-                    )
-                  }
+                      />
+                    </label>
+                  ) : (
+                    <label className="px-3 mx-5 mt-3 text-center py-2 rounded-full text-sm font-bold bg-violet-200 text-violet-700 hover:bg-violet-100">
+                      Loading....
+                    </label>
+                  )}
                 </div>
               </div>
 
-
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className='text-xs text-gray-500'>Domain</label>
+                  <label className="text-xs text-gray-500">Domain</label>
                   <input
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
@@ -544,56 +554,91 @@ const response = await cloudinaryInstance.post("", data);
                     type="text"
                   />
                   <hr />
-                  {
-                    error?.some((err: any) => err.includes("Domain is required")) ? (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Domain is required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Domain is required") ||
-                          err.includes("Domain must be atleast 10 characters") ||
-                          err.includes("Domain name must be at least 10 -  20 characters") ||
-                          err.includes("Domain must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                  }
+                  {error?.some((err: any) => err.includes("Domain is required"))
+                    ? error?.map((err: any, index: number) => {
+                      if (err.includes("Domain is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("Domain is required") ||
+                        err.includes(
+                          "Domain must be atleast 10 characters"
+                        ) ||
+                        err.includes(
+                          "Domain name must be at least 10 -  20 characters"
+                        ) ||
+                        err.includes("Domain must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
                 <div>
-                  <label className='text-sm text-gray-500'>Github link</label>
+                  <label className="text-sm text-gray-500">Github link</label>
                   <input
                     type="text"
                     name="githubLink"
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
                     placeholder="https://devlink-github.com"
-
                   />
                   <hr />
+                  {error?.some((err: any) => err.includes("github link is required"))
+                    ? error?.map((err: any, index: number) => {
+                      if (err.includes("github link is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("github link is required") ||
+                        err.includes(
+                          "GithubLink must be atleast 10 characters"
+                        ) ||
+                        err.includes(
+                          "GithubLink must be under 30 characters"
+                        ) ||
+                        err.includes("Github link must be at least 10 - 30 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
               </div>
 
               <div>
-                <label className='text-xs text-gray-500'>Description</label>
+                <label className="text-xs text-gray-500">Description</label>
                 <textarea
                   onChange={handleChange}
                   className="outline-none w-full py-2 text-xs px-3"
@@ -602,41 +647,42 @@ const response = await cloudinaryInstance.post("", data);
                 />
                 <hr />
 
-                {
-                  error?.some((err: any) => err.includes("Description is required")) ? (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Description is required")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  ) : (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Description is required") ||
-                        err.includes("Description must be atleast 20 characters") ||
-                        err.includes("Description must be under 100 characters")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  )
-                }
+                {error?.some((err: any) =>
+                  err.includes("Description is required")
+                )
+                  ? error?.map((err: any, index: number) => {
+                    if (err.includes("Description is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                  : error?.map((err: any, index: number) => {
+                    if (
+                      err.includes("Description is required") ||
+                      err.includes(
+                        "Description must be atleast 20 characters"
+                      ) ||
+                      err.includes(
+                        "Descripton must be at least 20 - 100 characters"
+                      ) ||
+                      err.includes("Description must be under 100 characters")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
-                <label className='text-xs text-gray-500'>Why Hire Me</label>
+                <label className="text-xs text-gray-500">Why Hire Me</label>
                 <textarea
                   onChange={handleChange}
                   className="outline-none w-full py-2 text-xs px-3"
@@ -645,41 +691,44 @@ const response = await cloudinaryInstance.post("", data);
                   name="whyHireMe"
                 />
                 <hr />
-                {
-                  error?.some((err: any) => err.includes("Hire me field is required")) ? (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Hire me field is required")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  ) : (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Hire me field is required") ||
-                        err.includes("Hire me filed must be atleast 20 characters") ||
-                        err.includes("Hire me filed must be under 60 characters")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  )
-                }
+                {error?.some((err: any) =>
+                  err.includes("Hire me field is required")
+                )
+                  ? error?.map((err: any, index: number) => {
+                    if (err.includes("Hire me field is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                  : error?.map((err: any, index: number) => {
+                    if (
+                      err.includes("Hire me field is required") ||
+                      err.includes(
+                        "Hire me filed must be atleast 20 characters"
+                      ) ||
+                      err.includes(
+                        "Hire me filed must be under 60 characters"
+                      ) ||
+                      err.includes(
+                        "Hire me Filed must be at least 20 - 60 characters"
+                      )
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
-                <label className='text-xs text-gray-500'>Experience</label>
+                <label className="text-xs text-gray-500">Experience</label>
                 <textarea
                   onChange={handleChange}
                   className="outline-none w-full py-2 text-xs px-3"
@@ -688,37 +737,37 @@ const response = await cloudinaryInstance.post("", data);
                 />
                 <hr />
 
-                {
-                  error?.some((err: any) => err.includes("Experiences are required")) ? (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Experiences are required")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  ) : (
-                    error?.map((err: any, index: number) => {
-                      if (
-                        err.includes("Experiences are required") ||
-                        err.includes("Experience must be atleast 20 characters") ||
-                        err.includes("Experience must be under 60 characters")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  )
-                }
+                {error?.some((err: any) =>
+                  err.includes("Experiences are required")
+                )
+                  ? error?.map((err: any, index: number) => {
+                    if (err.includes("Experiences are required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                  : error?.map((err: any, index: number) => {
+                    if (
+                      err.includes("Experiences are required") ||
+                      err.includes(
+                        "Experience must be atleast 20 characters"
+                      ) ||
+                      err.includes("Experience must be under 60 characters") 
+                      ||
+                      err.includes("Experience Filed must be at least 20 - 60 characters")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
@@ -737,42 +786,51 @@ const response = await cloudinaryInstance.post("", data);
                   >
                     Add
                   </button>
-                  {
-                    error?.some((err: any) => err.includes("Eduction informations are required")) ? (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Eduction informations are required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    ) : (
-                      error?.map((err: any, index: number) => {
-                        if (
-                          err.includes("Eduction informations are required") ||
-                          err.includes("Minimum 2 eduction information needed") ||
-                          err.includes("Maximum 6 eduction information allowed")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">{err}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    )
-                  }
+                  {error?.some((err: any) =>
+                    err.includes("Eduction informations are required")
+                  )
+                    ? error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("Eduction informations are required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                    : error?.map((err: any, index: number) => {
+                      if (
+                        err.includes("Eduction informations are required") ||
+                        err.includes(
+                          "Minimum 2 eduction information needed"
+                        ) ||
+                        err.includes("Maximum 6 eduction information allowed")
+                        ||
+                        err.includes("Education Filed must be at least 2 - 6 data")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
                 {/* <hr className="my-3" /> */}
                 <div>
                   {education.map((education: any, index: any) => (
-                    <div key={index} className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2">
+                    <div
+                      key={index}
+                      className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2"
+                    >
                       <span className="text-sm">{education}</span>
                       <button
                         onClick={() => handleRemoveEducation(education)}
@@ -784,8 +842,6 @@ const response = await cloudinaryInstance.post("", data);
                   ))}
                 </div>
               </div>
-
-
 
               <div className="pt-16">
                 <button

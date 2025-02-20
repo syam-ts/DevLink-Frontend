@@ -27,7 +27,7 @@ interface User {
 
 
 export const ProfileUser = () => {
-
+ console.log('Run this ')
     const { userId, type, clientId }: any = useParams<{userId?: string, type?: string, clientId?: string,}>();
     const [user, setUser] = useState<User>({
         _id: "",
@@ -63,9 +63,11 @@ export const ProfileUser = () => {
                 }
             }
         }
+       
 
         getUserData();
     }, []); 
+ 
 
 
     const fetchChatMessages = async (roleType: string, roleId: string, targetId: string) => {
@@ -109,7 +111,7 @@ export const ProfileUser = () => {
                                                                 </span>
                                                             ) : (
                                                                 <span className=' cursor-pointer bg-transparent'>
-                                                                    <BoostPopover userId={user?._id} />
+                                                                    <BoostPopover userId={userId} />
                                                                 </span>
                                                             )
                                                             }

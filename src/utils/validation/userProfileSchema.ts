@@ -1,17 +1,7 @@
 import * as yup from "yup";
 
-const validFileExtensions: any = {
-  image: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
-};
-
-function isValidFileType(fileName: any, fileType: any) {
-  return (
-    fileName &&
-    validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
-  );
-}
-
-const MAX_FILE_SIZE = 102400;
+const SUPPORTED_FORMATS = ["jpg", "jpeg", "png", "webp"];
+const MAX_FILE_SIZE = 100 * 1024; // 100KB
 
 export const userProfileVerifySchema = yup.object().shape({
   name: yup
@@ -39,6 +29,12 @@ export const userProfileVerifySchema = yup.object().shape({
     .min(4, "Must be atleast 4 characters")
     .max(20, "Must be under 20 characters")
     .required("Location is required"),
+
+  mobile: yup
+    .number()
+    .min(10, "Need to be valid(10 numbers)")
+    .max(11, "Need to be valid(10 numbers only)")
+    .required("Mobile Number is required"),
 
   // CHEKCK VLID IMAGE (JPG, PNG )
   // profilePicture: yup
@@ -93,102 +89,170 @@ export const userProfileVerifySchema = yup.object().shape({
     .max(6, "Maximum 6 eduction information allowed")
     .required("Eduction informations are required"),
 });
- 
+
 
 export const userProfileEditSchema = yup.object().shape({
   name: yup
-  .string()
-  .trim()
-  .test('name-validation', 'Must be at least 3 characters and under 20 characters', (value: any) => { 
-    if (value?.trim().length > 0) {
-      return value.length >= 3 && value.length <= 20;
-    }
-    return true;  
-  }),
+    .string()
+    .trim()
+    .test(
+      "name-validation",
+      "Must be at least 3 characters and under 20 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 3 && value.length <= 20;
+        }
+        return true;
+      }
+    ),
 
   budget: yup
     .number()
-     .test('budget-validation', 'Hourly rate must be at least 100rs - 1500rs characters', (value: any) => { 
-    if (value > 0) {
-      return value.length >= 100 && value.length <= 1500;
-    }
-    return true;  
-  }),
+    .test(
+      "budget-validation",
+      "Hourly rate must be at least 100rs - 1500rs characters",
+      (value: any) => {
+        if (value > 0) {
+          return value >= 100 && value <= 1500;
+        }
+        return true;
+      }
+    ),
 
-
+  mobile: yup
+    .number()
+    .test(
+      "mobile-validation",
+      "Need valid number (10 digits only)",
+      (value: any) => {
+        if (value > 0) {
+          const numStr = value.toString();
+          return numStr.length === 10;
+        }
+        return true;
+      }
+    ),
 
   skills: yup
     .array()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("skills")
-        ? schema.min(3, "Minimum 3 skills required").max(10, "Maximum 10 skills are allowed")
-        : schema.notRequired()
+    .test(
+      "skills-validation",
+      "Skill Filed must be at least 2 - 6 data",
+      (value: any) => {
+        if (value.length > 0) {
+          return value.length >= 2 && value.length <= 6;
+        }
+        return true;
+      }
     ),
 
   location: yup
     .string()
     .trim()
-    .test('location-validation', 'Must be at least 4 characters and under 20 characters', (value: any) => { 
-      if (value?.trim().length > 0) {
-        return value.length >= 4 && value.length <= 20;
+    .test(
+      "location-validation",
+      "Must be at least 4 characters and under 20 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 4 && value.length <= 20;
+        }
+        return true;
       }
-      return true;
-     }),
+    ),
 
-  profilePicture: yup.string().optional(),
+  // profilePicture: yup
+  //   .mixed()
+  //   .test("is-valid-size", "Max allowed size is 100KB", (value: any) => {
+  //     if (!value) return true; // Allow empty values (optional)
+  //     if (typeof value === "string") return true; // Allow URLs
+  //     return value.size <= MAX_FILE_SIZE;
+  //   })
+  //   .test("is-valid-type", "Only JPG, JPEG, PNG, and WEBP formats are allowed", (value: any) => {
+  //     if (!value) return true; // Allow empty values (optional)
+  //     if (typeof value === "string") return true; // Allow URLs
+  //     return value && value.type && SUPPORTED_FORMATS.includes(value.type);
+  //   }),
 
   domain: yup
     .string()
     .trim()
-    .test('domain-validation', 'Domain name must be at least 10 -  20 characters', (value: any) => { 
-      if (value?.trim().length > 0) {
-        return value.length >= 10 && value.length <= 20;
+    .test(
+      "domain-validation",
+      "Domain name must be at least 10 -  20 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 10 && value.length <= 20;
+        }
+        return true;
       }
-      return true;
-     }),
+    ),
 
   githubLink: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("githubLink")
-        ? schema.min(10, "Must be at least 10 characters").max(20, "Must be under 20 characters")
-        : schema.notRequired()
+    .test(
+      "github-validation",
+      "Github link must be at least 10 - 30 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 10 && value.length <= 30;
+        }
+        return true;
+      }
     ),
 
   description: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("description")
-        ? schema.min(20, "Must be at least 20 characters").max(100, "Must be under 100 characters")
-        : schema.notRequired()
+    .test(
+      "description-validation",
+      "Descripton must be at least 20 - 100 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 20 && value.length <= 100;
+        }
+        return true;
+      }
     ),
 
   whyHireMe: yup
     .string()
     .trim()
-    .test('domain-validation', 'Domain name must be at least 10 -  20 characters', (value: any) => { 
-      if (value?.trim().length > 0) {
-        return value.length >= 10 && value.length <= 20;
+    .test(
+      "whyHireMe-validation",
+      "Hire me Filed must be at least 20 - 60 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 20 && value.length <= 60;
+        }
+        return true;
       }
-      return true;
-     }),
+    ),
 
   experience: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("experience")
-        ? schema.min(20, "Must be at least 20 characters").max(60, "Must be under 60 characters")
-        : schema.notRequired()
+    .test(
+      "experience-validation",
+      "Experience Filed must be at least 20 - 60 characters",
+      (value: any) => {
+        if (value?.trim().length > 0) {
+          return value.length >= 20 && value.length <= 60;
+        }
+        return true;
+      }
     ),
 
   education: yup
     .array()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("education")
-        ? schema.min(2, "Minimum 2 education information needed").max(6, "Maximum 6 education information allowed")
-        : schema.notRequired()
+    .test(
+      "education-validation",
+      "Education Filed must be at least 2 - 6 data",
+      (value: any) => {
+        if (value.length > 0) {
+          return value.length >= 2 && value.length <= 6;
+        }
+        return true;
+      }
     ),
 });

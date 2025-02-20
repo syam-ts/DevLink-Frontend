@@ -31,7 +31,7 @@ interface User {
 
 export const UserProfile = () => {
 
-
+ 
     const [user, setUser] = useState<User>({
         _id: "",
         name: "",
@@ -56,8 +56,7 @@ export const UserProfile = () => {
     if (type === 'client-view') clientId = useSelector((state: any) => state.client.currentClient._id);
     const navigate = useNavigate();
 
-
-
+ 
 
     useEffect(() => {
         const getUserData = async () => {
@@ -66,6 +65,7 @@ export const UserProfile = () => {
                 const response = await apiUserInstance.get(`http://localhost:3000/user/profile/view/${userId}`, {
                     withCredentials: true
                 });
+                console.log('The repsn s', response.data.data)
                 setUser(response.data.data);
             } catch (err: any) {
                 if (err.response.data.message == 'No token provided') {
@@ -77,8 +77,7 @@ export const UserProfile = () => {
         getUserData();
     }, []);
 
-
-
+ 
 
 
 
@@ -91,7 +90,7 @@ export const UserProfile = () => {
         }
     };
 
-
+ 
 
 
     return (
@@ -124,7 +123,7 @@ export const UserProfile = () => {
                                                                 </span>
                                                             ) : (
                                                                 <span className=' cursor-pointer bg-transparent'>
-                                                                    <BoostPopover userId={user?._id} />
+                                                                    <BoostPopover userId={userId} />
                                                                 </span>
                                                             )
                                                             }
