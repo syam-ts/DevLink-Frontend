@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { WithdrawMoney } from "./WithdrawMoney";
 
 interface WalletProps {
   roleType: string;
@@ -17,6 +17,7 @@ interface Transactions {
 }
 
 const Wallet: React.FC<WalletProps> = ({ roleType }) => {
+
   const [balance, setBalance] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<any>([]);
@@ -81,15 +82,19 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
                 Balance : {Math.floor(balance)}
               </span>
             </div>
-            <div className="pt-5">
+            {/* <div className="pt-5">
               <hr />
-            </div>
+            </div> */}
 
+            {/* WITHDRAW SECTION */}
+{/* 
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-5 rounded-lg text-white">
-                Withdraw
+               <button>
+                 <WithdrawMoney userId={roleId} />
+               </button>
               </span>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>
