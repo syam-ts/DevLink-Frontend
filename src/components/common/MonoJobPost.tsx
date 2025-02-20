@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { JobProposalModal } from "../shadcn/modal/JobProposalModal";
 import axios from "axios";
-import useUserVerified from "../../hooks/userUserVerified";
+ import useUserVerified  from "../../hooks/userUserVerified";
 
 
 interface JobPost {
@@ -67,8 +67,10 @@ const MonoJobPost = () => {
   });
   const { jobPostId, type } = useParams();
  
-
-  const userVerified = useUserVerified(); 
+let userVerified;
+  if(type === 'user-view') {
+    userVerified = useUserVerified(); 
+  }
  
 
   useEffect(() => {
@@ -80,8 +82,10 @@ const MonoJobPost = () => {
           response = await axios.get(`http://localhost:3000/user/job/view/${jobPostId}`);
           console.log('THe resp ', response)
           setJobPost(response?.data?.jobPost);
-        } else {
-          setJobPost(response?.jobPost);
+        } else if(type === 'client-view') {
+          response = await axios.get(`http://localhost:3000/user/job/view/${jobPostId}`);
+          console.log('reosnpse cli: ', response)
+          setJobPost(response?.data?.jobPost);
         }
       })();
     } catch (err: any) {
@@ -248,9 +252,11 @@ const MonoJobPost = () => {
 
           {
             userVerified && (
-              <button className="rounded-xl bg-[#0000ff] py-3 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
-                Save for later
-              </button>
+              <div>
+                {/* <button className="rounded-xl bg-[#0000ff] py-3 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+                    Save for later
+                   </button> */}
+              </div>
             )
           }
 

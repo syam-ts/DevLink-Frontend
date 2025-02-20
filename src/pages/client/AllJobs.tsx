@@ -73,13 +73,13 @@ const JobsRender: React.FC<JobsRenderProps> = ({ clientId, type }) => {
       {type === "my-jobs" ? (
         <>
           <section className="bg-transparent shadow-sm">
-            <JobPostCard jobs={myJobs} role='client' type={type} />
+            <JobPostCard jobs={myJobs} role='client' type='client-view' />
           </section>
         </>
       ) : type === "progressing-jobs" ? (
         <>
           <section>
-            <JobPostCard jobs={progressingJobs} role='client' type={type} />
+            <JobPostCard jobs={progressingJobs} role='client' type='client-view' />
           </section>
         </>
       ) : null}

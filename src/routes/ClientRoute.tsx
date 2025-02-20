@@ -75,7 +75,7 @@ const ClientRoute = () => {
                 <Route path='/developers/view' element={<ListUsers />} />
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContracts />} />
                 <Route path='/contract/:contractId/:roleType' element={<Contract />} />
-                <Route path='/job/:jobPostId' element={<MonoJobPage />} />
+                <Route path='/job/:jobPostId/:type' element={<MonoJobPage />} />
                 <Route path='/contracts/approvals' element={<ContractApprovals />} />
                 {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="client" />} />

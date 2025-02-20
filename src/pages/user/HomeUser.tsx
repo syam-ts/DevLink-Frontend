@@ -155,9 +155,6 @@ const HomeUser = () => {
               
                 <span className="px-3 text-sm text-white"> {client?.location || "...."}</span>
               </div>
-
-             
-                 
  
               
             </Card>

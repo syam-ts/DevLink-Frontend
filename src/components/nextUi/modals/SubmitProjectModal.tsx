@@ -17,7 +17,6 @@ import { UserState } from "../../../config/state/allState";
 interface SubmitProjectProps {
   contractId: string | undefined;
   jobTitle: string;
-  coverImageUrl: string;
 }
 
 interface FormData {

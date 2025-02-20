@@ -33,7 +33,9 @@ const Requests: any = () => {
 
       const response = await axios.put('http://localhost:3000/admin/verifyClient/accept',data );
 
-       toast.success(response.data.message)
+       if(response.data.success) {
+        window.location.href='/admin/index/requests'
+       }
     
     }catch (err: any) {
       console.log('ERROR: ', err.message);

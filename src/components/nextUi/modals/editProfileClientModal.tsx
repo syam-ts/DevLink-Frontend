@@ -6,12 +6,12 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { addRequest } from "../../../redux/slices/adminSlice";
 import { useDispatch } from "react-redux";
+import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
 
 interface EditClientModalProps {
   clientId: string;
@@ -53,8 +53,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get(
-        `http://localhost:3000/client/profile/view/${clientId}`,
+      const response = await apiClientInstance.get(`/profile/view/${clientId}`,
         {
           withCredentials: true,
         }

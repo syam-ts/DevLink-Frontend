@@ -91,14 +91,14 @@ export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
               </Link>
             </NavigationMenuTrigger>
 
-            <NavigationMenuTrigger>
+            {/* <NavigationMenuTrigger>
               <Link
                 to={`/${roleType}/invite/view/${roleInfo?._id}/user`}
                 className="no-underline text-black"
               >
                 <button>Invites</button>
               </Link>
-            </NavigationMenuTrigger>
+            </NavigationMenuTrigger> */}
             {/* <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
            

@@ -30,12 +30,6 @@ export const userProfileVerifySchema = yup.object().shape({
     .max(20, "Must be under 20 characters")
     .required("Location is required"),
 
-  mobile: yup
-    .number()
-    .min(10, "Need to be valid(10 numbers)")
-    .max(11, "Need to be valid(10 numbers only)")
-    .required("Mobile Number is required"),
-
   // CHEKCK VLID IMAGE (JPG, PNG )
   // profilePicture: yup
   // .mixed()
@@ -89,7 +83,6 @@ export const userProfileVerifySchema = yup.object().shape({
     .max(6, "Maximum 6 eduction information allowed")
     .required("Eduction informations are required"),
 });
-
 
 export const userProfileEditSchema = yup.object().shape({
   name: yup

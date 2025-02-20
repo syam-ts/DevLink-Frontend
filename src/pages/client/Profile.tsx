@@ -28,20 +28,21 @@ const Profile = () => {
 
 
   useEffect(() => {
-    const getClientData = async () => {
+     (async () => {
       try {
         const response = await apiClientInstance.get(`/profile/view/${clientId}`, {
           withCredentials: true
         });
+        console.log('The result: ', response.data.data)
 
         setIsVerified(response.data?.data?.isVerified)
         setClient(response.data?.data);
       } catch (err: any) {
         console.log(err.message);
       }
-    };
+    })();
 
-    getClientData();
+   
   }, []);
 
 

@@ -81,6 +81,7 @@ const DraftJobPost = () => {
 
 
   const paymentFunction = async () => {
+   
 
     try { 
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
@@ -165,7 +166,7 @@ const DraftJobPost = () => {
                     if (
                       err.includes("Title is required") ||
                       err.includes("Must be atleast 10 characters") ||
-                      err.includes("Must be under 30 characters")
+                      err.includes("Must be under 50 characters")
                     ) {
                       return (
                         <div key={index} className="text-start">
@@ -209,7 +210,7 @@ const DraftJobPost = () => {
                       if (
                         err.includes("KeyResponsiblities is required") ||
                         err.includes("KeyResponsiblities must be between (20 to 50 characters") ||
-                        err.includes("KeyResponsiblities should under 60")
+                        err.includes("KeyResponsiblities should under 80")
                       ) {
                         return (
                           <div key={index} className="text-start">
@@ -496,8 +497,8 @@ const DraftJobPost = () => {
                   error.map((err: any, index: number) => {
                     if (
                       err.includes("Description is required") ||
-                      err.includes("Description should have atleast 20 200 characters") ||
-                      err.includes("Maximum characters are 200")
+                      err.includes("Description should have atleast 20 300 characters") ||
+                      err.includes("Maximum characters are 300")
                     ) {
                       return (
                         <div key={index} className="text-start">
@@ -521,7 +522,7 @@ const DraftJobPost = () => {
                         handleChange(e);
                       }}
                       className="w-full px-4 pt-3 outline-none text-sm"
-                      placeholder="250rs"
+                      placeholder="15hrs"
                       name="estimateTime"
                       type="number"
                       min="100"
@@ -555,7 +556,7 @@ const DraftJobPost = () => {
                     <input
                       onChange={handleChange}
                       className="w-full px-4 pt-3 outline-none text-sm"
-                      placeholder="15000"
+                      placeholder="15hrs"
                       name="estimateTime"
                       type="number"
                     />
