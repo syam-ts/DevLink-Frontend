@@ -32,7 +32,7 @@ const JobProposals = () => {
     (async () => {
       try {
         const { data } = await apiUserInstance.get(
-          `http://localhost:3000/user/job/proposals/${userId}`
+          `/job/proposals/${userId}`
         );
 
         setData(data?.proposals);
@@ -44,7 +44,7 @@ const JobProposals = () => {
 
 
 
-  console.log("The prosp: ", data);
+  
   return (
     <main>
       <section className="pt-5 arsenal-sc-regular">

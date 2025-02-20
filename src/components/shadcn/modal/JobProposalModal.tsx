@@ -74,8 +74,9 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               body,
             }
           );
+         
 
-          if (!data.success) {
+          if (!data.success) { 
             toast.error(data.message, {
               style: {
                 backgroundColor: "yellow",
@@ -93,12 +94,21 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               window.location.href = `http://localhost:5173/user/jobs/proposals`;
             }, 500);
           }
-        } catch (err: any) {
-          console.log(err.message);
+        } catch (err: any) { 
+          toast.error(err.response.data.message, {
+            style: {
+              backgroundColor: "#f5e905",
+              color: "black",
+              border: "none",
+              width: "14rem",
+              height: "3rem",
+            },
+            position: "top-center"
+          });
         }
       }
     } catch (err: any) {
-      console.log("ERROR: ", err.errors);
+      console.log("ERROR: ", err);
       setError(err.errors);
       toast.error(err.message.response.data.message);
     }

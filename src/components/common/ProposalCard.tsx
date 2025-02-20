@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { addNotification } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 interface ProposalCardProps {
     proposals: string[];
@@ -17,6 +18,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
 }) => {
 
   const dispatch = useDispatch();
+  console.log('Pro', proposals[0])
 
   const acceptProposal = async (
     userId: string,
@@ -33,8 +35,8 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         bidAmount: bidAmount,
         bidDeadline: bidDeadline,
       };
-      const { data } = await apiUserInstance.post(
-        "http://localhost:3000/client/job/createContract",
+      const { data } = await apiClientInstance.post(
+        "/job/createContract",
         body
       );
 
@@ -51,7 +53,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         });
 
         setTimeout(() => {
-          //   window.location.href = 'http://localhost:5173/client/jobs/proposals';
+          window.location.href = 'http://localhost:5173/client/jobs/proposals';
         }, 500);
       }
     } catch (err: any) {
@@ -70,15 +72,15 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         clientId: roleId,
         jobPostId: jobPostId,
       };
-      const { data } = await apiUserInstance.put(
-        "http://localhost:3000/client/job/proposal/reject",
+      const { data } = await apiClientInstance.put(
+        "/job/proposal/reject",
         body
       );
-
+   
       if (data.success) {
         toast.success("Proposal Rejected", {
           style: {
-            backgroundColor: "green",
+            backgroundColor: "#35f505",
             color: "white",
           },
         });
@@ -133,8 +135,26 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           </div>
 
           <div className="flex justify-end pr-12 gap-3">
-            <div>
+           {
+            roleType === 'user' && (
+              <div>
               <button
+                  className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
+                  type="button"
+                > 
+                  <Link
+                    to={`/${roleType}/job/${proposal[1]?.jobPostId}/user-view`}
+                    className="no-underline text-white font-bold "
+                  >
+                    View
+                  </Link>
+                </button>
+              </div>
+            )
+           }
+            {roleType === "client" && (
+              <div className="flex gap-3">
+                    <button
                 className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
                 type="button"
               >
@@ -145,9 +165,6 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                   View
                 </Link>
               </button>
-            </div>
-            {roleType === "client" && (
-              <div className="flex gap-3">
                 <div>
                   <button
                     onClick={() =>
