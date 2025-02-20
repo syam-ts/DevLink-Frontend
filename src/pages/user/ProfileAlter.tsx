@@ -304,6 +304,7 @@ const response = await cloudinaryInstance.post("", data);
                         if (
                           err.includes("FullName is required") ||
                           err.includes("Must be atleast 3 characters") ||
+                          err.includes("Must be at least 3 characters and under 20 characters") ||
                           err.includes("Must be under 20 characters")
                         ) {
                           return (
@@ -392,6 +393,7 @@ const response = await cloudinaryInstance.post("", data);
                         if (
                           err.includes("Location is required") ||
                           err.includes("Must be atleast 4 characters") ||
+                          err.includes("Must be at least 4 characters and under 20 character") ||
                           err.includes("Must be under 20 characters")
                         ) {
                           return (
@@ -561,6 +563,7 @@ const response = await cloudinaryInstance.post("", data);
                         if (
                           err.includes("Domain is required") ||
                           err.includes("Domain must be atleast 10 characters") ||
+                          err.includes("Domain name must be at least 10 -  20 characters") ||
                           err.includes("Domain must be under 20 characters")
                         ) {
                           return (

@@ -128,22 +128,24 @@ export const userProfileEditSchema = yup.object().shape({
   location: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("location")
-        ? schema.min(4, "Must be at least 4 characters").max(20, "Must be under 20 characters")
-        : schema.notRequired()
-    ),
+    .test('location-validation', 'Must be at least 4 characters and under 20 characters', (value: any) => { 
+      if (value?.trim().length > 0) {
+        return value.length >= 4 && value.length <= 20;
+      }
+      return true;
+     }),
 
   profilePicture: yup.string().optional(),
 
   domain: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("domain")
-        ? schema.min(10, "Must be at least 10 characters").max(20, "Must be under 20 characters")
-        : schema.notRequired()
-    ),
+    .test('domain-validation', 'Domain name must be at least 10 -  20 characters', (value: any) => { 
+      if (value?.trim().length > 0) {
+        return value.length >= 10 && value.length <= 20;
+      }
+      return true;
+     }),
 
   githubLink: yup
     .string()
@@ -166,11 +168,12 @@ export const userProfileEditSchema = yup.object().shape({
   whyHireMe: yup
     .string()
     .trim()
-    .when("$editingFields", (editingFields, schema) =>
-      editingFields?.includes("whyHireMe")
-        ? schema.min(20, "Must be at least 20 characters").max(60, "Must be under 60 characters")
-        : schema.notRequired()
-    ),
+    .test('domain-validation', 'Domain name must be at least 10 -  20 characters', (value: any) => { 
+      if (value?.trim().length > 0) {
+        return value.length >= 10 && value.length <= 20;
+      }
+      return true;
+     }),
 
   experience: yup
     .string()
