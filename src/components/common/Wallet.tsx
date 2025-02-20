@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+import { apiClientInstance } from '../../api/axiosInstance/axiosClientRequest';
 
 interface Transactions {
     type: string;
@@ -11,6 +13,7 @@ interface Transactions {
 }
 
 const Wallet = ({ roleType }: any) => {
+
     const [balance, setBalance] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages]: any = useState([]);
@@ -22,21 +25,31 @@ const Wallet = ({ roleType }: any) => {
 
         (async () => {
             try {
-                const { data } = await axios.get(
-                    `http://localhost:3000/${roleType}/wallet/view/${roleId}?currentPage=${currentPage}`,
-                    {
-                        withCredentials: true,
-                    }
-                );
+                let response: any;
 
-                if (totalPages[0] !== data?.wallet.totalPages)
+                if(roleType === 'user') { 
+                    response = await apiUserInstance.get(
+                        `/wallet/view/${roleId}?currentPage=${currentPage}`,
+                        {
+                            withCredentials: true,
+                        }
+                    );
+                } else {
+                    response = await apiClientInstance.get(
+                        `/wallet/view/${roleId}?currentPage=${currentPage}`,
+                        {
+                            withCredentials: true,
+                        }
+                    );                }
+
+                if (totalPages[0] !== response.data?.wallet.totalPages)
                     setTotalPages((prevPages: any) => [
                         ...prevPages,
-                        data?.wallet?.totalPages,
+                        response.data?.wallet?.totalPages,
                     ]);
 
-                setBalance(data?.wallet[0]?.balance);
-                setTransactions(data.wallet[0]?.transactions);
+                setBalance(response.data?.wallet[0]?.balance);
+                setTransactions(response.data.wallet[0]?.transactions);
             } catch (err: any) {
                 toast.error(err.message, {
                     style: {
