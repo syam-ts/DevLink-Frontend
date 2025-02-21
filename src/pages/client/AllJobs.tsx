@@ -50,10 +50,9 @@ const JobsRender: React.FC<JobsRenderProps> = ({ clientId, type }) => {
     try {
       (async () => {
         const response = await apiClientInstance.get(
-          `http://localhost:3000/client/jobs/${type}/${clientId}`
+          `/jobs/${type}/${clientId}`
         );
-
-        console.log("The response ", response?.data);
+ 
         if (type === "my-jobs") {
           setMyJobs(response.data?.data);
         } else if (type === "progressing-jobs") {

@@ -26,7 +26,6 @@ function AllContract() {
           );
         }
 
-        console.log("THE RESPONSE FROM MY-CONTRRAC ", response.data);
         setContracts(response.data?.data);
       })();
     } catch (err: any) {

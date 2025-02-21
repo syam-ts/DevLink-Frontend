@@ -6,8 +6,7 @@ import { Sonner } from '../../components/sonner/Toaster';
 
 const VerfiyEmail = () => {
 
-  const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
-
+  const [sonner, setSonner] = useState({ message: "", timestamp: 0 }); 
 
   useEffect(() => {
 

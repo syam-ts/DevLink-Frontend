@@ -1,10 +1,9 @@
 import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
-import { useEffect } from 'react';
+import { jwtDecode } from "jwt-decode"; 
 import { useNavigate } from 'react-router-dom';
 import { signInUser } from '../../redux/slices/userSlice' 
 import { useDispatch } from 'react-redux';
-
+import config from '../../config/helper/config'
 import axios from 'axios';
 
 const Google = ({role}: any) => {
@@ -19,7 +18,7 @@ const Google = ({role}: any) => {
                     let credentialResponseDecode: any = jwtDecode(credentialResponse.credential)
                     let data = {email: credentialResponseDecode.email, name: credentialResponseDecode.given_name, password: credentialResponseDecode.jti}
                 console.log(credentialResponseDecode.email, 'and ',credentialResponseDecode.name , 'whole data : ', credentialResponseDecode);
-                const response = await axios.post(`http://localhost:3000/${role}/googleLogin`,data,  {
+                const response = await axios.post(`${config.VITE_SERVER_URL}/${role}/googleLogin`,data,  {
                     withCredentials: true,  
                   } );
                 console.log(response.data.message);

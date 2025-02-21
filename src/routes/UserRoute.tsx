@@ -20,8 +20,7 @@ import ListAllClientChat from '../components/common/ViewAllChats'
 import Wallet from '../components/common/Wallet';
 import InviteComponent from '../components/common/Invite'
  
-import Notifications from '../components/common/NotificationCard'
-import NotificationsUser from '../pages/user/NotificationsUser';   
+import Notifications from '../components/common/NotificationCard' 
 import SignupComponent from '../components/common/SignupComponent'; 
  
  
@@ -52,9 +51,7 @@ const UserRoute = () => {
     return (
         <>
           { showNavAndFooter(location.pathname) && <Navbar roleType='user' roleInfo={user} />}
-            <Routes>
-
-
+            <Routes> 
                <Route path='/login' element={<LoginComponent />} />
                <Route path='/signup' element={<SignupComponent />} />
             {/*  <Route path='/signup' element={<SignupUser />} /> */} 
@@ -68,11 +65,9 @@ const UserRoute = () => {
                 <Route path='/jobs/proposals' element={<Proposals />} />  
                 <Route path='/contract/:contractId/:roleType' element={<Contract />} /> 
                 <Route path='/profile/boost/success/:userId' element={<BoostPaymentSuccess />} />
-                <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} />
-                <Route path='/notifications/:roleId/:role' element={<NotificationsUser />} />  
+                <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} /> 
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="user" />} />
-                <Route path='/invite/view/:roleId/:type' element={<InviteComponent />} />
- 
+                <Route path='/invite/view/:roleId/:type' element={<InviteComponent />} /> 
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllClientChat />} />  
                 <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />

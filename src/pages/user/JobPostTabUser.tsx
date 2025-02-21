@@ -7,8 +7,7 @@ import { ClientState } from '../../config/state/allState'
 export default function ClientJobTabs() {
  
     const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id);
-
-  
+ 
   let tabs = [
     {
       id: "my-jobs",

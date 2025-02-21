@@ -2,24 +2,27 @@ import { Link } from "react-router-dom";
 
 interface Jobs {
   jobs: {
-    _id: string,
-    title: string,
-    description: string,
-    expertLevel: string,
-    location: string,
-    amount: number,
-    paymentType: string,
-    estimateTimeinHours: string,
-    projectType: string
-  }
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string;
+  };
 }
 
-
-
-export const JobPostCard = ({ jobs, role, type }: { jobs: Jobs, role: string, type: string }) => {
-
-
-
+export const JobPostCard = ({
+  jobs,
+  role,
+  type,
+}: {
+  jobs: Jobs;
+  role: string;
+  type: string;
+}) => {
   return (
     <div>
       {Object.entries(jobs).map((job: any) => (
@@ -52,7 +55,10 @@ export const JobPostCard = ({ jobs, role, type }: { jobs: Jobs, role: string, ty
                 className="rounded-md bg-black px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                 type="button"
               >
-                <Link to={`/${role}/job/${job[1]?._id}/${type}`} className='no-underline text-white'>
+                <Link
+                  to={`/${role}/job/${job[1]?._id}/${type}`}
+                  className="no-underline text-white"
+                >
                   View
                 </Link>
               </button>

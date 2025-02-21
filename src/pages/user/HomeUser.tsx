@@ -9,6 +9,8 @@ import { Chatbot } from "./ChatBot";
 import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal"; 
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
  
+interface Clients {};
+interface Jobs {};
 
 const HomeUser = () => {
 
@@ -19,7 +21,7 @@ const HomeUser = () => {
   const [totalHours, setTotalHours]: any  = useState("{}"); 
   const [verifiedAccounts, setVerifiedAccounts]: any  = useState("{}"); 
   const userId = useSelector((state: any) => state?.user?.currentUser?._id);
-   const user = useSelector((state: any) => state?.user?.currentUser);
+  const user = useSelector((state: any) => state?.user?.currentUser);
  
    
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -50,19 +52,15 @@ const HomeUser = () => {
 
 
   useEffect(() => {
-
     (async () => {
-      const {data} = await apiUserInstance.get(`/home/listAllJobs`)
-  
+      const { data } = await apiUserInstance.get(`/home/listAllJobs`);
+
       setJobs(data?.data?.allJobs);
       setTotalJobs(data?.data?.totalJobs);
-      setTotalHours(data?.data?.totalHours[0]?.sum); 
+      setTotalHours(data?.data?.totalHours[0]?.sum);
       setVerifiedAccounts(data?.data?.verifiedAccounts);
     })();
-
   }, []);
- 
-
   
 
   useEffect(() => {

@@ -13,9 +13,7 @@ const ResetPassword = () => {
 
  const { clientId } = useParams();
   const message = useLocation();
-  const navigate = useNavigate();
-  
-
+  const navigate = useNavigate(); 
  
  
   useEffect(() => {

@@ -8,18 +8,12 @@ import { useParams } from 'react-router-dom';
 const ResetPassword = () => {
 
   const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
- 
- 
-
+    
  const { userId } = useParams();
   const message = useLocation();
-  const navigate = useNavigate();
-  
+  const navigate = useNavigate(); 
 
- 
- 
-  useEffect(() => {
-
+  useEffect(() => { 
     if (sonner.message) {
       toast.error(sonner.message, {
         style: {
@@ -30,7 +24,6 @@ const ResetPassword = () => {
     }
     setSonner({ message: "", timestamp: 0 })
    }, [sonner.message]);
-
  
 
   const [formData, setFormData] = useState({
@@ -49,9 +42,7 @@ const ResetPassword = () => {
   const handleSubmit = async () => {
         
     try {
-
-      
-    
+ 
      const response = await axios.post(`http://localhost:3000/user/resetPassword/${userId}`, formData, {
       withCredentials: true, 
     }) 

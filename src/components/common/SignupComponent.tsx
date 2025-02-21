@@ -5,7 +5,7 @@ import { Sonner } from '../sonner/Toaster';
 import { toast } from 'sonner';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/signupSchema';
-
+import config from '../../config/helper/config'
 
 
 const SignupComponent = () => {
@@ -47,7 +47,7 @@ const SignupComponent = () => {
  
       if (validForm) {
         try {
-          const response = await axios.post(`http://localhost:3000/${rt}/signup`,
+          const response = await axios.post(`${config.VITE_SERVER_URL}/${rt}/signup`,
             formData, {
             withCredentials: true,
           }); 

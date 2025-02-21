@@ -20,8 +20,7 @@ interface JobPost {
 }
 
 const DraftJobPost = () => {
-
-
+ 
   const [skills, setSkills] = useState<string[]>([]);
   const [error, setError] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string | number>();
@@ -39,11 +38,9 @@ const DraftJobPost = () => {
     location: ""
   });
   const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id);
+ 
 
-
-
-  useEffect(() => {
-    
+  useEffect(() => { 
     formData.requiredSkills = skills;
   }, [skills]);
 
@@ -80,9 +77,7 @@ const DraftJobPost = () => {
   console.log('Errors', error);
 
 
-  const paymentFunction = async () => {
-   
-
+  const paymentFunction = async () => { 
     try { 
       const validForm = await jobPostSchema.validate(formData, { abortEarly: false });
       if (validForm) {

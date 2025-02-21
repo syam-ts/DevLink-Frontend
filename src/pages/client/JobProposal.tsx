@@ -18,12 +18,9 @@ const JobProposals = () => {
     type: "",
     description: "",
     userId: 0,
-  });
- 
+  }); 
   const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id)
-
   
-
   useEffect(() => {
     (async () => {
       try {

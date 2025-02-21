@@ -8,6 +8,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import Google from '../../components/common/Google';
 import { Link, useSearchParams } from 'react-router-dom';
+import config from '../../config/helper/config'
 
 const LoginComponent = () => {
  
@@ -31,7 +32,7 @@ const LoginComponent = () => {
       const validForm = await userLoginSchema.validate(formData, { abortEarly: false });
       if (validForm) {
         try {
-          const { data } = await axios.post(`http://localhost:3000/${rt}/login`,
+          const { data } = await axios.post(`${config.VITE_SERVER_URL}/${rt}/login`,
             formData, {
             withCredentials: true,
           });

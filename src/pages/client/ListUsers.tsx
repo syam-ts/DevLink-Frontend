@@ -1,17 +1,13 @@
-import { ClientState } from "../../config/state/allState";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react" 
 import { Link } from "react-router-dom";
 
 
 function ListUsers() {
 
-  const [developers, setDevelopers] = useState({});
-  const clientId: string = useSelector((state: ClientState) => state?.client?.currentClient?._id)
+  const [developers, setDevelopers] = useState({}); 
 
-  useEffect(() => {
-
+  useEffect(() => { 
     try {
       (async () => {
         const { data } = await apiClientInstance.get('/developers/allDevelopers');

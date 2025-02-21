@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { addNotification } from "../../redux/slices/userSlice";
-import { useDispatch } from "react-redux";
-import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { useDispatch } from "react-redux"; 
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import config from '../../config/helper/config';
 
+type Id = string;
 interface ProposalCardProps {
   proposals: string[];
   roleType: string;
-  roleId: string;
-}
+  roleId: Id;
+};
+
 
 export const ProposalCard: React.FC<ProposalCardProps> = ({
   proposals,
   roleType,
   roleId,
 }) => {
-  const dispatch = useDispatch();
-  console.log("Pro", proposals[0]);
+
+  const dispatch = useDispatch(); 
 
   const acceptProposal = async (
-    userId: string,
-    clientId: string,
-    jobPostId: string,
+    userId: Id,
+    clientId: Id,
+    jobPostId: Id,
     bidAmount: number,
     bidDeadline: number
   ) => {
@@ -52,7 +54,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         });
 
         setTimeout(() => {
-          window.location.href = "http://localhost:5173/client/jobs/proposals";
+          window.location.href = `${config.BASE_URL}/client/jobs/proposals`;
         }, 500);
       }
     } catch (err: any) {
@@ -61,9 +63,8 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   };
 
   const rejectProposal = async (
-    userId: string,
-    clientId: string,
-    jobPostId: string
+    userId: Id,
+    jobPostId: Id
   ) => {
     try {
       const body = {
@@ -84,7 +85,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           },
         });
         setTimeout(() => {
-          window.location.href = "http://localhost:5173/client/jobs/proposals";
+          window.location.href = `${config.BASE_URL}/client/jobs/proposals`;
         }, 500);
       } else {
         toast.error(data.message, {
@@ -166,8 +167,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                     onClick={() =>
                       rejectProposal(
                         proposal[1]?.userId,
-                        proposal[1]?.clientId,
-                        proposal[1]?.jobPostId
+                        proposal[1]?.clientId
                       )
                     }
                     className="rounded-full bg-[#fd2b2b] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"

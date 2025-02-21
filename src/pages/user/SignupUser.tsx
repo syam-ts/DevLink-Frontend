@@ -5,13 +5,10 @@ import Google from '../../components/common/Google';
 import { Sonner } from '../../components/sonner/Toaster';
 import { toast } from "sonner";
 
-const SignupUser = () => {
- 
- 
-  const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
+const SignupUser = () => { 
 
-  const navigate: any = useNavigate();
- 
+  const [sonner, setSonner] = useState({ message: "", timestamp: 0 }); 
+  const navigate: any = useNavigate(); 
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -19,8 +16,7 @@ const SignupUser = () => {
     mobile: 0
   });
  
- useEffect(() => {
-
+ useEffect(() => { 
   if (sonner.message) {
     toast.error(sonner.message, {
       style: {
@@ -33,8 +29,7 @@ const SignupUser = () => {
  }, [sonner.message]);
  
 
-  const handleChange = (e: any) => {
-  
+  const handleChange = (e: any) => { 
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -42,8 +37,7 @@ const SignupUser = () => {
     }));
   }
 
-  const handleSubmit = async () => {
-       
+  const handleSubmit = async () => { 
     try { 
       const response = await axios.post('http://localhost:3000/user/signup', formData); 
 

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance'
+ 
 
 interface Invite {
     clientId?: String;
@@ -49,7 +50,7 @@ const InviteComponent = () => {
         try {
 
             (async () => {
-                const { data } = await axios.get(`http://localhost:3000/user/invites/view/${roleId}`);
+                const { data } = await apiUserInstance.get(`/invites-view/${roleId}`);
 
                 setInvites(data.invites);
             })();

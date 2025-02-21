@@ -10,8 +10,6 @@ function ListAllUserChat() {
     const [data, setData] = useState({}); 
     const {roleType, roleId}= useParams<{roleType?: string, roleId?: string}>();
     const [currentRoleId, setCurrentRoleId] = useState<string>("");
-
- 
  
 
     useEffect(() => {
@@ -25,15 +23,11 @@ function ListAllUserChat() {
                  response = await apiClientInstance.get(`/allChat/view/${roleId}`); 
             }
                
-            setData(response.data.data)
-
+            setData(response.data.data); 
         })();
 
     }, []);
- 
-
-   
-
+  
 
 
     return (

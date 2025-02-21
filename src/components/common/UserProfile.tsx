@@ -13,6 +13,7 @@ import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";
 import ReviewCard from "../common/ReviewCard";
+import config from '../../config/helper/config'
 // import { InviteModal } from '../nextUi/modals/InviteUserModal';
 
 interface User {
@@ -90,8 +91,7 @@ export const UserProfile = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const { data } = await apiUserInstance.get(
-          `http://localhost:3000/user/profile/view/${userId}`,
+        const { data } = await apiUserInstance.get(`/profile/view/${userId}`,
           {
             withCredentials: true,
           }
@@ -114,7 +114,7 @@ export const UserProfile = () => {
     targetId: string
   ) => {
     const { data } = await apiUserInstance.get(
-      `http://localhost:3000/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`,
+      `${config.VITE_SERVER_URL}/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`,
       {
         withCredentials: true,
       }

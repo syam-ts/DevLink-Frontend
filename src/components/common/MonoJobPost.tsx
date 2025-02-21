@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { JobProposalModal } from "../shadcn/modal/JobProposalModal";
-import axios from "axios";
- import useUserVerified  from "../../hooks/userUserVerified";
- import { apiUserInstance } from '.././../api/axiosInstance/axiosUserInstance';
- import { apiClientInstance } from '.././../api/axiosInstance/axiosClientRequest';
+import { JobProposalModal } from "../shadcn/modal/JobProposalModal"; 
+import { apiUserInstance } from '.././../api/axiosInstance/axiosUserInstance';
+import { apiClientInstance } from '.././../api/axiosInstance/axiosClientRequest';
+import useUserVerified  from "../../hooks/userUserVerified";
 
 
 interface JobPost {

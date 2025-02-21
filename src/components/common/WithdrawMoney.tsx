@@ -8,13 +8,13 @@ interface WithdrawMoneyProps {
 
 export const WithdrawMoney: React.FC<WithdrawMoneyProps> = ({ userId }) => {
 
-    const [showForm, setShowForm] = useState(false);
-  const [amount, setAmount] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [routingNumber, setRoutingNumber] = useState("");
-  const [currency, setCurrency] = useState("inr");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+    const [showForm, setShowForm] = useState<boolean>(false);
+  const [amount, setAmount] = useState<string>("");
+  const [accountNumber, setAccountNumber] = useState<string>("");
+  const [routingNumber, setRoutingNumber] = useState<string>("");
+  const [currency, setCurrency] = useState<string>("inr");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   const handleWithdraw = async (e: any) => {
     e.preventDefault();

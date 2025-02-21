@@ -1,34 +1,33 @@
-import { useEffect } from 'react'
-import {Link, useParams} from 'react-router-dom'
-import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
 export default function Component() {
+  const user = useParams();
 
-    const user = useParams()
+  let timestamp = Date.now(),
+    date = new Date(timestamp);
+  const options: any = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = date.toLocaleString("en-US", options);
 
-    let timestamp = Date.now(), date = new Date(timestamp); 
-    const options: any = { year: 'numeric', month: 'long', day: 'numeric'};
-    const formattedDate = date.toLocaleString('en-US', options);
-
-    let refrenecNumber: number = Math.round(Math.random() * 109433000);
+  let refrenecNumber: number = Math.round(Math.random() * 109433000);
 
   useEffect(() => {
-
     (async () => {
-
-       const response: any = await apiUserInstance.patch(`/profile/boost/success/${user?.userId}`)
-  
+      const response: any = await apiUserInstance.patch(
+        `/profile/boost/success/${user?.userId}`
+      );
     })();
   }, []);
 
-
   return (
     <div className="flex flex-col min-h-screen">
- 
       <main className="flex flex-col items-center justify-center flex-grow text-center p-4 md:p-6">
         <CircleCheckIcon className="h-16 w-16 text-green-500" />
         <h1 className="mt-4 text-2xl font-semibold">Payment Successful</h1>
-        <p className="mt-2 text-gray-500 dark:text-gray-400">Thank you for your purchase!</p>
+        <p className="mt-2 text-gray-500 dark:text-gray-400">
+          Thank you for your purchase!
+        </p>
         <div className="mt-6 border rounded-lg p-4 w-full max-w-md">
           <div className="flex justify-between text-sm">
             <span>Amount Paid:</span>
@@ -36,9 +35,7 @@ export default function Component() {
           </div>
           <div className="flex justify-between text-sm mt-2">
             <span>Date & Time:</span>
-            <span className="font-medium">
-                {formattedDate}
-                 </span>
+            <span className="font-medium">{formattedDate}</span>
           </div>
           <div className="flex justify-between text-sm mt-2">
             <span>Reference Number:</span>
@@ -53,10 +50,12 @@ export default function Component() {
         </Link>
       </main>
       <footer className="flex items-center justify-center h-14 border-t">
-        <p className="text-sm text-gray-500 dark:text-gray-400">&copy; 2024 Acme Inc. All rights reserved.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          &copy; 2024 Acme Inc. All rights reserved.
+        </p>
       </footer>
     </div>
-  )
+  );
 }
 
 function CircleCheckIcon(props: any) {
@@ -76,9 +75,8 @@ function CircleCheckIcon(props: any) {
       <circle cx="12" cy="12" r="10" />
       <path d="m9 12 2 2 4-4" />
     </svg>
-  )
+  );
 }
-
 
 // function MountainIcon(props: any) {
 //   return (

@@ -12,7 +12,7 @@ import axios from "axios";
 
 import { Avatar } from "@nextui-org/react";
 import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
-import useUserVerified from "../../hooks/userUserVerified";
+import config from '../../config/helper/config'
 
 
 const Navbar = ({ roleType, roleInfo }: any) => {
@@ -24,7 +24,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
   const logout = async () => {
     const response = await axios.post(
-      `http://localhost:3000/${roleType}/logout`, {},
+      `${config.VITE_SERVER_URL}/${roleType}/logout`, {},
       { withCredentials: true }
     );
 
