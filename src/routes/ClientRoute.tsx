@@ -12,7 +12,7 @@ import PaymentSuccess from '../pages/client/SuccessPayment';
 import PaymentFailed from '../pages/client/FailedPayment'; 
 import JobPropsals from '../pages/client/JobProposal'; 
 import MonoJobPage from '../components/common/MonoJobPost';
-import Profile from '../pages/client/Profile'
+import Profile from '../pages/client/ProfileClient'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { UserProfile } from '../components/common/UserProfile';

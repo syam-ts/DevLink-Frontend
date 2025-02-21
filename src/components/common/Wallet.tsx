@@ -82,19 +82,19 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
                 Balance : {Math.floor(balance)}
               </span>
             </div>
-            {/* <div className="pt-5">
+            <div className="pt-5">
               <hr />
-            </div> */}
+            </div>
 
             {/* WITHDRAW SECTION */}
-{/* 
+
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-5 rounded-lg text-white">
                <button>
                  <WithdrawMoney userId={roleId} />
                </button>
               </span>
-            </div> */}
+            </div>
           </div>
         </section>
       </div>

@@ -94,11 +94,11 @@ const SalesOverview = () => {
   };
   const seriessalesoverview = [
     {
-      name: "Ample Admin",
+      name: " ",
       data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
     },
     {
-      name: "Pixel Admin",
+      name: " ",
       data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
     },
   ];
@@ -170,7 +170,7 @@ const SalesOverview = () => {
                   color: "secondary.main",
                 }}
               >
-                Ample
+             Date
               </Typography>
             </Box>
             <Box
@@ -195,7 +195,7 @@ const SalesOverview = () => {
                   color: "primary.main",
                 }}
               >
-                Pixel Admin
+              
               </Typography>
             </Box>
           </Box>

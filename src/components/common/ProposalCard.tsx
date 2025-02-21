@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom"; 
-import { toast } from "sonner"; 
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { addNotification } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 interface ProposalCardProps {
-    proposals: string[];
-    roleType: string;
-    roleId: string;
+  proposals: string[];
+  roleType: string;
+  roleId: string;
 }
 
 export const ProposalCard: React.FC<ProposalCardProps> = ({
@@ -16,9 +16,8 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   roleType,
   roleId,
 }) => {
-
   const dispatch = useDispatch();
-  console.log('Pro', proposals[0])
+  console.log("Pro", proposals[0]);
 
   const acceptProposal = async (
     userId: string,
@@ -53,7 +52,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         });
 
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/client/jobs/proposals';
+          window.location.href = "http://localhost:5173/client/jobs/proposals";
         }, 500);
       }
     } catch (err: any) {
@@ -76,7 +75,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         "/job/proposal/reject",
         body
       );
-   
+
       if (data.success) {
         toast.success("Proposal Rejected", {
           style: {
@@ -102,7 +101,6 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
 
   return (
     <div>
- 
       {Object.entries(proposals).map((proposal: any) => (
         <div className="w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3">
           <div className="h-16 w-16 ">
@@ -135,13 +133,12 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           </div>
 
           <div className="flex justify-end pr-12 gap-3">
-           {
-            roleType === 'user' && (
+            {roleType === "user" && (
               <div>
-              <button
+                <button
                   className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
                   type="button"
-                > 
+                >
                   <Link
                     to={`/${roleType}/job/${proposal[1]?.jobPostId}/user-view`}
                     className="no-underline text-white font-bold "
@@ -150,21 +147,20 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                   </Link>
                 </button>
               </div>
-            )
-           }
+            )}
             {roleType === "client" && (
               <div className="flex gap-3">
-                    <button
-                className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
-                type="button"
-              >
-                <Link
-                  to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`}
-                  className="no-underline text-white font-bold "
+                <button
+                  className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
+                  type="button"
                 >
-                  View
-                </Link>
-              </button>
+                  <Link
+                    to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`}
+                    className="no-underline text-white font-bold "
+                  >
+                    View
+                  </Link>
+                </button>
                 <div>
                   <button
                     onClick={() =>
@@ -202,7 +198,6 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           </div>
         </div>
       ))}
-      
     </div>
   );
 };

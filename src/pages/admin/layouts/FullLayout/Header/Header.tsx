@@ -35,11 +35,12 @@ const Header = (props: any) => {
   };
 
   const logout = async () => { 
+  
     const response = await axios.post('http://localhost:3000/admin/logout',{}, {
       withCredentials: true
     });
     console.log('The response ', response)
-    if(response.data.type === 'success') {
+    if(response.data.success) {
         dispatch(signOutAdmin());
        navigate('/admin/login')
     } 

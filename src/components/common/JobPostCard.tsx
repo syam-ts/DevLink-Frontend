@@ -28,7 +28,7 @@ export const JobPostCard = ({ jobs, role, type }: { jobs: Jobs, role: string, ty
             <div className="grid">
               <span className="text-2xl text-start">{job[1]?.title}</span>
               <span className="text-sm mt-2">{job[1]?.description}</span>
-              <div className="flex gap-4 mt-3">
+              <div className="grid justify-start gap-3 mt-3">
                 <span className="text-sm">{job[1]?.expertLevel}</span>
                 <span className="text-sm">{job[1]?.location}</span>
               </div>

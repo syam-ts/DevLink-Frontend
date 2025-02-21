@@ -87,7 +87,7 @@ const Notification = () => {
             response = await apiUserInstance.get(`/notifications/${roleId}`);
           } else {
             response = await apiClientInstance.get(
-              `/client/notifications/${roleId}`
+              `/notifications/${roleId}`
             );
           }
 

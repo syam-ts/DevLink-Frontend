@@ -13,8 +13,7 @@ import {
     Select,
     SelectContent,
     SelectGroup,
-    SelectItem,
-    SelectLabel,
+    SelectItem, 
     SelectTrigger,
     SelectValue,
   } from "../../../../../components/ui/select" 
@@ -91,33 +90,37 @@ const ExTable = () => {
             const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
 
             console.log('The response', response.data.message)
-            if (response.data.type == 'success') {
+            if (response.data.success) {
                 setIsBlocked(true);
                 toast.success(response.data.message, {
-                    position: 'top-center'
+                    position: 'top-center',
+                    style: {
+                        width: "11rem",
+                        height: "3rem",
+                        justifyContent: "center"
+                    }
                 })
             }
         } catch (err: any) {
             console.log(err.message)
         }
-    }
-
-
-
-
-
+    } 
 
 
     const unBlockClientFn = async (clientId: any) => {
         try {
 
             const response = await axios.patch(`http://localhost:3000/admin/unblockClient/${clientId}`);
-
-            console.log('The response', response.data.message)
-            if (response.data.type == 'success') {
+ 
+            if (response.data.success) {
                 setIsBlocked(false)
                 toast.success(response.data.message, {
-                    position: 'top-center'
+                    position: 'top-center',
+                    style: {
+                        width: "11rem",
+                        height: "3rem",
+                        justifyContent: "center"
+                    }
                 })
             }
         } catch (err: any) {

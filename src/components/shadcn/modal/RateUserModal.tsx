@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react"; 
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
+import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
 
 interface RateUserProps {
   notificationId: string;
@@ -43,8 +43,7 @@ export const RateUserModal: React.FC<RateUserProps> = ({
       {rating: number; review: string | null}
        = formData;
 
-      const { data } = await axios.post(
-        `http://localhost:3000/client/rate/user/${notificationId}`,
+      const { data } = await apiClientInstance.post(`/rate-user/${notificationId}`,
         {
           userId,
           rating,

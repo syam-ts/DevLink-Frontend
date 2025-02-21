@@ -42,25 +42,25 @@ export const ClientProtectedRoute = () => {
 
 
 export const AdminProtectedRoute = () => {
-    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
+//     const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
 
-    return isAdminAuth ? <Outlet /> : <Navigate to="/admin/login" replace />;
-};
-
-
-export const ProtectedRoute = () => {
-    const isUserAuth = useSelector((state: any) => state?.user?.isUser);
-    const isClientAuth = useSelector((state: any) => state?.client?.isClient);
-    const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
+//     return isAdminAuth ? <Outlet /> : <Navigate to="/admin/login" replace />;
+// };
 
 
-    if (isClientAuth) {
-        return <Navigate to="/client/home" replace />;
-    } else if (isUserAuth) {
-        return <Navigate to="/user/home" replace />;
-    } else if (isAdminAuth) {
-        return <Navigate to="/admin/index/dashboard" replace />;
-    }
+// export const ProtectedRoute = () => {
+//     const isUserAuth = useSelector((state: any) => state?.user?.isUser);
+//     const isClientAuth = useSelector((state: any) => state?.client?.isClient);
+//     const isAdminAuth = useSelector((state: any) => state?.admin?.isAdmin);
+
+
+//     if (isClientAuth) {
+//         return <Navigate to="/client/home" replace />;
+//     } else if (isUserAuth) {
+//         return <Navigate to="/user/home" replace />;
+//     } else if (isAdminAuth) {
+//         return <Navigate to="/admin/index/dashboard" replace />;
+//     }
 
     return <Outlet />;
 };

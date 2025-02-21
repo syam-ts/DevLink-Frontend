@@ -149,7 +149,6 @@ const HomeClient = () => {
                         <br />    Backed by talent on Workreap.</span>
                 </div>
             </section>
-
             <section className='text-center my-12 mt-44'>
                 <span className='text-3xl'>Top Rated Freelancers</span> <br />
                 <span>Browse talent for your projects</span>
@@ -166,13 +165,13 @@ const HomeClient = () => {
             {/* cards */}
             <section className='grid gap-7 lg:grid-cols-4 sm:grid-cols-2 px-96 my-28'>
                 {Object.entries(users).map((user: any) => (
-
+                    
                     <div className="max-w-[900px] flex gap-12 ">
                         <Card className="col-span-12 sm:col-span-4 h-[250px]">
                             <CardHeader className="absolute z-10 top-1 flex-col !items-start">
                                 <p className="text-tiny text-white ">{user?.[1]?.email}</p>
                             </CardHeader>
-                            <Link to={`/client/userProfile/view/${user?.[1]._id}/client-home-view/${clientId}`}>
+                            <Link to={`/client/userProfile/view/${user?.[1]._id}/client-view`}>
                                 <img
 
                                     alt="developer-image"

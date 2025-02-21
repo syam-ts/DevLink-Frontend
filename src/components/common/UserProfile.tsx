@@ -12,6 +12,7 @@ import BoostPopover from "../../components/nextUi/popover/BoostAcc-Pop";
 import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";
+import ReviewCard from "../common/ReviewCard";
 // import { InviteModal } from '../nextUi/modals/InviteUserModal';
 
 interface User {
@@ -29,7 +30,13 @@ interface User {
     noOfRating: number;
     ratingSum: number;
   };
-  review: string[];
+  review: [
+    {
+      theReview: string;
+      rating: number;
+      companyName: string;
+    }
+  ];
   githugLink: string;
   description: string;
   whyHireMe: string;
@@ -51,11 +58,17 @@ export const UserProfile = () => {
     profilePicture: "",
     domain: "",
     rating: {
-        avgRating: 0,
-    noOfRating: 0,
-    ratingSum: 0
+      avgRating: 0,
+      noOfRating: 0,
+      ratingSum: 0,
     },
-    review: [],
+    review: [
+      {
+        theReview: "",
+        rating: 0,
+        companyName: "",
+      },
+    ],
     githugLink: "",
     description: "",
     whyHireMe: "",
@@ -64,7 +77,10 @@ export const UserProfile = () => {
     isBoosted: false,
     isProfileFilled: false,
   });
-  const { type, userId } = useParams<{ type: string; userId: string }>();
+  const { type, userId } = useParams<{
+    type: "user-view" | "client-view" | "proposal-view";
+    userId: string;
+  }>();
 
   let clientId: string;
   if (type === "client-view")
@@ -74,14 +90,14 @@ export const UserProfile = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await apiUserInstance.get(
+        const { data } = await apiUserInstance.get(
           `http://localhost:3000/user/profile/view/${userId}`,
           {
             withCredentials: true,
           }
         );
-        console.log("The repsn s", response.data.data.rating);
-        setUser(response.data.data);
+        console.log("The repsn s", data.data);
+        setUser(data.data);
       } catch (err: any) {
         if (err.response.data.message == "No token provided") {
           navigate("/user/login");
@@ -311,6 +327,17 @@ export const UserProfile = () => {
                             ))}
                           </MDBCardText>
                         </div>
+                      </div>
+                    </section>
+
+                    {/* Review Section */}
+                    <section>
+                      <div className="flex justify-center">
+                        <span className="text-2xl">Reviews</span>
+                      </div>
+                      <hr className="w-2/3 mx-auto" />
+                      <div className="my-5">
+                        <ReviewCard review={user?.review} />
                       </div>
                     </section>
 

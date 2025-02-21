@@ -29,12 +29,12 @@ const Requests: any = () => {
         editData: requests[0]?.data
       }
 
-      console.log('The client id : ', data.clientId)
+      console.log('The client id : ', data.clientId, data.editData)
 
-      const response = await axios.put('http://localhost:3000/admin/verifyClient/accept',data );
+   const response = await axios.put('http://localhost:3000/admin/verifyClient/accept',data );
 
        if(response.data.success) {
-        window.location.href='/admin/index/requests'
+         window.location.href='/admin/index/requests'
        }
     
     }catch (err: any) {

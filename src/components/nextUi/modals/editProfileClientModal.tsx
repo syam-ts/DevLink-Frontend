@@ -69,31 +69,32 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
       [id]: value,
     }));
   };
-
+ 
   const sumbmitForm = async () => {
     try {
+
+      console.log('The form data: ', formData)
       const data = {
         editData: formData,
         unhangedData: clientData,
       };
 
-      const response = await axios.post(
-        `http://localhost:3000/client/profile/${type}/${clientId}`,
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+      // const response = await apiClientInstance.post(`/profile/${type}/${clientId}`,
+      //   data,
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
 
-      console.log("The rfspons e", response.data);
+      // console.log("The rfspons e", response.data);
 
-      if (response.data.success) {
-        dispatch(addRequest(response.data));
-        toast.success(response.data.message);
-        navigate("/client/profile/profile");
-      } else {
-        toast.error(response.data.message);
-      }
+      // if (response.data.success) {
+      //   dispatch(addRequest(response.data));
+      //   toast.success(response.data.message);
+      //   navigate("/client/profile/profile");
+      // } else {
+      //   toast.error(response.data.message);
+      // }
     } catch (err: any) {
       toast.error(err.message);
 
@@ -126,14 +127,14 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
               {/* <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader> */}
               <ModalBody>
                 <div>
-                  <div className="h-full py-12 w-full comfortaa-regular">
+                  <div className="h-full py-7 w-full comfortaa-regular">
                     <div className="container">
                       <div>
-                        <p className="text-gray-500 text-xs mb-6">
+                        <p className="text-gray-500 text-xs">
                           * Edit the data and wait for admin approval.
                         </p>
 
-                        <div className="p-4 px-4 md:p-8 mb-6 ">
+                        <div className="p-4 px-4 md:p-8 ">
                           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                             <div className="lg:col-span-3 px-4">
                               <div className="grid gap-4 gap-y-1 text-sm grid-cols-1 md:grid-cols-5">
@@ -142,7 +143,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                   <input
                                     onChange={handleChange}
                                     id="companyName"
-                                    className="h-8 border-1 border-gray-400 mt-1  px-4 w-full rounded-lg"
+                                    className="h-8 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="xyccompany"
                                   />
                                 </div>
@@ -152,7 +153,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                   <input
                                     onChange={handleChange}
                                     id="description"
-                                    className="rounded-lg h-44 border-1 border-gray-400 mt-1  px-4 w-full "
+                                    className=" h-44 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="Software developing company working over an decade listed on indias top 10 revenued comapny at 2015"
                                   />
                                 </div>
@@ -163,7 +164,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                     onChange={handleChange}
                                     id="location"
                                     type="text"
-                                    className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full "
+                                    className=" h-8 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="Bangalore"
                                   />
                                 </div>
@@ -174,7 +175,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                     onChange={handleChange}
                                     id="domain"
                                     type="text"
-                                    className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full "
+                                    className=" h-8 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="Full Stack"
                                   />
                                 </div>
@@ -184,7 +185,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                     onChange={handleChange}
                                     id="since"
                                     type="number"
-                                    className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full "
+                                    className=" h-8 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="2001"
                                   />
                                 </div>
@@ -194,7 +195,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
                                   <input
                                     onChange={handleChange}
                                     id="numberOfEmployees"
-                                    className="rounded-lg h-8 border-1 border-gray-400 mt-1  px-4 w-full "
+                                    className=" h-8 border-1 border-gray-400 mt-1  px-4 w-full "
                                     placeholder="140"
                                   />
                                 </div>

@@ -34,9 +34,9 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                         color: "white"
                     }
                 })
-                // setTimeout(() => {
-                //    window.location.href = 'http://localhost:5173/client/contracts/approvals';
-                // }, 1000);
+                setTimeout(() => {
+                   window.location.href = 'http://localhost:5173/client/contracts/approvals';
+                }, 1000);
             }
 
         } catch (err: any) {

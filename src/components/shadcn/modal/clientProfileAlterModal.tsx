@@ -35,10 +35,11 @@ interface Client {
   since: number;
 }
 
-const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
+const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
   clientId,
   type,
 }) => {
+ 
   const [clientData, setClientData] = useState<Client>({
     companyName: "",
     location: "",
@@ -69,7 +70,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
       setClientData(response?.data?.data);
     })();
   }, []);
-
+ 
   const handleChange = (e: any) => {
     console.log("targe", e.target.value, "");
     const { id, value }: { id: number; value: string | number } = e.target;
@@ -77,11 +78,12 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
       ...prevData,
       [id]: value,
     }));
-  };
+  }; 
 
   console.log("Fomr data  ", formData);
 
   const submitForm = async () => {
+ 
     try {
       let validForm;
       if (type === "verify") {
@@ -89,6 +91,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           abortEarly: false,
         });
       } else {
+      
         validForm = await clientProfileEditSchema.validate(formData, {
           abortEarly: false,
         });
@@ -96,6 +99,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
 
       if (validForm) {
         try {
+          setError([])
           const data = {
             editData: formData,
             unhangedData: clientData,
@@ -108,13 +112,12 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
               withCredentials: true,
             }
           );
-
-          console.log("The rfspons e", response.data);
+ 
 
           if (response.data.success) {
             dispatch(addRequest(response.data));
             toast.success(response.data.message);
-            navigate("/client/profile/profile");
+            navigate("/client/home");
           } else {
             toast.error(response.data.message, {
               style: {
@@ -139,6 +142,8 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
       setError(err.errors);
     }
   };
+
+  console.log('The error: ', error)
 
   return (
     <Dialog>
@@ -180,7 +185,8 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   if (
                     err.includes("CompanyName is required") ||
                     err.includes("Must be atleast 10 characters") ||
-                    err.includes("Must be under 30 characters")
+                    err.includes("Must be under 30 characters") ||
+                    err.includes("Must be at least 10 characters and under 30 characters") 
                   ) {
                     return (
                       <div key={index} className="text-start">
@@ -219,7 +225,8 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   if (
                     err.includes("Description is required") ||
                     err.includes("Description must be atleast 20 characters") ||
-                    err.includes("Description must be under 100 characters")
+                    err.includes("Description must be under 100 characters") ||
+                    err.includes("Must be at least 20 - 100 characters") 
                   ) {
                     return (
                       <div key={index} className="text-start">
@@ -258,6 +265,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   if (
                     err.includes("Location is required") ||
                     err.includes("Must be atleast 4 characters") ||
+                    err.includes("Must be valid location (4 - 20)") ||
                     err.includes("Must be under 20 characters")
                   ) {
                     return (
@@ -293,6 +301,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   if (
                     err.includes("Domain is required") ||
                     err.includes("Domain must be atleast 10 characters") ||
+                    err.includes("Must be at least 10 characters and under 25 characters") ||
                     err.includes("Domain must be under 25 characters")
                   ) {
                     return (
@@ -335,6 +344,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   if (
                     err.includes("Total Employees must be at least 10") ||
                     err.includes("Must be atleast 10 characters") ||
+                    err.includes("Must be at least 10 - 2000 employees") ||
                     err.includes("Total Employees must be at most 2000")
                   ) {
                     return (
@@ -381,6 +391,9 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                     ) ||
                     err.includes(
                       "Establishment Year must be valid(before 2025)"
+                    ) ||
+                    err.includes(
+                      "Establishment Year must be valid(1990 - 2025)"
                     )
                   ) {
                     return (

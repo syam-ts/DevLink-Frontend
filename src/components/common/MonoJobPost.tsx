@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom"
 import { JobProposalModal } from "../shadcn/modal/JobProposalModal";
 import axios from "axios";
  import useUserVerified  from "../../hooks/userUserVerified";
+ import { apiUserInstance } from '.././../api/axiosInstance/axiosUserInstance';
+ import { apiClientInstance } from '.././../api/axiosInstance/axiosClientRequest';
 
 
 interface JobPost {
@@ -79,11 +81,11 @@ let userVerified;
       (async () => {
         let response: any;
         if (type === 'user-view') {
-          response = await axios.get(`http://localhost:3000/user/job/view/${jobPostId}`);
+          response = await apiUserInstance.get(`/job-view/${jobPostId}`);
           console.log('THe resp ', response)
           setJobPost(response?.data?.jobPost);
         } else if(type === 'client-view') {
-          response = await axios.get(`http://localhost:3000/user/job/view/${jobPostId}`);
+          response = await apiClientInstance.get(`/job-view/${jobPostId}`);
           console.log('reosnpse cli: ', response)
           setJobPost(response?.data?.jobPost);
         }

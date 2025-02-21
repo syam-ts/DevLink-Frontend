@@ -19,9 +19,8 @@ import {
 import axios from "axios";
 import { Sonner } from "../../../../../components/sonner/ToasterBottom";
 import { toast } from "sonner";
-import { useEffect, useState } from "react"; 
-  // import { UserViewAdmin } from '../../../../../components/common/UserProfile'
-
+import { useEffect, useState } from "react";
+// import { UserViewAdmin } from '../../../../../components/common/UserProfile'
 
 const ExTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,26 +58,26 @@ const ExTable = () => {
     })();
   }, [currentPage, sortType, isBlocked]);
 
-
-  
-
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
 
-   
-
   const blockUserFn = async (userId: string) => {
     try {
       const response = await axios.patch(
-        `/admin/blockUser/${userId}`
+        `http://localhost:3000/admin/blockUser/${userId}`
       );
 
-      if (response.data.type == "success") {
+      if (response.data.success) {
         setIsBlocked(true);
 
         toast.success(response.data.message, {
-          position: "top-right",
+          position: "top-center",
+          style: {
+            width: "11rem",
+            height: "3rem",
+            justifyContent: "center",
+          },
         });
       }
     } catch (err: any) {
@@ -89,12 +88,17 @@ const ExTable = () => {
   const unBlockUserFn = async (userId: any) => {
     try {
       const response = await axios.patch(
-        `/admin/unblockUser/${userId}`
+        `http://localhost:3000/admin/unblockUser/${userId}`
       );
-      if (response.data.type == "success") {
+      if (response.data.success) {
         setIsBlocked(false);
         toast.success(response.data.message, {
-          position: "top-right",
+          position: "top-center",
+          style: {
+            width: "11rem",
+            height: "3rem",
+            justifyContent: "center",
+          },
         });
       }
     } catch (err: any) {
@@ -109,22 +113,20 @@ const ExTable = () => {
       {/* Search section */}
       <section className="my-10 arsenal-sc-regular">
         <div className="flex justify-end">
- 
-          
-            <div>
-              <Select onValueChange={(value) => setSortType(value)}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Sort User" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="latest">Latest</SelectItem>
-                    <SelectItem value="unBlock">Blocked</SelectItem>
-                    <SelectItem value="block">Unblocked</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+          <div>
+            <Select onValueChange={(value) => setSortType(value)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Sort User" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="latest">Latest</SelectItem>
+                  <SelectItem value="unBlock">Blocked</SelectItem>
+                  <SelectItem value="block">Unblocked</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </section>
 
@@ -202,7 +204,10 @@ const ExTable = () => {
                           >
                             <img
                               className="h-9 w-9 rounded-full"
-                              src={user[1]?.profilePicture || 'https://cdn-icons-png.flaticon.com/128/18753/18753518.png'}
+                              src={
+                                user[1]?.profilePicture ||
+                                "https://cdn-icons-png.flaticon.com/128/18753/18753518.png"
+                              }
                               alt="user-image"
                             />
                           </Typography>
@@ -277,9 +282,8 @@ const ExTable = () => {
 
                     <TableCell align="right">
                       <Typography variant="h6">
-                
-                         {/* <UserViewAdmin /> */}
-                         </Typography>
+                        {/* <UserViewAdmin /> */}
+                      </Typography>
                     </TableCell>
 
                     <TableCell align="right">
