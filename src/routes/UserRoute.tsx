@@ -60,7 +60,7 @@ const UserRoute = () => {
                 <Route path='/home' element={<HomeUser />} /> 
                 <Route path='/jobs' element={<JobPage />} />
                 <Route path='/job/:jobPostId/:type' element={<MonoJobPost />} />
-                <Route path='/userProfile/view/:userId/:type' element={<UserProfile />} />
+                <Route path='/userProfile/:userId/:type' element={<UserProfile />} />
                 <Route path='/profile/:type' element={<ProfileAlter />} />  
                 <Route path='/jobs/proposals' element={<Proposals />} />  
                 <Route path='/contract/:contractId/:roleType' element={<Contract />} /> 

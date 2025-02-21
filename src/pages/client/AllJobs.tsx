@@ -9,15 +9,15 @@ interface JobsRenderProps {
 }
 
 interface Jobs {
-    _id: string;
-    title: string;
-    description: string;
-    expertLevel: string;
-    location: string;
-    amount: number;
-    paymentType: string;
-    estimateTimeinHours: string;
-    projectType: string 
+  _id: string;
+  title: string;
+  description: string;
+  expertLevel: string;
+  location: string;
+  amount: number;
+  paymentType: string;
+  estimateTimeinHours: string;
+  projectType: string 
 };
 
 const JobsRender: React.FC<JobsRenderProps> = ({ clientId, type }) => {

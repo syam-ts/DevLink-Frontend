@@ -58,7 +58,7 @@ export default function App({ userId }: any) {
             color="warning"
             variant="flat"
           >
-            <span className="font-bold text-white">Boost</span>
+            <span className="text-white bg-gray-800 font-extrabold border border-black py-1.5 px-3 rounded-lg">Boost</span>
           </Button>
         </PopoverTrigger>
         {content}

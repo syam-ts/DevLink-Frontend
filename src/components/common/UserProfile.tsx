@@ -13,7 +13,7 @@ import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";
 import ReviewCard from "../common/ReviewCard";
-import config from '../../config/helper/config'
+import config from '../../config/helper/config' 
 // import { InviteModal } from '../nextUi/modals/InviteUserModal';
 
 interface User {
@@ -43,6 +43,17 @@ interface User {
   whyHireMe: string;
   experience: string;
   education: [string];
+  workHistory: [{
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string
+  }];
   isBoosted: boolean;
   isProfileFilled: boolean;
 }
@@ -75,6 +86,17 @@ export const UserProfile = () => {
     whyHireMe: "",
     experience: "",
     education: [""],
+    workHistory: [{
+      _id: "",
+      title: "",
+      description: "",
+      expertLevel: "",
+      location: "",
+      amount: 0,
+      paymentType: "",
+      estimateTimeinHours: "",
+      projectType: ""
+    }],
     isBoosted: false,
     isProfileFilled: false,
   });
@@ -96,7 +118,7 @@ export const UserProfile = () => {
             withCredentials: true,
           }
         );
-        console.log("The repsn s", data.data);
+        console.log("The repsn s", data.data.workHistory);
         setUser(data.data);
       } catch (err: any) {
         if (err.response.data.message == "No token provided") {
@@ -137,7 +159,7 @@ export const UserProfile = () => {
                   <section>
                     <div
                       className="text-white d-flex flex-row arsenal-sc-regular"
-                      style={{ backgroundColor: "#191a4d", height: "250px" }}
+                      style={{ backgroundColor: "#cbd0d6", height: "250px" }}
                     >
                       <div
                         className="ms-4 mt-40 d-flex flex-column"
@@ -157,7 +179,7 @@ export const UserProfile = () => {
                       <div className="ms-3 my-auto flex w-full justify-between">
                         <div>
                           <div className="flex">
-                            <MDBTypography tag="h5" className="text-red-600">
+                            <MDBTypography tag="h5" className="text-black font-extrabold">
                               {user?.name}
                             </MDBTypography>
                             {user?.isBoosted ? (
@@ -168,12 +190,12 @@ export const UserProfile = () => {
                                 />
                               </span>
                             ) : (
-                              <span className=" cursor-pointer bg-transparent">
+                              <span className=" cursor-pointer bg-transparent ">
                                 <BoostPopover userId={userId} />
                               </span>
                             )}
                           </div>
-                          <div className="text-sm grid left-0 comfortaa-regular">
+                          <div className="text-sm text-black font-extrabold grid left-0 comfortaa-regular">
                             <span>{user?.location}, india</span>
                             <span>{user?.email}</span>
                             <span>{user?.mobile}</span>
@@ -222,14 +244,14 @@ export const UserProfile = () => {
                                 <div className="ml-36">
                                   {user?.isProfileFilled ? (
                                     <Link
-                                      className="no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md"
+                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
                                       to={`/user/profile/edit`}
                                     >
                                       <span>Edit</span>
                                     </Link>
                                   ) : (
                                     <Link
-                                      className="no-underline bg-white py-2 px-4 mr-3 rounded-lg text-black text-md"
+                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
                                       to={`/user/profile/verify`}
                                     >
                                       <span>Verify</span>
@@ -247,28 +269,28 @@ export const UserProfile = () => {
                   </section>
                   <section>
                     <div
-                      className="p-4 text-black arsenal-sc-regular text-sm"
-                      style={{ backgroundColor: "#f8f9fa" }}
+                      className="p-4 text-black arsenal text-xs"
+                      style={{ backgroundColor: "#6e7c91" }}
                     >
                       <div className="d-flex justify-content-end text-center py-1">
                         <div>
-                          <MDBCardText className="mb-1 px-4 h5">
+                          <MDBCardText className="mb-1 px-4 h5 text-white font-thin">
                             {user?.budget}₹
                           </MDBCardText>
-                          <MDBCardText className="small text-muted mb-0">
-                            /hr
+                          <MDBCardText className="small text-muted mb-0 text-white font-extrabold">
+                            <span className='text-white font-extrabold'>/hr</span>
                           </MDBCardText>
                         </div>
                         <div>
-                          <MDBCardText className="mb-1 h5">253</MDBCardText>
+                          <MDBCardText className="mb-1 h5 text-white font-extrabold">253</MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
-                            Total Jobs
+                            <span className='text-white font-extrabold'> Total Jobs</span>
                           </MDBCardText>
                         </div>
                         <div className="px-3">
-                          <MDBCardText className="mb-1 h5">1026</MDBCardText>
+                          <MDBCardText className="mb-1 h5 text-white font-extrabold">1026</MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
-                            Total Hours
+                            <span className='text-white font-extrabold'> Total Hours</span>
                           </MDBCardText>
                         </div>
                       </div>
@@ -281,14 +303,13 @@ export const UserProfile = () => {
                         <p className="lead fw-normal mb-1">About</p>
                         <div
                           className="p-4"
-                          style={{ backgroundColor: "#f8f9fa" }}
+                          style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4">
-                            {" "}
-                            Full Stack web developer{" "}
+                            {user?.domain}
                           </MDBCardText>
-                          <MDBCardText className="font-italic mb-0 p-3">
-                            More on descriptoin ::: {user?.description}
+                          <MDBCardText className="p-2 text-center">
+                             {user?.description}
                           </MDBCardText>
                         </div>
                       </div>
@@ -299,7 +320,7 @@ export const UserProfile = () => {
                         <p className="lead fw-normal mb-1">Why Hire Me</p>
                         <div
                           className="p-4"
-                          style={{ backgroundColor: "#f8f9fa" }}
+                          style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-italic mb-1">
                             <div className="grid p-3 py-4">
@@ -333,7 +354,7 @@ export const UserProfile = () => {
                     {/* Review Section */}
                     <section>
                       <div className="flex justify-center">
-                        <span className="text-2xl">Reviews</span>
+                        <span className="text-2xl arsenal-sc-regular">Reviews</span>
                       </div>
                       <hr className="w-2/3 mx-auto" />
                       <div className="my-5">
@@ -344,46 +365,41 @@ export const UserProfile = () => {
                     {/* Work history */}
                     <section>
                       <div className="mb-5 mx-auto arsenal-sc-regular">
-                        <p className="lead fw-normal mb-1">Work History</p>
-                        <div
-                          className="p-4"
-                          style={{ backgroundColor: "#f8f9fa" }}
-                        >
-                          <div className="flex text-center mx-96 ">
-                            <span className="text-lg">Completed Jobs(30):</span>
-                            <span className="text-lg pl-8">
-                              in Progress(24):
-                            </span>
-                          </div>
-
-                          <ul className="bg-[#efefef] shadow overflow-hidden w-[900px] sm:rounded-md mt-16 mx-auto ">
-                            <li>
-                              <div className="py-4 sm:px-12">
-                                <div className="flex items-center justify-between">
-                                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                    'job[1]?.description'
-                                  </h3>
-                                  <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                    'job[1]?.status'
-                                  </p>
-                                  <a
-                                    href="#"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                                  >
-                                    'job[1]?.paymentType'
-                                  </a>
+                        <div className='py-10'>
+                          <p className="lead fw-normal mb-1 text-center">Work History</p>
+                          <hr className='w-2/3 mx-auto' />
+                        </div>
+                        <div>
+                          {user.workHistory.map((job: any) => (
+                            <div className="w-5/6 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
+                              <div className="flex justify-between ">
+                                <div className="grid">
+                                  <span className="text-2xl text-start">{job?.title}</span>
+                                  <span className="text-sm mt-2">{job?.description}</span>
+                                  <div className="grid justify-start gap-3 mt-3">
+                                    <span className="text-sm">{job?.expertLevel}</span>
+                                    <span className="text-sm">{job?.location}</span>
+                                  </div>
+                                  <span className="flex gap-3">
+                                    {job?.requiredSkills?.map((skill: string) => (
+                                      <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        {skill}
+                                      </span>
+                                    ))}
+                                  </span>
                                 </div>
-                                <div className="mt-2 grid items-center justify-between">
-                                  <p className="text-sm font-medium text-gray-500">
-                                    'job[1]?.title'
-                                  </p>
-                                  <p className="text-sm font-medium text-gray-500">
-                                    'job[1]?.keyResponsiblities'
-                                  </p>
+
+                                <div className="grid text-end py-3">
+                                  <span className="text-sm">{job?.amount}.00₹</span>
+                                  <span className="text-sm">{job?.paymentType}</span>
+                                  <span className="text-sm">{job?.estimateTimeinHours}/hr</span>
+                                  <span className="text-sm text-green-400 underline">
+                                    {job?.projectType}
+                                  </span> 
                                 </div>
                               </div>
-                            </li>
-                          </ul>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </section>
