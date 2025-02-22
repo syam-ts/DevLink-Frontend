@@ -114,6 +114,39 @@ export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
             </ul>
           </NavigationMenuContent> */}
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>
+              <Link
+                to={`/user/wishlist-view`}
+                className="no-underline text-black"
+              >
+                <button>Wishlist</button>
+              </Link>
+            </NavigationMenuTrigger>
+
+            {/* <NavigationMenuTrigger>
+              <Link
+                to={`/${roleType}/invite/view/${roleInfo?._id}/user`}
+                className="no-underline text-black"
+              >
+                <button>Invites</button>
+              </Link>
+            </NavigationMenuTrigger> */}
+            {/* <NavigationMenuContent>
+            <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[700px] lg:h-[300px] lg:grid-cols-[.95fr_1fr]">
+           
+              <ListItem href="/docs" title="My Proposals">
+                Re-usable components built using Radix UI and Tailwind CSS.
+              </ListItem>
+             
+           
+              <ListItem href="/docs" title="Rejected Proposals">
+                Re-usable components built using Radix UI and Tailwind CSS.
+              </ListItem>
+             
+            </ul>
+          </NavigationMenuContent> */}
+          </NavigationMenuItem>
 
           <NavigationMenuItem>About</NavigationMenuItem>
 

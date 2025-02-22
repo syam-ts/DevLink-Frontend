@@ -18,7 +18,8 @@ import Proposals from '../pages/user/ProposalsUser';
 import {ChatBox} from '../components/common/ChatBox'
 import ListAllClientChat from '../components/common/ViewAllChats'
 import Wallet from '../components/common/Wallet';
-import InviteComponent from '../components/common/Invite'
+import InviteComponent from '../components/common/Invite';
+import Wishlist from '../components/common/Wishlist';
  
 import Notifications from '../components/common/NotificationCard' 
 import SignupComponent from '../components/common/SignupComponent'; 
@@ -68,6 +69,7 @@ const UserRoute = () => {
                 <Route path='/job/myContracts/:roleId/:roleType' element={<AllContract />} /> 
                 <Route path='/wallet/view/:roleId' element={<Wallet roleType="user" />} />
                 <Route path='/invite/view/:roleId/:type' element={<InviteComponent />} /> 
+                <Route path='/wishlist-view' element={<Wishlist />} /> 
 
                 <Route path='/allChats/:roleType/:roleId' element={<ListAllClientChat />} />  
                 <Route path='/chat/view/:roleType/:targetId' element={<ChatBox />} />
