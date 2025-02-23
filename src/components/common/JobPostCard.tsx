@@ -26,7 +26,7 @@ export const JobPostCard = ({
   return (
     <div>
       {Object.entries(jobs).map((job: any) => (
-        <div className="w-2/3 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
+        <div className="w-2/3 transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-2xl hover:shadow-slate-300 rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
           <div className="flex justify-between ">
             <div className="grid">
               <span className="text-2xl text-start">{job[1]?.title}</span>
@@ -52,7 +52,7 @@ export const JobPostCard = ({
                 {job[1]?.projectType}
               </span>
               <button
-                className="rounded-md bg-black px-12 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                className="rounded-md transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
                 type="button"
               >
                 <Link
