@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
-import { ProposalCard } from "../../components/common/ProposalCard";
-// import { ProposalCardShimmer } from "../../components/shimmer/ProposalCardShimmer";
+import { ProposalCard } from "../../components/common/ProposalCard"; 
 import { UserState } from "../../config/state/allState";
 
 interface Proposals {
-  type: string;
-  userId: string;
-  jobPostId: string;
-  jobPostInfo: string;
+  type: string
+  userId: string
+  jobPostId: string
+  jobPostInfo: string
   userdData: {
-    profilePicture: string;
-  };
-  description: string;
-  status: string;
-  bidAmount: number;
-  bidDeadline: number;
-  _id: string;
-}
+    profilePicture: string
+  }
+  description: string
+  status: string
+  bidAmount: number
+  bidDeadline: number
+  _id: string
+};
 
 const JobProposals = () => {
   const [proposals, setProposals] = useState<Proposals[]>([]);
   const [data, setData]: any = useState<Proposals[]>([]);
-  const [proposalType, setProposalType] = useState<string>("pending"); 
+  const [proposalType, setProposalType] = useState<string>("pending");  
 
   const userId: string = useSelector(
     (state: UserState) => state?.user?.currentUser?._id
@@ -35,13 +34,14 @@ const JobProposals = () => {
         const { data } = await apiUserInstance.get(
           `/proposals/${proposalType}`
         );
-        setProposals(data?.proposals || []); 
+        console.log('reos: ', data)
+        setProposals(data?.proposals.proposals || []); 
         
       } catch (err: any) {
         console.log("ERROR: ", err.message);
       }
     })();
-  }, []);
+  }, [proposalType]);
 
    
 
@@ -53,7 +53,6 @@ const JobProposals = () => {
     }
   }, [proposals,proposalType]);
 
- 
  
 
   return (
@@ -111,6 +110,7 @@ const JobProposals = () => {
           </div>
         }
       </section>
+ 
     </main>
   );
 };

@@ -128,57 +128,57 @@ const HomeUser: React.FC = () => {
         />
       </div>
 
-      <section className="relative w-full">
-  <div className="arsenal-sc-regular">
-    <figure className="relative transition-all duration-300 cursor-pointer hover:grayscale-0">
-      <a href="#">
-        <img
-          className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] object-cover"
-          src="/public/user_home-1.png"
-          alt="image description"
-        />
-      </a>
-      <figcaption className="absolute inset-0 flex items-end text-white p-4 sm:p-6 md:p-8 lg:p-12">
-        <div className="w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto">
-          <div className="font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2">
-            <span>Find Your Desired Job Here</span>
-          </div>
-          <div className="font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-4">
-            <span>Over 1200+ stunning projects are waiting for you</span>
-          </div>
-           
-          <div className="mb-3">
-            <label className="mb-2 text-sm font-medium sr-only text-white">
-              Search
-            </label>
-            <div className="relative">
-              <input
-                type="search"
-                id="default-search"
-                className="block w-full p-2 sm:p-3 md:p-4 ps-4 sm:ps-6 md:ps-10 text-sm md:text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                placeholder="Search your desire Jobs..."
-                required
+      <section>
+        <div className="arsenal-sc-regular">
+          <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
+            <a href="#">
+              <img
+                className=" w-full h-[700px] object-cover"
+                src="/public/user_home-1.png"
+                alt="image description"
               />
-              <button
-                type="submit"
-                className="text-white h-full absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm sm:text-base px-2 sm:px-3 md:px-4"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-          <div className="text-xs sm:text-sm md:text-base mb-8 md:mb-12">
-            <span>
-              Popular search: Full Stack development, php development
-            </span>
-          </div>
-        </div>
-      </figcaption>
-    </figure>
-  </div>
-</section>
+            </a>
+            <figcaption className="absolute text-lg text-white bottom-6">
+              <div className="pb-60 px-56">
+                <div className="font-extrabold text-4xl">
+                  <span>Find Your Desired Job Here</span>
+                </div>
 
- 
+                <div className="font-extrabold text-4xl">
+                  <span>Over 1200+ stunnig projects are waiting for you</span>
+                </div>
+
+                {/* ------Serach------- */}
+                <div>
+                  <label className="mb-2 text-sm font-medium sr-only text-white">
+                    Search
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="search"
+                      id="default-search"
+                      className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50   "
+                      placeholder="Search your desire Jobs..."
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-md px-4  "
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <span>
+                    Popular search : Full Stack development, php development
+                  </span>
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
 
       <section>
         <Chatbot />
@@ -228,49 +228,44 @@ const HomeUser: React.FC = () => {
       </section>
 
       <hr className="border-gray-700 mt-20 w-2/4 mx-auto" />
-     
-     
-
       <section>
-  <div className="relative w-full mt-4 sm:mt-8 md:mt-16 lg:mt-24 xl:mt-44 z-0">
-    {/* Responsive image */}
-    <img
-      className="h-[200px] min-[400px]:h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] w-full object-cover"
-      src="/public/user-home-img-2.png"
-      alt="start-freelaner-image"
-    />
-    
-    {/* Content overlay */}
-    <div className="absolute inset-0 flex items-center">
-      <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:w-3/4 xl:w-2/3 px-2 sm:px-4 md:px-6 lg:px-10 xl:px-20 mx-auto sm:mx-4 md:mx-8 lg:mx-12 xl:mx-20">
-        <h2 className="text-white text-base min-[300px]:text-lg min-[400px]:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-0.5 min-[400px]:mb-1 sm:mb-2 md:mb-3">
-          Start as a Freelancer
-        </h2>
-        <span className="text-white text-[10px] min-[400px]:text-xs sm:text-sm md:text-base block mb-1 sm:mb-2 md:mb-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </span>
-        <button
-          className="rounded-md w-auto border border-transparent bg-[#0000ff] hover:bg-black py-1 min-[400px]:py-1.5 sm:py-2 md:py-3 px-1.5 min-[400px]:px-2 sm:px-3 md:px-4 flex font-bold items-center justify-center text-center text-[10px] min-[400px]:text-xs sm:text-sm md:text-md transition-all text-white"
-          type="button"
-        >
-          <span className="no-underline text-white">Find Jobs</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-2 h-2 min-[400px]:w-2.5 min-[400px]:h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 ml-1"
-          >
-            <path
-              fillRule="evenodd"
-              d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
+        <div className="relative max-w-full mt-44 z-0">
+          <img
+            className="h-[600px] w-full object-cover "
+            src="/public/user-home-img-2.png"
+            alt="start-freelaner-image"
+          />
+          <div className="  inset-0 rounded-md"></div>
+          <div className="absolute grid inset-0 items-start justify-start my-56 mx-72">
+            <h2 className="text-white text-4xl font-bold ">
+              Start as a Freelancer
+            </h2>
+            <span className="text-white">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
+            </span>
+            <button
+              className="rounded-md w-52 border border-transparent bg-[#0000ff] hover:bg-black py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white "
+              type="button"
+            >
+              <Link className="no-underline text-white " to="/user/jobs">
+                Find Jobs
+              </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4 ml-1.5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
 
       <section className="text-center my-12 mt-44">
         <span className="arsenal-sc-regular text-4xl">Top Jobs</span>
