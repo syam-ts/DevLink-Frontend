@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Card } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import LinkAttribute from "../../components/nextUi/Link";
-import { JobPostCard } from "../../components/common/JobPostCard";
 import { useSelector } from "react-redux";
-import { Chatbot } from "./ChatBot";
-import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal";
-import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
-import { UserState } from "../../config/state/allState";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { UserState } from "../../config/state/allState";
+import { Chatbot } from "./ChatBot";
+import { JobPostCard } from "../../components/common/JobPostCard";
+import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal";
 
 interface Jobs {
   jobs: {
@@ -22,15 +22,15 @@ interface Jobs {
     paymentType: string;
     estimateTimeinHours: string;
     projectType: string;
-  };
-}
+  }
+};
 
 interface Client {
   companyName: string;
   location: string;
   domain: string;
   since: number;
-}
+};
 
 const HomeUser: React.FC = () => {
   const [clients, setClients] = useState<Client>({
@@ -51,7 +51,7 @@ const HomeUser: React.FC = () => {
       paymentType: "",
       estimateTimeinHours: "",
       projectType: "",
-    },
+    }
   });
   const [latestJobs, setLatestJobs] = useState<Jobs>({
     jobs: {
@@ -64,7 +64,7 @@ const HomeUser: React.FC = () => {
       paymentType: "",
       estimateTimeinHours: "",
       projectType: "",
-    },
+    }
   });
   const [totalJobs, setTotalJobs] = useState<string>("");
   const [totalHours, setTotalHours] = useState<string>("{}");

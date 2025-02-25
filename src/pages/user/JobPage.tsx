@@ -7,21 +7,36 @@ import { useSelector } from "react-redux";
 import { UserState } from "../../config/state/allState";
 
 interface Jobs {
-  _id: string;
-  title: string;
-  description: string;
-  expertLevel: string;
-  location: string;
-  amount: number;
-  paymentType: string;
-  estimateTimeinHours: string;
-  projectType: string;
+  jobs: {
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string;
+  };
 }
 
 const Jobs = () => {
-
   const [activeTab, setActiveTab] = useState<string>("listAllJobs");
-  const [jobs, setJobs]: any = useState<Jobs[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<any>([]);
+  const [jobs, setJobs] = useState<Jobs>({
+    jobs: {
+      _id: "",
+      title: "",
+      description: "",
+      expertLevel: "",
+      location: "",
+      amount: 0,
+      paymentType: "",
+      estimateTimeinHours: "",
+      projectType: "",
+    },
+  });
   const userId: string = useSelector(
     (state: UserState) => state?.user?.currentUser?._id
   );
@@ -30,10 +45,13 @@ const Jobs = () => {
     (async () => {
       try {
         const { data } = await apiUserInstance.get(
-          `/jobs/view/${activeTab}/${userId}`
-        ); 
-        setJobs(data?.data);
-      } catch (err: any) {
+          `/jobs/${activeTab}?currentPage=${currentPage}`
+        );
+        console.log('The result', data)
+        setJobs(data?.data?.jobs);
+        setTotalPages(data?.data?.totalPages);
+      } catch (error: unknown) {
+        const err = error as { message?: string };
         toast.error(err.message, {
           style: {
             backgroundColor: "red",
@@ -42,7 +60,13 @@ const Jobs = () => {
         });
       }
     })();
-  }, [activeTab]);
+  }, [activeTab, currentPage]);
+ 
+
+  const changePage = async (page: number) => {
+    setCurrentPage(page);
+  };
+
 
   return (
     <main>
@@ -78,6 +102,79 @@ const Jobs = () => {
 
           <div className="tab-content mt-8">
             <JobPostCard jobs={jobs} role="user" type="user-view" />
+          </div>
+          <div>
+          <div>
+            <div className="container mx-auto px-4 ">
+              <nav
+                className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
+                aria-label="Pagination"
+              >
+                {currentPage - 1 < 1 ? (
+                  <div></div>
+                ) : (
+                  <a
+                    onClick={() => changePage(currentPage - 1)}
+                    className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300"
+                    title="Previous Page"
+                  >
+                    <span className="sr-only">Previous Page</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="block w-5 h-5 my-2 mx-auto"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 19.5L8.25 12l7.5-7.5"
+                      />
+                    </svg>
+                  </a>
+                )}
+
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <p
+                    onClick={() => changePage(index + 1)}
+                    key={index}
+                    className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300 "
+                    title={`Page ${index + 1}`}
+                  >
+                    {index + 1}
+                  </p>
+                ))}
+
+                {currentPage + 1 > totalPages ? (
+                  <div></div>
+                ) : (
+                  <a
+                    onClick={() => changePage(currentPage + 1)}
+                    className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-whitetext-black  hover:border-gray-300"
+                    title="Next Page"
+                  >
+                    <span className="sr-only">Next Page</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="block w-5 h-5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                      />
+                    </svg>
+                  </a>
+                )}
+              </nav>
+            </div>
+          </div>
           </div>
         </div>
       </div>

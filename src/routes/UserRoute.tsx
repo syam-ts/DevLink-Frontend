@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import { userRouteHelper } from "../config/helper/routeHelper";
 import { UserState } from "../config/state/allState";
 
-const {
-  VerfiyEmail,
-  ResetPassword,
+const { 
   HomeUser,
   JobPage,
   UserProfile,
@@ -32,12 +30,15 @@ const UserRoute = () => {
     <>
       <Navbar roleType="user" roleInfo={user} />
 
-      <Routes>
-        <Route path="/verify-email" element={<VerfiyEmail />} />
-        <Route path="/resetPassword/:userId" element={<ResetPassword />} />
+      <Routes> 
         <Route path="/home" element={<HomeUser />} />
+
         <Route path="/jobs" element={<JobPage />} />
         <Route path="/job/:jobPostId/:type" element={<MonoJobPost />} />
+
+
+
+        
         <Route path="/userProfile/:userId/:type" element={<UserProfile />} />
         <Route path="/profile/:type" element={<ProfileAlter />} />
         <Route path="/jobs/proposals" element={<Proposals />} />
