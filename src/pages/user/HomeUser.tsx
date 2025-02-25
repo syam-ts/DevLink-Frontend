@@ -1,35 +1,84 @@
-import { useEffect, useState } from "react";
-import { Card, CardHeader } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Card } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import useUserVerified from "../../hooks/userUserVerified";
 import LinkAttribute from "../../components/nextUi/Link";
 import { JobPostCard } from "../../components/common/JobPostCard";
 import { useSelector } from "react-redux";
 import { Chatbot } from "./ChatBot";
 import { ProfileNotFilledModal } from "../../components/nextUi/modals/ProfileNotFilledModal";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { UserState } from "../../config/state/allState";
+import { toast } from "sonner";
+import { Sonner } from "../../components/sonner/Toaster";
 
-interface Clients {}
-interface Jobs {}
+interface Jobs {
+  jobs: {
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string;
+  };
+}
 
-const HomeUser = () => {
-  
-  const [clients, setClients]: any = useState({});
-  const [jobs, setJobs]: any = useState({});
-  const [latestJobs, setLatestJobs]: any = useState({});
-  const [totalJobs, setTotalJobs]: any = useState("");
-  const [totalHours, setTotalHours]: any = useState("{}");
-  const [verifiedAccounts, setVerifiedAccounts]: any = useState("{}");
-  const userId = useSelector((state: any) => state?.user?.currentUser?._id);
-  const user = useSelector((state: any) => state?.user?.currentUser);
+interface Client {
+  companyName: string;
+  location: string;
+  domain: string;
+  since: number;
+}
 
+const HomeUser: React.FC = () => {
+  const [clients, setClients] = useState<Client>({
+    companyName: "",
+    location: "",
+    domain: "",
+    since: 0,
+  });
+
+  const [jobs, setJobs] = useState<Jobs>({
+    jobs: {
+      _id: "",
+      title: "",
+      description: "",
+      expertLevel: "",
+      location: "",
+      amount: 0,
+      paymentType: "",
+      estimateTimeinHours: "",
+      projectType: "",
+    },
+  });
+  const [latestJobs, setLatestJobs] = useState<Jobs>({
+    jobs: {
+      _id: "",
+      title: "",
+      description: "",
+      expertLevel: "",
+      location: "",
+      amount: 0,
+      paymentType: "",
+      estimateTimeinHours: "",
+      projectType: "",
+    },
+  });
+  const [totalJobs, setTotalJobs] = useState<string>("");
+  const [totalHours, setTotalHours] = useState<string>("{}");
+  const [verifiedAccounts, setVerifiedAccounts] = useState<string>("{}");
   const [showModal, setShowModal] = useState<boolean>(false);
+  const userId = useSelector(
+    (state: UserState) => state?.user?.currentUser?._id
+  );
+  const user = useSelector((state: UserState) => state?.user?.currentUser);
 
   useEffect(() => {
-    console.log("The current user from Redux : ", user);
-
     if (user.isProfileFilled) {
       setShowModal(true);
+      console.log(showModal);
     }
   }, [user.isProfileFilled]);
 
@@ -41,11 +90,12 @@ const HomeUser = () => {
         });
 
         setClients(data?.data || []);
-      } catch (error: any) {
-        console.error(
-          "Error fetching home data:",
-          error?.response?.data?.message || error.message
-        );
+      } catch (error: unknown) {
+        const err = error as {
+          response?: { data?: { message?: string } };
+          message?: string;
+        };
+        toast.error(err?.response?.data?.message || err.message);
       }
     })();
   }, []);
@@ -53,7 +103,6 @@ const HomeUser = () => {
   useEffect(() => {
     (async () => {
       const { data } = await apiUserInstance.get(`/home/listAllJobs`);
-
       setJobs(data?.data?.allJobs);
       setTotalJobs(data?.data?.totalJobs);
       setTotalHours(data?.data?.totalHours[0]?.sum);
@@ -64,13 +113,13 @@ const HomeUser = () => {
   useEffect(() => {
     (async () => {
       const { data } = await apiUserInstance.get(`/home/latestJobs`);
-
       setLatestJobs(data?.data);
     })();
   }, []);
 
   return (
     <div className="arsenal-sc-regular">
+      <Sonner />
       <div className="hidden">
         <ProfileNotFilledModal
           isProfileFilled={user.isProfileFilled}
@@ -143,10 +192,15 @@ const HomeUser = () => {
       {/* cards */}
       <section>
         <div className="max-w-[1400px] h-[750px] gap-20 grid grid-cols-12 grid-rows-2 mx-auto my-24">
-          {Object.values(clients).map((client: any, index: number) => (
-            <Card key={index} className="col-span-12 sm:col-span-4 rounded-none h-[750px]"> 
-              <img className='h-full'
-               src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY=" />
+          {Object.values(clients).map((client: Client, index: number) => (
+            <Card
+              key={index}
+              className="col-span-12 sm:col-span-4 rounded-none h-[700px]"
+            >
+              <img
+                className="h-full"
+                src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY="
+              />
               <div className="absolute top-96 grid w-full justify-center">
                 <span className="px-3 text-2xl text-white flex font-bold">
                   {client.companyName || "devlink-certified client"}
@@ -156,18 +210,17 @@ const HomeUser = () => {
                     alt="verified-icon"
                   />
                 </span>
-                
-                <span className="px-3 text-md font-bold text-white mx-auto"> 
+
+                <span className="px-3 text-md font-bold text-white mx-auto">
                   {client?.location || "...."}
                 </span>
-                <span className="px-3 text-md font-bold text-white mx-auto"> 
+                <span className="px-3 text-md font-bold text-white mx-auto">
                   {client?.domain || "...."}
                 </span>
-                <span className="px-3 text-md font-bold text-white mx-auto"> 
-                 Since {client?.since || "...."}
+                <span className="px-3 text-md font-bold text-white mx-auto">
+                  Since {client?.since || "...."}
                 </span>
-                <hr className='text-white border-2 ' />
-                
+                <hr className="text-white border-2 " />
               </div>
             </Card>
           ))}

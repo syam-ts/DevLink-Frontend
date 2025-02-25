@@ -10,7 +10,7 @@ export const NotFound = () => {
           <div className="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
           <motion.div
             className="ml-4 text-lg uppercase tracking-wider"
-            animate={{ color: ["#000000", "#FFD700", "#0000ff"] }} // Black -> Yellow -> Black
+            animate={{ color: ["#000000", "#FFD700", "#0000ff"] }}  
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             404
@@ -18,7 +18,7 @@ export const NotFound = () => {
           </div>
           <motion.div
             className="ml-4 text-lg uppercase tracking-wider"
-            animate={{ color: ["#000000", "#FFD700", "#0000ff"] }} // Black -> Yellow -> Black
+            animate={{ color: ["#000000", "#FFD700", "#0000ff"] }}  
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             Not Found
