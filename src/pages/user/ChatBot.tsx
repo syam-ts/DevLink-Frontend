@@ -79,12 +79,12 @@ export const Chatbot = () => {
       {open && (
         <div className="fixed z-1 shadow-2xl bottom-[calc(4rem+1.5rem)] bg-white right-0 mr-4 px-10 p-6 rounded-lg w-[450px] h-[650px]">
           <div className="flex flex-col space-y-1.5 pb-6">
-            <h2 className="font-semibold text-lg tracking-tight">
+            <h2 className="font-bold text-[#0000ff] text-lg tracking-tight">
               Devlink Chatbot
             </h2>
           </div>
 
-          <div className='h-[500px] overflow-y-scroll '>
+          <div className='h-[500px] overflow-y-scroll scrollbar-hide '>
             {chatHistory.map((chat) => (
               <div className="pr-4">
                 <div className="flex gap-3 my-4 text-gray-600 text-sm flex-1">
