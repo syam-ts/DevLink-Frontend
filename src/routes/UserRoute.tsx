@@ -39,9 +39,6 @@ const UserRoute = () => {
   
     
       const restrictedPath = [
-        '/user/signup',  
-        '/user/login',
-        '/user/verify-otp',
         '/user/verify-email', 
         '/user/user-signup',
         '/user/resetPassword/67697480bd289da770893f9c'
@@ -53,8 +50,6 @@ const UserRoute = () => {
         <>
           { showNavAndFooter(location.pathname) && <Navbar roleType='user' roleInfo={user} />}
             <Routes> 
-               <Route path='/login' element={<LoginComponent />} />
-               <Route path='/signup' element={<SignupComponent />} />
             {/*  <Route path='/signup' element={<SignupUser />} /> */} 
                 <Route path='/verify-email' element={<VerfiyEmail />} />
                 <Route path='/resetPassword/:userId' element={<ResetPassword />} />

@@ -39,10 +39,7 @@ const ClientRoute = () => {
 
   const showNavAndFooter: any = (pathname: string) => {
 
-    const restrictedPath = [
-      '/client/signup',
-      '/client/login',
-      '/client/verify-otp',
+    const restrictedPath = [ 
       '/client/verify-email',
       '/client/resetPassword/:clientId'
     ];
@@ -52,9 +49,7 @@ const ClientRoute = () => {
   return (
     <>
       {showNavAndFooter(location.pathname) && <Navbar roleType='client' roleInfo={client} />}
-      <Routes>
-        <Route path='/login?' element={<LoginComponent />} />
-        <Route path='/signup?' element={<SignupComponent />} /> 
+      <Routes> 
         <Route path='/verify-email' element={<VerfiyEmail />} />
         <Route path='/resetPassword/:clientId' element={<ResetPassword />} />
         <Route path='/home' element={<HomeClient />} />

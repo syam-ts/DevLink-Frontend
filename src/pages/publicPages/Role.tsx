@@ -19,9 +19,9 @@ const Role = () => {
       }, 2000);
     } else {
       if (checkBox === "freelancer") {
-        navigate("/user/signup?rt=user");
+        navigate("/signup?rt=user");
       } else {
-        navigate("/client/signup?rt=client");
+        navigate("/signup?rt=client");
       }
     }
   };

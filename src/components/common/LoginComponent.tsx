@@ -17,7 +17,7 @@ const LoginComponent = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt")
-
+ 
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -244,7 +244,7 @@ const LoginComponent = () => {
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Dont't have an account? <a href="#" className="text-black hover:underline">
     
-                  <Link to={`/user/signup?rt=${rt}`} className='text-black'>
+                  <Link to={`/signup?rt=${rt}`} className='text-black'>
                   Signup here
                 </Link>
                

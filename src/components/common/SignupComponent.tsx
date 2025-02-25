@@ -343,7 +343,7 @@ const SignupComponent = () => {
             </form>
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>Already have an account? <a href="#" className="text-black hover:underline">
-                <Link to={`/${rt}/login?rt=${rt}`} className='text-black'>
+                <Link to={`/login?rt=${rt}`} className='text-black'>
                   Login here
                 </Link>
               </a>
