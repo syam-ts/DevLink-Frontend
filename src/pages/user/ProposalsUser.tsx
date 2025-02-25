@@ -21,8 +21,9 @@ interface Proposals {
 }
 
 const JobProposals = () => {
+  const [proposals, setProposals] = useState<Proposals[]>([]);
   const [data, setData]: any = useState<Proposals[]>([]);
-  const [proposalLoadType, setProposalLoadType] = useState<string>("pending");
+  const [proposalType, setProposalType] = useState<string>("pending"); 
 
   const userId: string = useSelector(
     (state: UserState) => state?.user?.currentUser?._id
@@ -32,26 +33,36 @@ const JobProposals = () => {
     (async () => {
       try {
         const { data } = await apiUserInstance.get(
-          `/job/proposals/${userId}`
+          `/proposals/${proposalType}`
         );
-
-        setData(data?.proposals);
+        setProposals(data?.proposals || []); 
+        
       } catch (err: any) {
         console.log("ERROR: ", err.message);
       }
     })();
   }, []);
 
+   
 
+  useEffect(() => {
+    if (proposalType === "pending") {
+      setData(proposals.filter((props: any) => props.status === "pending"));
+    } else {
+      setData(proposals.filter((props: any) => props.status === "rejected"));
+    }
+  }, [proposals,proposalType]);
 
-  
+ 
+ 
+
   return (
     <main>
       <section className="pt-5 arsenal-sc-regular">
         {
           <div>
             <section className="text-center mt-16 arsenal-sc-regular">
-              {proposalLoadType === "pending" ? (
+              {proposalType === "pending" ? (
                 <span className="text-3xl">Pending Proposals </span>
               ) : (
                 <span className="text-3xl"> Rejected Proposals </span>
@@ -61,7 +72,7 @@ const JobProposals = () => {
                 <form className="w-60">
                   <select
                     id="countries"
-                    onChange={(e) => setProposalLoadType(e.target.value)}
+                    onChange={(e) => setProposalType(e.target.value)}
                     className="bg-gray-50 shadow-lg border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   >
                     <option selected value="pending">
@@ -74,24 +85,26 @@ const JobProposals = () => {
               {data.length === 0 ? (
                 <div className="flex my-64">
                   <span className="mx-auto text-2xl ">
-                    {" "}
                     Proposals Not Found{" "}
                   </span>
                 </div>
               ) : (
                 <div>
-                  {data
-                    .filter((pro: any) => pro.status === proposalLoadType) 
-                      .map((pro: any) => (
-                        <ProposalCard
-                          key={pro._id}
-                          proposals={[pro]}
-                          roleId={userId}
-                          roleType="user"
-                        />
-                      )
-                  ) 
-                  }
+                  <div>
+                    {proposalType === "pending" ? (
+                      <ProposalCard
+                        proposals={data}
+                        roleId={userId}
+                        roleType="user"
+                      />
+                    ) : (
+                      <ProposalCard
+                        proposals={data}
+                        roleId={userId}
+                        roleType="user"
+                      />
+                    )}
+                  </div>
                 </div>
               )}
             </section>

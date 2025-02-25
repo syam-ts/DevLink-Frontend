@@ -53,7 +53,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
   return (
 
 
-    <nav className="bg-white border-1 shadow-md arsenal-sc-regular">
+    <nav className="bg-white border-1 shadow-md arsenal-sc-regular ">
       <div className="relative flex h-16 items-center justify-between ">
         <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
           <Link to={`/${roleType}/home`}>
@@ -70,7 +70,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             roleType === 'user' ? (
               <NavbarAutoOpen roleType={roleType} roleInfo={roleInfo} />
             ) : (
-              <div className=" sm:ml-6 sm:block pl-10 ">
+              <div className=" sm:ml-6 sm:block pl-10">
                 <div className="flex space-x-28 ">
                   <p className="rounded-md px-1 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
                     <Link to={`/${roleType}/home`} className='no-underline text-black'>
@@ -254,7 +254,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
             aria-current="page"
           >
-            Dashboard
+            Home
           </a>
           <a
             href="#"

@@ -7,8 +7,11 @@ const {
   HomeUser,
   JobPage,
   UserProfile,
-  MonoJobPost,
+  
   Proposals,
+
+
+  MonoJobPost,
   AllContract,
   Contract,
   InviteComponent,
@@ -31,17 +34,20 @@ const UserRoute = () => {
       <Navbar roleType="user" roleInfo={user} />
 
       <Routes> 
-        <Route path="/home" element={<HomeUser />} />
-
+        <Route path="/home" element={<HomeUser />} /> 
         <Route path="/jobs" element={<JobPage />} />
+
+        <Route path="/jobs/proposals" element={<Proposals />} />
+
+
+
         <Route path="/job/:jobPostId/:type" element={<MonoJobPost />} />
 
 
 
-        
+
         <Route path="/userProfile/:userId/:type" element={<UserProfile />} />
         <Route path="/profile/:type" element={<ProfileAlter />} />
-        <Route path="/jobs/proposals" element={<Proposals />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route
           path="/profile/boost/success/:userId"

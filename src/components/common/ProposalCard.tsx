@@ -7,7 +7,7 @@ import config from '../../config/helper/config';
 
 type Id = string;
 interface ProposalCardProps {
-  proposals: string[];
+  proposals: string[] | [];
   roleType: string;
   roleId: Id;
 };
@@ -18,7 +18,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   roleType,
   roleId,
 }) => {
-
+console.log('the ', proposals)
   const dispatch = useDispatch(); 
 
   const acceptProposal = async (

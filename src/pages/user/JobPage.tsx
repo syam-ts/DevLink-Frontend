@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { JobPostCard } from "../../components/common/JobPostCard";
-import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
-import { useSelector } from "react-redux";
-import { UserState } from "../../config/state/allState";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance"; 
 
 interface Jobs {
   jobs: {
@@ -23,7 +21,7 @@ interface Jobs {
 const Jobs = () => {
   const [activeTab, setActiveTab] = useState<string>("listAllJobs");
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [totalPages, setTotalPages] = useState<any>([]);
+    const [totalPages, setTotalPages] = useState<number>(1);
   const [jobs, setJobs] = useState<Jobs>({
     jobs: {
       _id: "",
@@ -37,10 +35,7 @@ const Jobs = () => {
       projectType: "",
     },
   });
-  const userId: string = useSelector(
-    (state: UserState) => state?.user?.currentUser?._id
-  );
-
+ 
   useEffect(() => {
     (async () => {
       try {
