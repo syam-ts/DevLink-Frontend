@@ -3,12 +3,11 @@ import { SmallModal } from "../../components/nextUi/modals/SmallModal";
 import { useNavigate } from "react-router-dom";
 
 const Role = () => {
-
   const [checkBox, setCheckBox] = useState<string>("");
   const [modal, showModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const checkFn = (role: any): void => {
+  const checkFn = (role: string): void => {
     setCheckBox(role);
   };
 
@@ -19,7 +18,7 @@ const Role = () => {
         showModal(false);
       }, 2000);
     } else {
-      if (checkBox === "freelance") {
+      if (checkBox === "freelancer") {
         navigate("/user/signup?rt=user");
       } else {
         navigate("/client/signup?rt=client");
@@ -31,17 +30,24 @@ const Role = () => {
     <div>
       {modal && <SmallModal showModals={true} />}
 
-      <div className="text-center py-16 arsenal-sc-regular">
+      <div className="text-center py-24 arsenal-sc-regular">
         <span className="font-bold text-3xl">Join Us For Free</span>
       </div>
       <div className="flex items-center justify-center arsenal-sc-regular">
         <form className="flex gap-20">
-          <div className="text-center" onClick={() => checkFn("freelance")}>
+          <div
+            className={`${
+              checkBox === "freelancer"
+                ? "text-center border border-black"
+                : "text-center"
+            }`}
+            onClick={() => checkFn("freelancer")}
+          >
             <input
               className="peer hidden"
               id="radio_1"
               type="radio"
-              name="freelance"
+              name="freelancer"
               checked
             />
             <label
@@ -54,7 +60,11 @@ const Role = () => {
           </div>
 
           <div
-            className="text-center object-fill"
+            className={`${
+              checkBox === "client"
+                ? "text-center border border-black"
+                : "text-center"
+            }`}
             onClick={() => checkFn("client")}
           >
             <input
@@ -79,7 +89,6 @@ const Role = () => {
           onClick={handleSubmit}
           className="w-44 arsenal-sc-regular bg-green-600 h-12 rounded-lg text-white font-bold"
         >
-          {" "}
           Create Account{" "}
         </button>
       </div>

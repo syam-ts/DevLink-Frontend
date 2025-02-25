@@ -39,7 +39,7 @@ const UserRoute = () => {
   
     
       const restrictedPath = [
-        '/user/signup', 
+        '/user/signup',  
         '/user/login',
         '/user/verify-otp',
         '/user/verify-email', 
