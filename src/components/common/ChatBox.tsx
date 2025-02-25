@@ -10,7 +10,7 @@ interface Messages {
     text: string
 }
 
-export const ChatBox = ({roleType, targetId}: any) => {
+const ChatBox = ({roleType, targetId}: any) => {
 
     const [messages, setMessages] = useState<Messages[]>([]);
     const [newMessage, setNewMessage] = useState("");
@@ -188,3 +188,6 @@ export const ChatBox = ({roleType, targetId}: any) => {
 
     );
 };
+
+
+export default ChatBox;

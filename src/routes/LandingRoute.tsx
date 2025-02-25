@@ -22,6 +22,9 @@ const LandingRoute: React.FC = () => {
                 <Route path='/login' element={<LoginComponent />} />
                <Route path='/signup' element={<SignupComponent />} />
                 <Route path='/verify-otp' element={<OtpVerify />} /> 
+      {/* VERIFY EMAIL & RESET PASSWORD ROUTE PENDING */}
+                {/* <Route path='/verify-otp' element={<OtpVerify />} /> 
+                <Route path='/verify-otp' element={<OtpVerify />} />  */}
             </Routes>  
         </>
     )

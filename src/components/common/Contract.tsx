@@ -6,7 +6,7 @@ import html2canvas from "html2canvas";
 import { Sonner } from "../sonner/Toaster";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
-export const Contract = () => {
+ const Contract = () => {
   
   const [contract, setContract]: any = useState({});
   const { contractId, roleType } = useParams<{ contractId: string, roleType: string }>();
@@ -239,3 +239,6 @@ export const Contract = () => {
     </div>
   );
 };
+
+
+export default Contract;

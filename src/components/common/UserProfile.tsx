@@ -57,8 +57,7 @@ interface User {
   isBoosted: boolean;
   isProfileFilled: boolean;
 }
-
-export const UserProfile = () => {
+ const UserProfile = () => {
   const [user, setUser] = useState<User>({
     _id: "",
     name: "",
@@ -413,3 +412,6 @@ export const UserProfile = () => {
     </>
   );
 };
+
+
+export default UserProfile;
