@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
+import { ClientState } from "../config/state/allState";
 
 const {
   HomeClient,
@@ -25,8 +26,8 @@ const {
 } = clientRouteHelper;
 
 const ClientRoute = () => {
-  const currentClient = useSelector((state: any) => state.client);
-  const client: string = currentClient?.currentClient;
+  const currentClient = useSelector((state: ClientState) => state.client);
+  const client = currentClient?.currentClient;
 
   return (
     <>

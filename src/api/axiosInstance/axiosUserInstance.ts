@@ -43,16 +43,14 @@ apiUserInstance.interceptors.response.use(
 
     (response) => response, 
     async (error) => {  
-      // const dispatch = useDispatch();
-      console.log('reched here')
+      // const dispatch = useDispatch(); 
       const originalRequest = error.config;
   
-      if (error.response?.status === 401) { 
-        console.log('again reache ')
+      if (error.response?.status === 401) {  
         if (originalRequest._retry) {
           console.log('Redirecting to login due to failed token refresh');
           localStorage.removeItem('accessToken');
-          window.location.href = '/user/login?rt=user';
+          window.location.href = '/login?rt=user';
           return Promise.reject(error);
         }
   
@@ -76,7 +74,7 @@ apiUserInstance.interceptors.response.use(
           localStorage.removeItem('accessToken');
 
           store.dispatch(signOutUser());
-          window.location.href = '/user/login?rt=user'; 
+          window.location.href = '/login?rt=user'; 
           return Promise.reject(refreshError);
         }
       } 

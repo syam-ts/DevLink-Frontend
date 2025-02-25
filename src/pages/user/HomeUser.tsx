@@ -13,6 +13,7 @@ interface Clients {}
 interface Jobs {}
 
 const HomeUser = () => {
+  
   const [clients, setClients]: any = useState({});
   const [jobs, setJobs]: any = useState({});
   const [latestJobs, setLatestJobs]: any = useState({});

@@ -41,7 +41,7 @@ apiClientInstance.interceptors.response.use(
       if (error.response?.status === 401) {  
         if (originalRequest._retry) { 
           localStorage.removeItem('accessToken');
-          window.location.href = '/client/login?rt=client';
+          window.location.href = '/login?rt=client';
           return Promise.reject(error);
         }
   
@@ -64,7 +64,7 @@ apiClientInstance.interceptors.response.use(
         
           localStorage.removeItem('accessToken'); 
           store.dispatch(signOutClient());
-          window.location.href = '/client/login?rt=client'; 
+          window.location.href = '/login?rt=client'; 
           return Promise.reject(refreshError);
         }
       } 

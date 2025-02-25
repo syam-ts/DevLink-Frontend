@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userRouteHelper } from "../config/helper/routeHelper";
+import { UserState } from "../config/state/allState";
 
 const {
   VerfiyEmail,
@@ -24,8 +25,8 @@ const {
 } = userRouteHelper;
 
 const UserRoute = () => {
-  const currentUser = useSelector((store: any) => store.user);
-  const user: string = currentUser?.currentUser;
+  const currentUser = useSelector((store: UserState) => store.user);
+  const user = currentUser?.currentUser;
 
   return (
     <>
