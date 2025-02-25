@@ -35,8 +35,7 @@ import ListAllClientChat from "../../components/common/ViewAllChats";
 import Wallet from "../../components/common/Wallet";
 import InviteComponent from "../../components/common/Invite";
 import Wishlist from "../../components/common/Wishlist";
-import MonoJobPost from "../../components/common/MonoJobPost";
-import AllContract from "../../components/common/AllContract";
+import MonoJobPost from "../../components/common/MonoJobPost"; 
 
 // --------- user exports -----------
 export const userRouteHelper = {
@@ -47,7 +46,7 @@ export const userRouteHelper = {
   UserProfile,
   MonoJobPost,
   Proposals,
-  AllContract,
+  AllContracts,
   Contract,
   InviteComponent,
   Wishlist,

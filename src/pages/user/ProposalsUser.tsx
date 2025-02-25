@@ -35,7 +35,7 @@ const JobProposals = () => {
           `/proposals/${proposalType}`
         );
         console.log('reos: ', data)
-        setProposals(data?.proposals.proposals || []); 
+        setProposals(data?.proposals || []); 
         
       } catch (err: any) {
         console.log("ERROR: ", err.message);

@@ -9,7 +9,9 @@ function AllContract() {
   const [contractsViewType, setContractsViewType]: any =
     useState("myContracts");
 
-  const { roleId, roleType } = useParams();
+  // Types: peding , submitted, completed(sorted backways)
+
+  const { roleType } = useParams();
 
   useEffect(() => {
     try {
@@ -18,11 +20,12 @@ function AllContract() {
 
         if (roleType === "user") {
           response = await apiUserInstance.get(
-            `/contract/${contractsViewType}/${roleId}`
+            `/contracts/${contractsViewType}`
           );
         } else {
+          //FIXING NEEDED
           response = await apiClientInstance.get(
-            `/job/${contractsViewType}/${roleId}`
+            `/contracts/${contractsViewType}`
           );
         }
 
@@ -33,8 +36,12 @@ function AllContract() {
     }
   }, [contractsViewType]);
 
+  console.log("curr conta", contracts);
+
+  //ADD ROLES
+
   return (
-    <div className="bg-white h-full ">
+    <div className="h-full w-full">
       <div className=" text-center pt-5">
         <span className="arsenal-sc-regular text-center mx-auto text-2xl ">
           {contractsViewType === "myContracts"
@@ -50,31 +57,65 @@ function AllContract() {
             <select
               id="countries"
               onChange={(e) => setContractsViewType(e.target.value)}
-              className="bg-gray-50 shadow-lg border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="shadow-lg border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
-              <option selected value="myContracts">
-                My Contracts
+              <option selected value="pending">
+                Pending Contracts
               </option>
-              <option value="submittedContracts">Submitted Contracts</option>
+              <option value="rejected">Rejected Contracts</option>
+              <option value="completed">Completed Contracts</option>
             </select>
           </form>
         </div>
       )}
 
-      <div className=" mt-44 grid gap-5 mx-auto w-[1270px] items-center justify-center arsenal-sc-regular">
-      {
-        Object.entries(contracts).length !== 0 ? (
-          <div>
+      <div className=" mt-44 gap-5 mx-auto w-[1270px] items-center justify-center arsenal-sc-regular">
+        {Object.entries(contracts)?.map((contract: any) => (
+          <div className="containter mx-auto my-10">
+            <div
+              className={`${
+                contract.status === "submitted" ? "bg-black" : "bg-white"
+              } p-8 rounded-xl shadow-lg relative hover:shadow-2xl transition duration-500`}
+            >
+              <h1 className="text-2xl text-gray-800 font-semibold mb-3">
+                {contract[1]?.jobPostData?.title}{" "}
+              </h1>
+              <p className="text-gray-600 leading-6 tracking-normal">
+                {" "}
+                {contract[1]?.jobPostData?.description}{" "}
+              </p>
+              <div className="grid">
+                <span className="text-xs">
+                  Contract Amount: {contract[1]?.amount}.00₹
+                </span>
+                <span className="text-xs">
+                  Contract Amount Deadline: {contract[1]?.deadline}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-md shadow-xl">
+                  <Link
+                    to={`/${roleType}/contract/${contract[1]?._id}/${roleType}`}
+                    className="no-underline text-white"
+                  >
+                    View Contract
+                  </Link>
+                </button>
 
+                {roleType === "user" && contractsViewType === "myContracts" && (
+                  <div>
+                    {/* <SubmitProject contractId={contract[1]?._id} jobTitle={contract[1]?.jobPostData?.title} /> */}
+                  </div>
+                )}
+              </div>
+              <div>
+                <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-3 shadow-xl">
+                  New
+                </span>
+              </div>
+            </div>
           </div>
-        ): (
-          <div>
-            <div className="flex justify-center my-[5rem]">
-          <p className="arsenal-sc-regular text-2xl ">No Contracts To Show </p>
-        </div>
-          </div>
-        )
-      }
+        ))}
       </div>
     </div>
   );

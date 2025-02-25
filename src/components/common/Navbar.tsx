@@ -96,7 +96,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
                   
                     <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                    <Link to={`/${roleType}/jobs/proposals`} className='no-underline text-black'>
+                    <Link to={`/${roleType}/proposals`} className='no-underline text-black'>
                       <button>proposals</button>
                     </Link>
                   </p>
@@ -197,7 +197,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
 
                 <DropdownItem key="contracts">
-                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/all-contracts/${roleInfo?._id}`}>
+                  <Link className='no-underline text-black font-sans text-lg arsenal-sc-regular' to={`/${roleType}/contracts/client`}>
                     Requests
                   </Link>
                 </DropdownItem>
