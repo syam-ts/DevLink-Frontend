@@ -35,14 +35,14 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         let response: Response;
         if (roleType === "user") {
           response = await apiUserInstance.get(
-            `/wallet-view/${roleId}?currentPage=${currentPage}`,
+            `/wallet?currentPage=${currentPage}`,
             {
               withCredentials: true,
             }
           );
         } else {
           response = await apiClientInstance.get(
-            `/wallet-view/${roleId}?currentPage=${currentPage}`,
+            `/wallet?currentPage=${currentPage}`,
             {
               withCredentials: true,
             }

@@ -11,7 +11,7 @@ const Wishlist: React.FC = () => {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await apiUserInstance.get("/wishlist-view");
+        const { data } = await apiUserInstance.get("/wishlist");
         setJobs(data.wishlist.jobPostData);
         console.log("twh: ", data.wishlist.jobPostData);
         setWishlistId(data.wishlist._id);

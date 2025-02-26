@@ -81,7 +81,7 @@ export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
           <NavigationMenuItem>
             <NavigationMenuTrigger>
               <Link
-                to={`/user/wishlist-view`}
+                to={`/user/wishlist`}
                 className="no-underline text-black"
               >
                 <button>Wishlist</button>

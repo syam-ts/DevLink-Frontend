@@ -38,28 +38,22 @@ const UserRoute = () => {
         <Route path="/jobs" element={<JobPage />} />
         <Route path="/proposals" element={<Proposals />} />
         <Route path="/contracts/:roleType" element={<AllContracts />} />
-        <Route path="/profile/:type" element={<UserProfile />} />
+        <Route path="/profile/:type" element={<UserProfile />} /> 
+        <Route path="/profileAlter/:type" element={<ProfileAlter />} /> 
+        <Route path="/profileBoostSuccess" element={<BoostPaymentSuccess />} />
+        <Route path="/wishlist" element={<Wishlist />} />
 
-        <Route path="/profileAlter/:type" element={<ProfileAlter />} />
+        <Route path="/wallet" element={<Wallet roleType="user" />} />
 
-        <Route
-          path="/profileBoostSuccess"
-          element={<BoostPaymentSuccess />}
-        />
 
 
 
         <Route path="/job/:jobPostId/:type" element={<MonoJobPost />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route
-          path="/wallet/view/:roleId"
-          element={<Wallet roleType="user" />}
-        />
-        <Route
           path="/invite/view/:roleId/:type"
           element={<InviteComponent />}
         />
-        <Route path="/wishlist-view" element={<Wishlist />} />
 
         <Route
           path="/allChats/:roleType/:roleId"
