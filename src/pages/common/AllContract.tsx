@@ -52,7 +52,7 @@ const AllContract: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const changeContactsViewType = async (e: any) => {
+  const changeContactsViewType = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     setContractsViewType(e.target.value)
      setCurrentPage(1)
   };
@@ -78,7 +78,7 @@ const AllContract: React.FC = () => {
             <form className="w-60">
               <select
                 id="countries"
-                 onChange={(e) => changeContactsViewType(e)}
+                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeContactsViewType(e)}
                 className="shadow-lg border outline-none border-gray-800 text-gray-900 text-sm rounded-lg w-full p-2.5 "
               >
                 <option selected value="pending">
