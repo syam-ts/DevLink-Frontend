@@ -84,7 +84,7 @@ const JobProposals = () => {
               {data.length === 0 ? (
                 <div className="flex my-64">
                   <span className="mx-auto text-2xl ">
-                    Proposals Not Found{" "}
+                    Proposals Not Found
                   </span>
                 </div>
               ) : (

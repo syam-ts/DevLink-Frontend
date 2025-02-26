@@ -5,7 +5,7 @@ import ResetPassword from "../../pages/user/ResetPassword";
 import JobPage from "../../pages/user/JobPage";
 import ProfileAlter from "../../pages/user/ProfileAlter";
 import BoostPaymentSuccess from "../../pages/user/BoostAcc-Success";
-import Proposals from "../../pages/user/ProposalsUser";
+import Proposals from "../../pages/user/Proposals";
 
 // ------- client imports ------------
 import HomeClient from "../../pages/client/HomeClient";

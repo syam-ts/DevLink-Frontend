@@ -3,13 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { SubmitProject } from "../nextUi/modals/SubmitProjectModal";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { toast } from "sonner";
 
+ 
 function AllContract() {
   const [contracts, setContracts] = useState({});
-  const [contractsViewType, setContractsViewType]: any =
-    useState("myContracts");
-
-  // Types: peding , submitted, completed(sorted backways)
+  const [contractsViewType, setContractsViewType] = useState<string>("pending");
+ 
 
   const { roleType } = useParams();
 
@@ -23,7 +23,6 @@ function AllContract() {
             `/contracts/${contractsViewType}`
           );
         } else {
-          //FIXING NEEDED
           response = await apiClientInstance.get(
             `/contracts/${contractsViewType}`
           );
@@ -31,8 +30,11 @@ function AllContract() {
 
         setContracts(response.data?.data);
       })();
-    } catch (err: any) {
-      console.error("ERROR: ", err.message);
+    } catch (error: unknown) {
+      const err = error as {
+        message?: string;
+      };
+      toast.error(err.message);
     }
   }, [contractsViewType]);
 
@@ -44,9 +46,11 @@ function AllContract() {
     <div className="h-full w-full">
       <div className=" text-center pt-5">
         <span className="arsenal-sc-regular text-center mx-auto text-2xl ">
-          {contractsViewType === "myContracts"
-            ? "My Contracts"
-            : "SUbmitted Contracts"}
+          {contractsViewType === "pending"
+            ? "Progressing Contracts"
+            : contractsViewType === "rejected"
+            ? "rejected Contracts"
+            : "Completed Contracts"}
         </span>
         <hr className="w-2/3 mx-auto" />
       </div>
@@ -57,7 +61,7 @@ function AllContract() {
             <select
               id="countries"
               onChange={(e) => setContractsViewType(e.target.value)}
-              className="shadow-lg border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="shadow-lg border outline-none border-gray-800 text-gray-900 text-sm rounded-lg w-full p-2.5 "
             >
               <option selected value="pending">
                 Pending Contracts
@@ -70,7 +74,16 @@ function AllContract() {
       )}
 
       <div className=" mt-44 gap-5 mx-auto w-[1270px] items-center justify-center arsenal-sc-regular">
-        {Object.entries(contracts)?.map((contract: any) => (
+       {
+        Object.entries(contracts).length === 0 ? (
+          <div>
+             <span className="text-2xl flex justify-center">
+                    Contracts Not Found
+                  </span>
+          </div>
+        ) : (
+          <div>
+             {Object.entries(contracts)?.map((contract: any) => (
           <div className="containter mx-auto my-10">
             <div
               className={`${
@@ -78,11 +91,10 @@ function AllContract() {
               } p-8 rounded-xl shadow-lg relative hover:shadow-2xl transition duration-500`}
             >
               <h1 className="text-2xl text-gray-800 font-semibold mb-3">
-                {contract[1]?.jobPostData?.title}{" "}
+                {contract[1]?.jobPostData?.title}
               </h1>
-              <p className="text-gray-600 leading-6 tracking-normal">
-                {" "}
-                {contract[1]?.jobPostData?.description}{" "}
+              <p className="text-gray-600 leading-6 tracking-normal"> 
+                {contract[1]?.jobPostData?.description}
               </p>
               <div className="grid">
                 <span className="text-xs">
@@ -102,20 +114,30 @@ function AllContract() {
                   </Link>
                 </button>
 
-                {roleType === "user" && contractsViewType === "myContracts" && (
+                {roleType === "user" && contractsViewType === "pending" && (
                   <div>
-                    {/* <SubmitProject contractId={contract[1]?._id} jobTitle={contract[1]?.jobPostData?.title} /> */}
+                    <SubmitProject
+                      contractId={contract[1]?._id}
+                      jobTitle={contract[1]?.jobPostData?.title}
+                    />
                   </div>
                 )}
               </div>
               <div>
-                <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-3 shadow-xl">
+                {
+                  contractsViewType === "pending" && (
+                    <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-3 shadow-xl">
                   New
                 </span>
+                  )
+                }
               </div>
             </div>
           </div>
         ))}
+          </div>
+        )
+       }
       </div>
     </div>
   );
