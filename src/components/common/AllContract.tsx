@@ -1,23 +1,32 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { SubmitProject } from "../nextUi/modals/SubmitProjectModal";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { toast } from "sonner";
 
-function AllContract() {
+interface Contract {
+  _id: string;
+  status: string;
+  jobPostData: {
+    title: string;
+    description: string;
+  };
+  amount: number;
+  deadline: number;
+}
+
+const AllContract: React.FC = () => {
   const [contracts, setContracts] = useState({});
   const [contractsViewType, setContractsViewType] = useState<string>("pending");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-
-  const { roleType } = useParams();
+  const { roleType } = useParams<{ roleType: string }>();
 
   useEffect(() => {
     try {
       (async () => {
         let response;
-
         if (roleType === "user") {
           response = await apiUserInstance.get(
             `/contracts/${contractsViewType}?currentPage=${currentPage}`
@@ -27,9 +36,7 @@ function AllContract() {
             `/contracts/${contractsViewType}?currentPage=${currentPage}`
           );
         }
-        const data  = response.data.data;
- 
-
+        const data = response.data.data;
         setContracts(data.contract);
         setTotalPages(data.totalPages);
       })();
@@ -41,11 +48,15 @@ function AllContract() {
     }
   }, [contractsViewType, currentPage]);
 
-
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
-console.log('p', totalPages)
+
+  const changeContactsViewType = async (e: any) => {
+    setContractsViewType(e.target.value)
+     setCurrentPage(1)
+  };
+
   return (
     <div className="h-full w-full">
       <section>
@@ -67,7 +78,7 @@ console.log('p', totalPages)
             <form className="w-60">
               <select
                 id="countries"
-                onChange={(e) => setContractsViewType(e.target.value)}
+                 onChange={(e) => changeContactsViewType(e)}
                 className="shadow-lg border outline-none border-gray-800 text-gray-900 text-sm rounded-lg w-full p-2.5 "
               >
                 <option selected value="pending">
@@ -91,7 +102,7 @@ console.log('p', totalPages)
             </div>
           ) : (
             <div>
-              {Object.entries(contracts)?.map((contract: any) => (
+              {Object.entries(contracts).map((contract: any) => (
                 <div className="containter mx-auto my-10">
                   <div
                     className={`${
@@ -220,6 +231,6 @@ console.log('p', totalPages)
       </section>
     </div>
   );
-}
+};
 
 export default AllContract;
