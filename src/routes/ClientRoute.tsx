@@ -5,6 +5,8 @@ import { ClientState } from "../config/state/allState";
 
 const {
   HomeClient,
+
+
   Jobs,
   DraftJobPost,
   PaymentSuccess,
@@ -33,7 +35,11 @@ const ClientRoute = () => {
     <>
       <Navbar roleType="client" roleInfo={client} />
       <Routes>
+        
         <Route path="/home" element={<HomeClient />} />
+
+
+
         <Route
           path="/clientProfile/view/:clientId/:type"
           element={<Profile />}

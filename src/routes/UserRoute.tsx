@@ -15,10 +15,9 @@ const {
   ProfileAlter,
   BoostPaymentSuccess,
   Wishlist,
-  Wallet,
-
-
+  Wallet, 
   MonoJobPost,
+  
   InviteComponent,
   ListAllClientChat,
   ChatBox,
@@ -45,16 +44,9 @@ const UserRoute = () => {
         <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
 
-
-        <Route
-          path="/invite/view/:roleId/:type"
-          element={<InviteComponent />}
-        />
-
-        <Route
-          path="/allChats/:roleType/:roleId"
-          element={<ListAllClientChat />}
-        />
+              {/* ----------Pending---------- */}
+        <Route path="/invite/view/:roleId/:type" element={<InviteComponent />} />
+        <Route path="/allChats/:roleType/:roleId" element={<ListAllClientChat />} />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
       </Routes>
       <Footer />

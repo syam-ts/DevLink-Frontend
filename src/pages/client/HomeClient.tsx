@@ -1,28 +1,57 @@
 import { Card, CardHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { signOutClient } from "../../redux/slices/clientSlice";
 import { Link } from "react-router-dom";
+import { signOutClient } from "../../redux/slices/clientSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { ClientState } from "../../config/state/allState";
+import { JobPostCard } from "../../components/common/JobPostCard";
+
+interface Jobs {
+  jobs: {
+    _id: string
+    title: string
+    description: string
+    expertLevel: string
+    location: string
+    amount: number
+    paymentType: string
+    estimateTimeinHours: string
+    projectType: string
+  }
+};
 
 interface User {
-  _id: string;
-  name: string;
-  email: string;
-  domain: string;
-}
+  _id: string
+  name: string
+  email: string
+  domain: string
+  profilePicture: string
+};
 
 const HomeClient = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [users, setUsers]: any = useState<User>({
+  const [users, setUsers] = useState<User>({
     _id: "",
     name: "",
     email: "",
     domain: "",
+    profilePicture: "",
+  });
+  const [trendingJobs, setTrendingJobs] = useState<Jobs>({
+    jobs: {
+      _id: "",
+      title: "",
+      description: "",
+      expertLevel: "",
+      location: "",
+      amount: 0,
+      paymentType: "",
+      estimateTimeinHours: "",
+      projectType: "",
+    },
   });
 
   useEffect(() => {
@@ -32,10 +61,9 @@ const HomeClient = () => {
           withCredentials: true,
         });
 
-        console.log("The response ", response.data);
-
         setUsers(response.data.data);
-      } catch (err: any) {
+      } catch (error: unknown) {
+        const err = error as { response: { data: { message?: string } } };
         if (err.response.data.message === "Invalid Token") {
           dispatch(signOutClient());
           navigate("/client/login");
@@ -45,6 +73,20 @@ const HomeClient = () => {
     };
 
     findAllUsers();
+  }, []);
+
+  useEffect(() => {
+    try {
+      (async () => {
+        const { data } = await apiClientInstance.get("/trendingJobs");
+        console.log("The data: ", data);
+
+        setTrendingJobs(data.data);
+      })();
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      toast.error(err.message);
+    }
   }, []);
 
   useEffect(() => {
@@ -62,7 +104,6 @@ const HomeClient = () => {
       currentIndex = (currentIndex + 1) % totalItems;
       showSlide(currentIndex);
     }, 3000);
-
     return () => clearInterval(autoSlide);
   }, []);
 
@@ -176,7 +217,7 @@ const HomeClient = () => {
 
       {/* cards */}
       <section className="grid gap-7 lg:grid-cols-4 sm:grid-cols-2 px-96 my-28">
-        {Object.entries(users).map((user: any) => (
+        {Object.entries(users).map((user: User[]) => (
           <div className="max-w-[900px] flex gap-12 ">
             <Card className="col-span-12 sm:col-span-4 h-[250px]">
               <CardHeader className="absolute z-10 top-1 flex-col !items-start">
@@ -318,6 +359,15 @@ const HomeClient = () => {
             </span>
           </button>
         </div>
+      </section>
+
+      <section className="text-center my-12 mt-44">
+        <span className="arsenal-sc-regular text-4xl">Top Jobs</span> 
+        <hr className="border-black mt-12 w-2/4 mx-auto" />
+      </section>
+
+      <section>
+        <JobPostCard jobs={trendingJobs} role="client" type="client-view" />
       </section>
     </main>
   );
