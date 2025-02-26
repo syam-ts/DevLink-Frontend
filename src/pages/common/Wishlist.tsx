@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { toast } from "sonner";
-import { Sonner } from "../sonner/Toaster";
+import { Sonner } from "../../components/sonner/Toaster";
 
 const Wishlist: React.FC = () => {
   const [jobs, setJobs] = useState({});

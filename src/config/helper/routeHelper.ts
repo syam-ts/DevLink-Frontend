@@ -22,20 +22,20 @@ import ListUsers from "../../pages/client/ListUsers";
 // ---------- Common imports -----------
 import Footer from "../../components/common/Footer";
 import Navbar from "../../components/common/Navbar";
-import UserProfile from "../../components/common/UserProfile";
-import Contract from "../../components/common/Contract";
-import AllContracts from "../../components/common/AllContract";
+import UserProfile from "../../pages/common/UserProfile";
+import Contract from "../../pages/common/Contract";
+import AllContracts from "../../pages/common/AllContract";
 import ListAllUserChat from "../../components/common/ViewAllChats";
 import SignupComponent from "../../components/common/SignupComponent";
 import LoginComponent from "../../components/common/LoginComponent";
 import Notifications from "../../components/common/NotificationCard";
-import MonoJobPage from "../../components/common/MonoJobPost";
+import MonoJobPage from "../../pages/common/MonoJobPost";
 import ChatBox from "../../components/common/ChatBox";
 import ListAllClientChat from "../../components/common/ViewAllChats";
-import Wallet from "../../components/common/Wallet";
+import Wallet from "../../pages/common/Wallet";
 import InviteComponent from "../../components/common/Invite";
-import Wishlist from "../../components/common/Wishlist";
-import MonoJobPost from "../../components/common/MonoJobPost"; 
+import Wishlist from "../../pages/common/Wishlist";
+import MonoJobPost from "../../pages/common/MonoJobPost"; 
 
 // --------- user exports -----------
 export const userRouteHelper = {

@@ -70,7 +70,7 @@ const UserProfileAlter = () => {
     try {
       (async () => {
         const response = await apiUserInstance.get(
-          `/profile/view/${userId}`,
+          `/profile/user-view`,
           {
             withCredentials: true,
           }
@@ -146,6 +146,7 @@ const UserProfileAlter = () => {
       console.log(err.message);
     }
   };
+ 
 
   var loadFile: any = function (event: any) {
     var input = event.target;
@@ -181,7 +182,7 @@ const UserProfileAlter = () => {
         setError([]);
 
         const response: any = await apiUserInstance.put(
-          `/profile/${type}/${userId}`,
+          `/profileAlter/${type}`,
           data
         );
 
@@ -195,7 +196,7 @@ const UserProfileAlter = () => {
           const user = response.data.data.user;
           console.log("Dispatching user data to Redux:", user);
           dispatch(updateUser(user));
-          window.location.href = `${config.BASE_URL}/user/userProfile/view/${userId}/user-view`;
+         window.location.href = `${config.BASE_URL}/user/profile/user-view`;
         }
       } else {
         if (type === "verify") {
@@ -670,9 +671,9 @@ const UserProfileAlter = () => {
                           "Description must be atleast 20 characters"
                         ) ||
                         err.includes(
-                          "Descripton must be at least 20 - 100 characters"
+                          "Descripton must be at least 20 - 200 characters"
                         ) ||
-                        err.includes("Description must be under 100 characters")
+                        err.includes("Description must be under 200 characters")
                       ) {
                         return (
                           <div key={index} className="text-start">

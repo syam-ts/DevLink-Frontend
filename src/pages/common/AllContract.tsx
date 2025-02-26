@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { SubmitProject } from "../nextUi/modals/SubmitProjectModal";
+import { SubmitProject } from "../../components/nextUi/modals/SubmitProjectModal";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 

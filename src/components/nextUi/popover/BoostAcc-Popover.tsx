@@ -2,18 +2,17 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  Button, 
+  Button,
 } from "@nextui-org/react";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 
-export default function App({ userId }: any) {
-  
+export default function App() {
   const boostAccount = async () => {
     try {
-      const { data } = await apiUserInstance.post(`/account/boost/${userId}`);
-      console.log("THE URL : ", data.url?.url);
+      const { data } = await apiUserInstance.post(`/boostProfile`); 
       window.location.href = `${data.url?.url}`;
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err =  error as {  message?: string }; 
       console.error("ERROR: ", err.message);
     }
   };
@@ -58,11 +57,15 @@ export default function App({ userId }: any) {
             color="warning"
             variant="flat"
           >
-            <span className="text-white bg-gray-800 font-extrabold border border-black py-1.5 px-3 rounded-lg">Boost</span>
+            <span className="text-white bg-gray-800 font-extrabold border border-black py-1.5 px-3 rounded-lg">
+              Boost
+            </span>
           </Button>
         </PopoverTrigger>
         {content}
       </Popover>
     </div>
-  );
-}
+  )
+};
+
+

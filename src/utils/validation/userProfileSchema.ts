@@ -60,7 +60,7 @@ export const userProfileVerifySchema = yup.object().shape({
     .string()
     .trim()
     .min(20, "Description must be atleast 20 characters")
-    .max(100, "Description must be under 100 characters")
+    .max(200, "Description must be under 200 characters")
     .required("Description is required"),
 
   whyHireMe: yup
@@ -199,10 +199,10 @@ export const userProfileEditSchema = yup.object().shape({
     .trim()
     .test(
       "description-validation",
-      "Descripton must be at least 20 - 100 characters",
+      "Descripton must be at least 20 - 200 characters",
       (value: any) => {
         if (value?.trim().length > 0) {
-          return value.length >= 20 && value.length <= 100;
+          return value.length >= 20 && value.length <= 200;
         }
         return true;
       }

@@ -6,16 +6,17 @@ import { UserState } from "../config/state/allState";
 const { 
   HomeUser,
   JobPage,
-  UserProfile, 
-  Proposals,
-
+  Proposals, 
   AllContracts,
   Contract,
+  
+  UserProfile, 
+  ProfileAlter,
+
 
   MonoJobPost,
   InviteComponent,
   Wishlist,
-  ProfileAlter,
   BoostPaymentSuccess,
   Wallet,
   ListAllClientChat,
@@ -36,24 +37,20 @@ const UserRoute = () => {
         <Route path="/home" element={<HomeUser />} /> 
         <Route path="/jobs" element={<JobPage />} />
         <Route path="/proposals" element={<Proposals />} />
+        <Route path="/contracts/:roleType" element={<AllContracts />} />
+        <Route path="/profile/:type" element={<UserProfile />} />
+
+        <Route path="/profileAlter/:type" element={<ProfileAlter />} />
+
         <Route
-          path="/contracts/:roleType"
-          element={<AllContracts />}
+          path="/profileBoostSuccess"
+          element={<BoostPaymentSuccess />}
         />
+
 
 
         <Route path="/job/:jobPostId/:type" element={<MonoJobPost />} />
-
-
-
-
-        <Route path="/userProfile/:userId/:type" element={<UserProfile />} />
-        <Route path="/profile/:type" element={<ProfileAlter />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
-        <Route
-          path="/profile/boost/success/:userId"
-          element={<BoostPaymentSuccess />}
-        />
         <Route
           path="/wallet/view/:roleId"
           element={<Wallet roleType="user" />}

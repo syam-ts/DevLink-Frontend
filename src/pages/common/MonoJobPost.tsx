@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { JobProposalModal } from "../shadcn/modal/JobProposalModal";
+import { JobProposalModal } from "../../components/shadcn/modal/JobProposalModal";
 import { apiUserInstance } from ".././../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from ".././../api/axiosInstance/axiosClientRequest";
 import useUserVerified from "../../hooks/userUserVerified";
 import { toast } from "sonner";
-import { Sonner } from "../sonner/Toaster";
+import { Sonner } from "../../components/sonner/Toaster";
 
 type Id = string;
 

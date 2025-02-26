@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { WithdrawMoney } from "./WithdrawMoney";
+import { WithdrawMoney } from "../../components/common/WithdrawMoney";
 
 interface WalletProps {
   roleType: string;

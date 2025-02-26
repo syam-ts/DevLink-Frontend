@@ -8,13 +8,26 @@ import {
 } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import BoostPopover from "../../components/nextUi/popover/BoostAcc-Pop";
+import BoostPopover from "../../components/nextUi/popover/BoostAcc-Popover";
 import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";
-import ReviewCard from "../common/ReviewCard";
-import config from '../../config/helper/config' 
+import ReviewCard from "../../components/common/ReviewCard";
+import config from "../../config/helper/config";
+import { ClientState, UserState } from "../../config/state/allState";
 // import { InviteModal } from '../nextUi/modals/InviteUserModal';
+
+interface WorkHistory {
+  _id: string
+  title: string
+  description: string
+  expertLevel: string
+  location: string
+  amount: number
+  paymentType: string
+  estimateTimeinHours: string
+  projectType: string
+};
 
 interface User {
   _id: string;
@@ -43,21 +56,13 @@ interface User {
   whyHireMe: string;
   experience: string;
   education: [string];
-  workHistory: [{
-    _id: string;
-    title: string;
-    description: string;
-    expertLevel: string;
-    location: string;
-    amount: number;
-    paymentType: string;
-    estimateTimeinHours: string;
-    projectType: string
-  }];
+  workHistory: [
+     WorkHistory
+  ];
   isBoosted: boolean;
   isProfileFilled: boolean;
 }
- const UserProfile = () => {
+const UserProfile = () => {
   const [user, setUser] = useState<User>({
     _id: "",
     name: "",
@@ -85,38 +90,44 @@ interface User {
     whyHireMe: "",
     experience: "",
     education: [""],
-    workHistory: [{
-      _id: "",
-      title: "",
-      description: "",
-      expertLevel: "",
-      location: "",
-      amount: 0,
-      paymentType: "",
-      estimateTimeinHours: "",
-      projectType: ""
-    }],
+    workHistory: [
+      {
+        _id: "",
+        title: "",
+        description: "",
+        expertLevel: "",
+        location: "",
+        amount: 0,
+        paymentType: "",
+        estimateTimeinHours: "",
+        projectType: "",
+      },
+    ],
     isBoosted: false,
     isProfileFilled: false,
   });
-  const { type, userId } = useParams<{
+  const { type } = useParams<{
     type: "user-view" | "client-view" | "proposal-view";
-    userId: string;
   }>();
 
+  let userId: string;
+  if (type === "user-view") {
+    userId = useSelector((state: UserState) => state.user.currentUser._id);
+  }
+
   let clientId: string;
-  if (type === "client-view")
-    clientId = useSelector((state: any) => state.client.currentClient._id);
+  if (type === "client-view") {
+    clientId = useSelector((state: ClientState) => state.client.currentClient._id);
+  }
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const { data } = await apiUserInstance.get(`/profile/view/${userId}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const { data } = await apiUserInstance.get(`/profile/user-view`, {
+          withCredentials: true,
+        });
         console.log("The repsn s", data.data.workHistory);
         setUser(data.data);
       } catch (err: any) {
@@ -178,19 +189,23 @@ interface User {
                       <div className="ms-3 my-auto flex w-full justify-between">
                         <div>
                           <div className="flex">
-                            <MDBTypography tag="h5" className="text-black font-extrabold">
+                            <MDBTypography
+                              tag="h5"
+                              className="text-black font-extrabold"
+                            >
                               {user?.name}
                             </MDBTypography>
                             {user?.isBoosted ? (
-                              <span className=" cursor-pointer bg-[#334155] py-2 mx-2">
+                              <span className=" cursor-pointer bg-sky-900 text-white px-2 rounded-full py-2 mx-2">
                                 <img
-                                  className="h-4 w-4"
-                                  src="https://cdn-icons-png.freepik.com/256/13950/13950107.png?semt=ais_hybrid"
+                                  className="h-5 w-5 "
+                                  src="https://cdn-icons-png.flaticon.com/128/11474/11474065.png"
+                                  // src="https://cdn-icons-png.flaticon.com/128/3003/3003992.png"
                                 />
                               </span>
                             ) : (
                               <span className=" cursor-pointer bg-transparent ">
-                                <BoostPopover userId={userId} />
+                                <BoostPopover />
                               </span>
                             )}
                           </div>
@@ -244,14 +259,14 @@ interface User {
                                   {user?.isProfileFilled ? (
                                     <Link
                                       className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
-                                      to={`/user/profile/edit`}
+                                      to={`/user/profileAlter/edit`}
                                     >
                                       <span>Edit</span>
                                     </Link>
                                   ) : (
                                     <Link
                                       className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
-                                      to={`/user/profile/verify`}
+                                      to={`/user/profileAlter/verify`}
                                     >
                                       <span>Verify</span>
                                     </Link>
@@ -277,19 +292,31 @@ interface User {
                             {user?.budget}₹
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0 text-white font-extrabold">
-                            <span className='text-white font-extrabold'>/hr</span>
+                            <span className="text-white font-extrabold">
+                              /hr
+                            </span>
                           </MDBCardText>
                         </div>
                         <div>
-                          <MDBCardText className="mb-1 h5 text-white font-extrabold">253</MDBCardText>
+                          <MDBCardText className="mb-1 h5 text-white font-extrabold">
+                            253
+                          </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
-                            <span className='text-white font-extrabold'> Total Jobs</span>
+                            <span className="text-white font-extrabold">
+                              {" "}
+                              Total Jobs
+                            </span>
                           </MDBCardText>
                         </div>
                         <div className="px-3">
-                          <MDBCardText className="mb-1 h5 text-white font-extrabold">1026</MDBCardText>
+                          <MDBCardText className="mb-1 h5 text-white font-extrabold">
+                            1026
+                          </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
-                            <span className='text-white font-extrabold'> Total Hours</span>
+                            <span className="text-white font-extrabold">
+                              {" "}
+                              Total Hours
+                            </span>
                           </MDBCardText>
                         </div>
                       </div>
@@ -305,10 +332,10 @@ interface User {
                           style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4">
-                            {user?.domain}
+                           Domain:   {user?.domain}
                           </MDBCardText>
                           <MDBCardText className="p-2 text-center">
-                             {user?.description}
+                            {user?.description}
                           </MDBCardText>
                         </div>
                       </div>
@@ -353,7 +380,9 @@ interface User {
                     {/* Review Section */}
                     <section>
                       <div className="flex justify-center">
-                        <span className="text-2xl arsenal-sc-regular">Reviews</span>
+                        <span className="text-2xl arsenal-sc-regular">
+                          Reviews
+                        </span>
                       </div>
                       <hr className="w-2/3 mx-auto" />
                       <div className="my-5">
@@ -364,37 +393,55 @@ interface User {
                     {/* Work history */}
                     <section>
                       <div className="mb-5 mx-auto arsenal-sc-regular">
-                        <div className='py-10'>
-                          <p className="lead fw-normal mb-1 text-center">Work History</p>
-                          <hr className='w-2/3 mx-auto' />
+                        <div className="py-10">
+                          <p className="lead fw-normal mb-1 text-center">
+                            Work History
+                          </p>
+                          <hr className="w-2/3 mx-auto" />
                         </div>
                         <div>
                           {user.workHistory.map((job: any) => (
                             <div className="w-5/6 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
                               <div className="flex justify-between ">
                                 <div className="grid">
-                                  <span className="text-2xl text-start">{job?.title}</span>
-                                  <span className="text-sm mt-2">{job?.description}</span>
+                                  <span className="text-2xl text-start">
+                                    {job?.title}
+                                  </span>
+                                  <span className="text-sm mt-2">
+                                    {job?.description}
+                                  </span>
                                   <div className="grid justify-start gap-3 mt-3">
-                                    <span className="text-sm">{job?.expertLevel}</span>
-                                    <span className="text-sm">{job?.location}</span>
+                                    <span className="text-sm">
+                                      {job?.expertLevel}
+                                    </span>
+                                    <span className="text-sm">
+                                      {job?.location}
+                                    </span>
                                   </div>
                                   <span className="flex gap-3">
-                                    {job?.requiredSkills?.map((skill: string) => (
-                                      <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                        {skill}
-                                      </span>
-                                    ))}
+                                    {job?.requiredSkills?.map(
+                                      (skill: string) => (
+                                        <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                          {skill}
+                                        </span>
+                                      )
+                                    )}
                                   </span>
                                 </div>
 
                                 <div className="grid text-end py-3">
-                                  <span className="text-sm">{job?.amount}.00₹</span>
-                                  <span className="text-sm">{job?.paymentType}</span>
-                                  <span className="text-sm">{job?.estimateTimeinHours}/hr</span>
+                                  <span className="text-sm">
+                                    {job?.amount}.00₹
+                                  </span>
+                                  <span className="text-sm">
+                                    {job?.paymentType}
+                                  </span>
+                                  <span className="text-sm">
+                                    {job?.estimateTimeinHours}/hr
+                                  </span>
                                   <span className="text-sm text-green-400 underline">
                                     {job?.projectType}
-                                  </span> 
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -412,6 +459,5 @@ interface User {
     </>
   );
 };
-
 
 export default UserProfile;

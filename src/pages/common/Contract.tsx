@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import { Sonner } from "../sonner/Toaster";
+import { Sonner } from "../../components/sonner/Toaster"
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
  const Contract = () => {
