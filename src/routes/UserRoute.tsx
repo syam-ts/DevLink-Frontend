@@ -42,13 +42,10 @@ const UserRoute = () => {
         <Route path="/profileBoostSuccess" element={<BoostPaymentSuccess />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/wallet" element={<Wallet roleType="user" />} /> 
-        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} />
-
-
-
-
-
+        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
+
+
         <Route
           path="/invite/view/:roleId/:type"
           element={<InviteComponent />}

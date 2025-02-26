@@ -2,43 +2,100 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { jsPDF } from "jspdf";
+import { Sonner } from "../../components/sonner/Toaster";
 import html2canvas from "html2canvas";
-import { Sonner } from "../../components/sonner/Toaster"
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
- const Contract = () => {
-  
-  const [contract, setContract]: any = useState({});
-  const { contractId, roleType } = useParams<{ contractId: string, roleType: string }>();
+interface Contract {
+  clientData: {
+    companyName: string;
+    location: string;
+    email: string;
+  };
+  userData: {
+    name: string;
+    location: string;
+    email: string;
+  };
+
+  jobPostData: {
+    title: string;
+    description: string;
+    expertLevel: string;
+    projectType: string;
+    paymentType: string;
+  };
+  status: string;
+  amount: number;
+  deadline: number;
+  createdAt: string;
+}
+
+const Contract: React.FC = () => {
+  const [contract, setContract] = useState<Contract>({
+    clientData: {
+      companyName: "",
+      location: "",
+      email: "",
+    },
+    userData: {
+      name: "",
+      location: "",
+      email: "",
+    },
+
+    jobPostData: {
+      title: "",
+      description: "",
+      expertLevel: "",
+      projectType: "",
+      paymentType: "",
+    },
+    status: "",
+    amount: 0,
+    deadline: 0,
+    createdAt: "",
+  });
+  const { contractId, roleType } = useParams<{
+    contractId: string;
+    roleType: "user" | "client";
+  }>();
   const contentRef: any = useRef();
-  
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await apiUserInstance.get(
-          `http://localhost:3000/${roleType}/contract/${contractId}`
-        );
-        if (data.success) {
-          setContract(data?.contract);
+        let response;
+        if (roleType === "user") {
+          response = await apiUserInstance.get(`/contract/${contractId}`);
+          if (response.data.success) {
+            setContract(response.data?.contract);
+          } else {
+            toast.error(response.data.message);
+          }
         } else {
-          toast.error(data.message);
+          response = await apiClientInstance.get(`/contract/${contractId}`);
+          if (response.data.success) {
+            setContract(response.data?.contract);
+          } else {
+            toast.error(response.data.message);
+          }
         }
-      } catch (err: any) {
-        console.error("ERROR: ", err.message);
+      } catch (error: unknown) {
+        const err = error as { message: string };
+        toast.error(err.message);
       }
     })();
   }, []);
 
   const downloadPDF = async () => {
-    const content: any = contentRef.current;
-
+    const content = contentRef.current;
     const canvas = await html2canvas(content);
     const imgData = canvas.toDataURL("image/png");
-
     const pdf = new jsPDF("p", "mm", "a4");
-    const imgWidth = 150;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const imgWidth: number = 150;
+    const imgHeight: number = (canvas.height * imgWidth) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
     pdf.save("download.pdf");
@@ -66,12 +123,6 @@ import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
                     Contract
                   </h2>
                   <span className="mt-1 block text-gray-500">3682303</span>
-                  {/* <address className="mt-4 not-italic text-gray-800">
-                    45 Roker Terrace<br>
-                    Latheronwheel<br>
-                    KW5 8NW, London<br>
-                    United Kingdom<br>
-                  </address> */}
                 </div>
               </div>
               <hr />
@@ -239,6 +290,5 @@ import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
     </div>
   );
 };
-
 
 export default Contract;
