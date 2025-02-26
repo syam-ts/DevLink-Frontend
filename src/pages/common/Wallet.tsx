@@ -6,21 +6,21 @@ import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { WithdrawMoney } from "../../components/common/WithdrawMoney";
 
 interface WalletProps {
-  roleType: string;
-}
+  roleType: string
+};
 
 interface Transactions {
-  type: string;
-  amount: number;
-  from: string;
-  createdAt: string;
-}
+  type: string
+  amount: number
+  from: string
+  createdAt: string
+};
+ 
 
 const Wallet: React.FC<WalletProps> = ({ roleType }) => {
-
   const [balance, setBalance] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<any>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [transactions, setTransactions] = useState<Transactions[]>([]);
   const { roleId } = useParams<{ roleId: string }>();
 
@@ -49,15 +49,12 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
           );
         }
 
-        if (totalPages[0] !== response.data?.wallet.totalPages)
-          setTotalPages((prevPages: any) => [
-            ...prevPages,
-            response.data?.wallet?.totalPages,
-          ]);
+        setTotalPages(response.data?.wallet?.totalPages);
 
         setBalance(response.data?.wallet[0]?.balance);
         setTransactions(response.data.wallet[0]?.transactions);
-      } catch (err: any) {
+      } catch (error: unknown) {
+        const err = error as {message: string};
         toast.error(err.message, {
           style: {
             backgroundColor: "red",
@@ -71,7 +68,6 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
-
 
   return (
     <div className="overflow-hidden flex gap-5">
@@ -91,9 +87,9 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
 
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-5 rounded-lg text-white">
-               <button>
-                 <WithdrawMoney userId={roleId} />
-               </button>
+                <button>
+                  <WithdrawMoney userId={roleId} />
+                </button>
               </span>
             </div>
           </div>
@@ -176,76 +172,74 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         </section>
 
         <section>
-          <div>
-            <div className="container mx-auto px-4 ">
-              <nav
-                className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
-                aria-label="Pagination"
-              >
-                {currentPage - 1 < 1 ? (
-                  <div></div>
-                ) : (
-                  <a
-                    onClick={() => changePage(currentPage - 1)}
-                    className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300"
-                    title="Previous Page"
+          <div className="container mx-auto px-4 ">
+            <nav
+              className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
+              aria-label="Pagination"
+            >
+              {currentPage - 1 < 1 ? (
+                <div></div>
+              ) : (
+                <a
+                  onClick={() => changePage(currentPage - 1)}
+                  className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300"
+                  title="Previous Page"
+                >
+                  <span className="sr-only">Previous Page</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="block w-5 h-5 my-2 mx-auto"
                   >
-                    <span className="sr-only">Previous Page</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="block w-5 h-5 my-2 mx-auto"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 19.5L8.25 12l7.5-7.5"
-                      />
-                    </svg>
-                  </a>
-                )}
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 19.5L8.25 12l7.5-7.5"
+                    />
+                  </svg>
+                </a>
+              )}
 
-                {Array.from({ length: totalPages }).map((_, index) => (
-                  <p
-                    onClick={() => changePage(index + 1)}
-                    key={index}
-                    className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300 "
-                    title={`Page ${index + 1}`}
-                  >
-                    {index + 1}
-                  </p>
-                ))}
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <p
+                  onClick={() => changePage(index + 1)}
+                  key={index}
+                  className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300 "
+                  title={`Page ${index + 1}`}
+                >
+                  {index + 1}
+                </p>
+              ))}
 
-                {currentPage + 1 > totalPages ? (
-                  <div></div>
-                ) : (
-                  <a
-                    onClick={() => changePage(currentPage + 1)}
-                    className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-whitetext-black  hover:border-gray-300"
-                    title="Next Page"
+              {currentPage + 1 > totalPages ? (
+                <div></div>
+              ) : (
+                <a
+                  onClick={() => changePage(currentPage + 1)}
+                  className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-whitetext-black  hover:border-gray-300"
+                  title="Next Page"
+                >
+                  <span className="sr-only">Next Page</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="block w-5 h-5"
                   >
-                    <span className="sr-only">Next Page</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="block w-5 h-5"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                      />
-                    </svg>
-                  </a>
-                )}
-              </nav>
-            </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </a>
+              )}
+            </nav>
           </div>
         </section>
       </div>

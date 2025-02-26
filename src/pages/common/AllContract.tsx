@@ -84,6 +84,7 @@ const AllContract: React.FC = () => {
                 <option selected value="pending">
                   Pending Contracts
                 </option>
+                <option value="submitted">Submitted Contracts</option>
                 <option value="rejected">Rejected Contracts</option>
                 <option value="completed">Completed Contracts</option>
               </select>

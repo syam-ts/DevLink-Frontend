@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { JobProposalModal } from "../../components/shadcn/modal/JobProposalModal";
-import { apiUserInstance } from ".././../api/axiosInstance/axiosUserInstance";
-import { apiClientInstance } from ".././../api/axiosInstance/axiosClientRequest";
-import useUserVerified from "../../hooks/userUserVerified";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
+import useUserVerified from "../../hooks/userUserVerified";
+import { apiClientInstance } from ".././../api/axiosInstance/axiosClientRequest";
+import { apiUserInstance } from ".././../api/axiosInstance/axiosUserInstance";
+import { JobProposalModal } from "../../components/shadcn/modal/JobProposalModal";
 
 type Id = string;
 
@@ -17,9 +17,10 @@ interface JobPost {
   estimateTime: string;
   description: string;
   estimateTimeinHours: number;
-  keyResponsibilities: string[];
+  keyResponsiblities: string[];
   requiredSkills: string[];
   location: string;
+  domain: string;
   expertLevel: string;
   maxProposals: number;
   proposalCount: number;
@@ -28,6 +29,14 @@ interface JobPost {
   isPayment: boolean;
   status: string;
   createdAt: string;
+  aboutClient: {
+    location: string;
+    totalSpend: number;
+    totalHours: number;
+    domain: string;
+    numberOfEmployees: number;
+    companyName: string;
+  };
 }
 
 interface FormData {
@@ -38,7 +47,7 @@ interface FormData {
 }
 
 const MonoJobPost = () => {
-  const [jobPost, setJobPost]: any = useState<JobPost>({
+  const [jobPost, setJobPost] = useState<JobPost>({
     _id: "",
     title: "",
     amount: 0,
@@ -46,9 +55,10 @@ const MonoJobPost = () => {
     estimateTime: "",
     description: "",
     estimateTimeinHours: 0,
-    keyResponsibilities: [],
+    keyResponsiblities: [],
     requiredSkills: [],
     location: "",
+    domain: "",
     expertLevel: "",
     maxProposals: 0,
     proposalCount: 0,
@@ -57,6 +67,14 @@ const MonoJobPost = () => {
     isPayment: false,
     status: "",
     createdAt: "",
+    aboutClient: {
+      location: "",
+      totalSpend: 0,
+      totalHours: 0,
+      domain: "",
+      numberOfEmployees: 0,
+      companyName: "",
+    },
   });
 
   const [formData, setFormData] = useState<FormData>({
@@ -65,31 +83,39 @@ const MonoJobPost = () => {
     description: "",
     paymentType: "",
   });
-  const { jobPostId, type } = useParams<{ jobPostId: Id; type: string }>();
+  const { jobPostId, viewType } = useParams<{
+    jobPostId: Id,
+    viewType: "user-view" | "client-view" | "proposal-view"
+  }>();
 
   let userVerified;
-  if (type === "user-view") {
+  if (viewType === "user-view") {
     userVerified = useUserVerified();
-  }
+  };
+ 
 
   useEffect(() => {
     try {
       (async () => {
         let response: any;
-        if (type === "user-view") {
-          response = await apiUserInstance.get(`/job-view/${jobPostId}`);
+        if (viewType === 'user-view' || viewType === 'proposal-view') {
+          response = await apiUserInstance.get(`/job/${jobPostId}`);
           setJobPost(response?.data?.jobPost);
-        } else if (type === "client-view") {
-          response = await apiClientInstance.get(`/job-view/${jobPostId}`);
+
+
+          
+        } else if (viewType === "client-view") {
+          response = await apiClientInstance.get(`/job/${jobPostId}`);
           setJobPost(response?.data?.jobPost);
         }
       })();
-    } catch (err: any) {
-      console.error("ERROR: ", err.message);
+    } catch (error: unknown) {
+      const err = error as {message: string}
+      toast.error(err.message); 
     }
   }, []);
 
-  // updating formdata -------
+
   useEffect(() => {
     setFormData({
       bidAmount: jobPost?.amount,
@@ -106,21 +132,20 @@ const MonoJobPost = () => {
       });
 
       if (!data.success) {
-       console.log('ERROR: ',data.message);
+        toast.error(data.message);
       } else {
-      toast.success("Post added to wishlist", {
-        style: {
-          backgroundColor: "#28bd26",
-          color: "white",
-          width: "12rem",
-          height: "2.9rem",
-        },
-        position: "top-center",
-
-      }) 
+        toast.success("Post added to wishlist", {
+          style: {
+            backgroundColor: "#28bd26",
+            color: "white",
+            width: "12rem",
+            height: "2.9rem",
+          },
+          position: "top-center",
+        });
       }
-    } catch (err: any) {
-      console.log("ERROR: ", err.response.data.message);
+    } catch (error: unknown) {
+      const err = error as {response: {data: {message?: string}}} 
       toast.error(err.response.data.message, {
         style: {
           backgroundColor: "yellow",
@@ -129,14 +154,13 @@ const MonoJobPost = () => {
           height: "2.9rem",
         },
         position: "top-center",
-
-      })
+      });
     }
   };
 
   return (
     <>
-    <Sonner />
+      <Sonner />
       <div className="h-screen mx-auto w-2/3 my-28 comfortaa-regular">
         <section>
           <span className="text-2xl">{jobPost?.title}</span>

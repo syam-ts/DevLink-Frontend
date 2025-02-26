@@ -69,7 +69,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           };
 
           const { data } = await apiUserInstance.post(
-            "http://localhost:3000/user/job/createProposal",
+            "/createProposal",
             {
               body,
             }
@@ -91,7 +91,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             toast.success("Proposal successfully sended");
 
             setTimeout(() => {
-              window.location.href = `http://localhost:5173/user/jobs/proposals`;
+              window.location.href = `http://localhost:5173/user/proposals`;
             }, 500);
           }
         } catch (err: any) { 

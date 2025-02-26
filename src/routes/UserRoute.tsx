@@ -4,25 +4,24 @@ import { userRouteHelper } from "../config/helper/routeHelper";
 import { UserState } from "../config/state/allState";
 
 const { 
+  Navbar,
+  Footer,
   HomeUser,
   JobPage,
   Proposals, 
   AllContracts,
   Contract,
-  
   UserProfile, 
   ProfileAlter,
+  BoostPaymentSuccess,
+  Wishlist,
+  Wallet,
 
 
   MonoJobPost,
   InviteComponent,
-  Wishlist,
-  BoostPaymentSuccess,
-  Wallet,
   ListAllClientChat,
   ChatBox,
-  Navbar,
-  Footer,
 } = userRouteHelper;
 
 const UserRoute = () => {
@@ -42,13 +41,13 @@ const UserRoute = () => {
         <Route path="/profileAlter/:type" element={<ProfileAlter />} /> 
         <Route path="/profileBoostSuccess" element={<BoostPaymentSuccess />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
-        <Route path="/wallet" element={<Wallet roleType="user" />} />
-
-
+        <Route path="/wallet" element={<Wallet roleType="user" />} /> 
+        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} />
 
 
-        <Route path="/job/:jobPostId/:type" element={<MonoJobPost />} />
+
+
+
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route
           path="/invite/view/:roleId/:type"

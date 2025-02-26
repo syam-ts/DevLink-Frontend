@@ -16,9 +16,9 @@ interface ProposalCardProps {
 export const ProposalCard: React.FC<ProposalCardProps> = ({
   proposals,
   roleType,
-  roleId,
+  roleId
 }) => {
-console.log('the ', proposals)
+ 
   const dispatch = useDispatch(); 
 
   const acceptProposal = async (
@@ -141,7 +141,7 @@ console.log('the ', proposals)
                   type="button"
                 >
                   <Link
-                    to={`/${roleType}/job/${proposal[1]?.jobPostId}/user-view`}
+                    to={`/${roleType}/job/${proposal[1]?.jobPostId}/proposal-view`}
                     className="no-underline text-white font-bold "
                   >
                     View
