@@ -15,7 +15,7 @@ function ContractApproval() {
         try {
 
             (async () => {
-                const { data } = await apiClientInstance.get(`/contracts/submissions/${clientId}`);
+                const { data } = await apiClientInstance.get(`/contractsSubmissions`);
 
                 console.log('RESPONSE FROM APPROVAL :', data?.data)
                 setPendingApprovals(data?.data)

@@ -66,11 +66,10 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
     try {
       const body = {
         userId: userId,
-        clientId: roleId,
         jobPostId: jobPostId,
       };
       const { data } = await apiClientInstance.put(
-        "/job/proposal/reject",
+        "/proposalReject",
         body
       );
 

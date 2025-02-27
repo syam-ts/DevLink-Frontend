@@ -4,29 +4,28 @@ import { clientRouteHelper } from "../config/helper/routeHelper";
 import { ClientState } from "../config/state/allState";
 
 const {
-  HomeClient,
-
+  Navbar,
+  Footer,
+  HomeClient, 
   Jobs,
   MonoJobPost,
   ProposalsClient,
+  AllContracts,
+  ContractApprovals,
 
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
 
   Profile,
-  ContractApprovals,
-  ListUsers,
-  AllContracts,
-  ListAllUserChat,
-  Notifications,
-  MonoJobPage,
-  Navbar,
-  Footer,
   UserProfile,
   Wallet,
+  ListUsers,
+  MonoJobPage,
   Contract,
+  ListAllUserChat,
   ChatBox,
+  Notifications,
 } = clientRouteHelper;
 
 const ClientRoute = () => {
@@ -41,25 +40,14 @@ const ClientRoute = () => {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} />
         <Route path="/proposals" element={<ProposalsClient />} />
-
-        <Route path="/contracts/:roleType" element={<AllContracts />} />
-
-   
+        <Route path="/contracts/:roleType" element={<AllContracts />} /> 
+        <Route path="/contractsApprovals" element={<ContractApprovals />} />
 
 
 
 
 
-        <Route path="/contracts/approvals" element={<ContractApprovals />} />
 
-        <Route
-          path="/clientProfile/view/:clientId/:type"
-          element={<Profile />}
-        />
-        <Route
-          path="/userProfile/view/:userId/:type"
-          element={<UserProfile />}
-        />
         <Route path="/jobs/draftJobPost" element={<DraftJobPost />} />
         <Route
           path="/draftJobPost/payment-success/:clientId/:data"
@@ -79,6 +67,14 @@ const ClientRoute = () => {
           element={<Wallet roleType="client" />}
         />
 
+        <Route
+          path="/clientProfile/view/:clientId/:type"
+          element={<Profile />}
+        />
+        <Route
+          path="/userProfile/view/:userId/:type"
+          element={<UserProfile />}
+        />
         <Route
           path="/allChats/:roleType/:roleId"
           element={<ListAllUserChat />}

@@ -2,12 +2,13 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sonner } from "../sonner/Toaster";
+import config from "../../config/helper/config";
 import { addNotification } from "../../redux/slices/userSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView"; 
+import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";
 
-interface ProjectApprovalCardProps {
-    
+interface ProjectApprovalCardProps { 
+ 
 }
 
 export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
@@ -19,7 +20,7 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
   ) => {
     try {
       const { data } = await apiClientInstance.post(
-        `/project/submit/approval`,
+        `/projectApprove`,
         {
           contractId,
           progress,
@@ -28,7 +29,6 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
           withCredentials: true,
         }
       );
- 
 
       if (data.success) {
         const notificationClient: any = JSON.stringify([
@@ -42,12 +42,12 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
           },
         });
         setTimeout(() => {
-          window.location.href =
-            "http://localhost:5173/client/contracts/approvals";
+          window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
         }, 1000);
       }
-    } catch (err: any) {
-      console.error("ERROR: ", err.message);
+    } catch (error: unknown) { 
+      const err = error as {message: string};
+      toast.error(err.message) 
     }
   };
 
