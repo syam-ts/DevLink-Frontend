@@ -89,7 +89,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     </Link>
                   </p>
                   <p className="rounded-md px-1 py-3 text-sm font-thin text-gray-950 hover:text-gray-300">
-                    <Link to={`/${roleType}/job/myContracts/${roleInfo?._id}/${roleType}`} className='no-underline text-black'>
+                    <Link to={`/${roleType}/contracts/${roleType}`} className='no-underline text-black'>
                       <button>Contracts</button>
                     </Link>
                   </p>

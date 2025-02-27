@@ -73,7 +73,7 @@ const AllContract: React.FC = () => {
       </section>
 
       <section>
-        {roleType === "user" && (
+      
           <div className="arsenal-sc-regular flex justify-end px-4">
             <form className="w-60">
               <select
@@ -84,13 +84,17 @@ const AllContract: React.FC = () => {
                 <option selected value="pending">
                   Pending Contracts
                 </option>
-                <option value="submitted">Submitted Contracts</option>
+               {
+                roleType === 'user' && (
+                  <option value="submitted">Submitted Contracts</option>
+                )
+               }
                 <option value="rejected">Rejected Contracts</option>
                 <option value="completed">Completed Contracts</option>
               </select>
             </form>
           </div>
-        )}
+       
       </section>
 
       <section>

@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
-import { ClientState } from "../config/state/allState"; 
+import { ClientState } from "../config/state/allState";
 
 const {
   HomeClient,
-  
+
   Jobs,
-MonoJobPost,
-ProposalsClient,
+  MonoJobPost,
+  ProposalsClient,
 
   DraftJobPost,
   PaymentSuccess,
@@ -32,22 +32,30 @@ ProposalsClient,
 const ClientRoute = () => {
   const currentClient = useSelector((state: ClientState) => state.client);
   const client = currentClient?.currentClient;
-  console.log('cliet', client)
 
   return (
     <>
       <Navbar roleType="client" roleInfo={client} />
-      <Routes> 
-        <Route path="/home" element={<HomeClient />} /> 
+      <Routes>
+        <Route path="/home" element={<HomeClient />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
-
+        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} />
         <Route path="/proposals" element={<ProposalsClient />} />
 
+        <Route path="/contracts/:roleType" element={<AllContracts />} />
+
+   
 
 
 
-        <Route path="/clientProfile/view/:clientId/:type" element={<Profile />} />
+
+
+        <Route path="/contracts/approvals" element={<ContractApprovals />} />
+
+        <Route
+          path="/clientProfile/view/:clientId/:type"
+          element={<Profile />}
+        />
         <Route
           path="/userProfile/view/:userId/:type"
           element={<UserProfile />}
@@ -63,21 +71,12 @@ const ClientRoute = () => {
         />
         {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
         <Route path="/developers/view" element={<ListUsers />} />
-        <Route
-          path="/job/myContracts/:roleId/:roleType"
-          element={<AllContracts />}
-        />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
-        <Route path="/contracts/approvals" element={<ContractApprovals />} />
         {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
         <Route
           path="/wallet/view/:roleId"
           element={<Wallet roleType="client" />}
-        />
-        <Route
-          path="/notifications/:roleId/:role"
-          element={<Notifications />}
         />
 
         <Route
@@ -85,6 +84,10 @@ const ClientRoute = () => {
           element={<ListAllUserChat />}
         />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
+        <Route
+          path="/notifications/:roleId/:role"
+          element={<Notifications />}
+        />
       </Routes>
       <Footer />
     </>
