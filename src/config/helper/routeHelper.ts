@@ -17,7 +17,7 @@ import ProposalsClient from "../../pages/client/Proposals";
 import Profile from "../../pages/client/ProfileClient";
 import ContractApprovals from "../../pages/client/ContractApproval";
 import { ProjectSubmissionViewDrawer } from "../../components/shadcn/drawer/ProjectSubmitView";
-import ListUsers from "../../pages/client/ListUsers"; 
+import Developers from "../../pages/client/Developer"; 
 
 // ---------- Common imports -----------
 import Footer from "../../components/common/Footer";
@@ -71,7 +71,7 @@ export const clientRouteHelper = {
   Profile,
   ContractApprovals,
   ProjectSubmissionViewDrawer,
-  ListUsers,
+  Developers,
   AllContracts,
   ListAllUserChat,
   SignupComponent,

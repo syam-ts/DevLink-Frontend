@@ -8,7 +8,7 @@ import {
   Button,
   useDisclosure,
   useDraggable,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 interface SmallModalProps {
   showModals: string | boolean;

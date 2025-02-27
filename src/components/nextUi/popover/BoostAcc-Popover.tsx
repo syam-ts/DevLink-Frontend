@@ -3,7 +3,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 
 export default function App() {

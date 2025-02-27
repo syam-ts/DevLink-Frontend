@@ -7,7 +7,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";

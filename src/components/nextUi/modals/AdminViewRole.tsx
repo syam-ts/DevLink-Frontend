@@ -4,7 +4,7 @@ import {
     ModalBody, 
     Button,
     useDisclosure,
-  } from "@nextui-org/react"; 
+  } from "@heroui/react"; 
 import {  useState } from "react";
 import { useParams } from "react-router-dom";
  

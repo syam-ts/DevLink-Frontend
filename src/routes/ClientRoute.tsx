@@ -7,12 +7,13 @@ const {
   Navbar,
   Footer,
   HomeClient, 
+  Developers,
   Jobs,
   MonoJobPost,
   ProposalsClient,
   AllContracts,
   ContractApprovals,
-
+  
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
@@ -20,7 +21,6 @@ const {
   Profile,
   UserProfile,
   Wallet,
-  ListUsers,
   MonoJobPage,
   Contract,
   ListAllUserChat,
@@ -42,13 +42,10 @@ const ClientRoute = () => {
         <Route path="/proposals" element={<ProposalsClient />} />
         <Route path="/contracts/:roleType" element={<AllContracts />} /> 
         <Route path="/contractsApprovals" element={<ContractApprovals />} />
+       <Route path="draftJobPost" element={<DraftJobPost />} />
+       <Route path="/developers" element={<Developers />} />
 
 
-
-
-
-
-        <Route path="/jobs/draftJobPost" element={<DraftJobPost />} />
         <Route
           path="/draftJobPost/payment-success/:clientId/:data"
           element={<PaymentSuccess />}
@@ -58,7 +55,6 @@ const ClientRoute = () => {
           element={<PaymentFailed />}
         />
         {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
-        <Route path="/developers/view" element={<ListUsers />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
         {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}

@@ -7,10 +7,10 @@ import {
   DropdownMenu,
   DropdownItem,
 
-} from "@nextui-org/react";
+} from "@heroui/react";
 import axios from "axios";
 
-import { Avatar } from "@nextui-org/react";
+import { Avatar } from "@heroui/react";
 import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
 import config from '../../config/helper/config'
 
@@ -78,7 +78,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                     </Link>
                   </p>
                   <p className="rounded-md px-1 py-3 text-sm belleza-regular font-thin text-gray-950 hover:text-gray-300">
-                    <Link to={`/${roleType}/developers/view`} className='no-underline text-black'>
+                    <Link to={`/${roleType}/developers`} className='no-underline text-black'>
                       Developers
                     </Link>
                   </p>

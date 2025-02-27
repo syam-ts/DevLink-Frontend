@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@nextui-org/react";
+import { Card } from "@heroui/react";
 import { Link } from "react-router-dom";
 import LinkAttribute from "../../components/nextUi/Link";
 import { useSelector } from "react-redux";

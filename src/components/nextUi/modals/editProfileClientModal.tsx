@@ -5,7 +5,7 @@ import {
   ModalBody,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";

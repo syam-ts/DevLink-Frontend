@@ -69,7 +69,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
       if (validForm) {
         try {
           const { data } = await apiUserInstance.post(
-            `http://localhost:3000/user/project/submit/${contractId}`,
+            `/project/submit/${contractId}`,
             { formData }
           );
 
