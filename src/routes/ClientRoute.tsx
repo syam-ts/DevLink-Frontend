@@ -1,13 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
-import { ClientState } from "../config/state/allState";
+import { ClientState } from "../config/state/allState"; 
 
 const {
   HomeClient,
-
-
+  
   Jobs,
+MonoJobPost,
+
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
@@ -34,21 +35,17 @@ const ClientRoute = () => {
   return (
     <>
       <Navbar roleType="client" roleInfo={client} />
-      <Routes>
-        
-        <Route path="/home" element={<HomeClient />} />
+      <Routes> 
+        <Route path="/home" element={<HomeClient />} /> 
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
 
 
-
-        <Route
-          path="/clientProfile/view/:clientId/:type"
-          element={<Profile />}
-        />
+        <Route path="/clientProfile/view/:clientId/:type" element={<Profile />} />
         <Route
           path="/userProfile/view/:userId/:type"
           element={<UserProfile />}
         />
-        <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/draftJobPost" element={<DraftJobPost />} />
         <Route
           path="/draftJobPost/payment-success/:clientId/:data"

@@ -64,7 +64,7 @@ apiClientInstance.interceptors.response.use(
         
           localStorage.removeItem('accessToken'); 
           store.dispatch(signOutClient());
-          window.location.href = '/login?rt=client'; 
+          // window.location.href = '/login?rt=client'; 
           return Promise.reject(refreshError);
         }
       } 

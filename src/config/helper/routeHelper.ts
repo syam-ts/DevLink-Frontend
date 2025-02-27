@@ -17,7 +17,7 @@ import JobPropsals from "../../pages/client/JobProposal";
 import Profile from "../../pages/client/ProfileClient";
 import ContractApprovals from "../../pages/client/ContractApproval";
 import { ProjectSubmissionViewDrawer } from "../../components/shadcn/drawer/ProjectSubmitView";
-import ListUsers from "../../pages/client/ListUsers";
+import ListUsers from "../../pages/client/ListUsers"; 
 
 // ---------- Common imports -----------
 import Footer from "../../components/common/Footer";
@@ -63,6 +63,7 @@ export const userRouteHelper = {
 export const clientRouteHelper = {
   HomeClient,
   Jobs,
+  MonoJobPost,
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
