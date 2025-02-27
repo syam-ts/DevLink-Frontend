@@ -8,11 +8,12 @@ const {
   
   Jobs,
 MonoJobPost,
+ProposalsClient,
 
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
-  JobPropsals,
+
   Profile,
   ContractApprovals,
   ListUsers,
@@ -31,6 +32,7 @@ MonoJobPost,
 const ClientRoute = () => {
   const currentClient = useSelector((state: ClientState) => state.client);
   const client = currentClient?.currentClient;
+  console.log('cliet', client)
 
   return (
     <>
@@ -39,6 +41,10 @@ const ClientRoute = () => {
         <Route path="/home" element={<HomeClient />} /> 
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
+
+        <Route path="/proposals" element={<ProposalsClient />} />
+
+
 
 
         <Route path="/clientProfile/view/:clientId/:type" element={<Profile />} />
@@ -55,7 +61,6 @@ const ClientRoute = () => {
           path="/draftJobPost/payment-failed"
           element={<PaymentFailed />}
         />
-        <Route path="/proposals" element={<JobPropsals />} />
         {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
         <Route path="/developers/view" element={<ListUsers />} />
         <Route

@@ -13,7 +13,7 @@ import Jobs from "../../pages/client/Jobs";
 import DraftJobPost from "../../pages/client/draftJobPost";
 import PaymentSuccess from "../../pages/client/SuccessPayment";
 import PaymentFailed from "../../pages/client/FailedPayment";
-import JobPropsals from "../../pages/client/JobProposal";
+import ProposalsClient from "../../pages/client/Proposals";
 import Profile from "../../pages/client/ProfileClient";
 import ContractApprovals from "../../pages/client/ContractApproval";
 import { ProjectSubmissionViewDrawer } from "../../components/shadcn/drawer/ProjectSubmitView";
@@ -67,7 +67,7 @@ export const clientRouteHelper = {
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
-  JobPropsals,
+  ProposalsClient,
   Profile,
   ContractApprovals,
   ProjectSubmissionViewDrawer,

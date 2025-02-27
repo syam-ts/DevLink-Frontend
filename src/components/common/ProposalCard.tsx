@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { addNotification } from "../../redux/slices/userSlice";
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import config from '../../config/helper/config';
+import config from "../../config/helper/config";
+import { Sonner } from "../sonner/Toaster";
 
 type Id = string;
 interface ProposalCardProps {
   proposals: string[] | [];
   roleType: string;
   roleId: Id;
-};
-
+}
 
 export const ProposalCard: React.FC<ProposalCardProps> = ({
   proposals,
   roleType,
-  roleId
+  roleId,
 }) => {
- 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const acceptProposal = async (
     userId: Id,
@@ -57,15 +56,13 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           window.location.href = `${config.BASE_URL}/client/jobs/proposals`;
         }, 500);
       }
-    } catch (err: any) {
-      console.error("ERROR: ", err.message);
+    } catch (error: unknown) {
+      const err = error as {message: string};
+      toast.error(err.message);
     }
   };
 
-  const rejectProposal = async (
-    userId: Id,
-    jobPostId: Id
-  ) => {
+  const rejectProposal = async (userId: Id, jobPostId: Id) => {
     try {
       const body = {
         userId: userId,
@@ -95,13 +92,15 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           },
         });
       }
-    } catch (err: any) {
-      console.error("ERROR: ", err.message);
+    } catch (error: unknown) {
+      const err = error as {message: string};
+      toast.error(err.message);
     }
   };
 
   return (
     <div>
+      <Sonner />
       {Object.entries(proposals).map((proposal: any) => (
         <div className="w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3">
           <div className="h-16 w-16 ">
@@ -162,37 +161,39 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                     View
                   </Link>
                 </button>
-                <div>
-                  <button
-                    onClick={() =>
-                      rejectProposal(
-                        proposal[1]?.userId,
-                        proposal[1]?.clientId
-                      )
-                    }
-                    className="rounded-full bg-[#fd2b2b] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
-                    type="button"
-                  >
-                    Reject
-                  </button>
-                </div>
-                <div>
-                  <button
-                    onClick={() =>
-                      acceptProposal(
-                        proposal[1]?.userId,
-                        roleId,
-                        proposal[1]?.jobPostId,
-                        proposal[1]?.bidAmount,
-                        proposal[1]?.bidDeadline
-                      )
-                    }
-                    className="rounded-full bg-[#0000ff] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
-                    type="button"
-                  >
-                    Accept
-                  </button>
-                </div>
+
+                {proposal[1]?.status === "pending" && (
+                  <div>
+                    <button
+                      onClick={() =>
+                        rejectProposal(
+                          proposal[1]?.userId,
+                          proposal[1]?.clientId
+                        )
+                      }
+                      className="rounded-full mr-2 bg-[#fd2b2b] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
+                      type="button"
+                    >
+                      Reject
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        acceptProposal(
+                          proposal[1]?.userId,
+                          roleId,
+                          proposal[1]?.jobPostId,
+                          proposal[1]?.bidAmount,
+                          proposal[1]?.bidDeadline
+                        )
+                      }
+                      className="rounded-full bg-[#0000ff] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
+                      type="button"
+                    >
+                      Accept
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

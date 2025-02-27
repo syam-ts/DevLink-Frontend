@@ -28,11 +28,12 @@ export const ClientProtectedRoute = () => {
     const isClientAuth = useSelector((state: any) => state?.client?.isClient);
     const location = useLocation();
 
+    //FIX NEEDED
     if (!isClientAuth) {
-        return location.pathname === "/client/login" ? <Outlet /> : <Navigate to="/client/login?rt=client" replace />;
+        return location.pathname !== "/login?rt=client" ? <Outlet /> : <Navigate to="/client/login?rt=client" replace />;
     }
 
-    if (location.pathname.startsWith("/client/login")) {
+    if (location.pathname.startsWith("/login?rt=client")) {
         return <Navigate to="/client/home" replace />;
     }
 
