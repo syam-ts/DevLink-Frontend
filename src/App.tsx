@@ -5,6 +5,7 @@ import LandingRoute from './routes/LandingRoute';
 import NotFound from './pages/404/NotFound'; 
 import { UserProtectedRoute, ClientProtectedRoute, AdminProtectedRoute } from './utils/middleware/ProtectedRoute';
 import { Routes, Route } from 'react-router-dom'; 
+import Index from './pages/Admin2/Index'
 
 
 const App = () => { 
@@ -26,6 +27,9 @@ const App = () => {
           <Route element={<AdminProtectedRoute />} >
              <Route path='admin/*' element={<AdminRoute />} />
           </Route>
+          
+             <Route path='testing/*' element={<Index />} />
+         
          
           <Route path='*' element={<NotFound />} />
          

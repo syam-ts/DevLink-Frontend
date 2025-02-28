@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 const { heroui } = require("@heroui/react");
-
+ 
 module.exports = {
   darkMode: ["class"],  
   content: [
     "./src/**/*.{ts,tsx}", // tailwind files
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}", // NextUI files
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}", // NextUI || Heroui files
   ],
   theme: {
   	extend: {
