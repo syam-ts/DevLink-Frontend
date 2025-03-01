@@ -19,11 +19,36 @@ function Component() {
   const components = {
     UserManagement: <UserMangement />,
     ClientManagement: <ClientMangement />,
-    Dashboard: <div><h2>Dashboard Content</h2><p>Welcome to your dashboard</p></div>,
-    Wallet: <div><h2>Users Content</h2><p>User listing would appear here</p></div>,
-    Products: <div><h2>Products Content</h2><p>Product listing would appear here</p></div>,
-    "Sign In": <div><h2>Sign In Form</h2><p>Login form would appear here</p></div>,
-    Footer: <div><h2>Footer Settings</h2><p>Footer configuration would appear here</p></div>
+    Dashboard: (
+      <div>
+        <h2>Dashboard Content</h2>
+        <p>Welcome to your dashboard</p>
+      </div>
+    ),
+    Wallet: (
+      <div>
+        <h2>Users Content</h2>
+        <p>User listing would appear here</p>
+      </div>
+    ),
+    Products: (
+      <div>
+        <h2>Products Content</h2>
+        <p>Product listing would appear here</p>
+      </div>
+    ),
+    "Sign In": (
+      <div>
+        <h2>Sign In Form</h2>
+        <p>Login form would appear here</p>
+      </div>
+    ),
+    Footer: (
+      <div>
+        <h2>Footer Settings</h2>
+        <p>Footer configuration would appear here</p>
+      </div>
+    ),
   };
 
   const handleItemClick = (itemName) => {
@@ -35,10 +60,10 @@ function Component() {
     <div className="flex h-screen arsenal-sc-regular">
       <Sidebar
         aria-label="Beautiful sidebar"
-        className="border-r border-gray-50 w-[25rem] shadow-lg bg-gradient-to-b from-blue-50 to-indigo-50"
+        className=" border-r border-gray-300 w-[25rem] shadow-lg bg-gradient-to-b from-blue-50 to-indigo-50"
       >
-        <div className="mb-5 p-4 text-start ">
-          <h2 className="text-3xl font-bold text-[#0000ff]">DevLink</h2> 
+        <div className="mb-5 p-4 text-start">
+          <h2 className="text-3xl font-bold text-[#0000ff]">DevLink</h2>
         </div>
 
         <Sidebar.Items>
@@ -70,7 +95,7 @@ function Component() {
                 labelColor={item.labelColor}
                 active={activeItem === item.name}
                 onClick={() => handleItemClick(item.name)}
-                className={`mb-1 transition-all duration-200 no-underline text-xl text-black py-3 rounded-xl shadow-xl ${
+                className={`mb-1 transition-all duration-200 no-underline text-xl text-black py-3 rounded-xl  ${
                   activeItem === item.name
                     ? "bg-[#3342e7] text-white font-bold "
                     : "hover:bg-blue-50"
@@ -97,12 +122,9 @@ function Component() {
         </div> */}
       </Sidebar>
 
-     
       <div className="flex-1 p-6 bg-gray-50">
         {/* <h1 className="text-2xl font-semibold text-gray-800 mb-4">{activeItem}</h1> */}
-        <div className="bg-transparent p-4 rounded-lg  ">
-          {activeComponent}
-        </div>
+        <div className="bg-transparent p-4 rounded-lg  ">{activeComponent}</div>
       </div>
     </div>
   );

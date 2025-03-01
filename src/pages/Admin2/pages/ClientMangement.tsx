@@ -45,7 +45,7 @@ const clientManagement = () => {
 
   return (
     <div>
-      <div className="flex flex-wrap -mx-3 mb-5">
+      <div className="flex flex-wrap mx-3 mb-5 my-32">
         <Sonner />
 
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
@@ -87,7 +87,7 @@ const clientManagement = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom">
-                      <tr className="font-semibold text-[0.95rem] text-secondary-dark">
+                      <tr className="font-semibold border-b border-gray-400 text-[0.95rem] text-secondary-dark">
                         <th className="pb-3 text-start min-w-[175px]">Name</th>
                         <th className="pb-3 text-end min-w-[100px]">Email</th>
                         <th className="pb-3 text-end min-w-[100px]">
@@ -103,7 +103,7 @@ const clientManagement = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="border-b border-dashed last:border-b-0">
+                      <tr className="border-b border-gray-300 last:border-b-0">
                         <td className="p-3 pl-0">
                           <div className="flex items-center">
                             <div className="relative inline-block shrink-0 rounded-2xl me-3">
@@ -170,6 +170,7 @@ const clientManagement = () => {
                           </button>
                         </td>
                       </tr>
+                   
                       
                     </tbody>
                   </table>

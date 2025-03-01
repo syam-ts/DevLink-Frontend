@@ -32,6 +32,7 @@ const ExTable = () => {
     const [totalPages, setTotalPages]: any = useState([]);
     const [isSearchTriggered, setIsSearchTriggered] = useState(false);
     const [sortType, setSortType] = useState('latest');
+    const [work, setWork] = useState(false)
 
 
     const [client, setClient] = useState({});
@@ -51,11 +52,10 @@ const ExTable = () => {
 
                 if (totalPages[0] !== data?.data?.totalPages) (
                     setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
-                )
+                );
+                console.log('the cli: ', client)
 
                 setClient(data?.data)
-
-
 
             } catch (err: any) {
                 toast.error(err.message, {
@@ -64,8 +64,9 @@ const ExTable = () => {
                     }
                 })
             }
+            setWork(false)
         })();
-    }, [isBlocked, currentPage, sortType]);
+    }, [work, currentPage, sortType]);
 
 
     console.log('THE PAGE : ' ,client)
@@ -90,6 +91,7 @@ const ExTable = () => {
             const response = await axios.patch(`http://localhost:3000/admin/blockClient/${clientId}`);
 
             console.log('The response', response.data.message)
+            setWork(true)
             if (response.data.success) {
                 setIsBlocked(true);
                 toast.success(response.data.message, {
@@ -111,7 +113,7 @@ const ExTable = () => {
         try {
 
             const response = await axios.patch(`http://localhost:3000/admin/unblockClient/${clientId}`);
- 
+           setWork(true)
             if (response.data.success) {
                 setIsBlocked(false)
                 toast.success(response.data.message, {
