@@ -22,7 +22,7 @@ interface Client {
 
 const clientManagement: React.FC = () => {
 
-  const [client, setClient] = useState<Client>({
+  const [clients, setClients] = useState<Client>({
     comapnyName: "",
     email: "",
     isBlocked: false,
@@ -44,7 +44,7 @@ const clientManagement: React.FC = () => {
             withCredentials: true,
           }
         );
-        setClient(data?.data.clients);
+        setClients(data?.data.clients);
         setTotalPages(data?.data?.totalPages);
       } catch (error: unknown) {
         const err = error as { message: string };
@@ -118,7 +118,7 @@ const clientManagement: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='mt-28'>
       <div className="flex flex-wrap nunito-regular">
         <Sonner />
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
@@ -136,7 +136,7 @@ const clientManagement: React.FC = () => {
                   <div>
                     <Select onValueChange={(value) => handleSortType(value)}>
                       <SelectTrigger className="w-[180px] rounded-xl">
-                        <SelectValue placeholder="Sort User" />
+                        <SelectValue placeholder="Sort Client" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup className="bg-white">
@@ -165,25 +165,25 @@ const clientManagement: React.FC = () => {
                     </thead>
                     <tbody>
                       <tr className="">
-                        {Object.entries(client).map((cli: any) => (
+                        {Object.entries(clients).map((client: any) => (
                           <div className="flex border-b border-gray-400 py-4">
                             <td className="w-[180px]">
                               <span className="text-md/normal">
-                                {cli[1].companyName}
+                                {client[1].companyName}
                               </span>
                             </td>
                             <td className="w-[260px]">
                               <span className="text-md/normal w-20">
-                                {cli[1].email}
+                                {client[1].email}
                               </span>
                             </td>
                             <td className="w-[200px]">
                               <span className="text-md/normal">
-                                {cli[1]?.isBlocked}{" "}
-                                {cli[1].isBlocked ? (
+                                {client[1]?.isBlocked}{" "}
+                                {client[1].isBlocked ? (
                                   <span className="bg-red-500 py-1 px-2 rounded-full text-sm text-white font-thin">
                                     <button
-                                      onClick={() => unBlockClient(cli[1]._id)}
+                                      onClick={() => unBlockClient(client[1]._id)}
                                     >
                                       unBlock
                                     </button>
@@ -191,7 +191,7 @@ const clientManagement: React.FC = () => {
                                 ) : (
                                   <span className="bg-green-500 py-1 px-2 rounded-full text-sm text-white font-thin">
                                     <button
-                                      onClick={() => blockClient(cli[1]._id)}
+                                      onClick={() => blockClient(client[1]._id)}
                                     >
                                       block
                                     </button>
@@ -204,12 +204,12 @@ const clientManagement: React.FC = () => {
                             </td>
                             <td className="w-[230px]">
                               <span className="text-md/normal">
-                                {cli[1]?.totalJobs} 0
+                                {client[1]?.totalJobs} 0
                               </span>
                             </td>
                             <td className="w-[230px] text-center">
                               <span className="text-md/normal ">
-                                {cli[1]?.totalHours}
+                                {client[1]?.totalHours}
                               </span>
                             </td>
                           </div>

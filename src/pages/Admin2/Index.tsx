@@ -95,7 +95,8 @@ function Component() {
                 labelColor={item.labelColor}
                 active={activeItem === item.name}
                 onClick={() => handleItemClick(item.name)}
-                className={`mb-1 transition-all duration-200 no-underline text-xl text-black py-3 rounded-xl  ${
+                className={`mb-1 transition-all duration-200 no-underline text-md
+                   text-black py-3 rounded-xl  ${
                   activeItem === item.name
                     ? "bg-[#3342e7] text-white font-bold "
                     : "hover:bg-blue-50"
@@ -122,9 +123,9 @@ function Component() {
         </div> */}
       </Sidebar>
 
-      <div className="flex-1 p-6 bg-gray-50">
+      <div className="flex-1 overflow-hidden bg-gray-50">
         {/* <h1 className="text-2xl font-semibold text-gray-800 mb-4">{activeItem}</h1> */}
-        <div className="bg-transparent p-4 rounded-lg  ">{activeComponent}</div>
+        <div className="bg-transparent rounded-lg  ">{activeComponent}</div>
       </div>
     </div>
   );
