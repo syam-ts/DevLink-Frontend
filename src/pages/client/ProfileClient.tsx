@@ -1,51 +1,52 @@
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import ClientProfileAlter from "../../components/shadcn/modal/clientProfileAlterModal";
-import { ClientState } from "../../config/state/allState";
+import { toast } from "sonner";
+import { Sonner } from "../../components/sonner/Toaster";
 
 interface Client {
-  companyName: string;
-  location: string;
-  description: string;
-  numberOfEmployees: number;
-  since: number;
-}
+  companyName: string
+  email: string
+  domain: string
+  location: string
+  description: string
+  numberOfEmployees: number
+  since: number
+  isVerified: boolean
+};
 
 const Profile = () => {
-  const [client, setClient]: any = useState<Client>({
+  const [client, setClient] = useState<Client>({
     companyName: "",
+    email: "",
+    domain: "",
     location: "",
     description: "",
     numberOfEmployees: 0,
     since: 0,
+    isVerified: false,
   });
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const clientId: string = useSelector(
-    (state: ClientState) => state?.client?.currentClient?._id
-  );
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await apiClientInstance.get(
-          `/profile/view/${clientId}`,
-          {
-            withCredentials: true,
-          }
-        );
-        console.log("The result: ", response.data.data);
+        const response = await apiClientInstance.get(`/profile`, {
+          withCredentials: true,
+        });
 
         setIsVerified(response.data?.data?.isVerified);
         setClient(response.data?.data);
-      } catch (err: any) {
-        console.log(err.message);
+      } catch (error: unknown) {
+        const err = error as { message: string };
+        toast.error(err.message);
       }
     })();
   }, []);
 
   return (
     <>
+      <Sonner />
       {!isVerified ? (
         <div className="text-center p-44 arsenal-sc-regular">
           <div className="grid text-lg">
@@ -63,16 +64,15 @@ const Profile = () => {
                 className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                 type="button"
               >
-                {/* <EditModal clientId={clientId?._id} type={'verification'} /> */}
-                <ClientProfileAlter clientId={clientId} type="verify" />
+                <ClientProfileAlter type="verify" />
               </button>
             </div>
           </div>
         </div>
       ) : (
-        <main className="profile-pag py-60">
+        <main className="profile-pag py-60 mt-28 ">
           <div>
-            <section className="relative block h-500-px">
+            <section className="relative block h-500-px ">
               <div
                 className="absolute top-0 w-full h-full bg-center bg-cover"
                 style={{
@@ -105,8 +105,8 @@ const Profile = () => {
               </div>
             </section>
             <section className="relative py-16 bg-blueGray-200">
-              <div className="container mx-auto px-4">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 border-t border-gray-100 shadow-xl rounded-3xl -mt-64">
+              <div className="container mx-auto px-4 ">
+                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-2xl rounded-3xl -mt-64">
                   <div className="px-6">
                     <div className="flex flex-wrap justify-center">
                       <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"></div>
@@ -117,10 +117,7 @@ const Profile = () => {
                             className="bg-[#16b6a5] active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                             type="button"
                           >
-                            <ClientProfileAlter
-                              clientId={clientId}
-                              type="edit"
-                            />
+                            <ClientProfileAlter type="edit" />
                           </button>
                         </div>
                       </div>

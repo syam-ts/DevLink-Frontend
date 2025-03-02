@@ -22,8 +22,7 @@ import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { useNavigate } from "react-router-dom";
 
-interface ClientProfileAlterProps {
-  clientId: string;
+interface ClientProfileAlterProps { 
   type: string;
 }
 
@@ -35,8 +34,7 @@ interface Client {
   since: number;
 }
 
-const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
-  clientId,
+const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({ 
   type,
 }) => {
  
@@ -60,30 +58,34 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
 
   //Loads client existing data's
   useEffect(() => {
+   try{
     (async () => {
       const response = await apiClientInstance.get(
-        `/profile/view/${clientId}`,
+        `/profile`,
         {
           withCredentials: true,
         }
       );
       setClientData(response?.data?.data);
     })();
+   }catch(error: unknown) {
+    const err = error as {message: string};
+    console.error('Error: ',err.message);
+   }
   }, []);
  
-  const handleChange = (e: any) => {
-    console.log("targe", e.target.value, "");
-    const { id, value }: { id: number; value: string | number } = e.target;
+  const handleChange = (e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >) => {
+    const { id, value }: { id: number | string, value: string | number } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
   }; 
 
-  console.log("Fomr data  ", formData);
 
   const submitForm = async () => {
- 
     try {
       let validForm;
       if (type === "verify") {
@@ -106,7 +108,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           };
 
           const response = await apiClientInstance.post(
-            `/profile/${type}/${clientId}`,
+            `/profile/${type}`,
             data,
             {
               withCredentials: true,
@@ -126,24 +128,23 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
               },
             });
           }
-        } catch (err: any) {
+        } catch (error: unknown) {
+          const err = error as {message: string}; 
           toast.error(err.message, {
             style: {
               backgroundColor: "red",
               color: "white",
             },
-          });
-
-          console.log("ERROR: ", err.message);
+          }); 
         }
       }
-    } catch (err: any) {
-      console.log(err.errors);
+    } catch (error: unknown) {
+      const err = error as {errors: string[]}; 
       setError(err.errors);
     }
   };
 
-  console.log('The error: ', error)
+  console.log('Validation Errors: ', error);
 
   return (
     <Dialog>
@@ -170,8 +171,8 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
             />
           </div>
           <div className="flex">
-            {error?.some((err: any) => err.includes("CompanyName is required"))
-              ? error.map((err: any, index: number) => {
+            {error?.some((err: string) => err.includes("CompanyName is required"))
+              ? error.map((err: string, index: number) => {
                   if (err.includes("CompanyName is required")) {
                     return (
                       <div key={index} className="text-start">
@@ -181,7 +182,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("CompanyName is required") ||
                     err.includes("Must be atleast 10 characters") ||
@@ -210,8 +211,8 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
 
           <div className="flex">
-            {error?.some((err: any) => err.includes("Description is required"))
-              ? error.map((err: any, index: number) => {
+            {error?.some((err: string) => err.includes("Description is required"))
+              ? error.map((err: string, index: number) => {
                   if (err.includes("Description is required")) {
                     return (
                       <div key={index} className="text-start">
@@ -221,7 +222,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("Description is required") ||
                     err.includes("Description must be atleast 20 characters") ||
@@ -250,8 +251,8 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
 
           <div className="flex">
-            {error?.some((err: any) => err.includes("Location is required"))
-              ? error.map((err: any, index: number) => {
+            {error?.some((err: string) => err.includes("Location is required"))
+              ? error.map((err: string, index: number) => {
                   if (err.includes("Location is required")) {
                     return (
                       <div key={index} className="text-start">
@@ -261,7 +262,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("Location is required") ||
                     err.includes("Must be atleast 4 characters") ||
@@ -286,8 +287,8 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
 
           <div className="flex">
-            {error?.some((err: any) => err.includes("Domain is required"))
-              ? error.map((err: any, index: number) => {
+            {error?.some((err: string) => err.includes("Domain is required"))
+              ? error.map((err: string, index: number) => {
                   if (err.includes("Domain is required")) {
                     return (
                       <div key={index} className="text-start">
@@ -297,7 +298,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("Domain is required") ||
                     err.includes("Domain must be atleast 10 characters") ||
@@ -327,10 +328,10 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
 
           <div className="flex">
-            {error?.some((err: any) =>
+            {error?.some((err: string) =>
               err.includes("Total Employees are required")
             )
-              ? error.map((err: any, index: number) => {
+              ? error.map((err: string, index: number) => {
                   if (err.includes("Total Employees are required")) {
                     return (
                       <div key={index} className="text-start">
@@ -340,7 +341,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("Total Employees must be at least 10") ||
                     err.includes("Must be atleast 10 characters") ||
@@ -370,10 +371,10 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
 
           <div className="flex">
-            {error?.some((err: any) =>
+            {error?.some((err: string) =>
               err.includes("Establishment Year is required")
             )
-              ? error.map((err: any, index: number) => {
+              ? error.map((err: string, index: number) => {
                   if (err.includes("Establishment Year is required")) {
                     return (
                       <div key={index} className="text-start">
@@ -383,7 +384,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
                   }
                   return null;
                 })
-              : error.map((err: any, index: number) => {
+              : error.map((err: string, index: number) => {
                   if (
                     err.includes("Establishment Year is required") ||
                     err.includes(

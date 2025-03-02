@@ -6,21 +6,21 @@ import { ClientState } from "../config/state/allState";
 const {
   Navbar,
   Footer,
-  HomeClient, 
+  HomeClient,
   Developers,
   Jobs,
   MonoJobPost,
   ProposalsClient,
   AllContracts,
   ContractApprovals,
-  
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
-
+  
   Profile,
-  UserProfile,
+  
   Wallet,
+  UserProfile,
   MonoJobPage,
   Contract,
   ListAllUserChat,
@@ -40,20 +40,18 @@ const ClientRoute = () => {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} />
         <Route path="/proposals" element={<ProposalsClient />} />
-        <Route path="/contracts/:roleType" element={<AllContracts />} /> 
+        <Route path="/contracts/:roleType" element={<AllContracts />} />
         <Route path="/contractsApprovals" element={<ContractApprovals />} />
-       <Route path="/draftJobPost" element={<DraftJobPost />} />
-       <Route path="/developers" element={<Developers />} />
+        <Route path="/draftJobPost" element={<DraftJobPost />} />
+        <Route path="/developers" element={<Developers />} />
+        <Route path="/paymentSuccess/:clientId/:data" element={<PaymentSuccess />} />
+        <Route path="/paymenFailed" element={<PaymentFailed />} />
+        <Route path="/profile"  element={<Profile />} />
 
 
-        <Route
-          path="/paymentSuccess/:clientId/:data"
-          element={<PaymentSuccess />}
-        />
-        <Route
-          path="/paymenFailed"
-          element={<PaymentFailed />}
-        />
+
+
+
         {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
@@ -63,10 +61,6 @@ const ClientRoute = () => {
           element={<Wallet roleType="client" />}
         />
 
-        <Route
-          path="/profile/view"
-          element={<Profile />}
-        />
         <Route
           path="/userProfile/view/:userId/:type"
           element={<UserProfile />}
