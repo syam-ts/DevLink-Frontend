@@ -50,6 +50,8 @@ const ExTable = () => {
                     withCredentials: true
                 });
 
+                console.log('The data: ',data)
+
                 if (totalPages[0] !== data?.data?.totalPages) (
                     setTotalPages((prevPages: any) => [...prevPages, data?.data?.totalPages])
                 );

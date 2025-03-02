@@ -11,26 +11,43 @@ import {
 import axios from "axios";
 import { toast } from "sonner";
 
-const clientManagement = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState<number>();
-  const [client, setClient]: any = useState({});
+interface Client {
+  comapnyName: string
+  email: string
+  isBlocked: boolean
+  view: string
+  totalJobs: number
+  totalHours: number
+};
 
+const clientManagement: React.FC = () => {
+
+  const [client, setClient] = useState<Client>({
+    comapnyName: "",
+    email: "",
+    isBlocked: false,
+    view: "",
+    totalJobs: 0,
+    totalHours: 0,
+  });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [sortType, setSortType] = useState<string>("latest");
+  const [isBlockedTrigger, setIsBlockedTrigger] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/admin/getAllClients?page=${currentPage}`,
+          `http://localhost:3000/admin/getAllClients?page=${currentPage}&sortType=${sortType}`,
           {
             withCredentials: true,
           }
         );
-
+        setClient(data?.data.clients);
         setTotalPages(data?.data?.totalPages);
-
-        setClient(data?.data);
-      } catch (err: any) {
+      } catch (error: unknown) {
+        const err = error as { message: string };
         toast.error(err.message, {
           style: {
             backgroundColor: "red",
@@ -38,35 +55,86 @@ const clientManagement = () => {
           },
         });
       }
+      setIsBlockedTrigger(false);
     })();
-  }, [currentPage]);
+  }, [currentPage, isBlockedTrigger, sortType]);
 
+  const changePage = async (page: number) => {
+    setCurrentPage(page);
+  };
 
+  const handleSortType = (value: string) => {
+    setSortType(value);
+    setCurrentPage(1);
+  };
+
+  const blockClient = async (clientId: string) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/admin/blockClient/${clientId}`
+      );
+
+      setIsBlockedTrigger(true);
+      if (response.data.success) {
+        toast.success("client blocked", {
+          position: "top-center",
+          style: {
+            width: "11rem",
+            height: "3rem",
+            justifyContent: "center",
+            backgroundColor: "yellow",
+            color: "black",
+          },
+        });
+      }
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      toast.error(err.message);
+    }
+  };
+
+  const unBlockClient = async (clientId: string) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/admin/unblockClient/${clientId}`
+      );
+      setIsBlockedTrigger(true);
+      if (response.data.success) {
+        toast.success("client unblocked", {
+          position: "top-center",
+          style: {
+            width: "11rem",
+            height: "3rem",
+            justifyContent: "center",
+            backgroundColor: "#32a852",
+            color: "white",
+          },
+        });
+      }
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div>
-      <div className="flex flex-wrap mx-3 mb-5 my-32">
+      <div className="flex flex-wrap nunito-regular">
         <Sonner />
-
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
             <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
               <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                 <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
-                  <span className="mr-3 font-semibold text-dark">
-                    Client Management
-                  </span>
+                  <span className="mr-3 text-dark">Client Management</span>
                   <span className="mt-1 font-medium text-secondary-dark text-lg/normal">
                     All clients from the Devlink Application
                   </span>
                 </h3>
 
-                {/* select section */}
-
                 <div className="flex justify-end ">
                   <div>
-                    <Select>
-                      {/* <Select onValueChange={(value) => setSortType(value)}> */}
+                    <Select onValueChange={(value) => handleSortType(value)}>
                       <SelectTrigger className="w-[180px] rounded-xl">
                         <SelectValue placeholder="Sort User" />
                       </SelectTrigger>
@@ -81,97 +149,72 @@ const clientManagement = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- end card header -->
-        <!-- card body  --> */}
+
               <div className="flex-auto block py-8 pt-6 px-9 ">
                 <div className="overflow-x-auto">
-                  <table className="w-full my-0 align-middle text-dark border-neutral-200">
+                  <table className="w-full my-0 align-middle">
                     <thead className="align-bottom">
-                      <tr className="font-semibold border-b border-gray-400 text-[0.95rem] text-secondary-dark">
-                        <th className="pb-3 text-start min-w-[175px]">Name</th>
-                        <th className="pb-3 text-end min-w-[100px]">Email</th>
-                        <th className="pb-3 text-end min-w-[100px]">
-                          Block/UnBlock
-                        </th>
-                        <th className="pb-3 pr-12 text-end min-w-[175px]">
-                          View
-                        </th>
-                        <th className="pb-3 pr-12 text-end min-w-[100px]">
-                          Total Jobs
-                        </th>
-                        <th className="pb-3 text-end min-w-[50px]">Total Hours</th>
+                      <tr className="border-b border-black text-[1.1rem] flex gap-40 text-secondary-dark">
+                        <th className="pb-3 text-start">Name</th>
+                        <th className="pb-3 text-start">Email</th>
+                        <th className="pb-3 text-start">Block/UnBlock</th>
+                        <th className="pb-3 text-start">View</th>
+                        <th className="pb-3 text-start">Total Jobs</th>
+                        <th className="pb-3 text-start">Total Hours</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="border-b border-gray-300 last:border-b-0">
-                        <td className="p-3 pl-0">
-                          <div className="flex items-center">
-                            <div className="relative inline-block shrink-0 rounded-2xl me-3">
-                            <span className="font-semibold text-light-inverse text-md/normal">
-                            Google
-                          </span>
-                            </div>
-                           
+                      <tr className="">
+                        {Object.entries(client).map((cli: any) => (
+                          <div className="flex border-b border-gray-400 py-4">
+                            <td className="w-[180px]">
+                              <span className="text-md/normal">
+                                {cli[1].companyName}
+                              </span>
+                            </td>
+                            <td className="w-[260px]">
+                              <span className="text-md/normal w-20">
+                                {cli[1].email}
+                              </span>
+                            </td>
+                            <td className="w-[200px]">
+                              <span className="text-md/normal">
+                                {cli[1]?.isBlocked}{" "}
+                                {cli[1].isBlocked ? (
+                                  <span className="bg-red-500 py-1 px-2 rounded-full text-sm text-white font-thin">
+                                    <button
+                                      onClick={() => unBlockClient(cli[1]._id)}
+                                    >
+                                      unBlock
+                                    </button>
+                                  </span>
+                                ) : (
+                                  <span className="bg-green-500 py-1 px-2 rounded-full text-sm text-white font-thin">
+                                    <button
+                                      onClick={() => blockClient(cli[1]._id)}
+                                    >
+                                      block
+                                    </button>
+                                  </span>
+                                )}
+                              </span>
+                            </td>
+                            <td className="w-[230px]">
+                              <span className="text-md/normal">View</span>
+                            </td>
+                            <td className="w-[230px]">
+                              <span className="text-md/normal">
+                                {cli[1]?.totalJobs} 0
+                              </span>
+                            </td>
+                            <td className="w-[230px] text-center">
+                              <span className="text-md/normal ">
+                                {cli[1]?.totalHours}
+                              </span>
+                            </td>
                           </div>
-                        </td>
-                        <td className="p-3 pr-0 text-end">
-                          <span className="font-semibold text-light-inverse text-md/normal">
-                            Olivia Cambell
-                          </span>
-                        </td>
-                        <td className="p-3 pr-0 text-end">
-                          <span className="text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none text-success bg-success-light rounded-lg">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              className="w-5 h-5 mr-1"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
-                              />
-                            </svg>{" "}
-                            6.5%{" "}
-                          </span>
-                        </td>
-                        <td className="p-3 pr-12 text-end">
-                          <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">
-                            {" "}
-                            In Progress{" "}
-                          </span>
-                        </td>
-                        <td className="pr-0 text-start">
-                          <span className="font-semibold text-light-inverse text-md/normal">
-                            2023-08-23
-                          </span>
-                        </td>
-                        <td className="p-3 pr-0 text-end">
-                          <button className="ml-auto relative text-secondary-dark bg-light-dark hover:text-primary flex items-center h-[25px] w-[25px] text-base font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-200 ease-in-out shadow-none border-0 justify-center">
-                            <span className="flex items-center justify-center p-0 m-0 leading-none shrink-0 ">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                className="w-4 h-4"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </td>
+                        ))}
                       </tr>
-                   
-                      
                     </tbody>
                   </table>
                 </div>
@@ -180,14 +223,78 @@ const clientManagement = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap -mx-3 mb-5">
-        <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
-          <p className="text-sm text-slate-500 py-1">
-            {" "}
-            DevLink 2025@components{" "}
-          </p>
+
+      <section>
+        <div className="container mx-auto px-4">
+          <nav
+            className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
+            aria-label="Pagination"
+          >
+            {currentPage - 1 < 1 ? (
+              <div></div>
+            ) : (
+              <a
+                onClick={() => changePage(currentPage - 1)}
+                className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white -800 text-black  hover:border-gray-300 -gray-600"
+                title="Previous Page"
+              >
+                <span className="sr-only">Previous Page</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="block w-5 h-5 my-2 mx-auto"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </a>
+            )}
+
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <p
+                onClick={() => changePage(index + 1)}
+                key={index}
+                className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white -700 text-black  hover:border-gray-300 -gray-600"
+                title={`Page ${index + 1}`}
+              >
+                {index + 1}
+              </p>
+            ))}
+
+            {currentPage + 1 > totalPages ? (
+              <div></div>
+            ) : (
+              <a
+                onClick={() => changePage(currentPage + 1)}
+                className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300 "
+                title="Next Page"
+              >
+                <span className="sr-only">Next Page</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="block w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </a>
+            )}
+          </nav>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
