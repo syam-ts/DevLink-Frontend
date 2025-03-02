@@ -6,15 +6,15 @@ export const jobPostSchema = yup.object().shape({
         .string()
         .trim()
         .min(10, "Must be atleast 10 characters")
-        .max(50, "Must be under 50 characters")
+        .max(80, "Must be under 80 characters")
         .required("Title is required"),
 
 
     keyResponsiblities: yup
         .string()
         .trim()
-        .min(20, "KeyResponsiblities must be between (20 to 50 characters)")
-        .max(80, "KeyResponsiblities should under 80")
+        .min(20, "KeyResponsiblities must be between (20 to 150 characters)")
+        .max(150, "KeyResponsiblities should under 150")
         .required("KeyResponsiblities is required"),
 
 
@@ -54,7 +54,7 @@ export const jobPostSchema = yup.object().shape({
         .string()
         .trim()
         .min(20, "Description should have atleast 20 300 characters")
-        .max(300, "Maximum characters are 300")
+        .max(500, "Maximum characters are 500")
         .required("Description is required"),
 
 

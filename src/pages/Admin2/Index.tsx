@@ -13,6 +13,8 @@ import UserMangement from "./pages/UserMangement";
 import ClientMangement from "./pages/ClientMangement";
 import Requests from "./pages/Requests";
 import Wallet from "./pages/Wallet";
+import Contracts from "./pages/Contracts";
+import Dashboard from "./pages/Dashboard";
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
@@ -23,12 +25,9 @@ function Component() {
     ClientManagement: <ClientMangement />,
     Requests: <Requests />,
     Wallet: <Wallet />,
-    Dashboard: (
-      <div>
-        <h2>Dashboard Content</h2>
-        <p>Welcome to your dashboard</p>
-      </div>
-    ), 
+    Contracts: <Contracts />,
+    Dashboard: <Dashboard />,
+ 
     Products: (
       <div>
         <h2>Products Content</h2>
@@ -82,6 +81,7 @@ function Component() {
               },
               { name: "Requests", icon: HiUser },
               { name: "Wallet", icon: HiShoppingBag },
+              { name: "Contracts", icon: HiShoppingBag },
               { name: "Sign In", icon: HiArrowSmRight },
               { name: "Footer", icon: HiTable },
             ].map((item) => (

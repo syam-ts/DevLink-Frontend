@@ -14,7 +14,7 @@ function SuccessPayment() {
     try {
       (async () => { 
         const response = await apiClientInstance.post(
-          `/payment/success/${clientId}`,
+          `/paymentSuccess`,
           { data: finalData },
           {
             withCredentials: true,

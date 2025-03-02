@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { jobPostSchema } from "../../utils/validation/jobPostSchema";
-import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest"; 
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 interface JobPost {
-  title?: string;
-  keyResponsiblities?: string;
-  requiredSkills?: string[];
-  paymentType?: string;
-  payment: number;
-  projectType?: string;
-  maxProposals?: number;
-  description?: string;
-  estimateTime?: number;
-  location?: string;
-}
+  title?: string
+  keyResponsiblities?: string
+  requiredSkills?: string[]
+  paymentType?: string
+  payment: number
+  projectType?: string
+  maxProposals?: number
+  description?: string
+  estimateTime?: number
+  location?: string
+};
 
 const DraftJobPost = () => {
   const [skills, setSkills] = useState<string[]>([]);
@@ -34,30 +34,27 @@ const DraftJobPost = () => {
     estimateTime: 0,
     location: "",
   });
- 
 
   useEffect(() => {
     formData.requiredSkills = skills;
   }, [skills]);
 
-  const handleChangeSkills = (e: React.ChangeEvent<
-    HTMLInputElement 
-  >) => {
+  const handleChangeSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleAddSkill = (event: any, inputValue: any) => {
     event.preventDefault();
     if (inputValue.trim() && !skills.includes(inputValue)) {
-      setSkills((prevSkills: any) => [...prevSkills, inputValue.trim()]);
+      setSkills((prevSkills: string[]) => [...prevSkills, inputValue.trim()]);
       setInputValue("");
     }
   };
 
-  const handleRemoveSkill = (event: any, skillToRemove: any) => {
+  const handleRemoveSkill = (event: any, skillToRemove: string) => {
     event.preventDefault();
-    setSkills((prevSkills: any) =>
-      prevSkills.filter((skill: any) => skill !== skillToRemove)
+    setSkills((prevSkills: string[]) =>
+      prevSkills.filter((skill: string) => skill !== skillToRemove)
     );
   };
 
@@ -76,7 +73,7 @@ const DraftJobPost = () => {
     }));
   };
 
-  console.log("Errors", error);
+  console.log("Validation Errors: ", error);
 
   const paymentFunction = async () => {
     try {
@@ -84,12 +81,9 @@ const DraftJobPost = () => {
         abortEarly: false,
       });
       if (validForm) {
-        const { data } = await apiClientInstance.post(
-          `/jobPaymentStripe`,
-          {
-            formData,
-          }
-        );
+        const { data } = await apiClientInstance.post(`/jobPaymentStripe`, {
+          formData,
+        });
         if (data.success) {
           window.location.href = data.response.url;
         } else if (!data.success) {
@@ -106,7 +100,8 @@ const DraftJobPost = () => {
       } else {
         await jobPostSchema.validate(formData, { abortEarly: false });
       }
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { errors: string[] };
       setError(err.errors);
     }
   };
@@ -148,8 +143,8 @@ const DraftJobPost = () => {
                 type="text"
               />
               <hr />
-              {error?.some((err: any) => err.includes("Title is required"))
-                ? error.map((err: any, index: number) => {
+              {error?.some((err: string) => err.includes("Title is required"))
+                ? error.map((err: string, index: number) => {
                     if (err.includes("Title is required")) {
                       return (
                         <div key={index} className="text-start">
@@ -159,11 +154,11 @@ const DraftJobPost = () => {
                     }
                     return null;
                   })
-                : error.map((err: any, index: number) => {
+                : error.map((err: string, index: number) => {
                     if (
                       err.includes("Title is required") ||
                       err.includes("Must be atleast 10 characters") ||
-                      err.includes("Must be under 50 characters")
+                      err.includes("Must be under 80 characters")
                     ) {
                       return (
                         <div key={index} className="text-start">
@@ -186,10 +181,10 @@ const DraftJobPost = () => {
                   type="text"
                 />
                 <hr />
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("KeyResponsiblities is required")
                 )
-                  ? error.map((err: any, index: number) => {
+                  ? error.map((err: string, index: number) => {
                       if (err.includes("KeyResponsiblities is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -199,13 +194,13 @@ const DraftJobPost = () => {
                       }
                       return null;
                     })
-                  : error.map((err: any, index: number) => {
+                  : error.map((err: string, index: number) => {
                       if (
                         err.includes("KeyResponsiblities is required") ||
                         err.includes(
-                          "KeyResponsiblities must be between (20 to 50 characters"
+                          "KeyResponsiblities must be between (20 to 150 characters"
                         ) ||
-                        err.includes("KeyResponsiblities should under 80")
+                        err.includes("KeyResponsiblities should under 150")
                       ) {
                         return (
                           <div key={index} className="text-start">
@@ -232,29 +227,29 @@ const DraftJobPost = () => {
                 >
                   Add
                 </button>
-                {error.some((err: any) => err.includes("Skills are required"))
+                {error.some((err: string) => err.includes("Skills are required"))
                   ? error
-                      .filter((err: any) => err.includes("Skills are required"))
-                      .map((err: any, index: number) => (
+                      .filter((err: string) => err.includes("Skills are required"))
+                      .map((err: string, index: number) => (
                         <div key={index} className="text-start">
                           <span className="text-red-400 text-sm">{err}</span>
                         </div>
                       ))
                   : error
-                      .filter((err: any) =>
+                      .filter((err: string) =>
                         [
                           "Minimum 3 skills required",
                           "Maximum 10 skills are allowed",
                         ].some((msg) => err.includes(msg))
                       )
-                      .map((err: any, index: number) => (
+                      .map((err: string, index: number) => (
                         <div key={index} className="text-start">
                           <span className="text-red-400 text-sm">{err}</span>
                         </div>
                       ))}
               </div>
               <div>
-                {skills.map((skill: any, index: any) => (
+                {skills.map((skill: string, index: number) => (
                   <div
                     key={index}
                     className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2"
@@ -297,10 +292,10 @@ const DraftJobPost = () => {
                   Fixed
                 </label>
               </div>
-              {error?.some((err: any) =>
+              {error?.some((err: string) =>
                 err.includes("Payment type is required")
               )
-                ? error.map((err: any, index: number) => {
+                ? error.map((err: string, index: number) => {
                     if (err.includes("Payment type is required")) {
                       return (
                         <div key={index} className="text-start">
@@ -310,7 +305,7 @@ const DraftJobPost = () => {
                     }
                     return null;
                   })
-                : error.map((err: any, index: number) => {
+                : error.map((err: string, index: number) => {
                     if (
                       err.includes("Payment type is required") ||
                       err.includes(
@@ -343,24 +338,24 @@ const DraftJobPost = () => {
                     max="1500"
                   />
                   <hr />
-                  {error.some((err: any) => err.includes("Payment is required"))
+                  {error.some((err: string) => err.includes("Payment is required"))
                     ? error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           err.includes("Payment is required")
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
                         ))
                     : error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           [
                             "Hourly rate must be at least 100rs",
                             "Hourly rate must be at most 1500rs",
                           ].some((msg) => err.includes(msg))
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
@@ -377,24 +372,24 @@ const DraftJobPost = () => {
                     type="number"
                   />
                   <hr />
-                  {error.some((err: any) => err.includes("Payment is required"))
+                  {error.some((err: string) => err.includes("Payment is required"))
                     ? error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           err.includes("Payment is required")
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
                         ))
                     : error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           [
                             "Fixed price must be at least 2000rs",
                             "Fixed price must be at most 70000rs",
                           ].some((msg) => err.includes(msg))
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
@@ -448,10 +443,10 @@ const DraftJobPost = () => {
                   />
                 </div>
                 <hr className="w-full" />
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("Maximum proposal is required")
                 )
-                  ? error.map((err: any, index: number) => {
+                  ? error.map((err: string, index: number) => {
                       if (err.includes("Maximum proposal is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -461,7 +456,7 @@ const DraftJobPost = () => {
                       }
                       return null;
                     })
-                  : error.map((err: any, index: number) => {
+                  : error.map((err: string, index: number) => {
                       if (
                         err.includes("Maximum proposal is required") ||
                         err.includes("Minimum 3 proposals are mandatory") ||
@@ -487,10 +482,10 @@ const DraftJobPost = () => {
                 name="description"
               />
               <hr />
-              {error?.some((err: any) =>
+              {error?.some((err: string) =>
                 err.includes("Description is required")
               )
-                ? error.map((err: any, index: number) => {
+                ? error.map((err: string, index: number) => {
                     if (err.includes("Description is required")) {
                       return (
                         <div key={index} className="text-start">
@@ -500,13 +495,13 @@ const DraftJobPost = () => {
                     }
                     return null;
                   })
-                : error.map((err: any, index: number) => {
+                : error.map((err: string, index: number) => {
                     if (
                       err.includes("Description is required") ||
                       err.includes(
-                        "Description should have atleast 20 300 characters"
+                        "Description should have atleast 20 500 characters"
                       ) ||
-                      err.includes("Maximum characters are 300")
+                      err.includes("Maximum characters are 500")
                     ) {
                       return (
                         <div key={index} className="text-start">
@@ -534,26 +529,26 @@ const DraftJobPost = () => {
                     max="1500"
                   />
                   <hr />
-                  {error.some((err: any) =>
+                  {error.some((err: string) =>
                     err.includes("Estimate time is required")
                   )
                     ? error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           err.includes("Estimate time is required")
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
                         ))
                     : error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           [
                             "Estimate time must be at least 5hr",
                             "Estimate time must be at most 48hrs",
                           ].some((msg) => err.includes(msg))
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
@@ -570,26 +565,26 @@ const DraftJobPost = () => {
                     type="number"
                   />
                   <hr />
-                  {error.some((err: any) =>
+                  {error.some((err: string) =>
                     err.includes("Estimate time is required")
                   )
                     ? error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           err.includes("Estimate time is required")
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
                         ))
                     : error
-                        .filter((err: any) =>
+                        .filter((err: string) =>
                           [
                             "Estimate time must be at least 10hr",
                             "Estimate time must be at most 120hrs",
                           ].some((msg) => err.includes(msg))
                         )
-                        .map((err: any, index: number) => (
+                        .map((err: string, index: number) => (
                           <div key={index} className="text-start">
                             <span className="text-red-400 text-sm">{err}</span>
                           </div>
@@ -607,8 +602,8 @@ const DraftJobPost = () => {
                   type="string"
                 />
                 <hr />
-                {error?.some((err: any) => err.includes("Location is required"))
-                  ? error.map((err: any, index: number) => {
+                {error?.some((err: string) => err.includes("Location is required"))
+                  ? error.map((err: string, index: number) => {
                       if (err.includes("Location is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -618,7 +613,7 @@ const DraftJobPost = () => {
                       }
                       return null;
                     })
-                  : error.map((err: any, index: number) => {
+                  : error.map((err: string, index: number) => {
                       if (
                         err.includes("Location is required") ||
                         err.includes(

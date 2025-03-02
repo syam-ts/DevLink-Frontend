@@ -55,8 +55,8 @@ const Wallet: React.FC = () => {
   return (
     <div>
       <section>
-        <div className='flex justify-start mx-20 underline mt-12 '>
-          <span className='text-xl'>Balance: {Math.floor(balance)} </span>
+        <div className="flex justify-start mx-20 underline mt-12 ">
+          <span className="text-xl">Balance: {Math.floor(balance)} </span>
         </div>
       </section>
 
@@ -74,7 +74,7 @@ const Wallet: React.FC = () => {
           <div className="relative flex flex-col w-[70rem] mx-auto h-full overflow-hidden py-12 px-28 text-black shadow-lg rounded-2xl">
             <table className="w-full text-left table-auto min-w-max ">
               <thead>
-                <tr className='border-b'>
+                <tr className="border-b">
                   <th className="p-4 bg-blue-gray-50">
                     <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                       Type
@@ -99,7 +99,7 @@ const Wallet: React.FC = () => {
               </thead>
               <tbody>
                 {transactions?.map((tra: any) => (
-                  <tr className='border-b border-gray-400'>
+                  <tr className="border-b border-gray-400">
                     <td className="py-4 px-4">
                       <p className="block arsenal-sc-regular text-sm text-blue-gray-900">
                         {tra?.type || tra[0]?.type}

@@ -81,7 +81,7 @@ const Jobs = () => {
               The need to create a job.
             </p>
             <div>
-              <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-lg hover:bg-blue-800  ">
+              <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-2xl hover:bg-blue-800  ">
                 <Link to="/client/draftJobPost">
                   <button className="text-white font-bold">
                     Create Job Post
