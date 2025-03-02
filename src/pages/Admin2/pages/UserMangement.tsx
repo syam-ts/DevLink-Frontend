@@ -32,7 +32,6 @@ const clientManagement: React.FC = () => {
     view: "",
     totalJobs: 0,
   });
-  const [viewUser, setViewUser] = useState({});
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [sortType, setSortType] = useState<string>("latest");

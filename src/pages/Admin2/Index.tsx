@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import UserMangement from "./pages/UserMangement";
 import ClientMangement from "./pages/ClientMangement";
+import Requests from "./pages/Requests";
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
@@ -19,6 +20,7 @@ function Component() {
   const components = {
     UserManagement: <UserMangement />,
     ClientManagement: <ClientMangement />,
+    Requests: <Requests />,
     Dashboard: (
       <div>
         <h2>Dashboard Content</h2>
@@ -82,7 +84,7 @@ function Component() {
                 label: "3",
                 labelColor: "blue",
               },
-              { name: "Users", icon: HiUser },
+              { name: "Requests", icon: HiUser },
               { name: "Wallet", icon: HiShoppingBag },
               { name: "Sign In", icon: HiArrowSmRight },
               { name: "Footer", icon: HiTable },

@@ -64,7 +64,7 @@ const ClientRoute = () => {
         />
 
         <Route
-          path="/clientProfile/view/:clientId/:type"
+          path="/profile/view"
           element={<Profile />}
         />
         <Route
