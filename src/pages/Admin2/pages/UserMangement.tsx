@@ -9,20 +9,20 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import axios from "axios";
-import { toast } from "sonner";
+import { toast } from "sonner"; 
+import { UserProfileModal } from "../../../components/nextUi/modals/UserProfileModal";
 
 interface User {
-  profilePicture: string
-  name: string
-  email: string
-  budget: number
-  isBlocked: boolean
-  view: string
-  totalJobs: number 
-};
+  profilePicture: string;
+  name: string;
+  email: string;
+  budget: number;
+  isBlocked: boolean;
+  view: string;
+  totalJobs: number;
+}
 
 const clientManagement: React.FC = () => {
-
   const [users, setUsers] = useState<User>({
     profilePicture: "",
     name: "",
@@ -30,8 +30,9 @@ const clientManagement: React.FC = () => {
     budget: 0,
     isBlocked: false,
     view: "",
-    totalJobs: 0
+    totalJobs: 0,
   });
+  const [viewUser, setViewUser] = useState({});
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [sortType, setSortType] = useState<string>("latest");
@@ -118,9 +119,9 @@ const clientManagement: React.FC = () => {
       toast.error(err.message);
     }
   };
-
+ 
   return (
-    <div className='mt-28'>
+    <div className="mt-28">
       <div className="flex flex-wrap nunito-regular">
         <Sonner />
         <div className="w-full max-w-full px-3 mb-6 mx-auto">
@@ -163,7 +164,7 @@ const clientManagement: React.FC = () => {
                         <th className="pb-3 text-start">Pay/Hr</th>
                         <th className="pb-3 text-start">Block/UnBlock</th>
                         <th className="pb-3 text-start">View</th>
-                        <th className="pb-3 text-start">Total Jobs</th> 
+                        <th className="pb-3 text-start">Total Jobs</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -172,7 +173,11 @@ const clientManagement: React.FC = () => {
                           <div className="flex border-b border-gray-400 py-4">
                             <td className="w-[100px]">
                               <span className="text-md/normal">
-                                <img className='w-10 h-10 rounded-full' src={user[1].profilePicture} alt='user-image' />
+                                <img
+                                  className="w-10 h-10 rounded-full"
+                                  src={user[1].profilePicture}
+                                  alt="user-image"
+                                />
                               </span>
                             </td>
                             <td className="w-[230px] text-center">
@@ -213,14 +218,13 @@ const clientManagement: React.FC = () => {
                               </span>
                             </td>
                             <td className="w-[230px]">
-                             <img className='w-5 h-5 cursor-pointer'
-                              src='https://cdn-icons-png.flaticon.com/128/17083/17083486.png' alt='view-image' />
+                              <UserProfileModal userData={user} />
                             </td>
                             <td className="w-[230px]">
                               <span className="text-md/normal">
                                 {user[1]?.totalJobs} 0
                               </span>
-                            </td> 
+                            </td>
                           </div>
                         ))}
                       </tr>
