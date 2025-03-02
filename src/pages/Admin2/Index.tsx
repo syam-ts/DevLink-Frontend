@@ -12,6 +12,7 @@ import { useState } from "react";
 import UserMangement from "./pages/UserMangement";
 import ClientMangement from "./pages/ClientMangement";
 import Requests from "./pages/Requests";
+import Wallet from "./pages/Wallet";
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
@@ -21,18 +22,13 @@ function Component() {
     UserManagement: <UserMangement />,
     ClientManagement: <ClientMangement />,
     Requests: <Requests />,
+    Wallet: <Wallet />,
     Dashboard: (
       <div>
         <h2>Dashboard Content</h2>
         <p>Welcome to your dashboard</p>
       </div>
-    ),
-    Wallet: (
-      <div>
-        <h2>Users Content</h2>
-        <p>User listing would appear here</p>
-      </div>
-    ),
+    ), 
     Products: (
       <div>
         <h2>Products Content</h2>

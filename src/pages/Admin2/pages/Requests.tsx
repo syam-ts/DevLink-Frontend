@@ -2,26 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 // import { ViewClient } from '../../../../components/nextUi/modals/AdminViewClientModal'
 import { Sonner } from "../../../components/sonner/Toaster";
+import { toast } from "sonner";
 
 const Requests: React.FC = () => {
-  const [requests, setRequests] = useState({});
+  const [requests, setRequests] = useState({}); 
 
   useEffect(() => {
     (async () => {
       const data = await axios.get("http://localhost:3000/admin/getRequests");
-
       setRequests(data?.data?.data);
     })();
   }, []);
+
 
   const acceptRequest = async (clientId: string) => {
     try {
       const data = {
         clientId: clientId,
         editData: requests[0]?.data,
-      };
-
-      console.log("The client id : ", data.clientId, data.editData);
+      }; 
 
       const response = await axios.put(
         "http://localhost:3000/admin/verifyClient/accept",
@@ -31,14 +30,16 @@ const Requests: React.FC = () => {
       if (response.data.success) {
         window.location.href = "/admin/index/requests";
       }
-    } catch (err: any) {
-      console.log("ERROR: ", err.message);
+    } catch (error: unknown) {
+      const err = error as {message: string}
+      toast.error(err.message); 
     }
-  };
+  }; 
 
   return (
     <div className="text-center mt-20">
       <div>
+        <Sonner />
         <span className="text-2xl">Requests</span>
         <hr className="w-2/3 mx-auto mt-5" />
       </div>
