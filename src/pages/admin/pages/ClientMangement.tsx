@@ -7,9 +7,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select";
-import axios from "axios";
+} from "../../../components/ui/select"; 
 import { toast } from "sonner";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 interface Client {
   comapnyName: string;
@@ -37,8 +37,8 @@ const clientManagement: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/admin/getAllClients?page=${currentPage}&sortType=${sortType}`,
+        const { data } = await apiAdminInstance.get(
+          `/getAllClients?page=${currentPage}&sortType=${sortType}`,
           {
             withCredentials: true,
           }
@@ -69,8 +69,8 @@ const clientManagement: React.FC = () => {
 
   const blockClient = async (clientId: string) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/blockClient/${clientId}`
+      const response = await apiAdminInstance.patch(
+        `/blockClient/${clientId}`
       );
 
       setIsBlockedTrigger(true);
@@ -94,8 +94,8 @@ const clientManagement: React.FC = () => {
 
   const unBlockClient = async (clientId: string) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/unblockClient/${clientId}`
+      const response = await apiAdminInstance.patch(
+        `/unblockClient/${clientId}`
       );
       setIsBlockedTrigger(true);
       if (response.data.success) {

@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 // import { ViewClient } from '../../../../components/nextUi/modals/AdminViewClientModal'
 import { Sonner } from "../../../components/sonner/Toaster";
 import { toast } from "sonner";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 const Requests: React.FC = () => {
   const [requests, setRequests] = useState({}); 
 
   useEffect(() => {
     (async () => {
-      const data = await axios.get("http://localhost:3000/admin/getRequests");
+      const data = await apiAdminInstance.get("/getRequests");
       setRequests(data?.data?.data);
     })();
   }, []);
@@ -22,13 +22,13 @@ const Requests: React.FC = () => {
         editData: requests[0]?.data,
       }; 
 
-      const response = await axios.put(
-        "http://localhost:3000/admin/verifyClient/accept",
+      const response = await apiAdminInstance.put(
+        "/verifyClient/accept",
         data
       );
 
       if (response.data.success) {
-        window.location.href = "/admin/index/requests";
+        window.location.href = "/admin";
       }
     } catch (error: unknown) {
       const err = error as {message: string}

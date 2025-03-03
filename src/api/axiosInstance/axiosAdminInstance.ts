@@ -1,16 +1,16 @@
 import axios from "axios";
-import { signOutClient } from "../../redux/slices/clientSlice";
+import { signOutAdmin } from "../../redux/slices/adminSlice";
 import store from "../../redux/store/mainStore";
 
 const BASE_SERVER_URL: string = import.meta.env.VITE_SERVER_URL;
 
-export const apiClientInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_SERVER_URL}/client`,
+export const apiAdminInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_SERVER_URL}/admin`,
   withCredentials: true,
 });
 
 // Request interceptor
-apiClientInstance.interceptors.request.use(
+apiAdminInstance.interceptors.request.use(
   (config: any) => {
     const token = localStorage.getItem("accessToken");
 
@@ -27,25 +27,24 @@ apiClientInstance.interceptors.request.use(
   }
 );
 
-apiClientInstance.interceptors.response.use(
+apiAdminInstance.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    // const dispatch = useDispatch();
+  async (error) => { 
     const originalRequest = error.config;
 
     if (error.response?.status === 401) {
       if (originalRequest._retry) {
         console.log("Redirecting to login due to failed token refresh");
         localStorage.removeItem("accessToken");
-        window.location.href = "/login?rt=client";
+        window.location.href = "/login?rt=admin";
         return Promise.reject(error);
       }
 
       originalRequest._retry = true;
 
       try {
-        const { data } = await apiClientInstance.post(
-          `${BASE_SERVER_URL}/client/refresh-token`
+        const { data } = await apiAdminInstance.post(
+          `${BASE_SERVER_URL}/admin/refresh-token`
         );
         const { accessToken } = data;
 
@@ -54,18 +53,18 @@ apiClientInstance.interceptors.response.use(
         }
 
         localStorage.setItem("accessToken", accessToken);
-        apiClientInstance.defaults.headers.common[
+        apiAdminInstance.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${accessToken}`;
 
-        return apiClientInstance(originalRequest);
+        return apiAdminInstance(originalRequest);
       } catch (refreshError) {
         console.error("Refresh token failed:", refreshError);
 
         localStorage.removeItem("accessToken");
 
-        store.dispatch(signOutClient());
-        window.location.href = "/login?rt=client";
+        store.dispatch(signOutAdmin());
+        window.location.href = "/login?rt=admin";
         return Promise.reject(refreshError);
       }
     }

@@ -30,7 +30,6 @@ const clientSlice = createSlice({
     initialState,
     reducers: {
         signInClient: (state: any, action: PayloadAction<Client>) => { 
-            console.log('slice',action.payload)
             state.currentClient = action.payload;
             state.isClient = true;
         },

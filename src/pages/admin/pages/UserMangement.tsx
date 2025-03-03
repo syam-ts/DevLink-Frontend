@@ -7,10 +7,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select";
-import axios from "axios";
+} from "../../../components/ui/select"; 
 import { toast } from "sonner"; 
 import { UserProfileModal } from "../../../components/nextUi/modals/UserProfileModal";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 interface User {
   profilePicture: string;
@@ -40,8 +40,8 @@ const clientManagement: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/admin/getAllUsers?page=${currentPage}&sortType=${sortType}`,
+        const { data } = await apiAdminInstance.get(
+          `/getAllUsers?page=${currentPage}&sortType=${sortType}`,
           {
             withCredentials: true,
           }
@@ -72,8 +72,8 @@ const clientManagement: React.FC = () => {
 
   const blockUser = async (userId: string) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/blockUser/${userId}`
+      const response = await apiAdminInstance.patch(
+        `/blockUser/${userId}`
       );
 
       setIsBlockedTrigger(true);
@@ -97,8 +97,8 @@ const clientManagement: React.FC = () => {
 
   const unBlockUser = async (userId: string) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/admin/unblockUser/${userId}`
+      const response = await apiAdminInstance.patch(
+        `/unblockUser/${userId}`
       );
       setIsBlockedTrigger(true);
       if (response.data.success) {

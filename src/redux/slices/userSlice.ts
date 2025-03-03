@@ -33,7 +33,6 @@ const userSlice = createSlice({
             state.isUser = true;
         },
         updateUser: (state: any, action: PayloadAction<User>) => {
-            console.log("Payload received in reducer:", action.payload);
             state.currentUser = action.payload;
         },
 
@@ -42,7 +41,6 @@ const userSlice = createSlice({
             state.isUser = false;
         },
         addNotification: (state: any, action: any) => {
-            console.log("The paylod ", action.payload)
             const parsedNotifications = JSON.parse(action.payload);
             state.notifications.push(...parsedNotifications);
             state.notificationsUnread++;
