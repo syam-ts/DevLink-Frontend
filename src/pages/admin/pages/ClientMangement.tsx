@@ -12,16 +12,15 @@ import axios from "axios";
 import { toast } from "sonner";
 
 interface Client {
-  comapnyName: string
-  email: string
-  isBlocked: boolean
-  view: string
-  totalJobs: number
-  totalHours: number
-};
+  comapnyName: string;
+  email: string;
+  isBlocked: boolean;
+  view: string;
+  totalJobs: number;
+  totalHours: number;
+}
 
 const clientManagement: React.FC = () => {
-
   const [clients, setClients] = useState<Client>({
     comapnyName: "",
     email: "",
@@ -118,7 +117,7 @@ const clientManagement: React.FC = () => {
   };
 
   return (
-    <div className='mt-28'>
+    <div className="mt-28">
       <div className="flex flex-wrap nunito-regular">
         <Sonner />
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
@@ -183,7 +182,9 @@ const clientManagement: React.FC = () => {
                                 {client[1].isBlocked ? (
                                   <span className="bg-red-500 py-1 px-2 rounded-full text-sm text-white font-thin">
                                     <button
-                                      onClick={() => unBlockClient(client[1]._id)}
+                                      onClick={() =>
+                                        unBlockClient(client[1]._id)
+                                      }
                                     >
                                       unBlock
                                     </button>

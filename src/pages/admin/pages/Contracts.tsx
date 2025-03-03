@@ -1,12 +1,9 @@
 const Contracts: React.FC = () => {
   return (
     <div>
-      <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4">
+      <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4 ">
         <div className="flex flex-col justify-center h-full">
-          <div className="mx-auto bg-white w-[80rem] shadow-lg rounded-sm border border-gray-200">
-            <header className="px-5 py-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-800"> Contracts </h2>
-            </header>
+          <div className="mx-auto bg-white w-[80rem] rounded-lg border border-gray-200">
             <div className="p-3">
               <div className="overflow-x-auto">
                 <table className="table-auto w-full">

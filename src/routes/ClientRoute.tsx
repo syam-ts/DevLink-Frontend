@@ -16,9 +16,9 @@ const {
   DraftJobPost,
   PaymentSuccess,
   PaymentFailed,
-  
+
   Profile,
-  
+
   Wallet,
   UserProfile,
   MonoJobPage,
@@ -49,28 +49,15 @@ const ClientRoute = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/userProfile/:type/:userId" element={<UserProfile />} />
         <Route path="/contracts/:roleType" element={<AllContracts />} />
-        <Route path="/contract/:contractId/:roleType" element={<Contract />} />
+        <Route path="/contract/:contractId/:roleType" element={<Contract />} />  
+        <Route path="/wallet" element={<Wallet roleType="client" />} />
 
-        {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
-
-
-        {/* <Route path='/job/tabs' element={<TestingTables />} /> */} 
-        <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
-        <Route
-          path="/wallet/view/:roleId"
-          element={<Wallet roleType="client" />}
-        />
-
-    
-        <Route
-          path="/allChats/:roleType/:roleId"
-          element={<ListAllUserChat />}
-        />
+ 
+ 
+        <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />  
+        <Route path="/allChats/:roleType/:roleId" element={<ListAllUserChat />} />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
-        <Route
-          path="/notifications/:roleId/:role"
-          element={<Notifications />}
-        />
+        <Route path="/notifications/:roleId/:role" element={<Notifications />} />
       </Routes>
       <Footer />
     </>

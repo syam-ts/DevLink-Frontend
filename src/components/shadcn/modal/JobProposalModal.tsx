@@ -115,17 +115,17 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
   };
 
   return (
-    <Dialog>
+    <Dialog >
       <Sonner />
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-xl px-5 py-4"
+          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-full px-5 py-4"
         >
           Apply
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[900px] sm:min-h-[400px] arsenal-sc-regular">
+      <DialogContent className="sm:max-w-[900px] sm:min-h-[400px] arsenal-sc-regular bg-white">
         <DialogHeader>
           <DialogDescription>Draft Job Proposal</DialogDescription>
         </DialogHeader>
