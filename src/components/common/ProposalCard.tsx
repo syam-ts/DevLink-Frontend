@@ -36,7 +36,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         bidDeadline: bidDeadline,
       };
       const { data } = await apiClientInstance.post(
-        "/job/createContract",
+        "/createContract",
         body
       );
 

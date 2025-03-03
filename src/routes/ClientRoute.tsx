@@ -48,13 +48,13 @@ const ClientRoute = () => {
         <Route path="/paymenFailed" element={<PaymentFailed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/userProfile/:type/:userId" element={<UserProfile />} />
-
+        <Route path="/contracts/:roleType" element={<AllContracts />} />
+        <Route path="/contract/:contractId/:roleType" element={<Contract />} />
 
         {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
 
 
-        {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
-        <Route path="/contract/:contractId/:roleType" element={<Contract />} />
+        {/* <Route path='/job/tabs' element={<TestingTables />} /> */} 
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
         <Route
           path="/wallet/view/:roleId"

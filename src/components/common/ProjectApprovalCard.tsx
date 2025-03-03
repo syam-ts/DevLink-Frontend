@@ -7,9 +7,7 @@ import { addNotification } from "../../redux/slices/userSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";
 
-interface ProjectApprovalCardProps { 
- 
-}
+interface ProjectApprovalCardProps {}
 
 export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
   const dispatch = useDispatch();
@@ -45,9 +43,39 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
           window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
         }, 1000);
       }
-    } catch (error: unknown) { 
-      const err = error as {message: string};
-      toast.error(err.message) 
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      toast.error(err.message);
+    }
+  };
+
+  const rejectContractApproval = async (contractId: string) => {
+    try {
+      const { data } = await apiClientInstance.post(
+        `/contractSubmitReject/${contractId}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (data.success) {
+        const notificationClient: any = JSON.stringify([
+          data.data.newNotificationClient,
+        ]);
+        dispatch(addNotification(notificationClient));
+        toast.success("Contract rejected ", {
+          style: {
+            backgroundColor: "#15E029",
+            color: "white",
+          },
+        });
+        setTimeout(() => {
+          window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
+        }, 1000);
+      }
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      toast.error(err.message);
     }
   };
 
@@ -99,11 +127,15 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
                 attachedFile={pendingApproval[1]?.attachedFile}
               />
             </button>
-            {/* <button
-                            className="rounded-full bg-[#ff2453] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                            type="button" >
-                            Reject Approval
-                        </button> */}
+            <button
+              onClick={() =>
+                rejectContractApproval(pendingApproval[1]?.contractId)
+              }
+              className="rounded-full bg-[#ff2453] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+              type="button"
+            >
+              Reject Approval
+            </button>
             <button
               onClick={() =>
                 approveAndCloseContract(
@@ -117,7 +149,6 @@ export const ProjectApprovalCard = ({ pendingApprovals }: any) => {
               Approve Contract
             </button>
           </div>
-          <div></div>
         </div>
       ))}
     </div>

@@ -43,7 +43,7 @@ const DraftJobPost = () => {
     setInputValue(e.target.value);
   };
 
-  const handleAddSkill = (event: any, inputValue: any) => {
+  const handleAddSkill = (event, inputValue) => {
     event.preventDefault();
     if (inputValue.trim() && !skills.includes(inputValue)) {
       setSkills((prevSkills: string[]) => [...prevSkills, inputValue.trim()]);
@@ -51,7 +51,7 @@ const DraftJobPost = () => {
     }
   };
 
-  const handleRemoveSkill = (event: any, skillToRemove: string) => {
+  const handleRemoveSkill = (event, skillToRemove: string) => {
     event.preventDefault();
     setSkills((prevSkills: string[]) =>
       prevSkills.filter((skill: string) => skill !== skillToRemove)

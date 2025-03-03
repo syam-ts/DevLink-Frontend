@@ -28,11 +28,11 @@ export const ProjectSubmissionViewDrawer: React.FC<
   return (
     <Drawer>
       <DrawerTrigger>View Request</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="w-1/2 mx-auto nunito-regular h-96 p-20 ">
+      <DrawerContent className='bg-white arsenal-sc-regular'>
+        <DrawerHeader className="w-1/2 mx-auto arseanl-sc-regular h-96 p-20">
           <div className="grid ">
-            <span className="text-xl nunito-bold "> Job TItle : {title} </span>
-            <span className="nunito-regular text-md">
+            <span className="text-xl arseanl-sc-regular "> Job TItle : {title} </span>
+            <span className="arseanl-sc-regular text-md">
               Submission Description : {description}
             </span>
             <span className="mx-auto text-md">Total Progress: {progress}%</span>
