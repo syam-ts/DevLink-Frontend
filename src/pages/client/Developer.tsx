@@ -3,6 +3,7 @@ import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useEffect, useState } from "react"; 
 
 interface Developer {
+  id: string
   domain: string;
   location?: string;
   rating: {
@@ -19,6 +20,7 @@ function ListUsers() {
     try {
       (async () => {
         const { data } = await apiClientInstance.get('/developers');
+        console.log('data: ', data.developers)
         setDevelopers(data.developers);
       })();
 

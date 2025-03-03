@@ -53,7 +53,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
   return (
 
 
-    <nav className="bg-white border-1 shadow-md arsenal-sc-regular ">
+    <nav className="bg-white shadow-md arsenal-sc-regular ">
       <div className="relative flex h-16 items-center justify-between ">
         <div className="flex flex-1 sm:items-stretch sm:justify-start ml-12">
           <Link to={`/${roleType}/home`}>

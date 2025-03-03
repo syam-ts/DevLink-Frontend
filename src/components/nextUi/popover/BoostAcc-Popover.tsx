@@ -1,18 +1,13 @@
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-} from "@heroui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button } from "@heroui/react";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 
 export default function App() {
   const boostAccount = async () => {
     try {
-      const { data } = await apiUserInstance.post(`/boostProfile`); 
+      const { data } = await apiUserInstance.post(`/boostProfile`);
       window.location.href = `${data.url?.url}`;
     } catch (error: unknown) {
-      const err =  error as {  message?: string }; 
+      const err = error as { message?: string };
       console.error("ERROR: ", err.message);
     }
   };
@@ -57,7 +52,7 @@ export default function App() {
             color="warning"
             variant="flat"
           >
-            <span className="text-white bg-gray-800 font-extrabold border border-black py-1.5 px-3 rounded-lg">
+            <span className="text-white bg-gray-800 font-extrabold border border-black py-1.5 px-3 rounded-small">
               Boost
             </span>
           </Button>
@@ -65,7 +60,5 @@ export default function App() {
         {content}
       </Popover>
     </div>
-  )
-};
-
-
+  );
+}

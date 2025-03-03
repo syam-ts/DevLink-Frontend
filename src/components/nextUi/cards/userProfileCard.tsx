@@ -1,7 +1,9 @@
 import { Card, CardHeader, CardBody, Image } from "@heroui/react";
+import { Link } from "react-router-dom";
 
 
 interface Developer {
+  _id: string
   domain: string;
   location?: string;
   rating: {
@@ -30,6 +32,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           <h4 className="font-bold text-large">{developer[1].name}</h4>
         </div>
       </CardHeader>
+      <Link to={`/client/userProfile/client-view/${developer[1]._id}`} >
       <CardBody className="overflow-visible py-2">
         <img
           alt="Card background"
@@ -38,6 +41,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           width={270}
         />
       </CardBody>
+      </Link>
     </Card>
   );
 };

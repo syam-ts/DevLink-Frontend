@@ -9,16 +9,16 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BoostPopover from "../../components/nextUi/popover/BoostAcc-Popover";
+import ReviewCard from "../../components/common/ReviewCard";
+import config from "../../config/helper/config";
 import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";
-import ReviewCard from "../../components/common/ReviewCard";
-import config from "../../config/helper/config";
 import { ClientState, UserState } from "../../config/state/allState";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
-// import { InviteModal } from '../nextUi/modals/InviteUserModal';
+import { InviteModal } from "../../components/nextUi/modals/InviteUserModal";
 
 interface WorkHistory {
   _id: string;
@@ -218,7 +218,7 @@ const UserProfile = () => {
                                 />
                               </span>
                             ) : (
-                              <span className=" cursor-pointer bg-transparent ">
+                              <span className=" cursor-pointer bg-transparent">
                                 <BoostPopover />
                               </span>
                             )}
@@ -235,10 +235,11 @@ const UserProfile = () => {
                           <div className="flex gap-4 mr-5">
                             {type === "client-view" ? (
                               <div className="flex gap-3 h-10">
-                                {/* <button >                      </button> */}
-
+                                <button>
+                                  <InviteModal />
+                                </button>
                                 <button
-                                  className="bg-white text-black px-5 font-bold py-2 rounded-lg"
+                                  className="bg-white text-black px-5 font-bold py-2 rounded-small"
                                   onClick={() =>
                                     fetchChatMessages(
                                       "client",
@@ -315,7 +316,6 @@ const UserProfile = () => {
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
                             <span className="text-white font-extrabold">
-                              {" "}
                               Total Jobs
                             </span>
                           </MDBCardText>
@@ -326,7 +326,6 @@ const UserProfile = () => {
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
                             <span className="text-white font-extrabold">
-                              {" "}
                               Total Hours
                             </span>
                           </MDBCardText>
