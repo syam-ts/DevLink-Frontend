@@ -1,7 +1,22 @@
 import { Card, CardHeader, CardBody, Image } from "@heroui/react";
 
-export const UserProfileCard = ({ developer }: any) => {
-  console.log("The dev: ", developer);
+
+interface Developer {
+  domain: string;
+  location?: string;
+  rating: {
+    avgRating: number;
+  };
+  name: string;
+  profilePicture: string;
+}
+interface UserProfileCardProps {
+  
+  developer: Developer[]
+
+};
+
+export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) => { 
 
   return (
     <Card className="py-3 w-80 ">

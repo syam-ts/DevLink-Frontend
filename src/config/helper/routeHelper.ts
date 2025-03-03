@@ -14,7 +14,7 @@ import DraftJobPost from "../../pages/client/draftJobPost";
 import PaymentSuccess from "../../pages/client/SuccessPayment";
 import PaymentFailed from "../../pages/client/FailedPayment";
 import ProposalsClient from "../../pages/client/Proposals";
-import Profile from "../../pages/client/ProfileClient";
+import Profile from "../../pages/client/ProfileClient"; 
 import ContractApprovals from "../../pages/client/ContractApproval";
 import { ProjectSubmissionViewDrawer } from "../../components/shadcn/drawer/ProjectSubmitView";
 import Developers from "../../pages/client/Developer"; 
@@ -69,6 +69,7 @@ export const clientRouteHelper = {
   PaymentFailed,
   ProposalsClient,
   Profile,
+  UserProfile,
   ContractApprovals,
   ProjectSubmissionViewDrawer,
   Developers,
@@ -80,7 +81,6 @@ export const clientRouteHelper = {
   MonoJobPage,
   Navbar,
   Footer,
-  UserProfile,
   Wallet,
   Contract,
   ChatBox,

@@ -46,25 +46,22 @@ const ClientRoute = () => {
         <Route path="/developers" element={<Developers />} />
         <Route path="/paymentSuccess/:clientId/:data" element={<PaymentSuccess />} />
         <Route path="/paymenFailed" element={<PaymentFailed />} />
-        <Route path="/profile"  element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/userProfile/:type/:userId" element={<UserProfile />} />
 
 
-
+        {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
 
 
         {/* <Route path='/job/tabs' element={<TestingTables />} /> */}
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
-        {/* <Route path='/ProjectSubmissionViewDrawer' element={<ProjectSubmissionViewDrawer />} />  */}
         <Route
           path="/wallet/view/:roleId"
           element={<Wallet roleType="client" />}
         />
 
-        <Route
-          path="/userProfile/view/:userId/:type"
-          element={<UserProfile />}
-        />
+    
         <Route
           path="/allChats/:roleType/:roleId"
           element={<ListAllUserChat />}

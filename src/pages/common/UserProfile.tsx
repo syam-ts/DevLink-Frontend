@@ -15,19 +15,22 @@ import { useSelector } from "react-redux";
 import ReviewCard from "../../components/common/ReviewCard";
 import config from "../../config/helper/config";
 import { ClientState, UserState } from "../../config/state/allState";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { toast } from "sonner";
+import { Sonner } from "../../components/sonner/Toaster";
 // import { InviteModal } from '../nextUi/modals/InviteUserModal';
 
 interface WorkHistory {
-  _id: string
-  title: string
-  description: string
-  expertLevel: string
-  location: string
-  amount: number
-  paymentType: string
-  estimateTimeinHours: string
-  projectType: string
-};
+  _id: string;
+  title: string;
+  description: string;
+  expertLevel: string;
+  location: string;
+  amount: number;
+  paymentType: string;
+  estimateTimeinHours: string;
+  projectType: string;
+}
 
 interface User {
   _id: string;
@@ -56,9 +59,7 @@ interface User {
   whyHireMe: string;
   experience: string;
   education: [string];
-  workHistory: [
-     WorkHistory
-  ];
+  workHistory: [WorkHistory];
   isBoosted: boolean;
   isProfileFilled: boolean;
 }
@@ -110,14 +111,17 @@ const UserProfile = () => {
     type: "user-view" | "client-view" | "proposal-view";
   }>();
 
-  let userId: string;
+  var userId: string;
   if (type === "user-view") {
     userId = useSelector((state: UserState) => state.user.currentUser._id);
   }
 
   let clientId: string;
   if (type === "client-view") {
-    clientId = useSelector((state: ClientState) => state.client.currentClient._id);
+    clientId = useSelector(
+      (state: ClientState) => state.client.currentClient._id
+    );
+    var { userId } = useParams<{ userId: string }>();
   }
 
   const navigate = useNavigate();
@@ -125,11 +129,20 @@ const UserProfile = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const { data } = await apiUserInstance.get(`/profile/user-view`, {
-          withCredentials: true,
-        });
-        console.log("The repsn s", data.data.workHistory);
-        setUser(data.data);
+        let response;
+        if (type === "user-view" || type === "proposal-view") {
+          response = await apiUserInstance.get(`/profile/user-view`, {
+            withCredentials: true,
+          });
+          setUser(response.data.data);
+        } else if (type === "client-view") {
+          response = await apiClientInstance.get(`/userProfile/${userId}`, {
+            withCredentials: true,
+          });
+          setUser(response.data.response);
+        } else {
+          toast.error("Wrong page selection");
+        }
       } catch (err: any) {
         if (err.response.data.message == "No token provided") {
           navigate("/user/login");
@@ -158,6 +171,7 @@ const UserProfile = () => {
 
   return (
     <>
+      <Sonner />
       {Object.entries(user).length === 0 ? (
         <ProfileShimmer />
       ) : (
@@ -214,16 +228,14 @@ const UserProfile = () => {
                             <span>{user?.email}</span>
                             <span>{user?.mobile}</span>
                             <span>view profile(git)</span>
-                            <span>Rating {user.rating.avgRating}</span>
+                            <span>Rating {user?.rating?.avgRating}</span>
                           </div>
                         </div>
                         <div className="grid">
                           <div className="flex gap-4 mr-5">
                             {type === "client-view" ? (
                               <div className="flex gap-3 h-10">
-                                {/* <button >
-                                                                            <InviteModal />
-                                                                        </button> */}
+                                {/* <button >                      </button> */}
 
                                 <button
                                   className="bg-white text-black px-5 font-bold py-2 rounded-lg"
@@ -332,7 +344,7 @@ const UserProfile = () => {
                           style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4">
-                           Domain:   {user?.domain}
+                            Domain: {user?.domain}
                           </MDBCardText>
                           <MDBCardText className="p-2 text-center">
                             {user?.description}

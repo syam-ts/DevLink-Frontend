@@ -2,6 +2,16 @@ import { UserProfileCard } from "../../components/nextUi/cards/userProfileCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useEffect, useState } from "react"; 
 
+interface Developer {
+  domain: string;
+  location?: string;
+  rating: {
+    avgRating: number;
+  };
+  name: string;
+  profilePicture: string;
+}
+
 function ListUsers() { 
   const [developers, setDevelopers] = useState({});
 

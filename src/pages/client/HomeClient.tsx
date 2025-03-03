@@ -224,7 +224,7 @@ const HomeClient = () => {
                 <p className="text-tiny text-white ">{user?.[1]?.email}</p>
               </CardHeader>
               <Link
-                to={`/client/userProfile/view/${user?.[1]._id}/client-view`}
+                to={`/client/userProfile/client-view/${user?.[1]._id}`}
               >
                 <img
                   alt="developer-image"
