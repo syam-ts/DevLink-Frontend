@@ -128,13 +128,18 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
               },
             });
           }
-        } catch (error: unknown) {
-          const err = error as {message: string}; 
-          toast.error(err.message, {
+        } catch (error: unknown) { 
+          const err = error as {response: {data: {message: string}}}; 
+          toast.error(err.response.data.message, {
             style: {
               backgroundColor: "red",
               color: "white",
+              width: "13.5rem",
+              height: "3rem",
+              justifyContent: "center",
+              fontFamily: "cursive"
             },
+            position: "top-center"
           }); 
         }
       }
@@ -152,7 +157,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
         <Sonner />
         <Button className="bg-transparent font-bold text-lg"> {type} </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[1200px] h-[900px] justify-center !rounded-3xl overflow-hidden">
+      <DialogContent className="sm:max-w-[1200px] h-[900px] justify-center bg-white !rounded-3xl overflow-hidden">
         <DialogHeader>
           <DialogTitle>{type} profile</DialogTitle>
           <DialogDescription>
@@ -408,9 +413,8 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={submitForm} type="submit">
-            {" "}
-            Submit{" "}
+          <Button className='rounded-small' onClick={submitForm} type="submit">
+            Submit
           </Button>
         </DialogFooter>
       </DialogContent>

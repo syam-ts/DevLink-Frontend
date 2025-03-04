@@ -52,7 +52,7 @@ export const JobPostCard = ({
                 {job[1]?.projectType}
               </span>
               <button
-                className="rounded-md transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
+                className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
                 type="button"
               >
                 <Link
