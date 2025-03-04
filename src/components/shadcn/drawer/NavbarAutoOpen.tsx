@@ -72,6 +72,15 @@ export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
               </Link>
             </NavigationMenuTrigger>
           
+            <NavigationMenuTrigger>
+              <Link
+                to={`/${roleType}/invites`}
+                className="no-underline text-black"
+              >
+                <button>Invites</button>
+              </Link>
+            </NavigationMenuTrigger>
+          
           </NavigationMenuItem>
 
     

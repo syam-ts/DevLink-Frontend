@@ -45,7 +45,7 @@ const UserRoute = () => {
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
 
               {/* ----------Pending---------- */}
-        <Route path="/invite/view/:roleId/:type" element={<InviteComponent />} />
+        <Route path="/invites" element={<InviteComponent />} />
         <Route path="/allChats/:roleType/:roleId" element={<ListAllClientChat />} />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
       </Routes>

@@ -7,12 +7,19 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-} from "@heroui/react"; 
+} from "@heroui/react";
 import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster";
+import config from "../../../config/helper/config";
 
-export const InviteModal = () => {
+interface InviteModalProps {
+  userId: string;
+}
+
+export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
   const [jobs, setJobs] = useState({});
-  const [selectJob, setSelectJob] = useState<string>("");
+  const [selectJobId, setSelectJobId] = useState<string>("");
   const [description, setDescripton] = useState<string>("");
   const [size, setSize] = useState<string>("4xl");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,8 +27,8 @@ export const InviteModal = () => {
   useEffect(() => {
     try {
       const fetchJobTitle = async () => {
-        const { data } = await apiClientInstance.get("/listAllJobs"); 
-        setJobs(data.response)
+        const { data } = await apiClientInstance.get("/listAllJobs");
+        setJobs(data.response);
       };
       fetchJobTitle();
     } catch (error: unknown) {
@@ -36,16 +43,57 @@ export const InviteModal = () => {
   };
 
   const handleChange = (e: any) => {
-    console.log('The value: ', e.target.value);
-    console.log(e.target.value)
-  }
- 
-console.log('The sel', description)
- 
+    console.log("The value: ", e.target.value);
+    console.log(e.target.value);
+  };
+
+  const inviteUser = async () => {
+    try {
+      const { data } = await apiClientInstance.post("/inviteUser", {
+        userId,
+        selectJobId,
+        description,
+      });
+
+      console.log("The resposnse from inviteUser: ", data.success);
+      if (data.success) {
+        toast.success("invite send successfully", {
+          position: "top-center",
+          style: {
+            backgroundColor: "#3bd940",
+            color: "white",
+            width: "13rem",
+            height: "3rem",
+            justifyContent: "center",
+            border: "none",
+          },
+        });
+
+        setTimeout(() => {
+          window.location.href = `${config.BASE_URL}/client/home`;
+        }, 800);
+      }
+    } catch (error: unknown) {
+      const err = error as { response: { data: { message: string } } };
+
+      toast.warning(err.response.data.message, {
+        position: "top-center",
+        style: {
+          backgroundColor: "yellow",
+          color: "#324033",
+          width: "13rem",
+          height: "3rem",
+          justifyContent: "center",
+          border: "none",
+        },
+      });
+    }
+  };
 
   return (
     <>
       <div className="">
+        <Sonner />
         <Button
           className="bg-sky-400 text-white px-5 font-extrabold py-2 rounded-small"
           key={size}
@@ -75,13 +123,13 @@ console.log('The sel', description)
                     </label>
 
                     <div className="relative">
-                      <select onChange={(e) => setSelectJob(e.target.value)} className="w-fullo bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer">
-                       {
-                        Object.entries(jobs).map((job: any) => (
-                            <option value={job[1]._id}>{job[1].title}</option>
-                        ))
-                       }  
-                         
+                      <select
+                        onChange={(e) => setSelectJobId(e.target.value)}
+                        className="w-fullo bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer"
+                      >
+                        {Object.entries(jobs).map((job: any) => (
+                          <option value={job[1]._id}>{job[1].title}</option>
+                        ))}
                       </select>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -118,8 +166,9 @@ console.log('The sel', description)
                 </div>
                 <div className="mx-auto">
                   <div className="w-[500px]">
-                    <div className="relative w-full min-w-[200px] border rounded-small"> 
-                      <textarea onChange={(e) =>setDescripton(e.target.value)}
+                    <div className="relative w-full min-w-[200px] border rounded-small">
+                      <textarea
+                        onChange={(e) => setDescripton(e.target.value)}
                         className="peer h-full min-h-[11rem] w-full resize-none rounded-[7px] border border-blue- px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700    "
                         placeholder="Hi"
                       ></textarea>
@@ -133,7 +182,7 @@ console.log('The sel', description)
                                 </Button> */}
                 <Button
                   className="bg-[#0000ff] text-white font-bold"
-                  onPress={handleChange}
+                  onPress={inviteUser}
                 >
                   Send Invite
                 </Button>
