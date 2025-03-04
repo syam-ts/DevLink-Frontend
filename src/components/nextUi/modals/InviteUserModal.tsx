@@ -75,7 +75,7 @@ console.log('The sel', description)
                     </label>
 
                     <div className="relative">
-                      <select onChange={(e) => setSelectJob(e.target.value)} className="w-ful bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer">
+                      <select onChange={(e) => setSelectJob(e.target.value)} className="w-fullo bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer">
                        {
                         Object.entries(jobs).map((job: any) => (
                             <option value={job[1]._id}>{job[1].title}</option>

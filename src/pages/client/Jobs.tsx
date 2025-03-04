@@ -4,6 +4,9 @@ import { Sonner } from "../../components/sonner/Toaster";
 import { Link } from "react-router-dom";
 import { JobPostCard } from "../../components/common/JobPostCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { useSelector } from "react-redux";
+import { ClientState } from "../../config/state/allState";
+import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover";
 
 interface Jobs {
   jobs: {
@@ -36,13 +39,14 @@ const Jobs = () => {
       projectType: "",
     },
   });
+  const isVerified = useSelector((state: ClientState) => state.client.currentClient.isVerified);
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await apiClientInstance.get(
           `/jobs/${activeTab}?currentPage=${currentPage}`
-        ); 
+        );
         setJobs(data?.data?.jobs);
         setTotalPages(data?.data?.totalPages);
       } catch (error: unknown) {
@@ -81,29 +85,37 @@ const Jobs = () => {
               The need to create a job.
             </p>
             <div>
-              <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-2xl hover:bg-blue-800  ">
-                <Link to="/client/draftJobPost">
-                  <button className="text-white font-bold">
-                    Create Job Post
-                  </button>
-                </Link>
+              {
+                isVerified ? (
+                  <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-2xl hover:bg-blue-800  ">
+                    <Link to="/client/draftJobPost">
+                      <button className="text-white font-bold">
+                        Create Job Post
+                      </button>
+                    </Link>
 
-                <svg
-                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </p>
+                    <svg
+                      className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 14 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                      />
+                    </svg>
+                  </p>
+                ) : (
+                  <p > 
+                    <CreatePostPopover />  
+                  </p>
+                )
+              }
             </div>
           </div>
         </section>
@@ -113,18 +125,16 @@ const Jobs = () => {
           <div className="justify-center mt-44">
             <div className="tabs-container flex justify-center ">
               <button
-                className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
-                  activeTab === "myJobs" && "border-b border-black"
-                }`}
+                className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === "myJobs" && "border-b border-black"
+                  }`}
                 value="myJobs"
                 onClick={(e: any) => changeActiveTab(e.target.value)}
               >
                 My Jobs
               </button>
               <button
-                className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
-                  activeTab === "completedJobs" && "border-b border-black"
-                }`}
+                className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === "completedJobs" && "border-b border-black"
+                  }`}
                 value="completedJobs"
                 onClick={(e: any) => changeActiveTab(e.target.value)}
               >

@@ -1,34 +1,36 @@
+import LinkAttribute from "../../components/nextUi/Link";
 import { Card, CardHeader } from "@heroui/react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { signOutClient } from "../../redux/slices/clientSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { JobPostCard } from "../../components/common/JobPostCard";
+import { ClientState } from "../../config/state/allState";
 
 interface Jobs {
   jobs: {
-    _id: string
-    title: string
-    description: string
-    expertLevel: string
-    location: string
-    amount: number
-    paymentType: string
-    estimateTimeinHours: string
-    projectType: string
-  }
-};
+    _id: string;
+    title: string;
+    description: string;
+    expertLevel: string;
+    location: string;
+    amount: number;
+    paymentType: string;
+    estimateTimeinHours: string;
+    projectType: string;
+  };
+}
 
 interface User {
-  _id: string
-  name: string
-  email: string
-  domain: string
-  profilePicture: string
-};
+  _id: string;
+  name: string;
+  email: string;
+  domain: string;
+  profilePicture: string;
+}
 
 const HomeClient = () => {
   const navigate = useNavigate();
@@ -53,6 +55,9 @@ const HomeClient = () => {
       projectType: "",
     },
   });
+  const isVerified = useSelector(
+    (state: ClientState) => state.client.currentClient.isVerified
+  );
 
   useEffect(() => {
     const findAllUsers = async () => {
@@ -209,8 +214,10 @@ const HomeClient = () => {
         <span>Browse talent for your projects</span>
         <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
         <div className="text-end px-96">
-          <span className="">
-            <Link to="/client/developers/view">More Users</Link>
+          <span className="arsenal-sc-regular">
+            <Link to="/client/developers">
+              <LinkAttribute text="More Users" />
+            </Link>
           </span>
         </div>
       </section>
@@ -223,18 +230,31 @@ const HomeClient = () => {
               <CardHeader className="absolute z-10 top-1 flex-col !items-start">
                 <p className="text-tiny text-white ">{user?.[1]?.email}</p>
               </CardHeader>
-              <Link
-                to={`/client/userProfile/client-view/${user?.[1]._id}`}
-              >
-                <img
-                  alt="developer-image"
-                  className="z-0 w-64 h-80 object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
-                  src={
-                    user?.[1]?.profilePicture ||
-                    "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
-                  }
-                />
-              </Link>
+              {isVerified ? (
+                <div>
+                  <Link to={`/client/userProfile/client-view/${user?.[1]._id}`}>
+                    <img
+                      alt="developer-image"
+                      className="z-0 w-64 h-80 object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                      src={
+                        user?.[1]?.profilePicture ||
+                        "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
+                      }
+                    />
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  <img
+                    alt="developer-image"
+                    className="z-0 w-64 h-80 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                    src={
+                      user?.[1]?.profilePicture ||
+                      "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
+                    }
+                  />
+                </div>
+              )}
             </Card>
             <div className="absolute pt-72 pl-4 grid">
               <span>{user?.[1]?.name}</span>
@@ -362,7 +382,7 @@ const HomeClient = () => {
       </section>
 
       <section className="text-center my-12 mt-44">
-        <span className="arsenal-sc-regular text-4xl">Top Jobs</span> 
+        <span className="arsenal-sc-regular text-4xl">Top Jobs</span>
         <hr className="border-black mt-12 w-2/4 mx-auto" />
       </section>
 

@@ -21,7 +21,7 @@
         name: string
         email: string
         mobile: number
-        isProfileFilled: boolean
+        isVerified: boolean,
       },
       isUser: boolean,
       notifications: string[]
