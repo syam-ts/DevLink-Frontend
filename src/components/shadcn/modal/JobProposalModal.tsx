@@ -29,6 +29,7 @@ interface ProposalModalProps {
   formData: FormData;
   setFormData: any;
   paymentType: string;
+  viewType: string
 }
 
 export const JobProposalModal: React.FC<ProposalModalProps> = ({
@@ -36,6 +37,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
   formData,
   setFormData,
   paymentType,
+  viewType
 }) => {
   const [isAgreedTerms, setiSAgreedTerms] = useState<boolean>(false);
   const [error, setError] = useState<string[]>([]);
@@ -120,9 +122,15 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-full px-5 py-4"
+          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-full px-5 py-[1.3rem]"
         >
-          Apply
+          {viewType === 'invite-view' ? (
+            <span>Apply</span>
+          ) : (
+            <div>
+              Accept Invite
+            </div>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[900px] sm:min-h-[400px] arsenal-sc-regular bg-white">

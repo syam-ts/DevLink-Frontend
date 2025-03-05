@@ -47,6 +47,7 @@ interface FormData {
 }
 
 const MonoJobPost = () => {
+
   const [jobPost, setJobPost] = useState<JobPost>({
     _id: "",
     title: "",
@@ -85,33 +86,32 @@ const MonoJobPost = () => {
   });
   const { jobPostId, viewType } = useParams<{
     jobPostId: Id,
-    viewType: "user-view" | "client-view" | "proposal-view"
+    viewType: 'user-view' | 'client-view' | 'proposal-view' | 'invite-view'
   }>();
 
   let userVerified;
   if (viewType === "user-view") {
     userVerified = useUserVerified();
   };
- 
 
   useEffect(() => {
     try {
       (async () => {
         let response: any;
-        if (viewType === 'user-view' || viewType === 'proposal-view') {
+        if (viewType === 'user-view' || viewType === 'proposal-view' || viewType === 'invite-view') {
           response = await apiUserInstance.get(`/job/${jobPostId}`);
           setJobPost(response?.data?.jobPost);
 
 
-          
-        } else if (viewType === "client-view") {
+
+        } else if (viewType === 'client-view') {
           response = await apiClientInstance.get(`/job/${jobPostId}`);
           setJobPost(response?.data?.jobPost);
         }
       })();
     } catch (error: unknown) {
-      const err = error as {message: string}
-      toast.error(err.message); 
+      const err = error as { message: string }
+      toast.error(err.message);
     }
   }, []);
 
@@ -145,7 +145,7 @@ const MonoJobPost = () => {
         });
       }
     } catch (error: unknown) {
-      const err = error as {response: {data: {message?: string}}} 
+      const err = error as { response: { data: { message?: string } } }
       toast.error(err.response.data.message, {
         style: {
           backgroundColor: "yellow",
@@ -340,6 +340,20 @@ const MonoJobPost = () => {
               </button>
             </div>
           )}
+          {
+            viewType === 'invite-view' && (
+              <div>
+                <button className="" type="button">
+                  <JobProposalModal
+                    jobPostId={jobPost?._id}
+                    formData={formData}
+                    setFormData={setFormData}
+                    paymentType={jobPost?.paymentType}
+                  />
+                </button>
+              </div>
+            )
+          }
         </section>
 
         {/* Similar Jobs */}

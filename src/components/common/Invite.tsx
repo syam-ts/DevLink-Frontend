@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , Link } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
 interface Invite {
@@ -80,8 +80,7 @@ const InviteComponent = () => {
                                                 {invite[1]?.jobPostData?.expertLevel}
                                             </p>
                                         </div>
-                                        <div className="flex items-center gap-0 5">
-                                            {" "}
+                                        <div className="flex items-center gap-0 5"> 
                                             {invite[1]?.jobPostData?.location}
                                         </div>
                                     </div>
@@ -104,7 +103,9 @@ const InviteComponent = () => {
                                         className="rounded-small bg-[#0000ff] py-1 px-4 text-white font-bold text-center text-sm  ml-2"
                                         type="button"
                                     >
+                                        <Link to={`/user/job/${invite[1].jobPostData._id}/invite-view`}>
                                         View
+                                        </Link>
                                     </button>
                                 </div>
                             </div>
