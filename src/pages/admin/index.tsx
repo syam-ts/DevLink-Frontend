@@ -15,6 +15,7 @@ import Requests from "./pages/Requests";
 import Wallet from "./pages/Wallet";
 import Contracts from "./pages/Contracts";
 import Dashboard from "./pages/Dashboard";
+import WithdrawRequest from "./pages/WithdrawRequest";
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
@@ -26,26 +27,14 @@ function Component() {
     Requests: <Requests />,
     Wallet: <Wallet />,
     Contracts: <Contracts />,
-    Dashboard: <Dashboard />,
- 
-    Products: (
-      <div>
-        <h2>Products Content</h2>
-        <p>Product listing would appear here</p>
-      </div>
-    ),
+    Dashboard: <Dashboard />, 
+    TransferMoney: <WithdrawRequest />, 
     "Sign In": (
       <div>
         <h2>Sign In Form</h2>
         <p>Login form would appear here</p>
       </div>
-    ),
-    Footer: (
-      <div>
-        <h2>Footer Settings</h2>
-        <p>Footer configuration would appear here</p>
-      </div>
-    ),
+    ) 
   };
 
   const handleItemClick = (itemName) => {
@@ -80,10 +69,10 @@ function Component() {
                 labelColor: "blue",
               },
               { name: "Requests", icon: HiUser },
+              { name: "TransferMoney", icon: HiUser },
               { name: "Wallet", icon: HiShoppingBag },
-              { name: "Contracts", icon: HiShoppingBag },
-              { name: "Sign In", icon: HiArrowSmRight },
-              { name: "Footer", icon: HiTable },
+              { name: "Contracts", icon: HiShoppingBag }, 
+              { name: "Logout", icon: HiTable },
             ].map((item) => (
               <Sidebar.Item
                 key={item.name}

@@ -15,7 +15,12 @@ import config from "../../../config/helper/config";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 
-export const WithdrawMoneyModal = () => {
+interface WithdrawMoneyModalProps {
+  balance: number
+}
+
+export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance}) => {
+ 
   const [amount, setAmount] = useState<number>(0);
   const [accountNumber, setAccountNumber] = useState<number>(0);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -25,11 +30,12 @@ export const WithdrawMoneyModal = () => {
       const { data } = await apiUserInstance.post("/withdrawMoney", {
         amount,
         accountNumber,
+        balance
       });
-
+      console.log('The data: ', data)
       if (data.success) {
         setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/user/wallet`;
+           window.location.href = `${config.BASE_URL}/user/wallet`;
         }, 500);
 
         toast.success("Sended Request", {
@@ -44,9 +50,19 @@ export const WithdrawMoneyModal = () => {
           },
         });
       }
-    } catch (error: unknown) {
-      const err = error as { message: string };
-      toast.error(err.message);
+    } catch (error: unknown) { 
+      const err = error as { response: {data: {message: string}} }; 
+      toast.error(err.response.data.message, {
+        position: "top-center",
+        style: {
+          width: "full",
+          height: "3rem",
+          justifyContent: "center",
+          backgroundColor: "red",
+          color: "white",
+          border: "none"
+        },
+      });
     }
   };
 
