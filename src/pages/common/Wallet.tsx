@@ -72,7 +72,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
     <div className="overflow-hidden flex gap-5">
       <div>
         <section>
-          <div className="text-start mx-5 my-64 shadow-xl rounded-2xl border-3 px-5">
+          <div className="text-start mx-5 my-64 shadow-xl rounded-2xl border-1 border-gray-300 px-5">
             <div className="pt-20">
               <span className="arsenal-sc-regular text-black text-xl font-bold py-2 px-5 rounded-lg">
                 Balance : {Math.floor(balance)}
@@ -85,7 +85,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             {/* WITHDRAW SECTION */}
 
             <div className="py-16 text-center">
-              <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-5 rounded-lg text-white">
+              <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-3 rounded-small text-white">
                 <button>
                   <WithdrawMoneyModal />
                 </button>
@@ -99,35 +99,34 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         <section className=" text-center">
           <div>
             <span className="text-2xl text-center arsenal-sc-regular">
-              {" "}
-              Transactions{" "}
+              Transactions
             </span>
             <hr className="w-2/3 mx-auto py-4" />
           </div>
         </section>
 
         <section>
-          <div className="relative flex flex-col px-44 w-[70rem] mx-auto h-full overflow-hidden p-5 text-gray-700 bg-white shadow-2xl border-3 rounded-2xl bg-clip-border">
+          <div className="relative flex flex-col px-44 w-[70rem] mx-auto h-full overflow-hidden p-5 text-gray-700 bg-white shadow-2xl border-1 border-gray-300 rounded-2xl ">
             <table className="w-full text-left table-auto min-w-max">
               <thead>
                 <tr>
                   <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
                       Type
                     </p>
                   </th>
                   <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
                       Amount
                     </p>
                   </th>
                   <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
                       From
                     </p>
                   </th>
                   <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    <p className="block arsenal-sc-regular text-xl antialiased font-normal no-underline leading-none text-blue-gray-900">
                       CreatedAt
                     </p>
                   </th>
@@ -166,12 +165,10 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
           </div>
         </section>
 
-        <section className="mt-10 w-2/3 mx-auto">
-          <hr />
-        </section>
+        
 
         <section>
-          <div className="container mx-auto px-4 ">
+          <div className="container mx-auto px-4 my-4">
             <nav
               className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
               aria-label="Pagination"
