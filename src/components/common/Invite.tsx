@@ -40,15 +40,13 @@ const InviteComponent = () => {
         status: "",
         createdAt: "",
     });
-    const { roleId, type } = useParams<{ roleId: string; type: string }>();
+    // const { roleId, type } = useParams<{ roleId: string; type: string }>();
 
     useEffect(() => {
         try {
             const fetchInvites = async () => {
                 //roleType render pending
-                const { data } = await apiUserInstance.get(`/invites`);
-                console.log("the dat", data);
-
+                const { data } = await apiUserInstance.get(`/invites`); 
                 setInvites(data.invites);
             };
             fetchInvites();
@@ -103,7 +101,7 @@ const InviteComponent = () => {
                                         className="rounded-small bg-[#0000ff] py-1 px-4 text-white font-bold text-center text-sm  ml-2"
                                         type="button"
                                     >
-                                        <Link to={`/user/job/${invite[1].jobPostData._id}/invite-view`}>
+                                        <Link to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}>
                                         View
                                         </Link>
                                     </button>

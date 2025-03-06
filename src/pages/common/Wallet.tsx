@@ -3,19 +3,18 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { WithdrawMoney } from "../../components/common/WithdrawMoney";
+import { WithdrawMoneyModal } from "../../components/nextUi/modals/WithdrawMoneyModal";
 
 interface WalletProps {
-  roleType: string
-};
+  roleType: string;
+}
 
 interface Transactions {
-  type: string
-  amount: number
-  from: string
-  createdAt: string
-};
- 
+  type: string;
+  amount: number;
+  from: string;
+  createdAt: string;
+}
 
 const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   const [balance, setBalance] = useState<number>(0);
@@ -54,7 +53,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         setBalance(response.data?.wallet[0]?.balance);
         setTransactions(response.data.wallet[0]?.transactions);
       } catch (error: unknown) {
-        const err = error as {message: string};
+        const err = error as { message: string };
         toast.error(err.message, {
           style: {
             backgroundColor: "red",
@@ -88,7 +87,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-5 rounded-lg text-white">
                 <button>
-                  <WithdrawMoney userId={roleId} />
+                  <WithdrawMoneyModal />
                 </button>
               </span>
             </div>
