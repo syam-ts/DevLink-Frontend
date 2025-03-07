@@ -1,184 +1,99 @@
+import { useEffect, useState } from "react";
+import { Sonner } from "../../../components/sonner/Toaster";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+
 const Contracts: React.FC = () => {
+  const [contracts, setContracts] = useState({});
+
+  useEffect(() => {
+    try {
+      const fetchContracts = async () => {
+        const { data } = await apiAdminInstance.get("/viewContracts");
+        console.log("The response new: ", data);
+        setContracts(data.contracts);
+      };
+      fetchContracts();
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      console.error(err.message);
+    }
+  }, []);
+
   return (
     <div>
-      <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4 ">
-        <div className="flex flex-col justify-center h-full">
-          <div className="mx-auto bg-white w-[80rem] rounded-lg border border-gray-200">
-            <div className="p-3">
-              <div className="overflow-x-auto">
-                <table className="table-auto w-full">
-                  <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                    <tr>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Name</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Email</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Spent</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-center">Country</div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-sm divide-y divide-gray-100">
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                            <img
-                              className="rounded-full"
-                              src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                              width="40"
-                              height="40"
-                              alt="Alex Shatov"
-                            />
-                          </div>
-                          <div className="font-medium text-gray-800">
-                            Alex Shatov
-                          </div>
+      <div className="flex flex-wrap nunito-regular mt-44 border border-black rounded-large mx-5 ">
+        <Sonner />
+
+        <div className="flex-auto block py-8 pt-6 px-9 ">
+          <div className="overflow-x-hidden">
+            <table className="w-full my-0 align-middle">
+              <thead className="align-bottom">
+                <tr className="border-b border-black bg-[hsl(0, 0%, 98%)] text-[1rem] flex gap-20 text-secondary-dark">
+                  <th className="pb-3 text-start">Client Name</th>
+                  <th className="pb-3 text-start">User Name</th>
+                  <th className="pb-3 text-start">Title</th>
+                  <th className="pb-3 text-start pl-20">Amount</th>
+                  <th className="pb-3 text-start pl-10">Deadline</th>
+                  <th className="pb-3 text-start pl-20">Status</th>
+                  <th className="pb-3 text-start pl-16">View</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="">
+                  <div className="grid gap-12 py-4">
+                    {
+                      Object.entries(contracts).map((contract: any) => (
+                        <div className='border-b border-gray-400'>
+                          <td className="w-[100px]">
+                            <span className="text-sm"> 
+                             {contract[1].clientData.companyName}
+                            </span>
+                          </td>
+                          <td className="w-[230px] text-center">
+                            <span className="text-sm w-20">
+                            {contract[1].userData.name}
+                            </span>
+                          </td>
+                          <td className="w-[360px]">
+                            <span className="text-sm w-20">
+                            {contract[1].jobPostData.title}
+                            </span>
+                          </td> 
+                          <td className="w-[260px]">
+                            <span className="text-sm w-20">
+                            {contract[1].amount}
+                            </span>
+                          </td>
+                          <td className="w-[260px]">
+                            <span className="text-sm w-20">
+                            {contract[1].deadline} 
+                            </span>
+                          </td>
+                          <td className="w-[260px]">
+                            <span className="text-sm w-20">
+                            {contract[1].status}
+                            </span>
+                          </td>
+                          <td className="w-[260px]">
+                            <span className="text-sm w-20">
+                               View
+                            </span>
+                          </td>
                         </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">alexshatov@gmail.com</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
-                          $2,890.66
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">🇺🇸</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                            <img
-                              className="rounded-full"
-                              src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-06.jpg"
-                              width="40"
-                              height="40"
-                              alt="Philip Harbach"
-                            />
-                          </div>
-                          <div className="font-medium text-gray-800">
-                            Philip Harbach
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">philip.h@gmail.com</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
-                          $2,767.04
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">🇩🇪</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                            <img
-                              className="rounded-full"
-                              src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-07.jpg"
-                              width="40"
-                              height="40"
-                              alt="Mirko Fisuk"
-                            />
-                          </div>
-                          <div className="font-medium text-gray-800">
-                            Mirko Fisuk
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">mirkofisuk@gmail.com</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
-                          $2,996.00
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">🇫🇷</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                            <img
-                              className="rounded-full"
-                              src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-08.jpg"
-                              width="40"
-                              height="40"
-                              alt="Olga Semklo"
-                            />
-                          </div>
-                          <div className="font-medium text-gray-800">
-                            Olga Semklo
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">olga.s@cool.design</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
-                          $1,220.66
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">🇮🇹</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                            <img
-                              className="rounded-full"
-                              src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-09.jpg"
-                              width="40"
-                              height="40"
-                              alt="Burak Long"
-                            />
-                          </div>
-                          <div className="font-medium text-gray-800">
-                            Burak Long
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">longburak@gmail.com</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">
-                          $1,890.66
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">🇬🇧</div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                      ))
+                    }
+
+
+
+                  </div>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
-
 
 export default Contracts;
