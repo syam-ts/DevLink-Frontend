@@ -28,14 +28,14 @@ function WithdrawRequest() {
             <div className="px-5 py-4 grid">
               <span className='font-bold text-md'>UserName: {request[1].userName} </span>
               <span className='font-bold text-md'>Amount: {request[1].amount} </span>
-              <span className='font-bold text-md'>Account Number: {request[1].accountNumber} </span>
+              <span className='font-bold text-md'>Account Number: {request[1].accountNumber} </span> 
             </div>
             <div className="py-16 px-5">
               <button
                 className="rounded-small bg-[#0000ff] text-center text-sm text-white hover:bg-slate-700 ml-2"
                 type="button"
               >
-                <SuccessTransferMoneyModal />
+                <SuccessTransferMoneyModal userId={request[1].roleId} requestId={request[1]._id} requestedAmount={request[1].amount} />
               </button>
             </div>
           </div>

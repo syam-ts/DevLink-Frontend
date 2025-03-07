@@ -110,6 +110,19 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           >
             Contact
           </Link>
+
+
+    {/* PENDING */}
+
+          <Link
+            to={`/${roleType}/notifications/${roleInfo._id}/user`}
+            className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+          >
+            <img alt='notification-icon' />
+          </Link>
+
+
+
         </div>
 
         {/* Profile section */}

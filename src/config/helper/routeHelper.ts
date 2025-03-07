@@ -57,6 +57,7 @@ export const userRouteHelper = {
   ChatBox,
   Navbar,
   Footer,
+  Notifications
 };
 
 // --------- Client exports ----------

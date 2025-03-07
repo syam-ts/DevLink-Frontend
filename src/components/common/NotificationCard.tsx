@@ -110,8 +110,10 @@ const Notification = () => {
     }
   }, []);
 
+  console.log('noti: ', notification)
+
   return (
-    <div className="text-center text-xl py-12 arsenal-sc-regular mt-20">
+    <div className="text-center text-xl py-12 arsenal-sc-regular pt-44">
       <div className=" flex-col space-y-10 min-w-screen animated fadeIn faster left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none">
         {Object.entries(notification).map((notif: any) => (
           <div className="flex p-2 bg-white shadow-md hover:shodow-xl rounded-lg justify-center border w-2/4">
