@@ -118,7 +118,7 @@ const HomeUser: React.FC = () => {
   }, []);
 
   return (
-    <div className="arsenal-sc-regular">
+    <div className="arsenal-sc-regular pt-16">
       <Sonner />
       <div className="hidden">
         <ProfileNotFilledModal

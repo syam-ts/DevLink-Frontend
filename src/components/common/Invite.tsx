@@ -55,10 +55,10 @@ const InviteComponent = () => {
             console.log("ERROR: ", err.message);
         }
     }, []);
-    console.log("The result , ", invites);
+ 
 
     return (
-        <div className="w-full my-20">
+        <div className="w-full py-20">
             <section className="text-center">
                 <span className="font-bold text-2xl arsenal-sc-regular"> Invites </span>
                 <hr />
