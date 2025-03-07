@@ -87,7 +87,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-3 rounded-small text-white">
                 <button>
-                  <WithdrawMoneyModal balance={balance} />
+                  <WithdrawMoneyModal balance={balance} type="user" />
                 </button>
               </span>
             </div>

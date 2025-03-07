@@ -17,9 +17,10 @@ import { Sonner } from "../../../components/sonner/Toaster";
 
 interface WithdrawMoneyModalProps {
   balance: number
+  type: string
 }
 
-export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance}) => {
+export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, type}) => {
  
   const [amount, setAmount] = useState<number>(0);
   const [accountNumber, setAccountNumber] = useState<number>(0);
@@ -30,9 +31,9 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance})
       const { data } = await apiUserInstance.post("/withdrawMoney", {
         amount,
         accountNumber,
-        balance
-      });
-      console.log('The data: ', data)
+        balance,
+        type
+      }); 
       if (data.success) {
         setTimeout(() => {
            window.location.href = `${config.BASE_URL}/user/wallet`;

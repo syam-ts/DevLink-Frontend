@@ -1,22 +1,45 @@
+import { useEffect, useState } from "react";
 import { SuccessTransferMoneyModal } from "../../../components/nextUi/modals/SuccessTransferMoneyModal";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 function WithdrawRequest() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    try {
+      const fetchRequest = async () => {
+        const { data } = await apiAdminInstance.get("/getWithdrawRequests");
+
+        setData(data.requests);
+      };
+      fetchRequest();
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      console.error(err.message);
+    }
+  }, []);
+  console.log(data);
+
   return (
     <div>
-      <div className="bg-gray-200 flex justify-between w-2/3 my-20 mx-auto rounded-small ">
-        <div className='px-5 py-3'>
-        <p>UserName: </p>
-        <p>Amount: </p>
-        <p>Account Number: </p>
-        </div>
-        <div className='py-16 px-5'>
-          <button
-            className="rounded-small bg-[#0000ff] text-center text-sm text-white hover:bg-slate-700 ml-2"
-            type="button"
-          >
-            <SuccessTransferMoneyModal />
-          </button>
-        </div>
+      <div className="grid gap-5 w-2/3 my-20 mx-auto rounded-small ">
+        {Object.entries(data).map((request: any) => (
+          <div className="flex bg-gray-300 rounded-large justify-between">
+            <div className="px-5 py-4 grid">
+              <span className='font-bold text-md'>UserName: {request[1].userName} </span>
+              <span className='font-bold text-md'>Amount: {request[1].amount} </span>
+              <span className='font-bold text-md'>Account Number: {request[1].accountNumber} </span>
+            </div>
+            <div className="py-16 px-5">
+              <button
+                className="rounded-small bg-[#0000ff] text-center text-sm text-white hover:bg-slate-700 ml-2"
+                type="button"
+              >
+                <SuccessTransferMoneyModal />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
