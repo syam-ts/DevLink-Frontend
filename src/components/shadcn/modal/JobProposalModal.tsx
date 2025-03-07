@@ -118,7 +118,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-small px-4 py-[1.3rem]"
+          className="bg-[#0000ff] text-white font-bold hover:bg-gray-400 rounded-small px-4 py-[1.3rem]"
         >
           {viewType === "invite-view" ? (
             <span>Apply</span>

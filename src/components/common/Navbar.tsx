@@ -252,8 +252,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </div>
         </div>
       )}
-
-      {/* Mobile Menu (Visible on Mobile) */}
+ 
     </nav>
   );
 };
