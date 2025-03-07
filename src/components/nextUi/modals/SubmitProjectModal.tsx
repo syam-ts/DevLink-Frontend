@@ -91,7 +91,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
     <>
       <div>
         <Button
-          className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-md shadow-xl"
+          className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-small shadow-xl"
           key="5xl"
           onPress={() => handleOpen(size)}
         >

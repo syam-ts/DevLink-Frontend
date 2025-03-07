@@ -58,7 +58,7 @@ const AllContract: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full py-20">
       <section>
         <div className=" text-center pt-5">
           <span className="arsenal-sc-regular text-center mx-auto text-2xl ">
@@ -79,7 +79,7 @@ const AllContract: React.FC = () => {
               <select
                 id="countries"
                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeContactsViewType(e)}
-                className="shadow-lg border outline-none border-gray-800 text-gray-900 text-sm rounded-lg w-full p-2.5 "
+                className="shadow-lg border outline-none border-gray-800 text-gray-900 text-sm rounded-small w-full p-2.5 "
               >
                 <option selected value="pending">
                   Pending Contracts
@@ -129,7 +129,7 @@ const AllContract: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-md shadow-xl">
+                      <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-small shadow-xl">
                         <Link
                           to={`/${roleType}/contract/${contract[1]?._id}/${roleType}`}
                           className="no-underline text-white"
@@ -150,7 +150,7 @@ const AllContract: React.FC = () => {
                     </div>
                     <div>
                       {contractsViewType === "pending" && (
-                        <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-3 shadow-xl">
+                        <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-small transform translate-x-2 -translate-y-3 shadow-xl">
                           New
                         </span>
                       )}

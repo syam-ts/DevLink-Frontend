@@ -210,11 +210,11 @@ const UserProfile = () => {
                               {user?.name}
                             </MDBTypography>
                             {user?.isBoosted ? (
-                              <span className=" cursor-pointer bg-sky-900 text-white px-2 rounded-full py-2 mx-2">
+                              <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
                                 <img
                                   className="h-5 w-5 "
-                                  src="https://cdn-icons-png.flaticon.com/128/11474/11474065.png"
-                                  // src="https://cdn-icons-png.flaticon.com/128/3003/3003992.png"
+                                 
+                                   src="https://cdn-icons-png.flaticon.com/128/6009/6009429.png"
                                 />
                               </span>
                             ) : (
@@ -271,14 +271,14 @@ const UserProfile = () => {
                                 <div className="ml-36">
                                   {user?.isProfileFilled ? (
                                     <Link
-                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
+                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-small text-white font-bold text-md"
                                       to={`/user/profileAlter/edit`}
                                     >
                                       <span>Edit</span>
                                     </Link>
                                   ) : (
                                     <Link
-                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-lg text-white font-bold text-md"
+                                      className="no-underline bg-[#0000ff] py-2 px-4 mr-3 rounded-small text-white font-bold text-md"
                                       to={`/user/profileAlter/verify`}
                                     >
                                       <span>Verify</span>

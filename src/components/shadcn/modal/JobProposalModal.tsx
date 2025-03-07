@@ -29,7 +29,7 @@ interface ProposalModalProps {
   formData: FormData;
   setFormData: any;
   paymentType: string;
-  viewType: string
+  viewType: string;
 }
 
 export const JobProposalModal: React.FC<ProposalModalProps> = ({
@@ -37,7 +37,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
   formData,
   setFormData,
   paymentType,
-  viewType
+  viewType,
 }) => {
   const [isAgreedTerms, setiSAgreedTerms] = useState<boolean>(false);
   const [error, setError] = useState<string[]>([]);
@@ -70,15 +70,11 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             bidDeadline: formData.bidDeadline,
           };
 
-          const { data } = await apiUserInstance.post(
-            "/createProposal",
-            {
-              body,
-            }
-          );
-         
+          const { data } = await apiUserInstance.post("/createProposal", {
+            body,
+          });
 
-          if (!data.success) { 
+          if (!data.success) {
             toast.error(data.message, {
               style: {
                 backgroundColor: "yellow",
@@ -96,7 +92,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               window.location.href = `http://localhost:5173/user/proposals`;
             }, 500);
           }
-        } catch (err: any) { 
+        } catch (err: string) {
           toast.error(err.response.data.message, {
             style: {
               backgroundColor: "#f5e905",
@@ -105,11 +101,11 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               width: "14rem",
               height: "3rem",
             },
-            position: "top-center"
+            position: "top-center",
           });
         }
       }
-    } catch (err: any) {
+    } catch (err: string) {
       console.log("ERROR: ", err);
       setError(err.errors);
       toast.error(err.message.response.data.message);
@@ -117,19 +113,17 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
   };
 
   return (
-    <Dialog >
+    <Dialog>
       <Sonner />
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-full px-5 py-[1.3rem]"
+          className="bg-[#0000ff] text-white hover:bg-gray-400 rounded-small px-4 py-[1.3rem]"
         >
-          {viewType === 'invite-view' ? (
+          {viewType === "invite-view" ? (
             <span>Apply</span>
           ) : (
-            <div>
-              Accept Invite
-            </div>
+            <div>Accept Invite</div>
           )}
         </Button>
       </DialogTrigger>
@@ -150,24 +144,24 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
 
           {paymentType === "hourly" ? (
             <div>
-              {error.some((err: any) => err.includes("Bid Amount is required"))
+              {error.some((err: string) => err.includes("Bid Amount is required"))
                 ? error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       err.includes("Bid Amount is required")
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
                     ))
                 : error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       [
                         "Bid Amount must be at least 100rs",
                         "Bid Amount must be at most 1500rs",
                       ].some((msg) => err.includes(msg))
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
@@ -175,24 +169,24 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             </div>
           ) : (
             <div>
-              {error.some((err: any) => err.includes("Bid Amount is required"))
+              {error.some((err: string) => err.includes("Bid Amount is required"))
                 ? error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       err.includes("Bid Amount is required")
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
                     ))
                 : error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       [
                         "Bid Amount must be at least 2000rs",
                         "Bid Amount must be at most 70000rs",
                       ].some((msg) => err.includes(msg))
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
@@ -212,26 +206,26 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
 
           {paymentType === "hourly" ? (
             <div>
-              {error.some((err: any) =>
+              {error.some((err: string) =>
                 err.includes("Estimate time is required")
               )
                 ? error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       err.includes("Estimate time is required")
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
                     ))
                 : error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       [
                         "Estimate deadline must be at least 5hr",
                         "Estimate deadline must be at most 48hrs",
                       ].some((msg) => err.includes(msg))
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
@@ -239,26 +233,26 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             </div>
           ) : (
             <div>
-              {error.some((err: any) =>
+              {error.some((err: string) =>
                 err.includes("Bid Deadline is required")
               )
                 ? error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       err.includes("Bid Deadline is required")
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
                     ))
                 : error
-                    .filter((err: any) =>
+                    .filter((err: string) =>
                       [
                         "Estimate deadline must be at least 10hr",
                         "Estimate deadline must be at most 120hrs",
                       ].some((msg) => err.includes(msg))
                     )
-                    .map((err: any, index: number) => (
+                    .map((err: string, index: number) => (
                       <div key={index} className="text-center">
                         <span className="text-red-400 text-sm">{err}</span>
                       </div>
@@ -276,8 +270,8 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             />
           </div>
 
-          {error?.some((err: any) => err.includes("Description is required"))
-            ? error.map((err: any, index: number) => {
+          {error?.some((err: string) => err.includes("Description is required"))
+            ? error.map((err: string, index: number) => {
                 if (err.includes("Description is required")) {
                   return (
                     <div key={index} className="text-center">
@@ -287,7 +281,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
                 }
                 return null;
               })
-            : error.map((err: any, index: number) => {
+            : error.map((err: string, index: number) => {
                 if (
                   err.includes("Description is required") ||
                   err.includes(
@@ -310,8 +304,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               onClick={() => setiSAgreedTerms((prev) => !prev)}
               className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm "
             />
-            <span className="text-xs ">
-              {" "}
+            <span className="text-xs "> 
               I agree with the terms and conditions that, You are requesting for
               a jobpost proposal which cannot be cancelled later. if you aggreed
               on the condition click submit
@@ -330,7 +323,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               />
             </Button>
           ) : (
-            <Button onClick={submitProposal} className="bg-[#0000ff] px-4 py-2">
+            <Button onClick={submitProposal} className="bg-[#0000ff] px-4 py-2 text-white font-bold rounded-small">
               Submit
             </Button>
           )}

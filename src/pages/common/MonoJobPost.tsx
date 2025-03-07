@@ -161,7 +161,7 @@ const MonoJobPost = () => {
   return (
     <>
       <Sonner />
-      <div className="h-screen mx-auto w-2/3 my-28 comfortaa-regular">
+      <div className="h-screen py-44 mx-auto w-2/3 comfortaa-regular">
         <section>
           <span className="text-2xl">{jobPost?.title}</span>
           <div className="flex gap-20 py-4 text-xs">

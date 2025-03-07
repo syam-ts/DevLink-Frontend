@@ -157,13 +157,13 @@ const HomeUser: React.FC = () => {
                     <input
                       type="search"
                       id="default-search"
-                      className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50   "
+                      className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-small bg-gray-50   "
                       placeholder="Search your desire Jobs..."
                       required
                     />
                     <button
                       type="submit"
-                      className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-md px-4  "
+                      className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-small text-md px-4  "
                     >
                       Search
                     </button>
@@ -244,7 +244,7 @@ const HomeUser: React.FC = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
             </span>
             <button
-              className="rounded-md w-52 border border-transparent bg-[#0000ff] hover:bg-black py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white "
+              className="rounded-small w-52 border border-transparent bg-[#0000ff] hover:bg-black py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white "
               type="button"
             >
               <Link className="no-underline text-white " to="/user/jobs">

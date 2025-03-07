@@ -99,13 +99,13 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             </Link>
           )}
           <Link
-            to={`/${roleType}/about`}
+            to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
             About
           </Link>
           <Link
-            to={`/${roleType}/contact`}
+            to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
             Contact
@@ -128,7 +128,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
           {/* Profile Dropdown */}
           {roleInfo && (
-            <Dropdown placement="bottom-end">
+            <Dropdown placement="bottom-end" className='grid justify-center !pl-0'>
               <DropdownTrigger>
                 {roleInfo?.profilePicture ? (
                   <img
@@ -146,7 +146,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 <DropdownItem key="none">
                   <Link
                     to={`/${roleType}/Profile/user-view`}
-                    className="text-gray-900"
+                    className="text-gray-900 no-underline"
                   >
                     Profile
                   </Link>
@@ -154,18 +154,18 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 <DropdownItem key="none">
                   <Link
                     to={`/${roleType}/contracts/client`}
-                    className="text-gray-900"
+                    className="text-gray-900 no-underline"
                   >
                     Requests
                   </Link>
                 </DropdownItem>
                 <DropdownItem key="none">
-                  <Link to={`/${roleType}/wallet`} className="text-gray-900">
+                  <Link to={`/${roleType}/wallet`} className="text-gray-900 no-underline">
                     Wallet
                   </Link>
                 </DropdownItem>
                 <DropdownItem key="none">
-                  <Link to={`/${roleType}/home`} className="text-gray-900">
+                  <Link to={`/${roleType}/home`} className="text-gray-900 no-underline">
                     Home
                   </Link>
                 </DropdownItem>
