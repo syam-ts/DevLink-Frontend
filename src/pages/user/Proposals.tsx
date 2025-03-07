@@ -72,7 +72,7 @@ const JobProposals = () => {
                   <select
                     id="countries"
                     onChange={(e) => setProposalType(e.target.value)}
-                    className="bg-gray-50 shadow-lg border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    className="bg-gray-50 shadow-lg border border-gray-800 text-gray-900 outline-none text-sm rounded-small focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   >
                     <option selected value="pending">
                       Pending
