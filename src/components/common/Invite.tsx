@@ -98,10 +98,11 @@ const InviteComponent = () => {
                                         Reject
                                     </button>
                                     <button
-                                        className="rounded-small bg-[#0000ff] py-1 px-4 text-white font-bold text-center text-sm  ml-2"
+                                        className="rounded-small bg-[#0000ff] py-1 px-4 font-bold text-center text-sm  ml-2"
                                         type="button"
                                     >
-                                        <Link to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}>
+                                        <Link to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}
+                                        className='no-underline text-white font-bold'>
                                         View
                                         </Link>
                                     </button>
