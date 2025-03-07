@@ -65,7 +65,7 @@ const Jobs = () => {
     <main>
       <div className="text-center">
         <Sonner />
-        <div className="justify-center mt-44">
+        <div className="justify-center pt-44">
           <div className="tabs-container flex justify-center ">
             <button
               className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
