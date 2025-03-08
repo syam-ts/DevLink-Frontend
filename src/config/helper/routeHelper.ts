@@ -18,6 +18,7 @@ import Profile from "../../pages/client/ProfileClient";
 import ContractApprovals from "../../pages/client/ContractApproval";
 import { ProjectSubmissionViewDrawer } from "../../components/shadcn/drawer/ProjectSubmitView";
 import Developers from "../../pages/client/Developer"; 
+import InviteCilent from "../../pages/client/Invite"; 
 
 // ---------- Common imports -----------
 import Footer from "../../components/common/Footer";
@@ -84,5 +85,6 @@ export const clientRouteHelper = {
   Footer,
   Wallet,
   Contract,
+  InviteCilent,
   ChatBox,
 };

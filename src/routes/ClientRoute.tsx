@@ -18,7 +18,7 @@ const {
   PaymentFailed,
 
   Profile,
-
+  InviteCilent,
   Wallet,
   UserProfile,
   MonoJobPage,
@@ -51,6 +51,7 @@ const ClientRoute = () => {
         <Route path="/contracts/:roleType" element={<AllContracts />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />  
         <Route path="/wallet" element={<Wallet roleType="client" />} />
+        <Route path="/invites" element={<InviteCilent />} />
 
  
  
