@@ -10,6 +10,7 @@ import {
 } from "../../../components/ui/select"; 
 import { toast } from "sonner";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import { ClientProfileModal } from "../../../components/nextUi/modals/ClientProfileAdminModal";
 
 interface Client {
   comapnyName: string;
@@ -201,7 +202,9 @@ const clientManagement: React.FC = () => {
                               </span>
                             </td>
                             <td className="w-[230px]">
-                              <span className="text-md/normal">View</span>
+                              <span className="text-md/normal">
+                              <ClientProfileModal clientData={client} />
+                              </span>
                             </td>
                             <td className="w-[230px]">
                               <span className="text-md/normal">

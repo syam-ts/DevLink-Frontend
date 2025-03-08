@@ -64,6 +64,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
 
   const rejectProposal = async (userId: Id, jobPostId: Id) => {
     try {
+       
       const body = {
         userId: userId,
         jobPostId: jobPostId,
@@ -81,7 +82,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           },
         });
         setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/client/jobs/proposals`;
+           window.location.href = `${config.BASE_URL}/client/proposals`;
         }, 500);
       } else {
         toast.error(data.message, {
@@ -167,7 +168,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                       onClick={() =>
                         rejectProposal(
                           proposal[1]?.userId,
-                          proposal[1]?.clientId
+                          proposal[1]?.jobPostId
                         )
                       }
                       className="rounded-full mr-2 bg-[#fd2b2b] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
