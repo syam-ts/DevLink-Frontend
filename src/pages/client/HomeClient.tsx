@@ -113,7 +113,7 @@ const HomeClient = () => {
   }, []);
 
   return (
-    <main className="arsenal-sc-regular">
+    <main className="arsenal-sc-regular pt-16">
       <section className="bg-rose-100 ">
         <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
           <a href="#">

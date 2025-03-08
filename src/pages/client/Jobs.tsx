@@ -71,7 +71,7 @@ const Jobs = () => {
   };
 
   return (
-    <main>
+    <main className='pt-20'>
       <Sonner />
       <section>
         <section>

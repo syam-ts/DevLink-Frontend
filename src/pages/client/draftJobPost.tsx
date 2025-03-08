@@ -107,7 +107,7 @@ const DraftJobPost = () => {
   };
 
   return (
-    <div className="flex justify-center py-16 gap-44 arsenal-sc-regular">
+    <div className="flex justify-center py-16 gap-44 arsenal-sc-regular pt-28">
       <Sonner />
       <section>
         <div className="lg:col-span-2 lg:py-44">

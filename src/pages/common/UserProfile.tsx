@@ -175,7 +175,7 @@ const UserProfile = () => {
       {Object.entries(user).length === 0 ? (
         <ProfileShimmer />
       ) : (
-        <div className="gradient-custom-2 ">
+        <div className="gradient-custom-2 pt-20">
           <MDBContainer className="py-5 h-100">
             <div>
               <MDBCol>
@@ -235,9 +235,9 @@ const UserProfile = () => {
                           <div className="flex gap-4 mr-5">
                             {type === "client-view" ? (
                               <div className="flex gap-3 h-10">
-                                <button> 
+                                {/* <button> 
                                   <InviteModal userId={user?._id} />
-                                </button>
+                                </button> */}
                                 <button
                                   className="bg-white text-black px-5 font-bold py-2 rounded-small"
                                   onClick={() =>
