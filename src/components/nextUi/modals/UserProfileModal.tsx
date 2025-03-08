@@ -50,7 +50,7 @@ export const UserProfileModal = ({ userData }) => {
           >
             <img
               className="w-5 h-5"
-              src="https://cdn-icons-png.flaticon.com/128/17083/17083486.png"
+              src="/public/view-user.png"
               alt="view-image"
             />
           </Button>

@@ -114,7 +114,7 @@ const HomeClient = () => {
 
   return (
     <main className="arsenal-sc-regular pt-16">
-      <section className="bg-rose-100 ">
+      <section className="bg-rose-200">
         <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
           <a href="#">
             <img
@@ -126,7 +126,7 @@ const HomeClient = () => {
           <figcaption className="absolute text-lg text-white bottom-6 ">
             <div className="mb-44 ml-20">
               <div>
-                <span className="text-black  text-3xl">
+                <span className="text-black text-3xl">
                   Thrive the World of Freelance
                   <br /> Excellence Marketplace
                 </span>
@@ -181,7 +181,7 @@ const HomeClient = () => {
         </figure>
       </section>
 
-      <section className="flex bg-stone-300 h-auto text-center  p-16 gap-48">
+      <section className="flex bg-stone-300 h-auto text-center p-16 gap-48">
         <div>
           <span>
             Flourish in a thriving freelance ecosystem dedicated to

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import { ContractView } from "../../../components/nextUi/modals/ContractViewAdmin";
 
 const Contracts: React.FC = () => {
   const [contracts, setContracts] = useState({});
@@ -75,15 +76,13 @@ const Contracts: React.FC = () => {
                             </span>
                           </td>
                           <td className="w-[260px]">
-                            <span className="text-sm w-20">
-                               View
+                            <span className="text-sm w-20"> 
+                                <ContractView contract={contract} />
                             </span>
                           </td>
                         </div>
                       ))
-                    }
-
-
+                    } 
 
                   </div>
                 </tr>
