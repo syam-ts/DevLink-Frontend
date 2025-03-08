@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { signInUser } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { signInClient } from "../../redux/slices/clientSlice";
 import config from "../../config/helper/config";
 import axios from "axios";
 
@@ -13,7 +14,7 @@ interface GoogleProps {
 const Google: React.FC<GoogleProps> = ({ role }) => {
   const navigate = useNavigate(),
     dispatch = useDispatch();
-
+ 
   return (
     <GoogleLogin
       onSuccess={async (credentialResponse: any) => {
@@ -43,8 +44,13 @@ const Google: React.FC<GoogleProps> = ({ role }) => {
           if (response.data.success) {
             const { accessToken } = response.data;
             localStorage.setItem("accessToken", accessToken);
+           if(role === 'user') {
             dispatch(signInUser(response.data.user));
-            navigate(`/${role}/home`);
+            navigate(`/user/home`);
+           } else {
+            dispatch(signInClient(response.data.client));
+            navigate(`/client/home`);
+           }
           }
         } catch (error) {
           console.log("ERROR: ", error);

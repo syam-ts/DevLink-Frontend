@@ -355,7 +355,7 @@ const LoginComponent = () => {
                 </h1>
                 <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
                   <div>
-                    <Google role={"user"} />
+                    <Google role={rt} />
                   </div>
                 </div>
                 <div className="mt-4 text-sm text-gray-600 text-center">

@@ -53,9 +53,8 @@ const Navbar = ({ roleType, roleInfo }: any) => {
     <nav className="bg-white shadow-md fixed w-full z-10">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <Link to={`/${roleType}/home`} className='no-underline'>
-          
-            <span className=' text-black nunito-bold text-xl '>Devlink</span>
+          <Link to={`/${roleType}/home`} className="no-underline">
+            <span className=" text-black nunito-bold text-xl ">Devlink</span>
           </Link>
         </div>
 
@@ -111,18 +110,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             Contact
           </Link>
 
-
-    {/* PENDING */}
+          {/* PENDING */}
 
           <Link
             to={`/${roleType}/notifications/${roleInfo._id}/user`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
-            <img alt='notification-icon' />
+            <img alt="notification-icon" />
           </Link>
-
-
-
         </div>
 
         {/* Profile section */}
@@ -131,7 +126,6 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             to={`/${roleType}/notifications/${roleInfo?._id}/${roleType}`}
             className="relative"
           >
-            
             {userNotificationsUnread > 0 && (
               <span className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
                 {userNotificationsUnread}
@@ -140,58 +134,66 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </Link>
 
           {/* Profile Dropdown */}
-          {roleInfo && (
-            <Dropdown placement="bottom-end" className='grid justify-center !pl-0'>
-              <DropdownTrigger>
-                {roleInfo?.profilePicture ? (
-                  <img
-                    className="h-9 w-9 rounded-full border border-gray-300"
-                    src={roleInfo.profilePicture}
-                    alt="Profile"
-                  />
-                ) : (
-                  <span className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-300">
-                    {roleInfo.name?.charAt(0)}
-                  </span>
-                )}
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem key="none">
-                  <Link
-                    to={`/${roleType}/Profile/user-view`}
-                    className="text-gray-900 no-underline"
-                  >
-                    Profile
-                  </Link>
-                </DropdownItem>
-                <DropdownItem key="none">
-                  <Link
-                    to={`/${roleType}/contracts/client`}
-                    className="text-gray-900 no-underline"
-                  >
-                    Requests
-                  </Link>
-                </DropdownItem>
-                <DropdownItem key="none">
-                  <Link to={`/${roleType}/wallet`} className="text-gray-900 no-underline">
-                    Wallet
-                  </Link>
-                </DropdownItem>
-                <DropdownItem key="none">
-                  <Link to={`/${roleType}/home`} className="text-gray-900 no-underline">
-                    Home
-                  </Link>
-                </DropdownItem>
-                <DropdownItem
-                  onClick={logout}
-                  key="none"
-                  className="text-red-600"
+
+          <Dropdown
+            placement="bottom-end"
+            className="grid justify-center !pl-0"
+          >
+            <DropdownTrigger>
+              {roleInfo?.profilePicture ? (
+                <div className="flex gap-4">
+                  <span>{roleInfo.name.split(' ').join('')}</span>
+                  <img className="h-9 w-9 rounded-full border border-gray-300" src={roleInfo.profilePicture}  alt="Profile" />
+                </div>
+              ) : (
+                <div className="flex gap-4">
+                  <span>{roleInfo.companyName}</span>
+                  <span className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-300"></span>
+                </div>
+              )}
+            </DropdownTrigger>
+            <DropdownMenu>
+              <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/Profile/user-view`}
+                  className="text-gray-900 no-underline"
                 >
-                  Logout
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          )}
+                  Profile
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/contracts/client`}
+                  className="text-gray-900 no-underline"
+                >
+                  Requests
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/wallet`}
+                  className="text-gray-900 no-underline"
+                >
+                  Wallet
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/home`}
+                  className="text-gray-900 no-underline"
+                >
+                  Home
+                </Link>
+              </DropdownItem>
+              <DropdownItem
+                onClick={logout}
+                key="none"
+                className="text-red-600"
+              >
+                Logout
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
       </div>
       {/* Mobile Menu Button */}
@@ -265,7 +267,6 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           </div>
         </div>
       )}
- 
     </nav>
   );
 };
