@@ -35,7 +35,7 @@ const JobProposals = () => {
           `/proposals/${proposalType}`
         );
      
-        setProposals(data?.proposals);
+        setProposals(data?.proposals); 
 
       } catch (err: any) {
         console.log("ERROR: ", err.message);
@@ -43,6 +43,7 @@ const JobProposals = () => {
     })();
   }, [proposalType]);
 
+  console.log('The pr', proposals)
   
 
   useEffect(() => {

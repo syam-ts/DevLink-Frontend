@@ -103,102 +103,107 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
     <div>
       <Sonner />
       {Object.entries(proposals).map((proposal: any) => (
-        <div className="w-2/3 border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-12 p-3">
-          <div className="h-16 w-16 ">
+        <div className="w-full sm:w-4/5 lg:w-2/3 max-sm:w-[400px] border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-8 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          {/* Profile Picture */}
+          <div className="h-16 w-16">
             <img
               className="w-12 h-12 rounded-full object-cover"
-              src={proposal[1]?.userData?.profilePicture} 
+              src={proposal[1]?.userData?.profilePicture}
               alt="user-profile"
             />
           </div>
-          <div className="grid gap-2 px-3 ">
-            <div className="grid justify-start mx-10">
-              <span className="font-semibold text-lg">
+      
+          {/* Job Info */}
+          <div className="grid gap-2 w-full">
+            <div className="grid justify-start">
+              <span className="font-semibold text-base sm:text-lg">
                 Job Title: {proposal[1]?.jobPostInfo}
-              </span> 
-              <p className="text-sm"> {proposal[1]?.description} </p>
+              </span>
+              <p className="text-sm">{proposal[1]?.description}</p>
             </div>
-            <div className="flex gap-5">
+      
+            <div className="flex flex-col sm:flex-row gap-3">
               <span className="font-semibold text-xs">
                 Proposal Amount: {proposal[1]?.bidAmount}.00₹/hr
               </span>
               <span className="font-semibold text-xs">
-                Propposal DeadLine: {proposal[1]?.bidDeadline}hrs
+                Proposal Deadline: {proposal[1]?.bidDeadline}hrs
               </span>
             </div>
+      
             <div>
               <span className="font-semibold text-xs">
-                Propposal Description: {proposal[1]?.description}hrs
+                Proposal Description: {proposal[1]?.description}
               </span>
             </div>
           </div>
-
-          <div className="flex justify-end pr-12 gap-3">
-            {roleType === "user" && (
-              <div>
-                <button
-                  className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
-                  type="button"
-                >
-                  <Link
-                    to={`/${roleType}/job/${proposal[1]?.jobPostId}/proposal-view`}
-                    className="no-underline text-white font-bold "
-                  >
-                    View
-                  </Link>
-                </button>
-              </div>
-            )}
-            {roleType === "client" && (
-              <div className="flex gap-3">
-                <button
-                  className="rounded-full border bg-black text-white  border-slate-300  py-2 px-12 text-center text-sm transition-all shadow-sm"
-                  type="button"
-                >
-                  <Link
-                    to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`}
-                    className="no-underline text-white font-bold "
-                  >
-                    View
-                  </Link>
-                </button>
-
-                {proposal[1]?.status === "pending" && (
-                  <div>
-                    <button
-                      onClick={() =>
-                        rejectProposal(
-                          proposal[1]?.userId,
-                          proposal[1]?.jobPostId
-                        )
-                      }
-                      className="rounded-full mr-2 bg-[#fd2b2b] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
-                      type="button"
-                    >
-                      Reject
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        acceptProposal(
-                          proposal[1]?.userId,
-                          roleId,
-                          proposal[1]?.jobPostId,
-                          proposal[1]?.bidAmount,
-                          proposal[1]?.bidDeadline
-                        )
-                      }
-                      className="rounded-full bg-[#0000ff] py-2 px-12 border border-transparent text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
-                      type="button"
-                    >
-                      Accept
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
         </div>
+      
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row justify-end mt-4 gap-3">
+          {roleType === "user" && (
+            <button
+              className="rounded-full border bg-black text-white py-2 px-8 sm:px-12 text-center text-sm font-bold transition-all shadow-sm"
+              type="button"
+            >
+              <Link
+                to={`/${roleType}/job/${proposal[1]?.jobPostId}/proposal-view`}
+                className="no-underline text-white"
+              >
+                View
+              </Link>
+            </button>
+          )}
+      
+          {roleType === "client" && (
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                className="rounded-full border bg-black text-white py-2 px-8 sm:px-12 text-center text-sm font-bold transition-all shadow-sm"
+                type="button"
+              >
+                <Link
+                  to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`}
+                  className="no-underline text-white"
+                >
+                  View
+                </Link>
+              </button>
+      
+              {proposal[1]?.status === "pending" && (
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={() =>
+                      rejectProposal(proposal[1]?.userId, proposal[1]?.jobPostId)
+                    }
+                    className="rounded-full bg-[#fd2b2b] py-2 px-8 sm:px-12 text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
+                    type="button"
+                  >
+                    Reject
+                  </button>
+      
+                  <button
+                    onClick={() =>
+                      acceptProposal(
+                        proposal[1]?.userId,
+                        roleId,
+                        proposal[1]?.jobPostId,
+                        proposal[1]?.bidAmount,
+                        proposal[1]?.bidDeadline
+                      )
+                    }
+                    className="rounded-full bg-[#0000ff] py-2 px-8 sm:px-12 text-center text-sm text-white transition-all shadow-md font-bold hover:bg-slate-700"
+                    type="button"
+                  >
+                    Accept
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      
       ))}
     </div>
   );

@@ -126,7 +126,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             to={`/${roleType}/notifications/${roleInfo._id}/user`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
-            <img alt="notification-icon" />
+            <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/2645/2645897.png' alt="notification-icon" />
           </Link>
         </div>
 
@@ -229,14 +229,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               onClick={() => setMenuOpen(false)}
             >
               Jobs
-            </Link>
-            <Link
-              to={`/${roleType}/contracts/${roleType}`}
-              className="text-gray-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contracts
-            </Link>
+            </Link> 
             <Link
               to={`/${roleType}/proposals`}
               className="text-gray-900"
@@ -259,21 +252,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               >
                 Project Approvals
               </Link>
-            )}
-            <Link
-              to={`/${roleType}/about`}
-              className="text-gray-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              to={`/${roleType}/contact`}
-              className="text-gray-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              Contact
-            </Link>
+            )} 
           </div>
         </div>
       )}

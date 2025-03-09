@@ -22,15 +22,15 @@ interface Jobs {
     paymentType: string;
     estimateTimeinHours: string;
     projectType: string;
-  }
-};
+  };
+}
 
 interface Client {
   companyName: string;
   location: string;
   domain: string;
   since: number;
-};
+}
 
 const HomeUser: React.FC = () => {
   const [clients, setClients] = useState<Client>({
@@ -51,7 +51,7 @@ const HomeUser: React.FC = () => {
       paymentType: "",
       estimateTimeinHours: "",
       projectType: "",
-    }
+    },
   });
   const [latestJobs, setLatestJobs] = useState<Jobs>({
     jobs: {
@@ -64,7 +64,7 @@ const HomeUser: React.FC = () => {
       paymentType: "",
       estimateTimeinHours: "",
       projectType: "",
-    }
+    },
   });
   const [totalJobs, setTotalJobs] = useState<string>("");
   const [totalHours, setTotalHours] = useState<string>("{}");
@@ -130,12 +130,12 @@ const HomeUser: React.FC = () => {
 
       <section>
         <div className="arsenal-sc-regular">
-          <figure className="relative transition-all home-user-image max-xl:w-[1600px] max-2xl:w-[1200px] duration-300 bg-black cursor-pointer  hover:grayscale-0"> 
-              <img
-                className="w-full max-2xl:w-full h-[900px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
-                src="/public/user_home-1.png"
-                alt="image description"
-              /> 
+          <figure className="relative transition-all home-user-image max-xl:w-[1600px] max-2xl:w-[1200px] duration-300 bg-black cursor-pointer  hover:grayscale-0">
+            <img
+              className="w-full max-2xl:w-full h-[900px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
+              src="/public/user_home-1.png"
+              alt="image description"
+            />
             <figcaption className="absolute text-lg text-white bottom-6">
               <div className="pb-60 px-56">
                 <div className="font-extrabold text-4xl">
@@ -183,72 +183,71 @@ const HomeUser: React.FC = () => {
       </section>
 
       <section className="text-center my-12 px-4 sm:text-center sm:w-[1500px] max-sm:w-[1500px] 2xl:w-screen">
-  <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
-    Top Clients
-  </span>
-  <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
-</section>
-
-
-      {/* cards */}
+        <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
+          Top Clients
+        </span>
+        <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
+      </section>
       <section>
-  <div className="max-w-[1400px] max-2xl:w-[1300px] mx-auto my-24 px-4">
-    <div className="grid gap-6 sm:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {Object.values(clients).map((client: Client, index: number) => (
-        <Card key={index} className="relative rounded-md overflow-hidden shadow-lg">
-          <img
-            className="h-[400px] w-full object-cover"
-            src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY="
-            alt="Client Image"
-          />
-          <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6">
-            <span className="text-xl sm:text-2xl text-white flex font-bold items-center">
-              {client.companyName || "devlink-certified client"}
-              <img
-                className="w-5 h-5 ml-2"
-                src="https://cdn-icons-png.flaticon.com/128/12559/12559876.png"
-                alt="verified-icon"
-              />
-            </span>
-            <span className="text-md font-bold text-white">
-              {client?.location || "...."}
-            </span>
-            <span className="text-md font-bold text-white">
-              {client?.domain || "...."}
-            </span>
-            <span className="text-md font-bold text-white">
-              Since {client?.since || "...."}
-            </span>
-            <hr className="border-white mt-2" />
+        <div className="max-sm:w-[1550px] max-2xl:w-[1500px] max-md:w-[1510px] my-24 px-20 ">
+          <div className="grid gap-6 sm:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {Object.values(clients).map((client: Client, index: number) => (
+              <Card
+                key={index}
+                className="relative rounded-md overflow-hidden shadow-lg"
+              >
+                <img
+                  className="h-[400px] w-full object-cover"
+                  src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY="
+                  alt="Client Image"
+                />
+                <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6">
+                  <span className="text-xl sm:text-2xl text-white flex font-bold items-center">
+                    {client.companyName || "devlink-certified client"}
+                    <img
+                      className="w-5 h-5 ml-2"
+                      src="https://cdn-icons-png.flaticon.com/128/12559/12559876.png"
+                      alt="verified-icon"
+                    />
+                  </span>
+                  <span className="text-md font-bold text-white">
+                    {client?.location || "...."}
+                  </span>
+                  <span className="text-md font-bold text-white">
+                    {client?.domain || "...."}
+                  </span>
+                  <span className="text-md font-bold text-white">
+                    Since {client?.since || "...."}
+                  </span>
+                  <hr className="border-white mt-2" />
+                </div>
+              </Card>
+            ))}
           </div>
-        </Card>
-      ))}
-    </div>
-  </div>
-</section>
-
+        </div>
+      </section>
 
       <hr className="border-gray-700 mt-20 w-2/4 mx-auto" />
       <section>
-        <div className="relative max-w-full mt-44 z-0">
+        <div className="relative lg:w-[1900px] bg-black mt-24 sm:mt-36 lg:mt-44 z-0 max-sm:w-[1800px] sm:w-[1500px] max-full md:w-[1410px]"> 
           <img
-            className="h-[600px] w-full object-cover "
+            className="h-[400px] sm:h-[500px] lg:w-[2300px] lg:h-[600px] w-screen max-sm:w-full md:w-[1410px] sm:w-[1500px] object-cover"
             src="/public/user-home-img-2.png"
             alt="start-freelaner-image"
           />
-          <div className="  inset-0 rounded-md"></div>
-          <div className="absolute grid inset-0 items-start justify-start my-56 mx-72">
-            <h2 className="text-white text-4xl font-bold ">
+          <div className="absolute inset-0 bg-black/40 rounded-md"></div>
+          <div className="absolute inset-0 flex flex-col items-center sm:items-start justify-center text-center sm:text-left px-6 sm:px-12 md:px-24 lg:px-72">
+            <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold">
               Start as a Freelancer
             </h2>
-            <span className="text-white">
+            <span className="text-white text-sm sm:text-base mt-2 max-w-md">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </span>
             <button
-              className="rounded-small w-52 border border-transparent bg-[#0000ff] hover:bg-black py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white "
+              className="mt-4 sm:mt-6 rounded-md w-44 sm:w-52 border border-transparent bg-[#0000ff] hover:bg-black py-2 sm:py-3 px-4 flex items-center text-center text-sm sm:text-md font-bold transition-all text-white"
               type="button"
             >
-              <Link className="no-underline text-white " to="/user/jobs">
+              <Link className="no-underline text-white" to="/user/jobs">
                 Find Jobs
               </Link>
               <svg
@@ -258,9 +257,9 @@ const HomeUser: React.FC = () => {
                 className="w-4 h-4 ml-1.5"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             </button>
@@ -268,21 +267,19 @@ const HomeUser: React.FC = () => {
         </div>
       </section>
 
- 
-
       <section className="text-center my-12 px-4 sm:text-center sm:w-[1500px] max-sm:w-[1500px] 2xl:w-screen">
-  <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
-    Top Jobs
-  </span>
-  <div className="text-end px-96">
+        <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
+          Top Jobs
+        </span>
+        <div className="text-end px-96">
           <span className="arsenal-sc-regular">
             <Link to="/user/jobs">
               <LinkAttribute text="More Jobs" />
             </Link>
           </span>
         </div>
-  <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
-</section>
+        <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
+      </section>
 
       {/*top jobs jobpost card section */}
       <section>
