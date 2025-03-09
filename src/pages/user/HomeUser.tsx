@@ -182,48 +182,51 @@ const HomeUser: React.FC = () => {
         <Chatbot />
       </section>
 
-      <section className="text-center my-12">
-        <span className="arsenal-sc-regular text-3xl">Top Clients</span>
-        <hr className="border-gray-700 mt-12 w-2/4 mx-auto" />
-      </section>
+      <section className="text-center my-12 px-4 sm:text-center sm:w-[1500px] max-sm:w-[1500px] 2xl:w-screen">
+  <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
+    Top Clients
+  </span>
+  <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
+</section>
+
 
       {/* cards */}
       <section>
-        <div className="max-w-[1400px] h-[750px] gap-20 grid grid-cols-12 grid-rows-2 mx-auto my-24">
-          {Object.values(clients).map((client: Client, index: number) => (
-            <Card
-              key={index}
-              className="col-span-12 sm:col-span-4 rounded-none h-[700px]"
-            >
+  <div className="max-w-[1400px] max-2xl:w-[1300px] mx-auto my-24 px-4">
+    <div className="grid gap-6 sm:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {Object.values(clients).map((client: Client, index: number) => (
+        <Card key={index} className="relative rounded-md overflow-hidden shadow-lg">
+          <img
+            className="h-[400px] w-full object-cover"
+            src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY="
+            alt="Client Image"
+          />
+          <div className="absolute inset-0 flex flex-col justify-end bg-black/50 p-6">
+            <span className="text-xl sm:text-2xl text-white flex font-bold items-center">
+              {client.companyName || "devlink-certified client"}
               <img
-                className="h-full"
-                src="https://media.istockphoto.com/id/622925970/photo/clouds-reflected-in-windows-of-modern-office-building.jpg?s=612x612&w=0&k=20&c=qcJr4d4hd0NDTY6v8LZLO6TFR7WdHBKdf39g08RggQY="
+                className="w-5 h-5 ml-2"
+                src="https://cdn-icons-png.flaticon.com/128/12559/12559876.png"
+                alt="verified-icon"
               />
-              <div className="absolute top-96 grid w-full justify-center">
-                <span className="px-3 text-2xl text-white flex font-bold">
-                  {client.companyName || "devlink-certified client"}
-                  <img
-                    className="w-5 h-5"
-                    src="https://cdn-icons-png.flaticon.com/128/12559/12559876.png"
-                    alt="verified-icon"
-                  />
-                </span>
+            </span>
+            <span className="text-md font-bold text-white">
+              {client?.location || "...."}
+            </span>
+            <span className="text-md font-bold text-white">
+              {client?.domain || "...."}
+            </span>
+            <span className="text-md font-bold text-white">
+              Since {client?.since || "...."}
+            </span>
+            <hr className="border-white mt-2" />
+          </div>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>
 
-                <span className="px-3 text-md font-bold text-white mx-auto">
-                  {client?.location || "...."}
-                </span>
-                <span className="px-3 text-md font-bold text-white mx-auto">
-                  {client?.domain || "...."}
-                </span>
-                <span className="px-3 text-md font-bold text-white mx-auto">
-                  Since {client?.since || "...."}
-                </span>
-                <hr className="text-white border-2 " />
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
 
       <hr className="border-gray-700 mt-20 w-2/4 mx-auto" />
       <section>
@@ -265,19 +268,21 @@ const HomeUser: React.FC = () => {
         </div>
       </section>
 
-      <section className="text-center my-12 mt-44">
-        <span className="arsenal-sc-regular text-4xl">Top Jobs</span>
+ 
 
-        <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
-
-        <div className="text-end px-96">
+      <section className="text-center my-12 px-4 sm:text-center sm:w-[1500px] max-sm:w-[1500px] 2xl:w-screen">
+  <span className="arsenal-sc-regular text-xl sm:text-2xl md:text-3xl font-semibold">
+    Top Jobs
+  </span>
+  <div className="text-end px-96">
           <span className="arsenal-sc-regular">
             <Link to="/user/jobs">
               <LinkAttribute text="More Jobs" />
             </Link>
           </span>
         </div>
-      </section>
+  <hr className="border-gray-700 mt-6 sm:mt-8 md:mt-12 w-full sm:w-3/4 md:w-2/4 mx-auto" />
+</section>
 
       {/*top jobs jobpost card section */}
       <section>
