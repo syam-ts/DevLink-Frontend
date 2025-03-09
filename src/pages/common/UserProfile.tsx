@@ -1,11 +1,3 @@
-import {
-  MDBCol,
-  MDBContainer,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBTypography,
-} from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BoostPopover from "../../components/nextUi/popover/BoostAcc-Popover";
@@ -19,11 +11,20 @@ import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { InviteModal } from "../../components/nextUi/modals/InviteUserModal";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBTypography,
+} from "mdb-react-ui-kit";
 
 interface WorkHistory {
   _id: string;
   title: string;
   description: string;
+  requiredSkills: string[];
   expertLevel: string;
   location: string;
   amount: number;
@@ -63,7 +64,7 @@ interface User {
   isBoosted: boolean;
   isProfileFilled: boolean;
 }
-const UserProfile = () => {
+const UserProfile: React.FC = () => {
   const [user, setUser] = useState<User>({
     _id: "",
     name: "",
@@ -97,6 +98,7 @@ const UserProfile = () => {
         title: "",
         description: "",
         expertLevel: "",
+        requiredSkills: [],
         location: "",
         amount: 0,
         paymentType: "",
@@ -143,7 +145,8 @@ const UserProfile = () => {
         } else {
           toast.error("Wrong page selection");
         }
-      } catch (err: any) {
+      } catch (error: unknown) {
+        const err = error as {response: {data: {message: string}}};
         if (err.response.data.message == "No token provided") {
           navigate("/user/login");
         }
@@ -175,7 +178,7 @@ const UserProfile = () => {
       {Object.entries(user).length === 0 ? (
         <ProfileShimmer />
       ) : (
-        <div className="gradient-custom-2 pt-20">
+        <div className="gradient-custom-2 pt-20 max-sm:w-[660px]">
           <MDBContainer className="py-5 h-100">
             <div>
               <MDBCol>
@@ -213,8 +216,7 @@ const UserProfile = () => {
                               <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
                                 <img
                                   className="h-5 w-5 "
-                                 
-                                   src="https://cdn-icons-png.flaticon.com/128/6009/6009429.png"
+                                  src="https://cdn-icons-png.flaticon.com/128/6009/6009429.png"
                                 />
                               </span>
                             ) : (
@@ -235,7 +237,7 @@ const UserProfile = () => {
                           <div className="flex gap-4 mr-5">
                             {type === "client-view" ? (
                               <div className="flex gap-3 h-10">
-                                <button> 
+                                <button>
                                   <InviteModal userId={user?._id} />
                                 </button>
                                 <button
@@ -367,7 +369,7 @@ const UserProfile = () => {
                           <span className="text-xl">Skills:</span>
                           <MDBCardText className="font-italic mb-1 py-3 p-3">
                             <ul>
-                              {user?.skills.map((skill: any) => (
+                              {user?.skills.map((skill: string) => (
                                 <li className="list-disc "> {skill}</li>
                               ))}
                             </ul>
@@ -380,7 +382,7 @@ const UserProfile = () => {
 
                           <span className="text-xl">Education:</span>
                           <MDBCardText className="font-italic mb-1 p-3 px-4">
-                            {user?.education.map((ed: any) => (
+                            {user?.education.map((ed: string) => (
                               <li className="list-disc"> {ed}</li>
                             ))}
                           </MDBCardText>
@@ -410,12 +412,15 @@ const UserProfile = () => {
                           </p>
                           <hr className="w-2/3 mx-auto" />
                         </div>
-                        <div>
-                          {user.workHistory.map((job: any) => (
-                            <div className="w-5/6 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
-                              <div className="flex justify-between ">
+                        <div className="px-4">
+                          {user.workHistory.map((job: WorkHistory, index: number) => (
+                            <div
+                              key={index}
+                              className="w-full sm:w-4/5 lg:w-5/6 border-gray-100 shadow-xl rounded-xl h-auto sm:h-[300px] border mx-auto my-10 sm:my-16 p-6 sm:p-12 arsenal-sc-regular"
+                            >
+                              <div className="flex flex-col sm:flex-row justify-between gap-6"> 
                                 <div className="grid">
-                                  <span className="text-2xl text-start">
+                                  <span className="text-lg sm:text-2xl text-start">
                                     {job?.title}
                                   </span>
                                   <span className="text-sm mt-2">
@@ -429,25 +434,28 @@ const UserProfile = () => {
                                       {job?.location}
                                     </span>
                                   </div>
-                                  <span className="flex gap-3">
+                                  <div className="flex flex-wrap gap-3">
                                     {job?.requiredSkills?.map(
-                                      (skill: string) => (
-                                        <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                      (skill: string, i: number) => (
+                                        <span
+                                          key={i}
+                                          className="rounded-full border border-transparent my-2 py-1.5 px-4 sm:px-8 text-center text-xs sm:text-sm transition-all text-white bg-[#0000ff]"
+                                        >
                                           {skill}
                                         </span>
                                       )
                                     )}
-                                  </span>
+                                  </div>
                                 </div>
-
-                                <div className="grid text-end py-3">
-                                  <span className="text-sm">
+ 
+                                <div className="grid text-start sm:text-end py-3">
+                                  <span className="text-sm sm:text-base">
                                     {job?.amount}.00₹
                                   </span>
-                                  <span className="text-sm">
+                                  <span className="text-sm sm:text-base">
                                     {job?.paymentType}
                                   </span>
-                                  <span className="text-sm">
+                                  <span className="text-sm sm:text-base">
                                     {job?.estimateTimeinHours}/hr
                                   </span>
                                   <span className="text-sm text-green-400 underline">
