@@ -170,15 +170,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 >
                   Profile
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="none">
-                <Link
-                  to={`/${roleType}/contracts/client`}
-                  className="text-gray-900 no-underline"
-                >
-                  Requests
-                </Link>
-              </DropdownItem>
+              </DropdownItem> 
               <DropdownItem key="none">
                 <Link
                   to={`/${roleType}/wallet`}

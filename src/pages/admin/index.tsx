@@ -1,11 +1,11 @@
 import { Sidebar } from "flowbite-react";
 import {
-  HiArrowSmRight,
   HiChartPie,
-  HiChat,
-  HiShoppingBag,
+  HiOutlineUsers,
   HiTable,
-  HiUser,
+  HiOutlineCurrencyDollar,
+  HiOutlinePaperAirplane,
+  HiOutlineUser,
   HiViewBoards,
 } from "react-icons/hi";
 import { useState } from "react";
@@ -27,14 +27,14 @@ function Component() {
     Requests: <Requests />,
     Wallet: <Wallet />,
     Contracts: <Contracts />,
-    Dashboard: <Dashboard />, 
-    TransferMoney: <WithdrawRequest />, 
+    Dashboard: <Dashboard />,
+    TransferMoney: <WithdrawRequest />,
     "Sign In": (
       <div>
         <h2>Sign In Form</h2>
         <p>Login form would appear here</p>
       </div>
-    ) 
+    ),
   };
 
   const handleItemClick = (itemName) => {
@@ -59,35 +59,28 @@ function Component() {
               {
                 name: "UserManagement",
                 icon: HiViewBoards,
-                label: "Pro",
-                labelColor: "indigo",
               },
               {
                 name: "ClientManagement",
-                icon: HiChat,
-                label: "3",
-                labelColor: "blue",
+                icon: HiOutlineUser,
               },
-              { name: "Requests", icon: HiUser },
-              { name: "TransferMoney", icon: HiUser },
-              { name: "Wallet", icon: HiShoppingBag },
-              { name: "Contracts", icon: HiShoppingBag }, 
+              { name: "Requests", icon: HiOutlinePaperAirplane },
+              { name: "TransferMoney", icon: HiOutlinePaperAirplane },
+              { name: "Wallet", icon: HiOutlineCurrencyDollar },
+              { name: "Contracts", icon: HiOutlineUsers },
               { name: "Logout", icon: HiTable },
             ].map((item) => (
               <Sidebar.Item
                 key={item.name}
-                href='#'
-                icon={item.icon}
-                label={item.label}
-                labelColor={item.labelColor}
+                href="#"
+                icon={item.icon} 
                 active={activeItem === item.name}
                 onClick={() => handleItemClick(item.name)}
                 className={`mb-1 transition-all duration-200 no-underline text-md
-                   text-black py-3 rounded-xl  ${
-                  activeItem === item.name
+                   text-black py-3 rounded-xl  ${activeItem === item.name
                     ? "bg-[#3342e7] text-white font-bold "
                     : "hover:bg-blue-50"
-                }`}
+                  }`}
               >
                 {item.name}
               </Sidebar.Item>

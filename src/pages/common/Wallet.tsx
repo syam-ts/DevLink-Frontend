@@ -69,12 +69,12 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   };
 
   return (
-    <div className="overflow-hidden flex gap-5">
+    <div className="overflow-hidden 2xl:w-[1900px] 2xl:flex max-sm:grid md:grid gap-5 max-sm:w-[1100px] md:w-[1000px]">
       <div>
         <section>
-          <div className="text-start mx-5 my-64 shadow-xl rounded-2xl border-1 border-gray-300 px-5">
+          <div className="text-start mx-20 my-64 md:w-[800px] 2xl:w-[300px] shadow-xl rounded-2xl border-1 border-gray-300 px-5">
             <div className="pt-20">
-              <span className="arsenal-sc-regular text-black text-xl font-bold py-2 px-5 rounded-lg">
+              <span className="arsenal-sc-regular max-sm:mx-80 text-black text-xl font-bold py-2 px-5 rounded-lg">
                 Balance : {Math.floor(balance)}
               </span>
             </div>
@@ -82,8 +82,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
               <hr />
             </div>
 
-            {/* WITHDRAW SECTION */}
-
+            {/* WITHDRAW SECTION */} 
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-3 rounded-small text-white">
                 <button>
@@ -106,7 +105,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         </section>
 
         <section>
-          <div className="relative flex flex-col px-44 w-[70rem] mx-auto h-full overflow-hidden p-5 text-gray-700 bg-white shadow-2xl border-1 border-gray-300 rounded-2xl ">
+          <div className="relative 2xl:flex flex-col px-44 w-[70rem] max-sm:w-[1000px] md:w-[900px] sm:w-[600px] mx-auto h-full overflow-hidden p-5 text-gray-700 shadow-2xl border-1 border-gray-300 rounded-2xl ">
             <table className="w-full text-left table-auto min-w-max">
               <thead>
                 <tr>

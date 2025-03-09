@@ -1,13 +1,14 @@
-import axios from "axios";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance"; 
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface Transactions {
-  type: string;
-  amount: number;
-  from: string;
-  createdAt: string;
-}
+  type: string
+  amount: number
+  from: string
+  createdAt: string
+  date: string
+};
 
 const Wallet: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
@@ -25,8 +26,8 @@ const Wallet: React.FC = () => {
         }
         let response: Response;
 
-        response = await axios.get(
-          `http://localhost:3000/admin/wallet?currentPage=${currentPage}`,
+        response = await apiAdminInstance.get(
+          `/wallet?currentPage=${currentPage}`,
           {
             withCredentials: true,
           }
@@ -98,7 +99,7 @@ const Wallet: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {transactions?.map((tra: any) => (
+                {transactions?.map((tra: Transactions) => (
                   <tr className="border-b border-gray-400">
                     <td className="py-4 px-4">
                       <p className="block arsenal-sc-regular text-sm text-blue-gray-900">
