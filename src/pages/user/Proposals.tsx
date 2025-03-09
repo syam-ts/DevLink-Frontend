@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
-import { ProposalCard } from "../../components/common/ProposalCard"; 
+import { ProposalCard } from "../../components/common/ProposalCard";
 import { UserState } from "../../config/state/allState";
 
 interface Proposals {
@@ -22,7 +22,7 @@ interface Proposals {
 const JobProposals = () => {
   const [proposals, setProposals] = useState<Proposals[]>([]);
   const [data, setData]: any = useState<Proposals[]>([]);
-  const [proposalType, setProposalType] = useState<string>("pending");  
+  const [proposalType, setProposalType] = useState<string>("pending");
 
   const userId: string = useSelector(
     (state: UserState) => state?.user?.currentUser?._id
@@ -34,16 +34,16 @@ const JobProposals = () => {
         const { data } = await apiUserInstance.get(
           `/proposals/${proposalType}`
         );
-        console.log('reos: ', data)
-        setProposals(data?.proposals || []); 
-        
+     
+        setProposals(data?.proposals);
+
       } catch (err: any) {
         console.log("ERROR: ", err.message);
       }
     })();
   }, [proposalType]);
 
-   
+  
 
   useEffect(() => {
     if (proposalType === "pending") {
@@ -51,9 +51,9 @@ const JobProposals = () => {
     } else {
       setData(proposals.filter((props: any) => props.status === "rejected"));
     }
-  }, [proposals,proposalType]);
+  }, [proposals, proposalType]);
 
- 
+
 
   return (
     <main>
@@ -110,7 +110,7 @@ const JobProposals = () => {
           </div>
         }
       </section>
- 
+
     </main>
   );
 };

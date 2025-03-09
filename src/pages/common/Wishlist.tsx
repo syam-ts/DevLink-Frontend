@@ -50,7 +50,7 @@ const Wishlist: React.FC = () => {
     <>
       <Sonner />
       <section>
-        <div className="flex justify-center my-10">
+        <div className="flex justify-center pt-44">
           <span className="arsenal-sc-regular text-3xl "> Wishlist </span>
         </div>
         <hr className="w-2/3 mx-auto" />
@@ -87,7 +87,7 @@ const Wishlist: React.FC = () => {
                   </span>
                   <button
                     onClick={() => removeFromWishlist(wishlistId, job[1]?._id)}
-                    className="rounded-md transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
+                    className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
                     type="button"
                   >
                     Remove

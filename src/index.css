@@ -57,6 +57,15 @@
   max-width: none !important;
 }
 
+/* responsive design */
+ 
+  @media (min-width: 1275px) and (max-width: 1440px) {
+    home-user-image {
+      width: 10px
+    }
+  }
+ 
+
 
 /* Shadcn sidebar (Admin) styles */
 @layer base {

@@ -12,7 +12,7 @@ interface ProposalCardProps {
   roleType: string;
   roleId: Id;
 }
-
+ 
 export const ProposalCard: React.FC<ProposalCardProps> = ({
   proposals,
   roleType,
@@ -61,6 +61,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
       toast.error(err.message);
     }
   };
+ 
 
   const rejectProposal = async (userId: Id, jobPostId: Id) => {
     try {
@@ -106,28 +107,28 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
           <div className="h-16 w-16 ">
             <img
               className="w-12 h-12 rounded-full object-cover"
-              src={proposal[1]?.userData?.profilePicture}
+              src={proposal[1]?.userData?.profilePicture} 
               alt="user-profile"
             />
           </div>
           <div className="grid gap-2 px-3 ">
             <div className="grid justify-start mx-10">
               <span className="font-semibold text-lg">
-                Job Title: {" _"} {proposal[1]?.jobPostInfo}
-              </span>
+                Job Title: {proposal[1]?.jobPostInfo}
+              </span> 
               <p className="text-sm"> {proposal[1]?.description} </p>
             </div>
             <div className="flex gap-5">
               <span className="font-semibold text-xs">
-                Proposal Amount: {" _"} {proposal[1]?.bidAmount}.00₹/hr
+                Proposal Amount: {proposal[1]?.bidAmount}.00₹/hr
               </span>
               <span className="font-semibold text-xs">
-                Propposal DeadLine: {" _"} {proposal[1]?.bidDeadline}hrs
+                Propposal DeadLine: {proposal[1]?.bidDeadline}hrs
               </span>
             </div>
             <div>
               <span className="font-semibold text-xs">
-                Propposal Description: {" _"} {proposal[1]?.description}hrs
+                Propposal Description: {proposal[1]?.description}hrs
               </span>
             </div>
           </div>

@@ -130,14 +130,12 @@ const HomeUser: React.FC = () => {
 
       <section>
         <div className="arsenal-sc-regular">
-          <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
-            <a href="#">
+          <figure className="relative transition-all home-user-image max-xl:w-[1600px] max-2xl:w-[1200px] duration-300 bg-black cursor-pointer  hover:grayscale-0"> 
               <img
-                className=" w-full h-[700px] object-cover"
+                className="w-full max-2xl:w-full h-[900px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
                 src="/public/user_home-1.png"
                 alt="image description"
-              />
-            </a>
+              /> 
             <figcaption className="absolute text-lg text-white bottom-6">
               <div className="pb-60 px-56">
                 <div className="font-extrabold text-4xl">
@@ -241,7 +239,7 @@ const HomeUser: React.FC = () => {
               Start as a Freelancer
             </h2>
             <span className="text-white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </span>
             <button
               className="rounded-small w-52 border border-transparent bg-[#0000ff] hover:bg-black py-3 px-4 flex font-bold items-center text-center text-md transition-all text-white "
@@ -299,7 +297,7 @@ const HomeUser: React.FC = () => {
             </li>
             <li>
               Verified Accounts
-              <p className="text-center">{verifiedAccounts}</p>{" "}
+              <p className="text-center">{verifiedAccounts}</p>
             </li>
           </ul>
         </div>
