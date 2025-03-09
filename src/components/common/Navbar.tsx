@@ -89,6 +89,16 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           >
             Invites
           </Link>
+          {
+            roleType === 'user' && (
+              <Link
+              to={`/${roleType}/wishlist`}
+              className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+            >
+              Wishlist
+            </Link>
+            )
+          }
           {roleType === "client" && (
             <Link
               to="/client/contractsApprovals"
