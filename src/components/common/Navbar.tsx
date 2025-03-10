@@ -65,6 +65,16 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           >
             Home
           </Link>
+          {
+            roleType === 'client' && (
+              <Link
+              to={`/${roleType}/developers`}
+              className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+            >
+              Developers
+            </Link>
+            )
+          }
           <Link
             to={`/${roleType}/jobs`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
@@ -170,7 +180,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                 >
                   Profile
                 </Link>
-              </DropdownItem> 
+              </DropdownItem>   
               <DropdownItem key="none">
                 <Link
                   to={`/${roleType}/wallet`}
@@ -179,6 +189,27 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                   Wallet
                 </Link>
               </DropdownItem>
+             {
+              roleType === 'user' ? (
+                <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/allchats/user/${roleInfo._id}`}
+                  className="text-gray-900 no-underline"
+                >
+                  Chat
+                </Link>
+              </DropdownItem>
+              ): (
+                <DropdownItem key="none">
+                <Link
+                  to={`/${roleType}/allchats/client/${roleInfo._id}`}
+                  className="text-gray-900 no-underline"
+                >
+                  Chat
+                </Link>
+              </DropdownItem>
+              )
+             }
               <DropdownItem key="none">
                 <Link
                   to={`/${roleType}/home`}

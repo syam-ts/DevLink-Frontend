@@ -21,7 +21,7 @@ function WithdrawRequest() {
 
   return (
     <div>
-      <div className="grid gap-5 w-2/3 my-20 mx-auto rounded-small">
+      <div className="grid gap-5 w-2/3 my-44 mx-auto rounded-small">
         {Object.entries(data).map((request: any) => (
           <div className="flex bg-gray-300 rounded-large justify-between">
             <div className="px-5 py-4 grid">

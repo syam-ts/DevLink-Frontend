@@ -33,7 +33,7 @@ function ListUsers() {
 
   return (
 
-    <div className='arsenal-sc-regular pt-44'> 
+    <div className='arsenal-sc-regular pt-10'> 
       <section className='text-center my-12 mt-44'>
         <span className='text-3xl'>Top Freelancers</span> <br />
         <span>List of all freelancers</span>

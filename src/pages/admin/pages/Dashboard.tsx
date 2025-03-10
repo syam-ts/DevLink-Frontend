@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
             "October",
             "November",
             " December",
-          ],
+          ], 
           datasets: [
             {
               label: "Revenue",
