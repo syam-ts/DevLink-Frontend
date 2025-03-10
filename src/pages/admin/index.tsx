@@ -9,25 +9,25 @@ import {
   HiViewBoards,
 } from "react-icons/hi";
 import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
 import UserMangement from "./pages/UserMangement";
 import ClientMangement from "./pages/ClientMangement";
 import Requests from "./pages/Requests";
 import Wallet from "./pages/Wallet";
 import Contracts from "./pages/Contracts";
-import Dashboard from "./pages/Dashboard";
-import WithdrawRequest from "./pages/WithdrawRequest";
+import WithdrawRequest from "./pages/WithdrawRequest"; 
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [activeComponent, setActiveComponent] = useState(null);
 
   const components = {
+    Dashboard: <Dashboard />,
     UserManagement: <UserMangement />,
     ClientManagement: <ClientMangement />,
     Requests: <Requests />,
     Wallet: <Wallet />,
-    Contracts: <Contracts />,
-    Dashboard: <Dashboard />,
+    Contracts: <Contracts />, 
     TransferMoney: <WithdrawRequest />,
     "Sign In": (
       <div>
