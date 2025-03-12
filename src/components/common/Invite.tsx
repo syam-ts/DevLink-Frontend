@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams , Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
 interface Invite {
@@ -46,7 +46,7 @@ const InviteComponent = () => {
         try {
             const fetchInvites = async () => {
                 //roleType render pending
-                const { data } = await apiUserInstance.get(`/invites`); 
+                const { data } = await apiUserInstance.get(`/invites`);
                 setInvites(data.invites);
             };
             fetchInvites();
@@ -55,7 +55,6 @@ const InviteComponent = () => {
             console.log("ERROR: ", err.message);
         }
     }, []);
- 
 
     return (
         <div className="w-full py-20">
@@ -64,49 +63,44 @@ const InviteComponent = () => {
                 <hr />
             </section>
             <section>
-                <div className="w-2/4 px-10 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6">
+                <div className="w-3/5 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6">
                     {Object.entries(invites).map((invite: any) => (
-                        <div className="grid my-12 border border-black rounded-xl p-10">
-                            <div className="flex w-2/3  items-center gap-4 text-slate-800 mx-auto">
+                        <div className="flex my-12 rounded-xl p-4 shadow-large">
+                            <div className="flex w-2/3 items-center gap-4 text-slate-800 mx-auto">
                                 <div className="flex w-full flex-col">
                                     <div className="flex justify-between">
                                         <div className="grid">
                                             <h5 className="text-xl font-semibold text-slate-800">
-                                                {invite[1]?.jobPostData?.title}
+                                                Title: {invite[1]?.jobPostData?.title}
                                             </h5>
-                                            <p className="text-xs uppercase font-bold text-slate-500 mt-0.5">
+                                            <p className="text-xs uppercase font-bold text-black mt-0.5">
                                                 {invite[1]?.jobPostData?.expertLevel}
                                             </p>
-                                        </div>
-                                        <div className="flex items-center gap-0 5"> 
-                                            {invite[1]?.jobPostData?.location}
+                                            <p className="text-md uppercase font-bold text-black mt-0.5">
+                                                Description: {invite[1]?.description}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-6 flex justify-between ">
-                                <div className="mx-auto">
-                                    <p className="text-slate-600 font-light leading-normal">
-                                        {invite[1]?.description}
-                                    </p>
-                                </div>
-                                <div className="flex gap-3">
-                                    <button
-                                        className="rounded-small bg-[#ff0000] py-1 px-4 text-white font-bold text-center text-sm  ml-2"
-                                        type="button"
+                            <div className="mt-24 flex gap-3">
+                                <button
+                                    className="rounded-small bg-[#ff0000] py-2 px-4 text-white font-bold text-center text-sm  ml-2"
+                                    type="button"
+                                >
+                                    Reject
+                                </button>
+                                <button
+                                    className="rounded-small bg-[#0000ff] py-2 px-4 font-bold text-center text-sm  ml-2"
+                                    type="button"
+                                >
+                                    <Link
+                                        to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}
+                                        className="no-underline text-white font-bold"
                                     >
-                                        Reject
-                                    </button>
-                                    <button
-                                        className="rounded-small bg-[#0000ff] py-1 px-4 font-bold text-center text-sm  ml-2"
-                                        type="button"
-                                    >
-                                        <Link to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}
-                                        className='no-underline text-white font-bold'>
                                         View
-                                        </Link>
-                                    </button>
-                                </div>
+                                    </Link>
+                                </button>
                             </div>
                         </div>
                     ))}

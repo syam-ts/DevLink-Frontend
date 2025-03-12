@@ -52,8 +52,6 @@ const ClientRoute = () => {
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />  
         <Route path="/wallet" element={<Wallet roleType="client" />} />
         <Route path="/invites" element={<InviteCilent />} />
-
- 
  
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />  
         <Route path="/allChats/:roleType/:roleId" element={<ListAllUserChat />} />

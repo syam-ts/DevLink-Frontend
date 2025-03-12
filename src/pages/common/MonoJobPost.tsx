@@ -357,11 +357,11 @@ const MonoJobPost = () => {
         </section>
 
         {/* Similar Jobs */}
-        <section className="my-20 ">
+        {/* <section className="my-20 ">
           <div>
             <span className="text-2xl">Related Job Posts</span>
           </div>
-        </section>
+        </section> */}
       </div>
     </>
   );

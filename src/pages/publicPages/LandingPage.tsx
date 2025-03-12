@@ -12,11 +12,11 @@ const LandingPage = () => {
   return (
     <div>
       <nav className="bg-white shadow-md arsenal-sc-regular">
-        <div className="flex flex-1 sm:items-stretch sm:justify-between py-3 ml-12">
-          <div className="flex shrink-0 items-start">
-            <span className="font-bold text-2xl py-1">DevLink</span>
-          </div>
-          <div className=" sm:ml-6 sm:block ">
+        <div className="flex flex-1 sm:items-stretch sm:justify-center py-3 ml-12">
+        
+            <span className="font-bold text-center text-2xl py-1 nunito-regular">DevLink</span>
+       
+          {/* <div className=" sm:ml-6 sm:block ">
             <div className="flex space-x-24 pr-44">
               <span className="p-2 text-sm comfortaa-regular text-gray-950">
                 About
@@ -25,7 +25,7 @@ const LandingPage = () => {
                 Contact
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </nav>
 

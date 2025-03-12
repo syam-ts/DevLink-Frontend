@@ -138,7 +138,7 @@ const Jobs = () => {
                 value="completedJobs"
                 onClick={(e: any) => changeActiveTab(e.target.value)}
               >
-                Completed Matches
+                Completed Jobs
               </button>
             </div>
 

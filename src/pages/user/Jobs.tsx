@@ -47,12 +47,7 @@ const Jobs = () => {
         setTotalPages(data?.data?.totalPages);
       } catch (error: unknown) {
         const err = error as { message?: string };
-        toast.error(err.message, {
-          style: {
-            backgroundColor: "red",
-            color: "white",
-          },
-        });
+        console.log('error: ', err.message)
       }
     })();
   }, [activeTab, currentPage]);

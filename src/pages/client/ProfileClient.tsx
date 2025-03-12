@@ -45,7 +45,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <>
+    <div className='pt-28 '>
       <Sonner />
       {!isVerified ? (
         <div className="text-center p-44 arsenal-sc-regular">
@@ -194,7 +194,7 @@ const Profile = () => {
           </div>
         </main>
       )}
-    </>
+    </div>
   );
 };
 

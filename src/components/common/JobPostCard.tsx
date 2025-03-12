@@ -58,7 +58,7 @@ export const JobPostCard = ({
             <span className="text-sm sm:text-base">{job[1]?.estimateTimeinHours}/hr</span>
             <span className="text-sm text-green-400 underline">{job[1]?.projectType}</span>
             <button
-              className="rounded-md transform relative transition duration-500 hover:scale-110 bg-black px-6 sm:px-12 border border-transparent text-center text-sm sm:text-base text-white shadow-md hover:shadow-lg mt-3 sm:mt-5"
+              className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-6 sm:px-12 border border-transparent text-center text-sm sm:text-base text-white shadow-md hover:shadow-lg mt-3 sm:mt-5"
               type="button"
             >
               <Link to={`/${role}/job/${job[1]?._id}/${type}`} className="no-underline text-white">

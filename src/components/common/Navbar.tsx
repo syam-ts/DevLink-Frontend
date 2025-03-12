@@ -65,16 +65,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           >
             Home
           </Link>
-          {
-            roleType === 'client' && (
-              <Link
+          {roleType === "client" && (
+            <Link
               to={`/${roleType}/developers`}
               className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
             >
               Developers
             </Link>
-            )
-          }
+          )}
           <Link
             to={`/${roleType}/jobs`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
@@ -99,16 +97,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
           >
             Invites
           </Link>
-          {
-            roleType === 'user' && (
-              <Link
+          {roleType === "user" && (
+            <Link
               to={`/${roleType}/wishlist`}
               className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
             >
               Wishlist
             </Link>
-            )
-          }
+          )}
           {roleType === "client" && (
             <Link
               to="/client/contractsApprovals"
@@ -136,22 +132,27 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             to={`/${roleType}/notifications/${roleInfo._id}/user`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
-            <img className='w-5 h-5' src='https://cdn-icons-png.flaticon.com/128/2645/2645897.png' alt="notification-icon" />
+            <img
+              className="w-5 h-5"
+              src="https://cdn-icons-png.flaticon.com/128/2645/2645897.png"
+              alt="notification-icon"
+            />
           </Link>
         </div>
 
         {/* Profile section */}
         <div className="  md:flex items-center space-x-6">
-          <Link
+          {/* <Link
             to={`/${roleType}/notifications/${roleInfo?._id}/${roleType}`}
             className="relative"
           >
+            
             {userNotificationsUnread > 0 && (
               <span className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
                 {userNotificationsUnread}
               </span>
             )}
-          </Link>
+          </Link> */}
 
           {/* Profile Dropdown */}
 
@@ -162,8 +163,12 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             <DropdownTrigger>
               {roleInfo?.profilePicture ? (
                 <div className="flex gap-4">
-                  <span>{roleInfo.name.split(' ').join('')}</span>
-                  <img className="h-9 w-9 rounded-full border border-gray-300" src={roleInfo.profilePicture}  alt="Profile" />
+                  <span>{roleInfo.name.split(" ").join("")}</span>
+                  <img
+                    className="h-9 w-9 rounded-full border border-gray-300"
+                    src={roleInfo.profilePicture}
+                    alt="Profile"
+                  />
                 </div>
               ) : (
                 <div className="flex gap-4">
@@ -173,14 +178,25 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               )}
             </DropdownTrigger>
             <DropdownMenu>
-              <DropdownItem key="none">
-                <Link
-                  to={`/${roleType}/Profile/user-view`}
-                  className="text-gray-900 no-underline"
-                >
-                  Profile
-                </Link>
-              </DropdownItem>   
+              {roleType === "user" ? (
+                <DropdownItem key="none">
+                  <Link
+                    to={`/${roleType}/Profile/user-view`}
+                    className="text-gray-900 no-underline"
+                  >
+                    Profile
+                  </Link>
+                </DropdownItem>
+              ) : (
+                <DropdownItem key="none">
+                  <Link
+                    to={`/${roleType}/Profile`}
+                    className="text-gray-900 no-underline"
+                  >
+                    Profile
+                  </Link>
+                </DropdownItem>
+              )}
               <DropdownItem key="none">
                 <Link
                   to={`/${roleType}/wallet`}
@@ -189,27 +205,25 @@ const Navbar = ({ roleType, roleInfo }: any) => {
                   Wallet
                 </Link>
               </DropdownItem>
-             {
-              roleType === 'user' ? (
+              {roleType === "user" ? (
                 <DropdownItem key="none">
-                <Link
-                  to={`/${roleType}/allchats/user/${roleInfo._id}`}
-                  className="text-gray-900 no-underline"
-                >
-                  Chat
-                </Link>
-              </DropdownItem>
-              ): (
+                  <Link
+                    to={`/${roleType}/allchats/user/${roleInfo._id}`}
+                    className="text-gray-900 no-underline"
+                  >
+                    Chat
+                  </Link>
+                </DropdownItem>
+              ) : (
                 <DropdownItem key="none">
-                <Link
-                  to={`/${roleType}/allchats/client/${roleInfo._id}`}
-                  className="text-gray-900 no-underline"
-                >
-                  Chat
-                </Link>
-              </DropdownItem>
-              )
-             }
+                  <Link
+                    to={`/${roleType}/allchats/client/${roleInfo._id}`}
+                    className="text-gray-900 no-underline"
+                  >
+                    Chat
+                  </Link>
+                </DropdownItem>
+              )}
               <DropdownItem key="none">
                 <Link
                   to={`/${roleType}/home`}
@@ -252,7 +266,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               onClick={() => setMenuOpen(false)}
             >
               Jobs
-            </Link> 
+            </Link>
             <Link
               to={`/${roleType}/proposals`}
               className="text-gray-900"
@@ -275,7 +289,7 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               >
                 Project Approvals
               </Link>
-            )} 
+            )}
           </div>
         </div>
       )}
