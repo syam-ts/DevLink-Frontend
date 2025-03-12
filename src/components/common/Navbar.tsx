@@ -51,14 +51,14 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-10">
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="container mx-auto px-1 py-3 flex justify-between items-center">
         <div className="flex items-center">
           <Link to={`/${roleType}/home`} className="no-underline">
             <span className=" text-black nunito-bold text-xl ">Devlink</span>
           </Link>
         </div>
 
-        <div className="w-full sm:hidden max-sm:hidden md:flex md:items-center md:justify-center md:space-x-8 bg-white">
+        <div className="w-full sm:hidden max-sm:hidden md:flex md:items-center md:justify-center md:space-x-6 bg-white">
           <Link
             to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
@@ -138,6 +138,31 @@ const Navbar = ({ roleType, roleInfo }: any) => {
               alt="notification-icon"
             />
           </Link>
+          <div>
+            <div className="relative px-6 mx-auto overflow-hidden text-center isolate sm:px-16 max-w-7xl lg:px-8">
+              <form
+                action="https://eliteai.tools/search"
+                className="relative flex flex-col items-center justify-center max-w-2xl gap-2 px-2 mx-auto bg-white border rounded shadow-2xl min-w-sm md:flex-row focus-within:border-gray-300"
+              >
+                <input
+                  id="search-bar"
+                  placeholder="React.js Developer....."
+                  name="q"
+                  className="flex-1 w-full px-6 py-2 bg-white rounded outline-none" 
+                />
+                <button
+                  type="submit"
+                  className="relative w-full px-6 py-2 overflow-hidden text-white transition-all duration-100 bg-black border border-black rounded md:w-auto fill-white active:scale-95 will-change-transform"
+                >
+                  <span className="flex items-center transition-all opacity-1">
+                    <span className="mx-auto text-sm font-semibold truncate whitespace-nowrap">
+                      Search
+                    </span>
+                  </span>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
 
         {/* Profile section */}
