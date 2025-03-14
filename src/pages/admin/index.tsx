@@ -44,7 +44,7 @@ function Component() {
   };
 
   return (
-    <div className="flex h-screen arsenal-sc-regular">
+    <div className="flex arsenal-sc-regular">
       <Sidebar
         aria-label="Beautiful sidebar"
         className=" border-r border-gray-300 w-[25rem] shadow-lg bg-gradient-to-b from-blue-50 to-indigo-50"

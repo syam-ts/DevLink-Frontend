@@ -35,15 +35,14 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
     );
     console.log("The response: ", response);
 
-    if (roleType === "user") {
-      alert(roleType)
+    if (roleType === "user") { 
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotifications());
-     // window.location.href = "http://localhost:5173/login?rt=user";
+      window.location.href = "http://localhost:5173/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
