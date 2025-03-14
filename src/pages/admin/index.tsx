@@ -79,8 +79,8 @@ function Component() {
                 onClick={() => handleItemClick(item.name)}
                 className={`mb-1 transition-all duration-200 no-underline text-md
                    text-black py-3 rounded-xl  ${activeItem === item.name
-                    ? "bg-[#3342e7] text-white font-bold "
-                    : "hover:bg-blue-50"
+                    ? "bg-[#3342e7] text-white font-bold hover:bg-[#3342e7]"
+                    : "hover:bg-blue-100"
                   }`}
               >
                 {item.name}

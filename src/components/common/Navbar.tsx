@@ -34,19 +34,19 @@ const Navbar = ({ roleType, roleInfo }: any) => {
 
     let userVerified;
     if (roleType === "user") {
+ 
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotifications());
-      navigate("/login?rt=user");
+      window.location.href='http://localhost:5173/login?rt=user'
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
-      dispatch(signOutUser());
-
-      navigate("/login?rt=client");
+      dispatch(signOutUser()); 
+           window.location.href='http://localhost:5173/login?rt=client'
     }
   };
 
