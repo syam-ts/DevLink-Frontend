@@ -11,6 +11,7 @@ import { Menu, X } from "lucide-react";
 import axios from "axios";
 
 import { Avatar } from "@heroui/react";
+import Search from './Search';
 import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
 import config from "../../config/helper/config";
 import { useState } from "react";
@@ -139,29 +140,10 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             />
           </Link>
           <div>
-            <div className="relative px-6 mx-auto overflow-hidden text-center isolate sm:px-16 max-w-7xl lg:px-8">
-              <form
-                action="https://eliteai.tools/search"
-                className="relative flex flex-col items-center justify-center max-w-2xl gap-2 px-2 mx-auto bg-white border rounded shadow-2xl min-w-sm md:flex-row focus-within:border-gray-300"
-              >
-                <input
-                  id="search-bar"
-                  placeholder="React.js Developer....."
-                  name="q"
-                  className="flex-1 w-full px-6 py-2 bg-white rounded outline-none" 
-                />
-                <button
-                  type="submit"
-                  className="relative w-full px-6 py-2 overflow-hidden text-white transition-all duration-100 bg-black border border-black rounded md:w-auto fill-white active:scale-95 will-change-transform"
-                >
-                  <span className="flex items-center transition-all opacity-1">
-                    <span className="mx-auto text-sm font-semibold truncate whitespace-nowrap">
-                      Search
-                    </span>
-                  </span>
-                </button>
-              </form>
+            <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8"> 
+                <Search />
             </div>
+
           </div>
         </div>
 

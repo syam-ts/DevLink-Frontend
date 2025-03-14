@@ -279,7 +279,7 @@ const UserProfileAlter = () => {
                   <input
                     onChange={handleChange}
                     className="outline-none w-full py-2 text-xs px-3"
-                    placeholder=" Elon musk"
+                    placeholder="Mohith Kumar"
                     name="name"
                     type="text"
                   />
