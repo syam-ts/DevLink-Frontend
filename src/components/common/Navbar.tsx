@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { clearNotifications, signOutUser } from "../../redux/slices/userSlice";
 import {
   Dropdown,
@@ -9,21 +9,23 @@ import {
 } from "@heroui/react";
 import { Menu, X } from "lucide-react";
 import axios from "axios";
-
-import { Avatar } from "@heroui/react";
-import Search from './Search';
-import { NavbarAutoOpen } from "../shadcn/drawer/NavbarAutoOpen";
+import Search from "./Search";
 import config from "../../config/helper/config";
 import { useState } from "react";
 
-const Navbar = ({ roleType, roleInfo }: any) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+interface NavbarProps {
+  roleType: "user" | "client"
+  roleInfo: {
+    _id: string
+    profilePicture: string
+    name: string
+    companyName: string
+  }
+};
 
+const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userNotificationsUnread = useSelector(
-    (state: any) => state?.user?.notificationsUnread
-  );
 
   const logout = async () => {
     const response = await axios.post(
@@ -31,22 +33,22 @@ const Navbar = ({ roleType, roleInfo }: any) => {
       {},
       { withCredentials: true }
     );
+    console.log("The response: ", response);
 
-    let userVerified;
     if (roleType === "user") {
- 
+      alert(roleType)
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotifications());
-      window.location.href='http://localhost:5173/login?rt=user'
+     // window.location.href = "http://localhost:5173/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
-      dispatch(signOutUser()); 
-           window.location.href='http://localhost:5173/login?rt=client'
+      dispatch(signOutUser());
+      window.location.href = "http://localhost:5173/login?rt=client";
     }
   };
 
@@ -140,10 +142,9 @@ const Navbar = ({ roleType, roleInfo }: any) => {
             />
           </Link>
           <div>
-            <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8"> 
-                <Search />
+            <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8">
+              <Search />
             </div>
-
           </div>
         </div>
 

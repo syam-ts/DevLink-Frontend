@@ -1,50 +1,23 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ClientState, UserState } from "../../config/state/allState";
 
 export const UserProtectedRoute = () => {
-  const isUserAuth = useSelector((state: any) => state?.user?.isUser);
-  const location = useLocation();
+  const isUserAuth = useSelector((state: UserState) => state?.user?.isUser);
+ 
 
-  if (location.pathname.startsWith("/user/signup")) {
-    return <Outlet />;
-  }
-
-  if (!isUserAuth) {
-    return location.pathname === "/user/login" ? (
-      <Outlet />
-    ) : (
-      <Navigate to="/user/login?rt=user" replace />
-    );
-  }
-
-  if (location.pathname.startsWith("/user/login")) {
-    return <Navigate to="/user/home" replace />;
-  }
-
-  return <Outlet />;
+  return (
+    isUserAuth ? <Outlet/> : <Navigate to='/login?rt=user'/>
+  )
+ 
 };
 
 export const ClientProtectedRoute = () => {
-    const isClientAuth = useSelector((state: any) => state?.client?.isClient);
-    const location = useLocation();
-  
-    if (location.pathname.startsWith("/clien/signup")) {
-      return <Outlet />;
-    }
-  
-    if (!isClientAuth) {
-      return location.pathname === "/clien/login" ? (
-        <Outlet />
-      ) : (
-        <Navigate to="/clien/login?rt=clien" replace />
-      );
-    }
-  
-    if (location.pathname.startsWith("/clien/login")) {
-      return <Navigate to="/clien/home" replace />;
-    }
-  
-    return <Outlet />;
+    const isClientAuth = useSelector((state: ClientState) => state?.client?.isClient);
+   
+  return (
+    isClientAuth ? <Outlet/> : <Navigate to='/login?rt=client'/>
+  )
   };
 
 export const AdminProtectedRoute = () => {

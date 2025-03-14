@@ -1,31 +1,27 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
     name: string;
     email: string;
     mobile: number;
-};
- 
-
+}
 
 interface UserState {
-    currentUser: User | null,
-    isUser: boolean,
+    currentUser: User | null;
+    isUser: boolean;
     notifications: string[];
     notificationsUnread: number;
-};
+}
 
 const initialState: UserState = {
     currentUser: null,
     isUser: false,
     notifications: [],
-    notificationsUnread: 0
-
-}
-
+    notificationsUnread: 0,
+};
 
 const userSlice = createSlice({
-    name: 'user',
+    name: "user",
     initialState,
     reducers: {
         signInUser: (state: any, action: PayloadAction<User>) => {
@@ -37,6 +33,7 @@ const userSlice = createSlice({
         },
 
         signOutUser: (state: any) => {
+            console.log('The state: ', state)
             state.currentUser = null;
             state.isUser = false;
         },
@@ -44,19 +41,22 @@ const userSlice = createSlice({
             const parsedNotifications = JSON.parse(action.payload);
             state.notifications.push(...parsedNotifications);
             state.notificationsUnread++;
-
         },
-        markAsReadNotifications: (state: any) => { 
+        markAsReadNotifications: (state: any) => {
             state.notificationsUnread = 0;
-
         },
         clearNotifications: (state: any) => {
             state.notifications = [];
-        }
-
-    }
+        },
+    },
 });
 
-
 export default userSlice.reducer;
-export const { signInUser, updateUser, addNotification, markAsReadNotifications, clearNotifications, signOutUser } = userSlice.actions;
+export const {
+    signInUser,
+    updateUser,
+    addNotification,
+    markAsReadNotifications,
+    clearNotifications,
+    signOutUser,
+} = userSlice.actions;

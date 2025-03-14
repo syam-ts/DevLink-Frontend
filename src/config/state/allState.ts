@@ -23,7 +23,7 @@
         mobile: number
         isVerified: boolean,
       },
-      isUser: boolean,
+      isClient: boolean,
       notifications: string[]
       notificationsUnread: number
     }
