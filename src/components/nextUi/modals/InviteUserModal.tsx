@@ -125,7 +125,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
                     <div className="relative">
                       <select
                         onChange={(e) => setSelectJobId(e.target.value)}
-                        className="w-fullo bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer"
+                        className="w-fullo bg-transparent outline-none placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer"
                       >
                         {Object.entries(jobs).map((job: any) => (
                           <option value={job[1]._id}>{job[1].title}</option>
@@ -159,8 +159,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
                           clip-rule="evenodd"
                         ></path>
                       </svg>
-                      Your location helps us to provide location-specific
-                      services.
+                      Once you send an invitation , you cannot delete or undo it.
                     </p>
                   </div>
                 </div>
@@ -169,8 +168,8 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
                     <div className="relative w-full min-w-[200px] border rounded-small">
                       <textarea
                         onChange={(e) => setDescripton(e.target.value)}
-                        className="peer h-full min-h-[11rem] w-full resize-none rounded-[7px] border border-blue- px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700    "
-                        placeholder="Hi"
+                        className="peer h-full p-4 min-h-[11rem] outline-none w-full resize-none rounded-[7px] px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700    "
+                        placeholder="Your profile looks fit for this particular job, Just give it a try"
                       ></textarea>
                     </div>
                   </div>

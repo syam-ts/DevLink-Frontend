@@ -40,14 +40,27 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
             >
                 <div className="relative w-full">
                     <div className="flex">
+                   {
+                    roleType === 'user' ? (
                         <input
-                            onChange={(e) => searchFuntion(e.target.value)}
-                            id="search-bar"
-                            placeholder="React.js Developer....."
-                            name="q"
-                            value={input}
-                            className="flex-1 w-full px-6 py-2 bg-white rounded outline-none arsenal-sc-regular "
-                        />
+                        onChange={(e) => searchFuntion(e.target.value)}
+                        id="search-bar"
+                        placeholder="React.js Developer....."
+                        name="q"
+                        value={input}
+                        className="flex-1 w-full px-6 py-2 bg-white rounded outline-none arsenal-sc-regular "
+                    />
+                    ) : (
+                        <input
+                        onChange={(e) => searchFuntion(e.target.value)}
+                        id="search-bar"
+                        placeholder="Aman Gupta....."
+                        name="q"
+                        value={input}
+                        className="flex-1 w-full px-6 py-2 bg-white rounded outline-none arsenal-sc-regular "
+                    />
+                    )
+                   }
                         <img
                             src="https://cdn-icons-png.flaticon.com/128/54/54481.png"
                             className="w-4 h-4 mt-2.5 mx-2 opacity-45"

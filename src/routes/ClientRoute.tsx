@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
 import { ClientState } from "../config/state/allState";
 
+import ClientProfile1 from '../pages/client/ProfileCl'
+
 const {
   Navbar,
   Footer,
@@ -57,6 +59,13 @@ const ClientRoute = () => {
         <Route path="/allChats/:roleType/:roleId" element={<ListAllUserChat />} />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
         <Route path="/notifications/:roleId/:role" element={<Notifications />} />
+
+
+
+        <Route path="/profile-new" element={<ClientProfile1 />} />
+
+
+
       </Routes>
       <Footer />
     </>
