@@ -17,9 +17,9 @@ interface NavbarProps {
   roleType: "user" | "client"
   roleInfo: {
     _id: string
-    profilePicture: string
-    name: string
-    companyName: string
+    profilePicture?: string
+    name?: string
+    companyName?: string
   }
 };
 
@@ -115,12 +115,16 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
               Project Approvals
             </Link>
           )}
-          <Link
+         {
+          roleType === 'user' && (
+            <Link
             to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
             About
           </Link>
+          )
+         }
           <Link
             to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
@@ -142,7 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
           </Link>
           <div>
             <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8">
-              <Search />
+              <Search roleType={roleType} />
             </div>
           </div>
         </div>
@@ -239,6 +243,18 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
                   Home
                 </Link>
               </DropdownItem>
+              {
+                roleType === 'client' && (
+                  <DropdownItem key="none">
+                  <Link
+                    to={`/${roleType}/home`}
+                    className="text-gray-900 no-underline"
+                  >
+                    About
+                  </Link>
+                </DropdownItem>
+                )
+              }
               <DropdownItem
                 onClick={logout}
                 key="none"
