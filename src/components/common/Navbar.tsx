@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearNotifications, signOutUser } from "../../redux/slices/userSlice";
+import { clearNotificationsUser, signOutUser } from "../../redux/slices/userSlice";
 import {
   Dropdown,
   DropdownTrigger,
@@ -12,6 +12,7 @@ import axios from "axios";
 import Search from "./Search";
 import config from "../../config/helper/config";
 import { useState } from "react";
+import { clearNotificationsClient } from "../../redux/slices/clientSlice";
 
 interface NavbarProps {
   roleType: "user" | "client"
@@ -41,12 +42,13 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
-      dispatch(clearNotifications());
+      dispatch(clearNotificationsUser());
       window.location.href = "http://localhost:5173/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
+      dispatch(clearNotificationsClient());
       window.location.href = "http://localhost:5173/login?rt=client";
     }
   };
@@ -135,7 +137,7 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
           {/* PENDING */}
 
           <Link
-            to={`/${roleType}/notifications/${roleInfo._id}/user`}
+            to={`/${roleType}/notifications/${roleInfo._id}/${roleType}`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
             <img

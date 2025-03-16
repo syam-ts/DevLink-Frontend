@@ -105,7 +105,7 @@ const Contract: React.FC = () => {
     <div>
       <Sonner />
       {
-        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10 arsenal-sc-regular">
+        <div className="max-w-[99rem] px-4 sm:px-6 lg:px-8 mx-auto arsenal-sc-regular pt-44">
           <div className="sm:w-11/12 lg:w-3/5 mx-auto border-1 border-gray-300">
             <div
               ref={contentRef}

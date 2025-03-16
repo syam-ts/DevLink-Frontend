@@ -45,7 +45,7 @@ const userSlice = createSlice({
         markAsReadNotifications: (state: any) => {
             state.notificationsUnread = 0;
         },
-        clearNotifications: (state: any) => {
+        clearNotificationsUser: (state: any) => {
             state.notifications = [];
         },
     },
@@ -57,6 +57,6 @@ export const {
     updateUser,
     addNotification,
     markAsReadNotifications,
-    clearNotifications,
+    clearNotificationsUser,
     signOutUser,
 } = userSlice.actions;

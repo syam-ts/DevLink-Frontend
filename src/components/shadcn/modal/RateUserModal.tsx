@@ -1,11 +1,11 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
-import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
+import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
 
 interface RateUserProps {
   notificationId: string;
@@ -21,7 +21,6 @@ export const RateUserModal: React.FC<RateUserProps> = ({
   notificationId,
   userId,
 }) => {
-
   const [formData, setFormData] = useState<FormData>({
     rating: 0,
     review: null,
@@ -39,11 +38,11 @@ export const RateUserModal: React.FC<RateUserProps> = ({
 
   const submitRating = async () => {
     try {
-      const { rating, review }: 
-      {rating: number; review: string | null}
-       = formData;
+      const { rating, review }: { rating: number; review: string | null } =
+        formData;
 
-      const { data } = await apiClientInstance.post(`/rate-user/${notificationId}`,
+      const { data } = await apiClientInstance.post(
+        `/rate-user/${notificationId}`,
         {
           userId,
           rating,
@@ -73,10 +72,15 @@ export const RateUserModal: React.FC<RateUserProps> = ({
     <Sheet>
       <Sonner />
       <SheetTrigger>
-        <Button variant="link" className='border shadow-xl bg-yellow-400 text-black font-bold'>Rate User</Button>
+        <Button
+          variant="link"
+          className="border-1 border-gray-400 px-4 shadow-xl rounded-small bg-yellow-400 text-black font-bold"
+        >
+          Rate User
+        </Button>
       </SheetTrigger>
 
-      <SheetContent className="sheet-content">
+      <SheetContent className="sheet-content bg-white">
         <div className="h-full flex flex-col justify-center nunito-regular font-bold">
           <section className="w-full text-center">
             <span className="text-md text-black text">

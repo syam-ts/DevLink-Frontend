@@ -44,7 +44,7 @@ const clientSlice = createSlice({
     markAsReadNotifications: (state: any) => {
       state.notificationsUnread = 0;
     },
-    clearNotifications: (state: any) => {
+    clearNotificationsClient: (state: any) => {
       state.notifications = [];
     },
   },
@@ -56,6 +56,6 @@ export const {
   updateClient,
   addNotificationClient,
   markAsReadNotifications,
-  clearNotifications,
+  clearNotificationsClient,
   signOutClient,
 } = clientSlice.actions;
