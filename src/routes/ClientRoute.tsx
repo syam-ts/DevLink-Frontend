@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
 import { ClientState } from "../config/state/allState";
 
-import ClientProfile1 from '../pages/client/ProfileCl'
+import ClientProfile1 from '../pages/client/ProfileClient'
 
 const {
   Navbar,

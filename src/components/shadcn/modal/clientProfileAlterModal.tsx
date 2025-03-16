@@ -155,7 +155,7 @@ const  ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({
     <Dialog>
       <DialogTrigger>
         <Sonner />
-        <Button className="bg-transparent font-bold text-lg"> {type} </Button>
+        <Button className="bg-[#0000ff] hover:bg-[#16b6a5] rounded-small text-white font-bold text-md"> {type} </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[1200px] h-[900px] justify-center bg-white !rounded-3xl overflow-hidden">
         <DialogHeader>
