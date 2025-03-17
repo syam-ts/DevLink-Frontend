@@ -56,12 +56,12 @@ const Wallet: React.FC = () => {
   return (
     <div>
       <section>
-        <div className="flex justify-start mx-20 underline mt-12 ">
+        <div className="flex justify-start mx-20 mt-10">
           <span className="text-xl">Balance: {Math.floor(balance)} </span>
         </div>
       </section>
 
-      <div className="mt-20">
+      <div className="mt-5">
         <section className=" text-center">
           <div>
             <span className="text-2xl text-center arsenal-sc-regular">
@@ -119,7 +119,7 @@ const Wallet: React.FC = () => {
                     <td className="py-4 px-4">
                       <a
                         href="#"
-                        className="block arsenal-sc-regular text-sm text-blue-gray-900"
+                        className="block arsenal-sc-regular text-sm text-blue-gray-900 no-underline text-black"
                       >
                         {tra?.date || tra[0]?.date}
                       </a>

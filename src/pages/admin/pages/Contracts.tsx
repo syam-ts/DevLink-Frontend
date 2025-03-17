@@ -22,7 +22,7 @@ const Contracts: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-wrap nunito-regular mt-44 border border-black rounded-large mx-5 ">
+      <div className="flex flex-wrap nunito-regular mt-44 border rounded-large mx-5 ">
         <Sonner />
 
         <div className="flex-auto block py-8 pt-6 px-9 ">

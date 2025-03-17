@@ -39,7 +39,7 @@ export const UserProfileModal = ({ userData }) => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 ">
         {backdrops.map((b) => (
           <Button
             key={b}
@@ -62,7 +62,7 @@ export const UserProfileModal = ({ userData }) => {
             <>
               <ModalBody className="p-0 m-0 ">
                 <div className="flex">
-                  <div className=" w-full shadow-xl rounded-2xl p-10 border h-[40rem]">
+                  <div className=" w-full shadow-xl rounded-2xl p-10 border h-[40rem] ">
                     <div className="grid gap-10">
                       <div className="mx-auto">
                         <img
@@ -90,7 +90,7 @@ export const UserProfileModal = ({ userData }) => {
                             Domain: {userData[1].domain}
                           </span>
                           <span className="mx-auto">
-                            <Stars number={userData[1].rating.avgRating} />
+                            <Stars number={userData[1].rating.avgRating || 5} />
                           </span>
                         </div>
                         <div className="w-20"></div>

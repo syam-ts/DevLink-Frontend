@@ -2,36 +2,21 @@ import {
   Modal,
   ModalContent,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
 } from "@heroui/react";
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
-import { useEffect, useState } from "react";
+
+interface Contract {
+  createdAt: number;
+  deadline: number;
+}
 
 interface ContractViewProps {
-  contract: string;
+  contract: Contract;
 }
 
 export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
- 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  
-
-//   useEffect(() => {
-//     try{
-//         const fetchContract = async() => {
-//            const {data} = await apiAdminInstance.get(`/contract/${contractId}`);
-//            console.log('The result: ', data);
-//            setContract(data.contract);
-//         };
-//         fetchContract();
-
-//     }catch(error: unknown) {
-//         const err = error as {message: string};
-//         console.error(err.message);
-//     }
-//   }, []);
 
   return (
     <>
@@ -40,48 +25,48 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
       </Button>
       <Modal size="3xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalBody>
                 <div className="w-full mx-auto py-3 arsenal-sc-regular">
-                  <div className=" bg-black lg:w-full mx-auto border-1 border-gray-300 rounded-small">
-                
-                    <div
-                      //   ref={contentRef}
-                      className=" p-5 bg-white"
-                    >
+                  <div className="lg:w-full mx-auto border-1  border-gray-300 rounded-small">
+                    <div className=" p-5 h-[53rem]">
                       <section>
-                        <div className="grid arsenal-sc-regular">  
-                          <div className="sm:text-end  flex flex-wrap arsenal-sc-regular"> 
-                              <dl className="flex px-10">
-                                <dt className="font-semibold text-gray-800">
-                                  Contract id:  
-                                </dt> 
-                                <dd className=" text-gray-500">
-                                  849234023jkdjfw
-                                </dd> 
-                              </dl>
+                        <div className="grid arsenal-sc-regular">
+                          <div className="sm:text-end flex flex-wrap arsenal-sc-regular">
+                            <dl className="px-3">
+                              <dt className="font-semibold text-gray-800">
+                                Contract id:
+                              </dt>
+                              <dd className=" text-gray-500">
+                                849234023jkdjfw
+                              </dd>
+                            </dl>
 
-                              <dl className="flex px-10">
-                                <dt className="font-semibold text-gray-800">
-                                  Created date:
-                                </dt>
-                                <dd className=" text-gray-500">
-                                  {contract[1]?.createdAt}
-                                </dd>
-                              </dl>
-                              <dl className="flex px-10">
-                                <dt className="font-semibold text-gray-800">
-                                  Due date:
-                                </dt>
-                                <dd className=" text-gray-500">{contract[1]?.deadline}</dd>
-                              </dl> 
-                              <dl className="flex px-10">
-                                <dt className="font-semibold text-gray-800">
-                                 Amount:
-                                </dt>
-                                <dd className=" text-gray-500">{contract[1]?.amount}</dd>
-                              </dl> 
+                            <dl className="flex px-10">
+                              <dt className="font-semibold text-gray-800">
+                                Created date:
+                              </dt>
+                              <dd className=" text-gray-500">
+                                {contract[1]?.createdAt}
+                              </dd>
+                            </dl>
+                            <dl className="flex px-10">
+                              <dt className="font-semibold text-gray-800">
+                                Due date:
+                              </dt>
+                              <dd className=" text-gray-500">
+                                {contract[1]?.deadline}
+                              </dd>
+                            </dl>
+                            <dl className="flex px-10">
+                              <dt className="font-semibold text-gray-800">
+                                Amount:
+                              </dt>
+                              <dd className=" text-gray-500">
+                                {contract[1]?.amount}
+                              </dd>
+                            </dl>
                           </div>
                         </div>
                       </section>
@@ -100,10 +85,15 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                             <div>
                               <ul className="text-md">
                                 <li>
-                                  Company Name : {contract[1]?.clientData?.companyName}
+                                  Company Name :
+                                  {contract[1]?.clientData?.companyName}
                                 </li>
-                                <li>Location : {contract[1]?.clientData?.location}</li>
-                                <li>Email : {contract[1]?.clientData?.email}</li>
+                                <li>
+                                  Location : {contract[1]?.clientData?.location}
+                                </li>
+                                <li>
+                                  Email : {contract[1]?.clientData?.email}
+                                </li>
                               </ul>
                             </div>
                           </div>
@@ -115,7 +105,9 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                             <div>
                               <ul className="text-md">
                                 <li>Name : {contract[1]?.userData?.name}</li>
-                                <li>Location : {contract[1]?.userData?.location}</li>
+                                <li>
+                                  Location : {contract[1]?.userData?.location}
+                                </li>
                                 <li>Email : {contract[1]?.userData?.email}</li>
                               </ul>
                             </div>
@@ -126,30 +118,30 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                             <hr className="bg-black " />
                             <div>
                               <ul className="text-md">
-                                <li>Title : {contract[1]?.jobPostData?.title}</li>
                                 <li>
-                                  Description : {contract[1]?.jobPostData?.description}
+                                  Title : {contract[1]?.jobPostData?.title}
                                 </li>
                                 <li>
-                                  Expert Level : {contract[1]?.jobPostData?.expertLevel}
+                                  Description :{" "}
+                                  <span className='text-sm'>{contract[1]?.jobPostData?.description}</span>
                                 </li>
                                 <li>
-                                  Project Type : {contract[1]?.jobPostData?.projectType}
-                                </li> 
-                                 
+                                  Expert Level :{" "}
+                                  {contract[1]?.jobPostData?.expertLevel}
+                                </li>
+                                <li>
+                                  Project Type :{" "}
+                                  {contract[1]?.jobPostData?.projectType}
+                                </li>
                               </ul>
                             </div>
                           </div>
                         </div>
                       </section>
-
-                      <p className="mt-5 text-sm text-gray-500">
-                        © 2025 Devlink.
-                      </p>
                     </div>
                   </div>
                 </div>
-              </ModalBody> 
+              </ModalBody>
             </>
           )}
         </ModalContent>

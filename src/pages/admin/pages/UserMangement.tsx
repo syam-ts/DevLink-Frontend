@@ -7,8 +7,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select"; 
-import { toast } from "sonner"; 
+} from "../../../components/ui/select";
+import { toast } from "sonner";
 import { UserProfileModal } from "../../../components/nextUi/modals/UserProfileModal";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
@@ -118,18 +118,19 @@ const clientManagement: React.FC = () => {
       toast.error(err.message);
     }
   };
- 
+
   return (
-    <div className="mt-28">
-      <div className="flex flex-wrap nunito-regular">
+    <div className="mt-28 ">
+      <div className="flex flex-wrap nunito-regular ">
         <Sonner />
-        <div className="w-full max-w-full px-3 mb-6 mx-auto">
-          <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border bg-white m-5">
-            <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border border-stone-200 bg-light/30">
+        <div className="w-full max-w-full px-3 mb-6 mx-auto ">
+          <div className="relative flex-[1_auto] flex flex-col break-words min-w-0">
+            <div className="relative flex flex-col min-w-0 break-words rounded-large border bg-light/30
+            border-stone-400">
               <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                 <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
                   <span className="mr-3 text-dark">Users Management</span>
-                  <span className="mt-1 font-medium text-secondary-dark text-lg/normal">
+                  <span className="mt-1 font-medium text-secondary-dark text-xs">
                     All Users from the Devlink Application
                   </span>
                 </h3>
@@ -156,21 +157,21 @@ const clientManagement: React.FC = () => {
                 <div className="overflow-x-hidden">
                   <table className="w-full my-0 align-middle">
                     <thead className="align-bottom">
-                      <tr className="border-b border-black bg-[hsl(0, 0%, 98%)] text-[1.1rem] flex gap-36 text-secondary-dark">
-                        <th className="pb-3 text-start">Image</th>
-                        <th className="pb-3 text-start">Name</th>
-                        <th className="pb-3 text-start">Email</th>
-                        <th className="pb-3 text-start">Pay/Hr</th>
-                        <th className="pb-3 text-start">Block/UnBlock</th>
-                        <th className="pb-3 text-start">View</th>
-                        <th className="pb-3 text-start">Total Jobs</th>
+                      <tr className="border-b border-black bg-[hsl(0, 0%, 98%)] text-[1.1rem] flex gap-32 text-secondary-dark">
+                        <th className="text-start">Image</th>
+                        <th className="text-start">Name</th>
+                        <th className="text-start">Email</th>
+                        <th className="text-start">Pay/Hr</th>
+                        <th className="text-start">Block/UnBlock</th>
+                        <th className="text-start">View</th>
+                        <th className="text-start">Total Jobs</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="">
+                      <tr>
                         {Object.entries(users).map((user: any) => (
-                          <div className="flex border-b border-gray-400 py-4">
-                            <td className="w-[100px]">
+                          <div className="flex border-b border-gray-300 pt-4 pb-1">
+                            <td className="w-[80px]">
                               <span className="text-md/normal">
                                 <img
                                   className="w-10 h-10 rounded-full"
@@ -194,7 +195,7 @@ const clientManagement: React.FC = () => {
                                 {user[1].budget}
                               </span>
                             </td>
-                            <td className="w-[270px]">
+                            <td className="w-[180px]">
                               <span className="text-md/normal">
                                 {user[1]?.isBlocked}{" "}
                                 {user[1].isBlocked ? (

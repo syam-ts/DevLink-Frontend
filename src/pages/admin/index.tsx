@@ -8,27 +8,31 @@ import {
   HiOutlineUser,
   HiViewBoards,
 } from "react-icons/hi";
+import { Suspense, lazy } from "react";
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import UserMangement from "./pages/UserMangement";
-import ClientMangement from "./pages/ClientMangement";
 import Requests from "./pages/Requests";
 import Wallet from "./pages/Wallet";
 import Contracts from "./pages/Contracts";
-import WithdrawRequest from "./pages/WithdrawRequest"; 
+import WithdrawRequest from "./pages/WithdrawRequest";
 
 function Component() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [activeComponent, setActiveComponent] = useState(null);
-   
+  const ClientMangement = lazy(() => import("./pages/ClientMangement"));
 
   const components = {
     Dashboard: <Dashboard />,
     UserManagement: <UserMangement />,
-    ClientManagement: <ClientMangement />,
+    ClientManagement: (
+      <Suspense fallback={<div>loading ...</div>}>
+        <ClientMangement />
+      </Suspense>
+    ),
     Requests: <Requests />,
     Wallet: <Wallet />,
-    Contracts: <Contracts />, 
+    Contracts: <Contracts />,
     TransferMoney: <WithdrawRequest />,
     "Sign In": (
       <div>
@@ -74,7 +78,7 @@ function Component() {
               <Sidebar.Item
                 key={item.name}
                 href="#"
-                icon={item.icon} 
+                icon={item.icon}
                 active={activeItem === item.name}
                 onClick={() => handleItemClick(item.name)}
                 className={`mb-1 transition-all duration-200 no-underline text-md
