@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from '../../redux/slices/userSlice';
 import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
 import axios from "axios";
-import { UserState } from '../../config/state/allState';
 import config from '../../config/helper/config'
 
 interface UserData {
@@ -16,7 +15,7 @@ interface UserData {
   location: string
   mobile?: unknown
   skills: string[]
-  profilePicture: any
+  profilePicture: string
   domain: string
   githubLink: string
   description: string
@@ -62,9 +61,6 @@ const UserProfileAlter = () => {
   const [error, setError] = useState<string[]>([]);
   const { type } = useParams<{ type: string }>();
   const dispatch = useDispatch(); 
-  const userId: string = useSelector(
-    (state: UserState) => state?.user?.currentUser?._id
-  );
 
   useEffect(() => {
     try {
@@ -109,7 +105,7 @@ const UserProfileAlter = () => {
     formData.education = education;
   }, [education]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -124,7 +120,7 @@ const UserProfileAlter = () => {
     },
   });
 
-  const handleFileUpload = async (e: any) => {
+  const handleFileUpload = async (e) => {
     setImageLoading(true);
     const file = e.target.files[0];
     if (!file) return;
@@ -142,16 +138,17 @@ const UserProfileAlter = () => {
       console.log("The image url : ", response.data?.url);
       setImage(response.data?.url);
       setImageLoading(false);
-    } catch (err: any) {
+    } catch (err) {
       console.log(err.message);
     }
   };
  
 
-  var loadFile: any = function (event: any) {
+  var loadFile = function (event) {
     var input = event.target;
     var file = input.files[0];
     var type = file.type;
+    console.log(type);
     var output: any = document.getElementById("preview_img");
 
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -181,7 +178,7 @@ const UserProfileAlter = () => {
         };
         setError([]);
 
-        const response: any = await apiUserInstance.put(
+        const response = await apiUserInstance.put(
           `/profileAlter/${type}`,
           data
         );
@@ -209,7 +206,7 @@ const UserProfileAlter = () => {
           });
         }
       }
-    } catch (err: any) { 
+    } catch (err) { 
       setError(err.errors);
     }
   };
@@ -217,33 +214,33 @@ const UserProfileAlter = () => {
   console.log("ERRORS: ", error);
 
   //skills add section
-  const handleChangeSkills = (e: any) => {
+  const handleChangeSkills = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleAddSkill = (event: any, inputValue: any) => {
+  const handleAddSkill = (event, inputValue: string) => {
     event.preventDefault();
     if (inputValue.trim() && !skills.includes(inputValue)) {
-      setSkills((prevSkills: any) => [...prevSkills, inputValue.trim()]);
+      setSkills((prevSkills) => [...prevSkills, inputValue.trim()]);
       setInputValue("");
     }
   };
 
-  const handleRemoveSkill = (skillToRemove: any) => {
-    setSkills((prevSkills: any) =>
-      prevSkills.filter((skill: any) => skill !== skillToRemove)
+  const handleRemoveSkill = (skillToRemove) => {
+    setSkills((prevSkills) =>
+      prevSkills.filter((skill) => skill !== skillToRemove)
     );
   };
 
   //eduction add section
-  const handleChangeEducation = (e: any) => {
+  const handleChangeEducation = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleAddEducation = (event: any, inputValue: any) => {
+  const handleAddEducation = (event, inputValue: string) => {
     event.preventDefault();
     if (inputValue.trim() && !education.includes(inputValue)) {
-      setEducation((prevEducation: any) => [
+      setEducation((prevEducation) => [
         ...prevEducation,
         inputValue.trim(),
       ]);
@@ -251,9 +248,9 @@ const UserProfileAlter = () => {
     }
   };
 
-  const handleRemoveEducation = (educationToRemove: any) => {
-    setSkills((prevEducation: any) =>
-      prevEducation.filter((skill: any) => skill !== educationToRemove)
+  const handleRemoveEducation = (educationToRemove: string) => {
+    setSkills((prevEducation) =>
+      prevEducation.filter((skill: string) => skill !== educationToRemove)
     );
   };
 
@@ -284,10 +281,10 @@ const UserProfileAlter = () => {
                     type="text"
                   />
                   <hr />
-                  {error?.some((err: any) =>
+                  {error?.some((err: string) =>
                     err.includes("FullName is required")
                   )
-                    ? error?.map((err: any, index: number) => {
+                    ? error?.map((err: string, index: number) => {
                         if (err.includes("FullName is required")) {
                           return (
                             <div key={index} className="text-start">
@@ -299,7 +296,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("FullName is required") ||
                           err.includes("Must be atleast 3 characters") ||
@@ -332,8 +329,8 @@ const UserProfileAlter = () => {
                     type="number"
                   />
                   <hr />
-                  {error?.some((err: any) => err.includes("Budget is required"))
-                    ? error?.map((err: any, index: number) => {
+                  {error?.some((err: string) => err.includes("Budget is required"))
+                    ? error?.map((err: string, index: number) => {
                         if (err.includes("Budget is required")) {
                           return (
                             <div key={index} className="text-start">
@@ -345,7 +342,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("Budget is required") ||
                           err.includes("Hourly rate must be at least 100rs") ||
@@ -377,10 +374,10 @@ const UserProfileAlter = () => {
                     type="text"
                   />
                   <hr />
-                  {error?.some((err: any) =>
+                  {error?.some((err: string) =>
                     err.includes("Location is required")
                   )
-                    ? error?.map((err: any, index: number) => {
+                    ? error?.map((err: string, index: number) => {
                         if (err.includes("Location is required")) {
                           return (
                             <div key={index} className="text-start">
@@ -392,7 +389,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("Location is required") ||
                           err.includes("Must be atleast 4 characters") ||
@@ -424,7 +421,7 @@ const UserProfileAlter = () => {
                       type="number"
                     />
                     <hr />
-                    {error?.map((err: any, index: number) => {
+                    {error?.map((err: string, index: number) => {
                       if (err.includes("Need valid number (10 digits only)")) {
                         return (
                           <div key={index} className="text-start">
@@ -454,10 +451,10 @@ const UserProfileAlter = () => {
                     >
                       Add
                     </button>
-                    {error?.some((err: any) =>
+                    {error?.some((err: string) =>
                       err.includes("Minimum 3 skills required")
                     )
-                      ? error?.map((err: any, index: number) => {
+                      ? error?.map((err: string, index: number) => {
                           if (err.includes("Minimum 3 skills required")) {
                             return (
                               <div key={index} className="text-start">
@@ -469,7 +466,7 @@ const UserProfileAlter = () => {
                           }
                           return null;
                         })
-                      : error?.map((err: any, index: number) => {
+                      : error?.map((err: string, index: number) => {
                           if (
                             err.includes("Minimum 3 skills required") ||
                             err.includes("Maximum 10 skills are allowed") ||
@@ -490,7 +487,7 @@ const UserProfileAlter = () => {
                   </div>
                   {/* <hr className="my-3" /> */}
                   <div>
-                    {skills.map((skill: any, index: any) => (
+                    {skills.map((skill: string, index: number) => (
                       <div
                         key={index}
                         className="flex items-center w-44 justify-between p-2 bg-gray-100 rounded mb-2"
@@ -520,7 +517,7 @@ const UserProfileAlter = () => {
                   {!imageLoading ? (
                     <label
                       className="block"
-                      onChange={(event: any) => loadFile(event)}
+                      onChange={(event) => loadFile(event)}
                     >
                       <input
                         type="file"
@@ -554,8 +551,8 @@ const UserProfileAlter = () => {
                     type="text"
                   />
                   <hr />
-                  {error?.some((err: any) => err.includes("Domain is required"))
-                    ? error?.map((err: any, index: number) => {
+                  {error?.some((err: string) => err.includes("Domain is required"))
+                    ? error?.map((err: string, index: number) => {
                         if (err.includes("Domain is required")) {
                           return (
                             <div key={index} className="text-start">
@@ -567,7 +564,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("Domain is required") ||
                           err.includes(
@@ -600,10 +597,10 @@ const UserProfileAlter = () => {
                     placeholder="https://devlink-github.com"
                   />
                   <hr />
-                  {error?.some((err: any) =>
+                  {error?.some((err: string) =>
                     err.includes("github link is required")
                   )
-                    ? error?.map((err: any, index: number) => {
+                    ? error?.map((err: string, index: number) => {
                         if (err.includes("github link is required")) {
                           return (
                             <div key={index} className="text-start">
@@ -615,7 +612,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("github link is required") ||
                           err.includes(
@@ -651,10 +648,10 @@ const UserProfileAlter = () => {
                 />
                 <hr />
 
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("Description is required")
                 )
-                  ? error?.map((err: any, index: number) => {
+                  ? error?.map((err: string, index: number) => {
                       if (err.includes("Description is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -664,7 +661,7 @@ const UserProfileAlter = () => {
                       }
                       return null;
                     })
-                  : error?.map((err: any, index: number) => {
+                  : error?.map((err: string, index: number) => {
                       if (
                         err.includes("Description is required") ||
                         err.includes(
@@ -695,10 +692,10 @@ const UserProfileAlter = () => {
                   name="whyHireMe"
                 />
                 <hr />
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("Hire me field is required")
                 )
-                  ? error?.map((err: any, index: number) => {
+                  ? error?.map((err: string, index: number) => {
                       if (err.includes("Hire me field is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -708,7 +705,7 @@ const UserProfileAlter = () => {
                       }
                       return null;
                     })
-                  : error?.map((err: any, index: number) => {
+                  : error?.map((err: string, index: number) => {
                       if (
                         err.includes("Hire me field is required") ||
                         err.includes(
@@ -741,10 +738,10 @@ const UserProfileAlter = () => {
                 />
                 <hr />
 
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("Experiences are required")
                 )
-                  ? error?.map((err: any, index: number) => {
+                  ? error?.map((err: string, index: number) => {
                       if (err.includes("Experiences are required")) {
                         return (
                           <div key={index} className="text-start">
@@ -754,7 +751,7 @@ const UserProfileAlter = () => {
                       }
                       return null;
                     })
-                  : error?.map((err: any, index: number) => {
+                  : error?.map((err: string, index: number) => {
                       if (
                         err.includes("Experiences are required") ||
                         err.includes(
@@ -793,10 +790,10 @@ const UserProfileAlter = () => {
                   >
                     Add
                   </button>
-                  {error?.some((err: any) =>
+                  {error?.some((err: string) =>
                     err.includes("Eduction informations are required")
                   )
-                    ? error?.map((err: any, index: number) => {
+                    ? error?.map((err: string, index: number) => {
                         if (
                           err.includes("Eduction informations are required")
                         ) {
@@ -810,7 +807,7 @@ const UserProfileAlter = () => {
                         }
                         return null;
                       })
-                    : error?.map((err: any, index: number) => {
+                    : error?.map((err: string, index: number) => {
                         if (
                           err.includes("Eduction informations are required") ||
                           err.includes(
@@ -836,7 +833,7 @@ const UserProfileAlter = () => {
                 </div>
                 {/* <hr className="my-3" /> */}
                 <div>
-                  {education.map((education: any, index: any) => (
+                  {education.map((education: string, index: number) => (
                     <div
                       key={index}
                       className="flex items-center w-2/3 justify-between p-2 bg-gray-100 rounded mb-2"

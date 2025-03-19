@@ -1,20 +1,11 @@
-import {useEffect, useState} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; 
+import {useEffect, useState} from 'react'; 
 import axios from 'axios';
 import { toast } from "sonner";
 import { Sonner } from '../../components/sonner/Toaster'; 
 
 const VerfiyEmail = () => {
 
-  const [sonner, setSonner] = useState({ message: "", timestamp: 0 });
- 
- 
-
-
-  const message = useLocation();
-  const navigate = useNavigate();
-  
-
+  const [sonner, setSonner] = useState({ message: "", timestamp: 0 }); 
  
  
   useEffect(() => {
@@ -36,7 +27,7 @@ const VerfiyEmail = () => {
    email: ''
   })
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
   
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -59,7 +50,7 @@ const VerfiyEmail = () => {
         toast.success(response.data.message)
       }
     
-   } catch (err: any) {
+   } catch (err) {
      console.error('ERROR: ',err)
      setSonner({
       message: err.response?.data?.message || "An error occurred",

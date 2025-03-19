@@ -4,7 +4,7 @@ import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 function SuccessPayment() {
 
-  const { clientId, data }: any = useParams<{
+  const { data } = useParams<{
     clientId: string;
     data: string;
   }>();
@@ -12,7 +12,7 @@ function SuccessPayment() {
 
   useEffect(() => {
     try {
-      (async () => { 
+      (async () => {
         const response = await apiClientInstance.post(
           `/paymentSuccess`,
           { data: finalData },
@@ -23,7 +23,7 @@ function SuccessPayment() {
 
         console.log("The Response: ", response.data);
       })();
-    } catch (err: any) {
+    } catch (err) {
       console.error("ERROR: ", err.messsage);
     }
   }, []);

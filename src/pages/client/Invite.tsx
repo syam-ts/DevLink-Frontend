@@ -83,7 +83,7 @@ const Invite = () => {
                         )
                     }
 
-                    {Object.entries(invites).map((invite: any) => (
+                    {Object.entries(invites).map((invite) => (
                         <div className="flex border h-[10rem] shadow-xl rounded-xl w-[70rem] py-3 px-5">
 
                             <div className="grid w-full flex-col ">

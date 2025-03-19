@@ -1,6 +1,6 @@
 import { UserProfileCard } from "../../components/nextUi/cards/userProfileCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";  
 
 interface Developer {
   id: string
@@ -12,6 +12,7 @@ interface Developer {
   name: string;
   profilePicture: string;
 }
+ 
 
 function ListUsers() { 
   const [developers, setDevelopers] = useState({});

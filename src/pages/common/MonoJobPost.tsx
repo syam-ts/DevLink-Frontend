@@ -97,7 +97,7 @@ const MonoJobPost = () => {
   useEffect(() => {
     try {
       (async () => {
-        let response: any;
+        let response;
         if (viewType === 'user-view' || viewType === 'proposal-view' || viewType === 'invite-view') {
           response = await apiUserInstance.get(`/job/${jobPostId}`);
           setJobPost(response?.data?.jobPost);

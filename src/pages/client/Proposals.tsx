@@ -21,7 +21,7 @@ interface Proposals {
 
 const JobProposals = () => {
   const [proposals, setProposals] = useState<Proposals[]>([]);
-  const [data, setData]: any = useState<Proposals[]>([]);
+  const [data, setData] = useState<Proposals[]>([]);
   const [proposalType, setProposalType] = useState<string>("pending");  
   const clientId: string = useSelector(
     (state: ClientState) => state?.client?.currentClient?._id
@@ -36,7 +36,7 @@ const JobProposals = () => {
         console.log('The dat: ', data.data)
         setProposals(data?.data || []); 
         
-      } catch (err: any) {
+      } catch (err) {
         console.log("ERROR: ", err.message);
       }
     })();
@@ -46,9 +46,9 @@ const JobProposals = () => {
 
   useEffect(() => {
     if (proposalType === "pending") {
-      setData(proposals.filter((props: any) => props.status === "pending"));
+      setData(proposals.filter((props) => props.status === "pending"));
     } else {
-      setData(proposals.filter((props: any) => props.status === "rejected"));
+      setData(proposals.filter((props) => props.status === "rejected"));
     }
   }, [proposals,proposalType]);
 

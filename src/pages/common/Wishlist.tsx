@@ -17,7 +17,7 @@ const Wishlist: React.FC = () => {
         setWishlistId(data.wishlist._id);
       })();
       setRemoveFlag(false);
-    } catch (err: any) {
+    } catch (err) {
       console.log("ERROR: ", err.message);
     }
   }, [removeFlag]);
@@ -41,7 +41,7 @@ const Wishlist: React.FC = () => {
           position: "top-center",
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log("ERROR: ", err.message);
     }
   };

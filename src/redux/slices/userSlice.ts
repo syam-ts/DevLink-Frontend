@@ -24,28 +24,28 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        signInUser: (state: any, action: PayloadAction<User>) => {
+        signInUser: (state, action: PayloadAction<User>) => {
             state.currentUser = action.payload;
             state.isUser = true;
         },
-        updateUser: (state: any, action: PayloadAction<User>) => {
+        updateUser: (state, action: PayloadAction<User>) => {
             state.currentUser = action.payload;
         },
 
-        signOutUser: (state: any) => {
+        signOutUser: (state) => {
             console.log('The state: ', state)
             state.currentUser = null;
             state.isUser = false;
         },
-        addNotification: (state: any, action: any) => {
+        addNotification: (state, action) => {
             const parsedNotifications = JSON.parse(action.payload);
             state.notifications.push(...parsedNotifications);
             state.notificationsUnread++;
         },
-        markAsReadNotifications: (state: any) => {
+        markAsReadNotifications: (state) => {
             state.notificationsUnread = 0;
         },
-        clearNotificationsUser: (state: any) => {
+        clearNotificationsUser: (state) => {
             state.notifications = [];
         },
     },

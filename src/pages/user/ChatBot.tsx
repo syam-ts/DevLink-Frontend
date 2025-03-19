@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";  
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+import { UserState } from "../../config/state/allState";
 
 
 interface ChatMessage {
@@ -14,15 +15,15 @@ export const Chatbot = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]); 
-  const userProfile = useSelector((state: any ) => state.user.currentUser.profilePicture);
+  const userProfile = useSelector((state: UserState ) => state.user.currentUser.profilePicture);
  
 
 
-  const handleUserInput = (e: any) => {
+  const handleUserInput = (e) => {
     setUserInput(e.target.value);
   };
 
-  const sendMessage = async (e: any) => {
+  const sendMessage = async (e) => {
     // Caused the big bug!
     e.preventDefault();
 
@@ -40,7 +41,7 @@ export const Chatbot = () => {
         { type: "bot", message: data?.queryResult },
       ]);
       // console.log(data?.queryResult);
-    } catch (err: any) {
+    } catch (err) {
       console.log("ERROR: ", err.message);
     }
   };
@@ -50,7 +51,7 @@ export const Chatbot = () => {
   return (
     <div className="mx-auto py-96 p-3 z-3">
       <button
-        onClick={() => setOpen((prev: any) => !prev)}
+        onClick={() => setOpen((prev) => !prev)}
         className="fixed bottom-4 right-4 inline-flex cursor-pointer items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0  border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900"
         type="button"
         aria-haspopup="dialog"
@@ -142,7 +143,7 @@ export const Chatbot = () => {
           <div className="flex w-[400px] items-center pt-0 bottom-0 fixed mb-44">
             <form className="flex  items-center justify-center w-full space-x-2">
               <input
-                onChange={(e: any) => handleUserInput(e)}
+                onChange={(e) => handleUserInput(e)}
                 className="flex  w-full rounded-md border border-black px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
                 placeholder="Ask to bot"
                 value={userInput}

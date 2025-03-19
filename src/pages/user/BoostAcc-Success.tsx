@@ -1,22 +1,22 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
-export default function Component() {
-  const user = useParams();
+export default function Component() { 
 
   let timestamp = Date.now(),
     date = new Date(timestamp);
-  const options: any = { year: "numeric", month: "long", day: "numeric" };
+  const options: unknown = { year: "numeric", month: "long", day: "numeric" };
   const formattedDate = date.toLocaleString("en-US", options);
 
   let refrenecNumber: number = Math.round(Math.random() * 109433000);
 
   useEffect(() => {
     (async () => {
-      const response: any = await apiUserInstance.patch(
+      const response = await apiUserInstance.patch(
         `/profileBoostSuccess`
       );
+      console.log(response);
     })();
   }, []);
 
@@ -58,7 +58,7 @@ export default function Component() {
   );
 }
 
-function CircleCheckIcon(props: any) {
+function CircleCheckIcon(props) {
   return (
     <svg
       {...props}

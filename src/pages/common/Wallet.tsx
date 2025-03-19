@@ -20,8 +20,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   const [balance, setBalance] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [transactions, setTransactions] = useState<Transactions[]>([]);
-  const { roleId } = useParams<{ roleId: string }>();
+  const [transactions, setTransactions] = useState<Transactions[]>([]); 
 
   useEffect(() => {
     (async () => {

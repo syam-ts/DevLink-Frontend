@@ -4,7 +4,7 @@ import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { ProposalCard } from "../../components/common/ProposalCard";
 import { UserState } from "../../config/state/allState";
 
-interface Proposals {
+export interface Proposals {
   type: string
   userId: string
   jobPostId: string
@@ -17,11 +17,14 @@ interface Proposals {
   bidAmount: number
   bidDeadline: number
   _id: string
+  userData?: {
+    profilePicture: string
+  }
 };
 
 const JobProposals = () => {
   const [proposals, setProposals] = useState<Proposals[]>([]);
-  const [data, setData]: any = useState<Proposals[]>([]);
+  const [data, setData] = useState<Proposals[]>([]);
   const [proposalType, setProposalType] = useState<string>("pending");
 
   const userId: string = useSelector(
@@ -37,7 +40,7 @@ const JobProposals = () => {
      
         setProposals(data?.proposals); 
 
-      } catch (err: any) {
+      } catch (err) {
         console.log("ERROR: ", err.message);
       }
     })();
@@ -48,9 +51,9 @@ const JobProposals = () => {
 
   useEffect(() => {
     if (proposalType === "pending") {
-      setData(proposals.filter((props: any) => props.status === "pending"));
+      setData(proposals.filter((props) => props.status === "pending"));
     } else {
-      setData(proposals.filter((props: any) => props.status === "rejected"));
+      setData(proposals.filter((props) => props.status === "rejected"));
     }
   }, [proposals, proposalType]);
 

@@ -7,6 +7,7 @@ import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useSelector } from "react-redux";
 import { ClientState } from "../../config/state/allState";
 import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover";
+import { ButtonBaseActions } from "@mui/material";
 
 interface Jobs {
   jobs: {
@@ -65,7 +66,7 @@ const Jobs = () => {
     setCurrentPage(page);
   };
 
-  const changeActiveTab = (e: any) => {
+  const changeActiveTab = (e) => {
     setActiveTab(e);
     setCurrentPage(1);
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,7 @@ import {
   PointElement,
 } from "chart.js";
 import { Doughnut, Line } from "react-chartjs-2";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 ChartJS.register(
   CategoryScale,
@@ -28,39 +29,93 @@ ChartJS.register(
   Title,
 );
 
+interface ClientMetrics {
+  totalClients: number
+  verifiedClients: number
+  totalJobs: number
+}
+
+interface UserMetrics {
+  totalUsers: number
+  boostedUsers: number
+  verifiedUsers: number
+  totalJobs: number
+}
+
 const Dashboard: React.FC = () => {
-   
+
+  const [clientMetrics, setClientMetrics] = useState<ClientMetrics>({
+    totalClients: 0,
+    verifiedClients: 0,
+    totalJobs: 0
+  });
+  const [userMetrics, setUserMetrics] = useState<UserMetrics>({
+    totalUsers: 0,
+    boostedUsers: 0,
+    verifiedUsers: 0,
+    totalJobs: 0,
+  });
+  const [grossAmount, setGrossAmount] = useState<number>(0);
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number>(0);
+  const [sortType, setSortType] = useState<string>('monthly');
+
+
+  useEffect(() => {
+    try {
+
+      const fetchData = async () => {
+        const { data } = await apiAdminInstance.get(`/getDashboard/${sortType}`);
+        console.log('The result: ', data);
+        setClientMetrics(data.response.clientMetrics);
+        setUserMetrics(data.response.userMetrics);
+        setGrossAmount(data.response.getRevenue.grossAmount);
+        setTotalWithdrawals(data.response.getRevenue.totalWithdrawals);
+      };
+      fetchData();
+
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      console.log('ERROR: ', err.message);
+    }
+
+  }, []);
+ 
+
 
   const lineData = {
-      labels : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Total JobPosts',
-        data: [120, 190, 350, 470, 300, 120, 432],
+        label: 'Gross Amount',
+        data: [grossAmount],
         borderColor: 'rgba(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
       {
-        label: 'Total Proposals',
-        data: [132, 342, 532, 335, 490, 124, 500],
+        label: 'Total Withdrawals',
+        data: [totalWithdrawals],
         borderColor: 'rgba(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      }, 
-      {
-        label: 'Job Completion Rate',
-        data: [110, 142, 132, 235, 390, 244, 300],
-        borderColor: 'rgba(255, 205, 86)',
-      backgroundColor:  'rgba(255, 205, 86)',
-      }, 
+      },
+      // {
+      //   label: 'Job Completion Rate',
+      //   data: [110, 142, 132, 235, 390, 244, 300],
+      //   borderColor: 'rgba(255, 205, 86)',
+      // backgroundColor:  'rgba(255, 205, 86)',
+      // }, 
     ],
   };
-
+  const { totalUsers,
+    verifiedUsers,
+    boostedUsers,
+    totalJobs } = userMetrics
   const userData = {
-    labels: ['Total Users', 'Verified Users', 'Total Jobs done', 'Boosted Users'],
+    labels: ['Total Users', 'Verified Users', 'Boosted Users', 'Total Jobs'],
     datasets: [
       {
         label: '# of Votes',
-        data: [1220, 1190, 3500, 870],
+        data: [totalUsers, verifiedUsers, boostedUsers,
+          totalJobs],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgba(255, 205, 86)',
@@ -71,12 +126,14 @@ const Dashboard: React.FC = () => {
       },
     ],
   };
+
+  const { totalClients, verifiedClients } = clientMetrics;
   const clientData = {
     labels: ['Total Clients', 'Verified Clients', 'Total Jobs Created'],
     datasets: [
       {
         label: '# of Votes',
-        data: [1220, 1190, 3500],
+        data: [totalClients, verifiedClients, clientMetrics.totalJobs],
         backgroundColor: [
           'rgba(255, 99, 132)',
           'rgba(54, 162, 235)',
@@ -91,11 +148,11 @@ const Dashboard: React.FC = () => {
 
       <section>
         <div className='mt-28 text-center'>
-          <p className='text-3xl'>Revenue</p>
-          <hr />
-        <Line 
-          data={lineData}
-        />
+          {/* <p className='text-3xl'>Revenue</p> */}
+          {/* <hr /> */}
+          <Line
+            data={lineData}
+          />
         </div>
       </section>
 

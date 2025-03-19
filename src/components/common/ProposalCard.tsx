@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import config from "../../config/helper/config";
 import { Sonner } from "../sonner/Toaster";
+import {Proposals} from '../../pages/user/Proposals'
 
 type Id = string;
 interface ProposalCardProps {
-  proposals: string[] | [];
+  proposals: string[] | Proposals[];
   roleType: string;
   roleId: Id;
 }
@@ -41,7 +42,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
       );
 
       if (data.success) {
-        const notifications: any = JSON.stringify([
+        const notifications: string = JSON.stringify([
           data?.data?.newNotificationUser,
         ]);
         dispatch(addNotification(notifications));
@@ -102,7 +103,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
   return (
     <div>
       <Sonner />
-      {Object.entries(proposals).map((proposal: any) => (
+      {Object.entries(proposals).map((proposal: Proposals[]) => (
         <div className="w-full sm:w-4/5 lg:w-2/3 max-sm:w-[400px] border border-gray-100 shadow-xl rounded-xl h-full mx-auto my-8 p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           {/* Profile Picture */}

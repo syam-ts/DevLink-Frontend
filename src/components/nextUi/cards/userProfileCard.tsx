@@ -14,8 +14,8 @@ interface Developer {
   name: string;
   profilePicture: string;
 }
-interface UserProfileCardProps {
-  
+
+interface UserProfileCardProps { 
   developer: Developer[]
 
 };

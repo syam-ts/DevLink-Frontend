@@ -24,27 +24,27 @@ const clientSlice = createSlice({
   name: "client",
   initialState,
   reducers: {
-    signInClient: (state: any, action: PayloadAction<Client>) => {
+    signInClient: (state, action: PayloadAction<Client>) => {
       state.currentClient = action.payload;
       state.isClient = true;
     },
-    updateClient: (state: any, action: PayloadAction<Client>) => {
+    updateClient: (state, action: PayloadAction<Client>) => {
       state.currentClient = action.payload;
     },
 
-    signOutClient: (state: any) => {
+    signOutClient: (state) => {
       state.currentClient = null;
       state.isClient = false;
     },
-    addNotificationClient: (state: any, action: any) => {
+    addNotificationClient: (state, action) => {
       const parsedNotifications = JSON.parse(action.payload);
       state.notifications.push(...parsedNotifications);
       state.notificationsUnread++;
     },
-    markAsReadNotifications: (state: any) => {
+    markAsReadNotifications: (state) => {
       state.notificationsUnread = 0;
     },
-    clearNotificationsClient: (state: any) => {
+    clearNotificationsClient: (state) => {
       state.notifications = [];
     },
   },
