@@ -1,4 +1,12 @@
 import { Sidebar } from "flowbite-react";
+import { ReactElement, Suspense, lazy } from "react";
+import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
+import UserMangement from "./pages/UserMangement";
+import Requests from "./pages/Requests";
+import Wallet from "./pages/Wallet";
+import Contracts from "./pages/Contracts";
+import WithdrawRequest from "./pages/WithdrawRequest";
 import {
   HiChartPie,
   HiOutlineUsers,
@@ -8,18 +16,12 @@ import {
   HiOutlineUser,
   HiViewBoards,
 } from "react-icons/hi";
-import { Suspense, lazy } from "react";
-import { useState } from "react";
-import Dashboard from "./pages/Dashboard";
-import UserMangement from "./pages/UserMangement";
-import Requests from "./pages/Requests";
-import Wallet from "./pages/Wallet";
-import Contracts from "./pages/Contracts";
-import WithdrawRequest from "./pages/WithdrawRequest";
 
 function Component() {
-  const [activeItem, setActiveItem] = useState("Dashboard");
-  const [activeComponent, setActiveComponent] = useState(null);
+  const [activeItem, setActiveItem] = useState<string>("Dashboard");
+  const [activeComponent, setActiveComponent] = useState<ReactElement>(
+    <Dashboard />
+  );
   const ClientMangement = lazy(() => import("./pages/ClientMangement"));
 
   const components = {
