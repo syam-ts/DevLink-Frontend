@@ -28,3 +28,13 @@ export interface ClientState {
     notificationsUnread: number
   }, 
 };
+
+export interface AdminState {
+  admin: {
+    currentAdmin: {
+      _id: string 
+      email: string   
+    },
+    isAdmin: boolean
+  }, 
+};

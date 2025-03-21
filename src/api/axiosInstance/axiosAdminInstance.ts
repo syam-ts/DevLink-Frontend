@@ -12,8 +12,7 @@ export const apiAdminInstance = axios.create({
 // Request interceptor
 apiAdminInstance.interceptors.request.use(
   (config: any) => {
-    const token = localStorage.getItem("accessToken");
-
+    const token = localStorage.getItem("accessToken"); 
     if (token) {
       if (!config.headers) {
         config.headers = {};
@@ -40,11 +39,10 @@ apiAdminInstance.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      originalRequest._retry = true;
-
+      originalRequest._retry = true; 
       try {
         const { data } = await apiAdminInstance.post(
-          `${BASE_SERVER_URL}/admin/refresh-token`
+          `${BASE_SERVER_URL}/admin/refresh`
         );
         const { accessToken } = data;
 

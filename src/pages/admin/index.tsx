@@ -7,6 +7,7 @@ import Requests from "./pages/Requests";
 import Wallet from "./pages/Wallet";
 import Contracts from "./pages/Contracts";
 import WithdrawRequest from "./pages/WithdrawRequest";
+import Logout from './pages/Logout';
 import {
   HiChartPie,
   HiOutlineUsers,
@@ -36,6 +37,7 @@ function Component() {
     Wallet: <Wallet />,
     Contracts: <Contracts />,
     TransferMoney: <WithdrawRequest />,
+    Logout: <Logout />,
     "Sign In": (
       <div>
         <h2>Sign In Form</h2>

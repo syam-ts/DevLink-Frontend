@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import Google from "../../components/common/Google";
 import { Link, useSearchParams } from "react-router-dom";
 import config from "../../config/helper/config";
+import { signInAdmin } from "../../redux/slices/adminSlice";
 
 const LoginComponent = () => {
   const [error, setError] = useState([]);
@@ -50,9 +51,8 @@ const LoginComponent = () => {
               dispatch(signInClient(data.client));
               setError([]);
               window.location.href = "/client/home";
-            } else {
-              //CHANGE TO ADMIN SLICE
-              dispatch(signInClient(data.client));
+            } else if(rt === 'admin') {   
+              dispatch(signInAdmin(data.admin));
               setError([]);
               window.location.href = "/admin";
             }

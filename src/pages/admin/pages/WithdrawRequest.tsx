@@ -24,7 +24,7 @@ function WithdrawRequest() {
       <div className="grid gap-5 w-2/3 my-44 mx-auto rounded-small">
         {Object.entries(data).map((request: any) => (
           <div className="flex bg-white shadow-lg rounded-large justify-between">
-            <div className="px-5 grid py-5">
+            <div className="px-5 grid py-4">
               <span className="font-bold text-md">
                 UserName: {request[1].userName}{" "}
               </span>
@@ -35,7 +35,7 @@ function WithdrawRequest() {
                 Account Number: {request[1].accountNumber}{" "}
               </span>
             </div>
-            <div className="py-16 px-5">
+            <div className="py-4 px-5 ">
               <button
                 className="rounded-small bg-[#0000ff] text-center text-sm text-white hover:bg-slate-700 ml-2"
                 type="button"
