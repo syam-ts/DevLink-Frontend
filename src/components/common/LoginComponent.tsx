@@ -1,21 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userLoginSchema } from "../../utils/validation/loginSchema";
 import { Sonner } from "../sonner/Toaster";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../redux/slices/userSlice";
 import { signInClient } from "../../redux/slices/clientSlice";
 import axios from "axios";
 import { toast } from "sonner";
 import Google from "../../components/common/Google";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config/helper/config";
 import { signInAdmin } from "../../redux/slices/adminSlice";
+import {
+  AdminState,
+  ClientState,
+  UserState,
+} from "../../config/state/allState";
 
 const LoginComponent = () => {
   const [error, setError] = useState([]);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt");
+  const navigate = useNavigate();
+
+  let isAutharized;
+
+  if (rt === "user") {
+    isAutharized = useSelector((state: UserState) => state.user.isUser);
+  } else if (rt === "client") {
+    isAutharized = useSelector((state: ClientState) => state.client.isClient);
+  } else if (rt === "admin") {
+    isAutharized = useSelector((state: AdminState) => state.admin.isAdmin);
+  }
+
+  useEffect(() => {
+    if (rt === "admin") {
+      isAutharized && navigate("/admin");
+    } else {
+      isAutharized && navigate(`/${rt}/home`);
+    }
+  }, []);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -51,7 +75,7 @@ const LoginComponent = () => {
               dispatch(signInClient(data.client));
               setError([]);
               window.location.href = "/client/home";
-            } else if(rt === 'admin') {   
+            } else if (rt === "admin") {
               dispatch(signInAdmin(data.admin));
               setError([]);
               window.location.href = "/admin";
@@ -409,26 +433,26 @@ const LoginComponent = () => {
               <div>
                 {error.some((err: any) => err.includes("Password is required"))
                   ? error.map(
-                      (err: any, index: number) =>
-                        err.includes("Password is required") && (
-                          <div className="text-center">
-                            <span className="text-red-400 text-sm ">
-                              {error[index]}
-                            </span>
-                          </div>
-                        )
-                    )
+                    (err: any, index: number) =>
+                      err.includes("Password is required") && (
+                        <div className="text-center">
+                          <span className="text-red-400 text-sm ">
+                            {error[index]}
+                          </span>
+                        </div>
+                      )
+                  )
                   : error.map(
-                      (err: any, index: number) =>
-                        err.includes("minimum 8 characters need") &&
-                        err[index] !== "Password is required" && (
-                          <div className="text-center">
-                            <span className="text-red-400 text-sm ">
-                              {error[index]}
-                            </span>
-                          </div>
-                        )
-                    )}
+                    (err: any, index: number) =>
+                      err.includes("minimum 8 characters need") &&
+                      err[index] !== "Password is required" && (
+                        <div className="text-center">
+                          <span className="text-red-400 text-sm ">
+                            {error[index]}
+                          </span>
+                        </div>
+                      )
+                  )}
               </div>
               <div>
                 <button

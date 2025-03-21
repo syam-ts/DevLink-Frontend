@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AdminState, ClientState, UserState } from "../../config/state/allState";
 
@@ -20,8 +20,13 @@ export const ClientProtectedRoute = () => {
   };
 
 export const AdminProtectedRoute = () => {
-  const isAdminAuth: boolean = useSelector((state: AdminState) => state.admin.isAdmin); 
-  
+  const isAdminAuth: boolean = useSelector((state: AdminState) => state.admin.isAdmin);
+  console.log('Hi from adin') 
+  const location = useLocation(); 
+ console.log('loc', location.pathname)
+  if (isAdminAuth && location.pathname === "/login") {
+    return <Navigate to="/admin" />;  
+  }
   return (
     isAdminAuth ? <Outlet/> : <Navigate to='/login?rt=admin'/>
   )
