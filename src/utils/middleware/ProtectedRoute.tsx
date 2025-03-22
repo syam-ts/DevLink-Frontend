@@ -4,7 +4,12 @@ import { AdminState, ClientState, UserState } from "../../config/state/allState"
 
 export const UserProtectedRoute = () => {
   const isUserAuth = useSelector((state: UserState) => state?.user?.isUser); 
-
+  const location = useLocation(); 
+ 
+  if (isUserAuth && location.pathname === "/login") {
+    return <Navigate to="/user/home" />;  
+  }
+ 
   return (
     isUserAuth ? <Outlet/> : <Navigate to='/login?rt=user'/>
   )
@@ -21,9 +26,8 @@ export const ClientProtectedRoute = () => {
 
 export const AdminProtectedRoute = () => {
   const isAdminAuth: boolean = useSelector((state: AdminState) => state.admin.isAdmin);
-  console.log('Hi from adin') 
-  const location = useLocation(); 
- console.log('loc', location.pathname)
+ 
+  const location = useLocation();  
   if (isAdminAuth && location.pathname === "/login") {
     return <Navigate to="/admin" />;  
   }

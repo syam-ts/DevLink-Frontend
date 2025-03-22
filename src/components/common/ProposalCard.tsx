@@ -164,7 +164,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
                 type="button"
               >
                 <Link
-                  to={`/${roleType}/userProfile/view/${proposal[1]?.userId}/client-proposal-view`}
+                  to={`/${roleType}/userProfile/client-view/${proposal[1]?.userId}`}
                   className="no-underline text-white"
                 >
                   View

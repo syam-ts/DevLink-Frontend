@@ -42,7 +42,7 @@ apiAdminInstance.interceptors.response.use(
       originalRequest._retry = true; 
       try {
         const { data } = await apiAdminInstance.post(
-          `${BASE_SERVER_URL}/admin/refresh`
+          `${BASE_SERVER_URL}/admin/refresh-token`
         );
         const { accessToken } = data;
 

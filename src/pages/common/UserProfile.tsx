@@ -212,7 +212,10 @@ const UserProfile: React.FC = () => {
                             >
                               {user?.name}
                             </MDBTypography>
-                            {user?.isBoosted ? (
+                            {
+                              type === 'user-view' && (
+                                <div>
+                                  {user?.isBoosted ? (
                               <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
                                 <img
                                   className="h-5 w-5 "
@@ -224,6 +227,9 @@ const UserProfile: React.FC = () => {
                                 <BoostPopover />
                               </span>
                             )}
+                                </div>
+                              )
+                            }
                           </div>
                           <div className="text-sm text-black font-extrabold grid left-0 comfortaa-regular">
                             <span>{user?.location}, india</span>

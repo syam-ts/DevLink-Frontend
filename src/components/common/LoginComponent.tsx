@@ -36,9 +36,7 @@ const LoginComponent = () => {
   useEffect(() => {
     if (rt === "admin") {
       isAutharized && navigate("/admin");
-    } else {
-      isAutharized && navigate(`/${rt}/home`);
-    }
+    } 
   }, []);
 
   const handleSubmit = async (event: any) => {

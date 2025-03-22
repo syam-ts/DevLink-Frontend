@@ -20,18 +20,19 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                 response = await apiUserInstance.post("/searchJobs", {
                     input,
                 });
+                setJobs(response.data.jobs)
             } else {
                 response = await apiClientInstance.post("/searchDevelopers", {
                     input,
                 });
+                setDevelopers(response.data.developers);
             }
-            setDevelopers(response.data.developers);
         } catch (error: unknown) {
             const err = error as { message: string };
             console.error(err.message);
         }
     };
-
+console.log('the job: ', jobs)
     return (
         <div>
             <form

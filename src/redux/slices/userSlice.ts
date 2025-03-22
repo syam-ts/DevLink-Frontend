@@ -32,8 +32,7 @@ const userSlice = createSlice({
             state.currentUser = action.payload;
         },
 
-        signOutUser: (state) => {
-            console.log('The state: ', state)
+        signOutUser: (state) => { 
             state.currentUser = null;
             state.isUser = false;
         },

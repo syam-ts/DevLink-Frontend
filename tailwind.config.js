@@ -4,7 +4,7 @@ const { heroui } = require("@heroui/react");
 module.exports = {
   darkMode: ["class"],  
   content: [
-    "./src/**/*.{ts,tsx}", // tailwind files
+    "./src/**/*.{ts,tsx,html}", // tailwind files
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}", // NextUI || Heroui files
   ],
   theme: {

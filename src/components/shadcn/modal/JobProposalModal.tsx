@@ -123,7 +123,9 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           {viewType === "invite-view" ? (
             <span>Apply</span>
           ) : (
-            <div>Accept Invite</div>
+            <div>Apply</div>
+            //CHANGE ------
+            // <div>Accept Invite</div>
           )}
         </Button>
       </DialogTrigger>

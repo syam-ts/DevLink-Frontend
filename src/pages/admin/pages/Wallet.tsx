@@ -1,4 +1,4 @@
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance"; 
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -55,24 +55,24 @@ const Wallet: React.FC = () => {
 
   return (
     <div>
-      <section>
-        <div className="flex justify-start mx-20 mt-10">
+      <section className='flex justify-center mt-10'>
+        <div className="flex mt-10 bg-gray-800 w-1/3 h-[10rem] rounded-large text-white font-extrabold justify-center py-12">
           <span className="text-xl">Balance: {Math.floor(balance)} </span>
         </div>
       </section>
 
       <div className="mt-5">
-        <section className=" text-center">
+         <section className=" text-center">
           <div>
             <span className="text-2xl text-center arsenal-sc-regular">
               Transactions
             </span>
             <hr className="w-2/3 mx-auto py-4" />
           </div>
-        </section>
+        </section> 
 
-        <section>
-          <div className="relative flex flex-col w-[70rem] mx-auto h-full overflow-hidden py-12 px-28 text-black shadow-lg rounded-2xl">
+       <section>
+          <div className="relative flex flex-col w-[70rem] mx-auto h-full overflow-hidden py-12 px-12 text-black shadow-lg rounded-2xl">
             <table className="w-full text-left table-auto min-w-max ">
               <thead>
                 <tr className="border-b">
@@ -100,7 +100,7 @@ const Wallet: React.FC = () => {
               </thead>
               <tbody>
                 {transactions?.map((tra: Transactions) => (
-                  <tr className="border-b border-gray-400">
+                  <tr className="border-b border-gray-300">
                     <td className="py-4 px-4">
                       <p className="block arsenal-sc-regular text-sm text-blue-gray-900">
                         {tra?.type || tra[0]?.type}
@@ -129,9 +129,132 @@ const Wallet: React.FC = () => {
               </tbody>
             </table>
           </div>
-        </section>
+        </section>   
 
-        <section className="mt-10 w-2/3 mx-auto">
+
+
+        {/* <section className='w-2/3 mx-auto mt-20'>
+ 
+
+          <div
+            className="relative flex flex-col w-full h-full overflow-hidden border text-gray-700 bg-white shadow-md bg-clip-border rounded-xl">
+            <table className="w-full text-left table-auto min-w-max">
+              <thead>
+                <tr>
+                  <th className="p-3 border-b border-blue-gray-100 bg-slate-100">
+                    <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                      Name
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-slate-100">
+                    <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                      Job
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-slate-100">
+                    <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                      Employed
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-slate-100">
+                    <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"></p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border">
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      John Michael
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      Manager
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      23/04/18
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <a href="#" className="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
+                  </td>
+                </tr>
+                <tr className="border">
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      John Michael
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      Manager
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      23/04/18
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <a href="#" className="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
+                  </td>
+                </tr>
+                <tr className="border">
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      John Michael
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      Manager
+                    </p>
+                  </td>
+                  <td className="p-4">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      23/04/18
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <a href="#" className="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
+                  </td>
+                </tr>
+                
+                <tr className="border">
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      John Michael
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      Manager
+                    </p>
+                  </td>
+                  <td className="p-4">
+                    <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      23/04/18
+                    </p>
+                  </td>
+                  <td className="p-3">
+                    <a href="#" className="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">Edit</a>
+                  </td>
+                </tr>  
+              </tbody>
+            </table>
+          </div>
+ 
+
+        </section> */}
+
+
+
+
+
+          <section className="mt-10 w-2/3 mx-auto">
           <hr />
         </section>
 
@@ -205,7 +328,7 @@ const Wallet: React.FC = () => {
               )}
             </nav>
           </div>
-        </section>
+        </section>  
       </div>
     </div>
   );
