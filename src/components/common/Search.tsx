@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
@@ -11,6 +11,11 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
     const [jobs, setJobs] = useState({});
     const [developers, setDevelopers] = useState({});
     const [input, setInput] = useState<string>("");
+
+    useEffect(() => {
+         
+     window.location.reload
+    }, [input]);
 
     const searchFuntion = async (input: string) => {
         try {
@@ -79,8 +84,9 @@ console.log('the job: ', jobs)
                                                 className="py-3 cursor-pointer hover:bg-gray-100"
                                             >
                                                 <Link
-                                                    to={`/user/job/${job[1]._id}/user-view`}
+                                                    to={`/user/job/${job[1]._id}/user-view`} 
                                                     className="no-underline text-black arsenal-sc-regular"
+                                                    reloadDocument
                                                 >
                                                     {job[1].title}
                                                 </Link>
@@ -103,6 +109,7 @@ console.log('the job: ', jobs)
                                                 <Link
                                                     to={`/client/userProfile/client-view/${developer[1]?._id}`}
                                                     className="no-underline text-black arsenal-sc-regular"
+                                                    reloadDocument
                                                 >
                                                     <div>
                                                         <div>

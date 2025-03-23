@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react"; 
 import { Sonner } from "../../components/sonner/Toaster";
 import { JobPostCard } from "../../components/common/JobPostCard";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
