@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../sonner/Toaster";
+import config from "../../config/helper/config";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export const InputOtpComponent = () => {
   const [value, setValue] = useState<string[]>(["", "", "", ""]);
@@ -31,7 +32,7 @@ export const InputOtpComponent = () => {
         userOtp: formData.otp,
       };
 
-      const response = await axios.post(`http://localhost:3000/${rt}/verify-otp`, data, {
+      const response = await axios.post(`${config.VITE_SERVER_URL}/${rt}/verify-otp`, data, {
         withCredentials: true,
       });
  
@@ -41,7 +42,7 @@ export const InputOtpComponent = () => {
       } else {
         navigate(`/login?rt=${rt}`);
       }
-    } catch (err: any) { 
+    } catch (err) { 
       toast.error(err.response?.data?.message, {
         style: {
           backgroundColor: "red",
@@ -56,14 +57,14 @@ export const InputOtpComponent = () => {
   // Resend OTP
   const resendOtp = async () => {
     try {
-      const response = await axios.post(`http://localhost:3000/${rt}/resend-otp`, message.state.message.userData);
+      const response = await axios.post(`${config.VITE_SERVER_URL}/${rt}/resend-otp`, message.state.message.userData);
 
       if (response.data.success) {
         console.log("New OTP:", response.data.newOtp);
         toast.success(response.data.message, { style: { backgroundColor: "white", color: "black" } });
         message.state.message.mailOtp = response.data.newOtp;  
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error(err.message, { style: { backgroundColor: "red", color: "white" } });
     }
   };

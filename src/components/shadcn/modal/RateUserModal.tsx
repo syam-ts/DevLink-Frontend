@@ -6,6 +6,7 @@ import Rating from "@mui/material/Rating";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
+import config from "../../../config/helper/config";
 
 interface RateUserProps {
   notificationId: string;
@@ -51,12 +52,12 @@ export const RateUserModal: React.FC<RateUserProps> = ({
       );
 
       if (data.success) {
-        window.location.href = `http://localhost:5173/client/notifications/${userId}/client?rateUser=${true}`;
+        window.location.href = `${config.BASE_URL}/client/notifications/${userId}/client?rateUser=${true}`;
       } else {
         alert("hi");
         toast.error(data.message);
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error(err.response?.data?.message, {
         style: {
           backgroundColor: "red",
@@ -97,7 +98,7 @@ export const RateUserModal: React.FC<RateUserProps> = ({
             <Box sx={{ "& > legend": { mt: 2 } }}>
               <Rating
                 name="rating"
-                onChange={(e: any) => handleChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                 sx={{ fontSize: "1.5rem" }}
               />
             </Box>

@@ -1,32 +1,36 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
 interface Invite {
-    clientId?: String;
-    userId?: String;
-    description: String;
+    _id: string
+    clientId?: String
+    userId?: String
+    description: String
     jobPostData?: {
-        title: string;
-        description: string;
-        expertLevel: String;
-        location: string;
-        requiredSkills: string[];
-        amount: number;
-        paymentType: String;
-        estimateTimeinHours: Number;
-        projectType: String;
-    };
-    status: String;
-    createdAt: String;
-}
+        _id: string
+        title: string
+        description: string
+        expertLevel: String
+        location: string
+        requiredSkills: string[]
+        amount: number
+        paymentType: String
+        estimateTimeinHours: Number
+        projectType: String
+    }
+    status: String
+    createdAt: String
+};
 
 const InviteComponent = () => {
     const [invites, setInvites] = useState<Invite>({
+        _id: "",
         clientId: "",
         userId: "",
         description: "",
         jobPostData: {
+            _id: "",
             title: "",
             description: "",
             expertLevel: "",
@@ -39,13 +43,11 @@ const InviteComponent = () => {
         },
         status: "",
         createdAt: "",
-    });
-    // const { roleId, type } = useParams<{ roleId: string; type: string }>();
+    }); 
 
     useEffect(() => {
         try {
-            const fetchInvites = async () => {
-                //roleType render pending
+            const fetchInvites = async () => { 
                 const { data } = await apiUserInstance.get(`/invites`);
                 setInvites(data.invites);
             };
@@ -64,7 +66,7 @@ const InviteComponent = () => {
             </section>
             <section>
                 <div className="w-3/5 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6">
-                    {Object.entries(invites).map((invite: any) => (
+                    {Object.entries(invites).map((invite: Invite[]) => (
                         <div className="flex my-12 rounded-xl p-4 shadow-large">
                             <div className="flex w-2/3 items-center gap-4 text-slate-800 mx-auto">
                                 <div className="flex w-full flex-col">

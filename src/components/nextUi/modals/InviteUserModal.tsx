@@ -42,7 +42,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
     onOpen();
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     console.log("The value: ", e.target.value);
     console.log(e.target.value);
   };
@@ -127,7 +127,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
                         onChange={(e) => setSelectJobId(e.target.value)}
                         className="w-fullo bg-transparent outline-none placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer"
                       >
-                        {Object.entries(jobs).map((job: any) => (
+                        {Object.entries(jobs).map((job: {}) => (
                           <option value={job[1]._id}>{job[1].title}</option>
                         ))}
                       </select>

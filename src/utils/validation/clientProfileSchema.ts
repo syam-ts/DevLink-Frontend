@@ -1,37 +1,4 @@
-import * as yup from "yup";
-
-
-
-// {
-//     error?.some((err: any) => err.includes("Payment type is required")) ? (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Payment type is required")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     ) : (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Payment type is required") ||
-//           err.includes("Payment type must be either 'hourly' or 'fixed'")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     )
-//   }
+import * as yup from "yup"; 
 
 export const clientProfileVerifySchema = yup.object().shape({
 

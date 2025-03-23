@@ -17,7 +17,7 @@ const Google: React.FC<GoogleProps> = ({ role }) => {
  
   return (
     <GoogleLogin
-      onSuccess={async (credentialResponse: any) => {
+      onSuccess={async (credentialResponse) => {
         try {
           interface Credentials {
             email: string

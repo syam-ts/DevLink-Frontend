@@ -1,6 +1,10 @@
 import {Card, CardBody} from "@heroui/react";
 
-export const WalletCard = ({amount}: any) => {
+interface WalletProps {
+  amount: number
+};
+
+export const WalletCard: React.FC<WalletProps> = ({amount}) => {
   return (
     <Card>
       <CardBody>

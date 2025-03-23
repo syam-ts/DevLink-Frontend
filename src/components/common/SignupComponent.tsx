@@ -16,7 +16,7 @@ const SignupComponent = () => {
   const navigate = useNavigate();
 
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     let formData;
@@ -73,7 +73,7 @@ const SignupComponent = () => {
               }
             }); 
           }
-        } catch (err: any) {
+        } catch (err) {
           console.log(err)
           toast.error(err.response.data.message, {
             style: {
@@ -84,7 +84,7 @@ const SignupComponent = () => {
           setError([]);
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err.errors);
       setError(err.errors);
     }
@@ -187,8 +187,8 @@ const SignupComponent = () => {
                 <input type="text" name="name" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                 <div>
                   {
-                    error.some((err: any) => err.includes("Name is required")) ? (
-                      error.map((err: any, index: number) => {
+                    error.some((err: string) => err.includes("Name is required")) ? (
+                      error.map((err: string, index: number) => {
                         if (
                           err.includes("Name is required")
                         ) {
@@ -201,7 +201,7 @@ const SignupComponent = () => {
                         return null;
                       })
                     ) : (
-                      error.map((err: any, index: number) => {
+                      error.map((err: string, index: number) => {
                         if (
                           err.includes("Name is required") ||
                           err.includes("Invalid name (minimum 5 characters)") ||
@@ -231,8 +231,8 @@ const SignupComponent = () => {
                     <input type="number" name="mobile" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                     <div>
                       {
-                        error.some((err: any) => err.includes("Mobile Number is required")) ? (
-                          error.map((err: any, index: number) => {
+                        error.some((err: string) => err.includes("Mobile Number is required")) ? (
+                          error.map((err: string, index: number) => {
                             if (
                               err.includes("Mobile Number is required")
                             ) {
@@ -245,7 +245,7 @@ const SignupComponent = () => {
                             return null;
                           })
                         ) : (
-                          error.map((err: any, index: number) => {
+                          error.map((err: string, index: number) => {
                             if (
                               err.includes("Name is required") ||
                               err.includes("Invalid Number (must be at least 10 digits)") ||
@@ -273,7 +273,7 @@ const SignupComponent = () => {
                 <input type="text" name="email" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                 <div>
                   {
-                    error.map((err: any, index: number) => (
+                    error.map((err: string, index: number) => (
                       err.includes('Email is required') && (
                         <div key={index} className='text-center'>
                           <span className='text-red-400 text-sm '>{error[index]}</span>
@@ -282,7 +282,7 @@ const SignupComponent = () => {
                     ))
                   }
                   {
-                    error.map((err: any, index: number) => (
+                    error.map((err: string, index: number) => (
                       err.includes('Email is invalid') && (
                         <div key={index} className='text-center'>
                           <span className='text-red-400 text-sm '>{error[index]}</span>
@@ -302,8 +302,8 @@ const SignupComponent = () => {
               <div>
 
                 {
-                  error.some((err: any) => err.includes("Password is required")) ? (
-                    error.map((err: any, index: number) => {
+                  error.some((err: string) => err.includes("Password is required")) ? (
+                    error.map((err: string, index: number) => {
                       if (
                         err.includes("Password is required")
                       ) {
@@ -316,7 +316,7 @@ const SignupComponent = () => {
                       return null;
                     })
                   ) : (
-                    error.map((err: any, index: number) => {
+                    error.map((err: string, index: number) => {
                       if (
                         err.includes("Password is required") ||
                         err.includes("Incorrect (minimum 8 characters)") ||

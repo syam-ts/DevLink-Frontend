@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import config from "../../../config/helper/config";
 import {
   Modal,
   ModalContent,
@@ -11,25 +12,42 @@ import {
 } from "@heroui/react";
 
 interface ViewClientProps {
-  clientId: string;
-}
+  clientId: string
+};
+
+interface Data {
+  companyName: string
+  email: string
+  location: string
+  requiredSkills: string[]
+  description: string
+  totalEmployees: number
+  since: number
+};
 
 export const ViewClient: React.FC<ViewClientProps> = ({ clientId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = useState<string>("md");
-  const [data, setData]: any = useState({});
+  const [data, setData] = useState<Data>({
+    companyName: "",
+    email: "",
+    location: "",
+    requiredSkills: [""],
+    description: "",
+    totalEmployees: 0,
+    since: 0,
+  });
 
   useEffect(() => {
     (async () => {
       try {
-        console.log("The client id ", clientId);
-
+        console.log(size);
         const response = await axios.get(
-          `http://localhost:3000/admin/request/getRequestedClient/${clientId}`
+          `${config}/admin/request/getRequestedClient/${clientId}`
         );
         console.log("The response , ", response?.data?.data?.foundClient);
         setData(response?.data?.data?.foundClient);
-      } catch (err: any) {
+      } catch (err) {
         console.log("ERROR : ", err.message);
       }
     })();
@@ -39,7 +57,6 @@ export const ViewClient: React.FC<ViewClientProps> = ({ clientId }) => {
     setSize(size);
     onOpen();
   };
-  
 
   return (
     <>

@@ -1,11 +1,11 @@
+import axios from "axios";
+import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { userLoginSchema } from "../../utils/validation/loginSchema";
 import { Sonner } from "../sonner/Toaster";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../redux/slices/userSlice";
 import { signInClient } from "../../redux/slices/clientSlice";
-import axios from "axios";
-import { toast } from "sonner";
 import Google from "../../components/common/Google";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config/helper/config";
@@ -17,13 +17,13 @@ import {
 } from "../../config/state/allState";
 
 const LoginComponent = () => {
-  const [error, setError] = useState([]);
-  const dispatch = useDispatch();
+  const [error, setError] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
   const rt = searchParams.get("rt");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let isAutharized;
+  let isAutharized: boolean;
 
   if (rt === "user") {
     isAutharized = useSelector((state: UserState) => state.user.isUser);
@@ -39,7 +39,7 @@ const LoginComponent = () => {
     } 
   }, []);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     let formData = {
@@ -85,7 +85,7 @@ const LoginComponent = () => {
               },
             });
           }
-        } catch (err: any) {
+        } catch (err) {
           toast.error(err.response.data.message, {
             style: {
               backgroundColor: "red",
@@ -97,7 +97,7 @@ const LoginComponent = () => {
       } else {
         await userLoginSchema.validate(formData, { abortEarly: false });
       }
-    } catch (err: any) {
+    } catch (err) {
       console.log(err.errors);
       setError(err.errors);
     }
@@ -397,7 +397,7 @@ const LoginComponent = () => {
                 />
                 <div>
                   {error.map(
-                    (err: any, index: number) =>
+                    (err: string, index: number) =>
                       err.includes("Email is required") && (
                         <div className="text-center">
                           <span className="text-red-400 text-sm ">
@@ -407,7 +407,7 @@ const LoginComponent = () => {
                       )
                   )}
                   {error.map(
-                    (err: any, index: number) =>
+                    (err: string, index: number) =>
                       err.includes("Email is invalid") && (
                         <div className="text-center">
                           <span className="text-red-400 text-sm ">
@@ -429,9 +429,9 @@ const LoginComponent = () => {
                 />
               </div>
               <div>
-                {error.some((err: any) => err.includes("Password is required"))
+                {error.some((err: string) => err.includes("Password is required"))
                   ? error.map(
-                    (err: any, index: number) =>
+                    (err: string, index: number) =>
                       err.includes("Password is required") && (
                         <div className="text-center">
                           <span className="text-red-400 text-sm ">
@@ -441,7 +441,7 @@ const LoginComponent = () => {
                       )
                   )
                   : error.map(
-                    (err: any, index: number) =>
+                    (err: string, index: number) =>
                       err.includes("minimum 8 characters need") &&
                       err[index] !== "Password is required" && (
                         <div className="text-center">

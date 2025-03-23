@@ -18,25 +18,27 @@ import { Sonner } from "../../../components/sonner/Toaster";
 interface WithdrawMoneyModalProps {
   balance: number
   type: string
-}
+};
 
-export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, type}) => {
- 
-  const [amount, setAmount] = useState<number>(0);
-  const [accountNumber, setAccountNumber] = useState<number>(0);
+export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
+  balance,
+  type,
+}) => {
+  const [amount, setAmount] = useState<number | string>(0);
+  const [accountNumber, setAccountNumber] = useState<number | string>(0);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const sendRequest = async (e: any) => {
+  const sendRequest = async () => {
     try {
       const { data } = await apiUserInstance.post("/withdrawMoney", {
         amount,
         accountNumber,
         balance,
-        type
-      }); 
+        type,
+      });
       if (data.success) {
         setTimeout(() => {
-           window.location.href = `${config.BASE_URL}/user/wallet`;
+          window.location.href = `${config.BASE_URL}/user/wallet`;
         }, 500);
 
         toast.success("Sended Request", {
@@ -47,12 +49,12 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
             justifyContent: "center",
             backgroundColor: "#03C03C",
             color: "white",
-            border: "none"
+            border: "none",
           },
         });
       }
-    } catch (error: unknown) { 
-      const err = error as { response: {data: {message: string}} }; 
+    } catch (error: unknown) {
+      const err = error as { response: { data: { message: string } } };
       toast.error(err.response.data.message, {
         position: "top-center",
         style: {
@@ -61,7 +63,7 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
           justifyContent: "center",
           backgroundColor: "red",
           color: "white",
-          border: "none"
+          border: "none",
         },
       });
     }
@@ -69,7 +71,7 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
 
   return (
     <>
-    <Sonner />
+      <Sonner />
       <Button
         className="bg-transparent font-bold"
         color="primary"
@@ -88,6 +90,8 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
         <ModalContent>
           {(onClose) => (
             <>
+              {" "}
+              {onClose}
               <ModalHeader className="flex flex-col gap-1">
                 Withdraw Money
                 <br />
@@ -98,7 +102,9 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
               <ModalBody>
                 <Label>Account Number</Label>
                 <Input
-                  onChange={(e: any) => setAccountNumber(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setAccountNumber(e.target.value)
+                  }
                   placeholder="Enter your Account Number"
                   type="number"
                   variant="bordered"
@@ -106,7 +112,9 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({balance, 
                 />
                 <Label>Amount</Label>
                 <Input
-                  onChange={(e: any) => setAmount(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setAmount(e.target.value)
+                  }
                   placeholder="Enter the Amount"
                   type="number"
                   variant="bordered"

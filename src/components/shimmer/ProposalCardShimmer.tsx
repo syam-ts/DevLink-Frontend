@@ -1,6 +1,6 @@
  
 
-export const ProposalCardShimmer = ({size}: any) => {
+export const ProposalCardShimmer = () => {
 
    
  

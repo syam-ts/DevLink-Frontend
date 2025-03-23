@@ -1,6 +1,6 @@
-"use client";
-import * as React from "react";
-
+ 
+import * as React from "react"; 
+import { Link } from "react-router-dom";
 import { cn } from "../../../lib/utils";
 import {
   NavigationMenu,
@@ -8,12 +8,14 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+  NavigationMenuTrigger, 
 } from "../../../components/ui/navigation-menu";
-import { Link } from "react-router-dom";
 
-export const NavbarAutoOpen = ({ roleType, roleInfo }: any) => {
+interface NavbarAutoOpenProps {
+  roleType: string
+};
+
+export const NavbarAutoOpen: React.FC<NavbarAutoOpenProps> = ({ roleType }) => {
   return (
     <div>
       <NavigationMenu>

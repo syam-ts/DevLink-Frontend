@@ -1,3 +1,9 @@
+import React, { useState } from "react";
+import { toast } from "sonner";
+import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
+import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
+import { useSelector } from "react-redux";
+import { UserState } from "../../../config/state/allState";
 import {
   Modal,
   ModalContent,
@@ -7,12 +13,6 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import React, { useState } from "react";
-import { toast } from "sonner";
-import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
-import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
-import { useSelector } from "react-redux";
-import { UserState } from "../../../config/state/allState";
 
 interface SubmitProjectProps {
   contractId: string | undefined;
@@ -76,11 +76,11 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
           data.success
             ? (window.location.href = `http://localhost:5173/user/job/myContracts/${userId}/user`)
             : toast.error(data.message);
-        } catch (err: any) {
+        } catch (err) {
           console.log(err.message);
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       setError(err.errors);
     }
   };
@@ -113,10 +113,10 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                   name="description"
                   placeholder="description"
                 />
-                {error?.some((err: any) =>
+                {error?.some((err: string) =>
                   err.includes("Description is required")
                 )
-                  ? error.map((err: any, index: number) => {
+                  ? error.map((err: string, index: number) => {
                       if (err.includes("Description is required")) {
                         return (
                           <div key={index} className="text-start">
@@ -126,7 +126,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                       }
                       return null;
                     })
-                  : error.map((err: any, index: number) => {
+                  : error.map((err: string, index: number) => {
                       if (
                         err.includes("Description is required") ||
                         err.includes(
@@ -193,10 +193,10 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                       name="attachedFile"
                       placeholder="Attach Github link"
                     />
-                    {error?.some((err: any) =>
+                    {error?.some((err: string) =>
                       err.includes("Attachment required")
                     )
-                      ? error.map((err: any, index: number) => {
+                      ? error.map((err: string, index: number) => {
                           if (err.includes("Attachment required")) {
                             return (
                               <div key={index} className="text-start">
@@ -208,7 +208,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                           }
                           return null;
                         })
-                      : error.map((err: any, index: number) => {
+                      : error.map((err: string, index: number) => {
                           if (
                             err.includes("Attachment required") ||
                             err.includes("Must be at least 10 characters") ||
@@ -226,8 +226,8 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                         })}
                   </div>
                 </div>{" "}
-                {error?.some((err: any) => err.includes("Progress required"))
-                  ? error.map((err: any, index: number) => {
+                {error?.some((err: string) => err.includes("Progress required"))
+                  ? error.map((err: string, index: number) => {
                       if (err.includes("Progress required")) {
                         return (
                           <div key={index} className="text-start">
@@ -237,7 +237,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                       }
                       return null;
                     })
-                  : error.map((err: any, index: number) => {
+                  : error.map((err: string, index: number) => {
                       if (
                         err.includes(
                           "Progress reProgress need to be under 100%Progress need to be under 100%uired"

@@ -15,21 +15,7 @@ import { useParams } from "react-router-dom";
     const [ role , setRole] = useState({});
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     console.log(roleId)
-
-    // useEffect(()=> {
-    //   try{
-    //   console.log('id ',roleId);
-    //   console.log('info', roleInfo);
-    //       (async () => {
-    //         const { data }: any = axios.get(`http://localhost:3000/admin/viewRole/${roleId}/${roleInfo}`);
-
-    //         console.log('The result ', data);
-    //       }
-    //         )();
-    //   }catch(err: any) {
-    //     console.log('ERROR: ', err.message);
-    //   }
-    // }, []);
+ 
     
   
     return (

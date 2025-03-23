@@ -1,4 +1,14 @@
+import React, { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../../../components/shadcn/ui/button.tsx";
+import { Input } from "../../../components/shadcn/ui/input.tsx";
+import { Label } from "../../../components/ui/label.tsx";
+import { useDispatch, useSelector } from "react-redux";
+import { addNotification } from "../../../redux/slices/userSlice.ts";
+import { Sonner } from "../../../components/sonner/Toaster.tsx";
+import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts";
+import { proposalSchema } from "../../../utils/validation/proposalValidaiton.ts";
+import { UserState } from "../../../config/state/allState.ts";
 import {
   Dialog,
   DialogContent,
@@ -7,15 +17,6 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "../../../components/ui/dialog";
-import { Input } from "../../../components/shadcn/ui/input.tsx";
-import { Label } from "../../../components/ui/label.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from "react";
-import { toast } from "sonner";
-import { addNotification } from "../../../redux/slices/userSlice.ts";
-import { Sonner } from "../../../components/sonner/Toaster.tsx";
-import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts";
-import { proposalSchema } from "../../../utils/validation/proposalValidaiton.ts";
 
 interface FormData {
   bidAmount: number;
@@ -44,10 +45,10 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
   const dispatch = useDispatch();
 
   const userId: string = useSelector(
-    (state: any) => state?.user?.currentUser?._id
+    (state: UserState) => state?.user?.currentUser?._id
   );
 
-  const handleOnChange = (e: any) => {
+  const handleOnChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData: FormData) => ({
       ...prevData,
@@ -82,7 +83,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               },
             });
           } else {
-            const notifications: any = JSON.stringify([
+            const notifications = JSON.stringify([
               data?.data?.notification,
             ]);
             dispatch(addNotification(notifications));
@@ -92,7 +93,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               window.location.href = `http://localhost:5173/user/proposals`;
             }, 500);
           }
-        } catch (err: string) {
+        } catch (err) {
           toast.error(err.response.data.message, {
             style: {
               backgroundColor: "#f5e905",
@@ -105,7 +106,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           });
         }
       }
-    } catch (err: string) {
+    } catch (err) {
       console.log("ERROR: ", err);
       setError(err.errors);
       toast.error(err.message.response.data.message);

@@ -4,6 +4,14 @@ import ChatBox from "./ChatBox";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
+interface Chat {
+    members: string
+    userName: string
+    clientData: {
+        companyName: string
+    }
+};
+
 function ListAllUserChat() {
     const [data, setData] = useState({});
     const { roleType, roleId } = useParams<{
@@ -15,7 +23,6 @@ function ListAllUserChat() {
     useEffect(() => {
         (async () => {
             let response;
-
             if (roleType === "user") {
                 response = await apiUserInstance.get(`/allChat/view/${roleId}`);
             } else {
@@ -30,8 +37,8 @@ function ListAllUserChat() {
         <div className=" flex arsenal-sc-regular justify-between pt-20">
             <section className=" mx-4 ">
                 <div className="relative flex w-96 flex-col rounded-lg bg-white  ">
-                    {Object.entries(data).map((d: any) => (
-                        <div className="flex rounded-xl border-gray-500 border h-20 shadow-xl w-full flex-col gap-2 m-3">
+                    {Object.entries(data).map(([key, d]: [string, Chat]) => (
+                        <div key={key} className="flex rounded-xl border-gray-500 border h-20 shadow-xl w-full flex-col gap-2 m-3">
                             <div
                                 role="button"
                                 className="text-black flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"

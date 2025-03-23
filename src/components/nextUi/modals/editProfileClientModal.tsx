@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { Sonner } from "../../../components/sonner/Toaster"; 
+import { useDispatch } from "react-redux";
+import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
 import {
   Modal,
   ModalContent,
@@ -6,12 +11,6 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { Sonner } from "../../../components/sonner/Toaster";
-import { addRequest } from "../../../redux/slices/adminSlice";
-import { useDispatch } from "react-redux";
-import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
 
 interface EditClientModalProps {
   clientId: string;
@@ -95,14 +94,14 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
       // } else {
       //   toast.error(response.data.message);
       // }
-    } catch (err: any) {
+    } catch (err) {
       toast.error(err.message);
 
       console.log(err);
     }
   };
 
-  const handleOpen = (size: any) => {
+  const handleOpen = (size) => {
     setSize(size);
     onOpen();
   };

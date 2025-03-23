@@ -12,12 +12,18 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 
+interface ContractRespondProps {
+  contractId: string;
+}
+
 interface FormData {
   description: string;
   progress: string;
 }
 
-export const ContractRespond = ({ contractId }: any) => {
+export const ContractRespond: React.FC<ContractRespondProps> = ({
+  contractId,
+}) => {
   const [formData, setFormData] = useState<FormData>({
     description: "",
     progress: "",
@@ -25,7 +31,7 @@ export const ContractRespond = ({ contractId }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [size, setSize] = React.useState<string>("md");
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -54,10 +60,10 @@ export const ContractRespond = ({ contractId }: any) => {
       console.log("THE RESPONSE FROM CLOSE CONTREACT API : ", data);
       toast.success(
         data?.message ||
-          "Contract closed successfully and amount will credit soon "
+        "Contract closed successfully and amount will credit soon "
       );
       window.location.href = "http://localhost:5173/user/home";
-    } catch (err: any) {
+    } catch (err) {
       console.error("ERROR: ", err.message);
     }
   };

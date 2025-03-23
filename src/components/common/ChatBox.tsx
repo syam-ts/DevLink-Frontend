@@ -3,29 +3,37 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { ClientState, UserState } from "../../config/state/allState";
+import { Socket } from "socket.io-client";
+
+interface ChatBoxProps {
+  roleType: string
+  targetId: string
+};
 
 interface Messages {
-    name: string;
-    roleType: string;
-    text: string;
-}
+    name: string
+    roleType: string
+    text: string
+};
 
-const ChatBox = ({ roleType, targetId }: any) => {
+const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
     const [messages, setMessages] = useState<Messages[]>([]);
-    const [newMessage, setNewMessage] = useState("");
-    // const { roleType, targetId } = useParams();
-    const socketRef = useRef<any>(null);
+    const [newMessage, setNewMessage] = useState<string>("");
+    const socketRef = useRef<Socket | null>(null);
 
     let name, roleId;
 
     if (roleType === "user") {
-        name = useSelector((state: any) => state?.user?.currentUser?.name);
-        roleId = useSelector((state: any) => state?.user?.currentUser?._id);
+        name = useSelector((state: UserState) => state?.user?.currentUser?.name);
+        roleId = useSelector((state: UserState) => state?.user?.currentUser?._id);
     } else {
         name = useSelector(
-            (state: any) => state?.client?.currentClient?.companyName
+            (state: ClientState) => state?.client?.currentClient?.companyName
         );
-        roleId = useSelector((state: any) => state?.client?.currentClient?._id);
+        roleId = useSelector(
+            (state: ClientState) => state?.client?.currentClient?._id
+        );
     }
 
     const fetchChatMessages = async () => {
@@ -50,8 +58,6 @@ const ChatBox = ({ roleType, targetId }: any) => {
         setMessages(response.data.messages?.messages);
     };
 
-    console.log("id, ", roleId);
-
     useEffect(() => {
         fetchChatMessages();
     }, [targetId]);
@@ -65,7 +71,7 @@ const ChatBox = ({ roleType, targetId }: any) => {
         const socket = socketRef.current;
         socket.emit("joinChat", { name, roleId, targetId });
 
-        socket.on("messageReceived", ({ name, text, roleType }: any) => {
+        socket.on("messageReceived", ({ name, text, roleType }) => {
             setMessages((messages) => [...messages, { name, text, roleType }]);
         });
 
