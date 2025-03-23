@@ -107,8 +107,8 @@ const AllContract: React.FC = () => {
             </div>
           ) : (
             <div>
-              {Object.entries(contracts).map((contract: any) => (
-                <div className="containter mx-auto my-10 max-lg:w-[1000px]">
+              {Object.entries(contracts).map(([key, contract]: [string, Contract]) => (
+                <div className="containter mx-auto my-10 max-lg:w-[1000px]" key={key}>
                   <div
                     className={`${
                       contract.status === "submitted" ? "bg-black" : "bg-white"

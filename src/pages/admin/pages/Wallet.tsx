@@ -10,6 +10,12 @@ interface Transactions {
   date: string
 };
 
+interface Wallet {
+  totalPages: number
+  balance: number
+  transactions: Transactions
+};
+
 const Wallet: React.FC = () => {
   const [balance, setBalance] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -21,7 +27,7 @@ const Wallet: React.FC = () => {
       try {
         interface Response {
           data: {
-            wallet?: any;
+            wallet?: Wallet;
           };
         }
         let response: Response;
@@ -33,8 +39,7 @@ const Wallet: React.FC = () => {
           }
         );
 
-        setTotalPages(response.data?.wallet?.totalPages);
-
+        setTotalPages(response.data?.wallet?.totalPages); 
         setBalance(response.data?.wallet[0]?.balance);
         setTransactions(response.data.wallet[0]?.transactions);
       } catch (error: unknown) {

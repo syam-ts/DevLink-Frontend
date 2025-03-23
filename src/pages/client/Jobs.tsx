@@ -6,8 +6,7 @@ import { JobPostCard } from "../../components/common/JobPostCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useSelector } from "react-redux";
 import { ClientState } from "../../config/state/allState";
-import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover";
-import { ButtonBaseActions } from "@mui/material";
+import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover"; 
 
 interface Jobs {
   jobs: {
@@ -129,7 +128,7 @@ const Jobs = () => {
                 className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === "myJobs" && "border-b border-black"
                   }`}
                 value="myJobs"
-                onClick={(e: any) => changeActiveTab(e.target.value)}
+                onClick={(e: React.MouseEvent<HTMLButtonElement> ) => changeActiveTab((e.target as HTMLButtonElement).value)}
               >
                 My Jobs
               </button>
@@ -137,7 +136,7 @@ const Jobs = () => {
                 className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${activeTab === "completedJobs" && "border-b border-black"
                   }`}
                 value="completedJobs"
-                onClick={(e: any) => changeActiveTab(e.target.value)}
+                onClick={(e: React.MouseEvent<HTMLButtonElement> ) => changeActiveTab((e.target as HTMLButtonElement).value)}
               >
                 Completed Jobs
               </button>

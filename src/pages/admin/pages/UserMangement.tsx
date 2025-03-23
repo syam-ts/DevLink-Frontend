@@ -1,5 +1,8 @@
+import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { Sonner } from "../../../components/sonner/Toaster";
+import { UserProfileModal } from "../../../components/nextUi/modals/UserProfileModal";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 import {
   Select,
   SelectContent,
@@ -8,22 +11,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../components/ui/select";
-import { toast } from "sonner";
-import { UserProfileModal } from "../../../components/nextUi/modals/UserProfileModal";
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 interface User {
-  profilePicture: string;
-  name: string;
-  email: string;
-  budget: number;
-  isBlocked: boolean;
-  view: string;
-  totalJobs: number;
-}
+  _id: string
+  profilePicture: string
+  name: string
+  email: string
+  budget: number
+  isBlocked: boolean
+  view: string
+  totalJobs: number
+};
 
 const clientManagement: React.FC = () => {
   const [users, setUsers] = useState<User>({
+    _id: "",
     profilePicture: "",
     name: "",
     email: "",
@@ -72,9 +74,7 @@ const clientManagement: React.FC = () => {
 
   const blockUser = async (userId: string) => {
     try {
-      const response = await apiAdminInstance.patch(
-        `/blockUser/${userId}`
-      );
+      const response = await apiAdminInstance.patch(`/blockUser/${userId}`);
 
       setIsBlockedTrigger(true);
       if (response.data.success) {
@@ -97,9 +97,7 @@ const clientManagement: React.FC = () => {
 
   const unBlockUser = async (userId: string) => {
     try {
-      const response = await apiAdminInstance.patch(
-        `/unblockUser/${userId}`
-      );
+      const response = await apiAdminInstance.patch(`/unblockUser/${userId}`);
       setIsBlockedTrigger(true);
       if (response.data.success) {
         toast.success("user unblocked", {
@@ -125,8 +123,10 @@ const clientManagement: React.FC = () => {
         <Sonner />
         <div className="w-full max-w-full px-3 mb-6 mx-auto ">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0">
-            <div className="relative flex flex-col min-w-0 break-words rounded-large border bg-light/30
-            border-stone-400">
+            <div
+              className="relative flex flex-col min-w-0 break-words rounded-large border bg-light/30
+            border-stone-400"
+            >
               <div className="px-9 pt-5 flex justify-between items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent">
                 <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
                   <span className="mr-3 text-dark">Users Management</span>
@@ -169,7 +169,7 @@ const clientManagement: React.FC = () => {
                     </thead>
                     <tbody>
                       <tr>
-                        {Object.entries(users).map((user: any) => (
+                        {Object.entries(users).map((user: User[]) => (
                           <div className="flex border-b border-gray-300 pt-4 pb-1">
                             <td className="w-[80px]">
                               <span className="text-md/normal">

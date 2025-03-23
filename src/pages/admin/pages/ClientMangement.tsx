@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Sonner } from "../../../components/sonner/Toaster";
+import { toast } from "sonner";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import { ClientProfileModal } from "../../../components/nextUi/modals/ClientProfileAdminModal";
 import {
   Select,
   SelectContent,
@@ -8,9 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../components/ui/select"; 
-import { toast } from "sonner";
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
-import { ClientProfileModal } from "../../../components/nextUi/modals/ClientProfileAdminModal";
 
 interface Client {
   comapnyName: string;
@@ -165,8 +165,8 @@ const clientManagement: React.FC = () => {
                     </thead>
                     <tbody>
                       <tr className="">
-                        {Object.entries(clients).map((client: any) => (
-                          <div className="flex border-b border-gray-400 py-4">
+                        {Object.entries(clients).map(([key, client]: [string, Client]) => (
+                          <div key={key} className="flex border-b border-gray-400 py-4">
                             <td className="w-[180px]">
                               <span className="text-md/normal">
                                 {client[1].companyName}

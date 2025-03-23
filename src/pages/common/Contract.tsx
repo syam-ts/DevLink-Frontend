@@ -61,7 +61,7 @@ const Contract: React.FC = () => {
     contractId: string;
     roleType: "user" | "client";
   }>();
-  const contentRef: any = useRef();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -240,7 +240,7 @@ const Contract: React.FC = () => {
                     and condition. It wont valid after met with the deadline.{" "}
                   </p>
                   <p className="text-sm">
-                    If you have any questions concerning this contract, use the
+                    If you have further questions concerning this contract, use the
                     following contact information:
                   </p>
                   <div className="mt-2">

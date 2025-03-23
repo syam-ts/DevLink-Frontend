@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react"; 
 import { toast } from "sonner";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
@@ -14,6 +13,13 @@ interface Transactions {
   amount: number;
   from: string;
   createdAt: string;
+  date: string
+}
+
+interface Wallet {
+  totalPages: number
+  balance: number
+  transactions: Transactions
 }
 
 const Wallet: React.FC<WalletProps> = ({ roleType }) => {
@@ -27,7 +33,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
       try {
         interface Response {
           data: {
-            wallet?: any;
+            wallet?: Wallet;
           };
         }
         let response: Response;
@@ -46,9 +52,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             }
           );
         }
-
-        setTotalPages(response.data?.wallet?.totalPages);
-
+        setTotalPages(response.data?.wallet?.totalPages); 
         setBalance(response.data?.wallet[0]?.balance);
         setTransactions(response.data.wallet[0]?.transactions);
       } catch (error: unknown) {
@@ -131,7 +135,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
                 </tr>
               </thead>
               <tbody>
-                {transactions?.map((tra: any) => (
+                {transactions?.map((tra: Transactions) => (
                   <tr>
                     <td className="py-4 px-4 border-b border-blue-gray-50">
                       <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">

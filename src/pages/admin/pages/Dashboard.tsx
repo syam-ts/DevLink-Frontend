@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Doughnut, Line } from "react-chartjs-2";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import {
+  monthsData,
+  weeksData,
+  yearsData,
+} from "../../../config/helper/dateHelper";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,13 +18,6 @@ import {
   LineElement,
   PointElement,
 } from "chart.js";
-import { Doughnut, Line } from "react-chartjs-2";
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
-import {
-  monthsData,
-  weeksData,
-  yearsData,
-} from "../../../config/helper/dateHelper";
 
 ChartJS.register(
   CategoryScale,

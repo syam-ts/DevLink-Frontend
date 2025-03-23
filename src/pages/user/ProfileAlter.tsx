@@ -1,13 +1,16 @@
+import axios from "axios";
+import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
-import { toast } from "sonner";
+import config from "../../config/helper/config";
 import { Sonner } from "../../components/sonner/Toaster";
-import { updateUser } from '../../redux/slices/userSlice';
-import { userProfileEditSchema, userProfileVerifySchema } from "../../utils/validation/userProfileSchema";
-import axios from "axios";
-import config from '../../config/helper/config'
+import { updateUser } from "../../redux/slices/userSlice";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import {
+  userProfileEditSchema,
+  userProfileVerifySchema,
+} from "../../utils/validation/userProfileSchema";
 
 interface UserData {
   name: string
@@ -23,9 +26,8 @@ interface UserData {
   experience: string
   education: string[]
 };
- 
-const UserProfileAlter = () => {
 
+const UserProfileAlter = () => {
   const [userData, setUserData] = useState<UserData>({
     name: "",
     budget: 0,
@@ -60,17 +62,14 @@ const UserProfileAlter = () => {
   const [imageLoading, setImageLoading] = useState<boolean>(false);
   const [error, setError] = useState<string[]>([]);
   const { type } = useParams<{ type: string }>();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
       (async () => {
-        const response = await apiUserInstance.get(
-          `/profile/user-view`,
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await apiUserInstance.get(`/profile/user-view`, {
+          withCredentials: true,
+        });
         console.log(response.data);
         if (!response.data.success) {
           toast.error(response.data.message, {
@@ -127,7 +126,6 @@ const UserProfileAlter = () => {
 
     const data = new FormData();
     data.append("file", file), console.log("rist", data);
-    //PUT TO ENV
     data.append("upload_preset", "devlink-userProfle"),
       data.append("cloud_name", "dusbc29s2");
 
@@ -142,14 +140,11 @@ const UserProfileAlter = () => {
       console.log(err.message);
     }
   };
- 
 
-  var loadFile = function (event) {
-    var input = event.target;
-    var file = input.files[0];
-    var type = file.type;
-    console.log(type);
-    var output: any = document.getElementById("preview_img");
+  var loadFile = function (event): void {
+    var output = document.getElementById(
+      "preview_img"
+    ) as HTMLImageElement | null;
 
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function () {
@@ -158,8 +153,7 @@ const UserProfileAlter = () => {
   };
 
   const submitForm = async () => {
-    try { 
-
+    try {
       let validForm;
       if (type === "verify") {
         validForm = await userProfileVerifySchema.validate(formData, {
@@ -193,7 +187,7 @@ const UserProfileAlter = () => {
           const user = response.data.data.user;
           console.log("Dispatching user data to Redux:", user);
           dispatch(updateUser(user));
-         window.location.href = `${config.BASE_URL}/user/profile/user-view`;
+          window.location.href = `${config.BASE_URL}/user/profile/user-view`;
         }
       } else {
         if (type === "verify") {
@@ -206,7 +200,7 @@ const UserProfileAlter = () => {
           });
         }
       }
-    } catch (err) { 
+    } catch (err) {
       setError(err.errors);
     }
   };
@@ -240,10 +234,7 @@ const UserProfileAlter = () => {
   const handleAddEducation = (event, inputValue: string) => {
     event.preventDefault();
     if (inputValue.trim() && !education.includes(inputValue)) {
-      setEducation((prevEducation) => [
-        ...prevEducation,
-        inputValue.trim(),
-      ]);
+      setEducation((prevEducation) => [...prevEducation, inputValue.trim()]);
       setInputValue("");
     }
   };
@@ -285,36 +276,36 @@ const UserProfileAlter = () => {
                     err.includes("FullName is required")
                   )
                     ? error?.map((err: string, index: number) => {
-                        if (err.includes("FullName is required")) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (err.includes("FullName is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("FullName is required") ||
-                          err.includes("Must be atleast 3 characters") ||
-                          err.includes(
-                            "Must be at least 3 characters and under 20 characters"
-                          ) ||
-                          err.includes("Must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("FullName is required") ||
+                        err.includes("Must be atleast 3 characters") ||
+                        err.includes(
+                          "Must be at least 3 characters and under 20 characters"
+                        ) ||
+                        err.includes("Must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
                 <div>
@@ -329,38 +320,40 @@ const UserProfileAlter = () => {
                     type="number"
                   />
                   <hr />
-                  {error?.some((err: string) => err.includes("Budget is required"))
+                  {error?.some((err: string) =>
+                    err.includes("Budget is required")
+                  )
                     ? error?.map((err: string, index: number) => {
-                        if (err.includes("Budget is required")) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (err.includes("Budget is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("Budget is required") ||
-                          err.includes("Hourly rate must be at least 100rs") ||
-                          err.includes("Hourly rate must be at most 1500rs") ||
-                          err.includes(
-                            "Hourly rate must be at least 100rs - 1500rs characters"
-                          )
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("Budget is required") ||
+                        err.includes("Hourly rate must be at least 100rs") ||
+                        err.includes("Hourly rate must be at most 1500rs") ||
+                        err.includes(
+                          "Hourly rate must be at least 100rs - 1500rs characters"
+                        )
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -378,36 +371,36 @@ const UserProfileAlter = () => {
                     err.includes("Location is required")
                   )
                     ? error?.map((err: string, index: number) => {
-                        if (err.includes("Location is required")) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (err.includes("Location is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("Location is required") ||
-                          err.includes("Must be atleast 4 characters") ||
-                          err.includes(
-                            "Must be at least 4 characters and under 20 character"
-                          ) ||
-                          err.includes("Must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("Location is required") ||
+                        err.includes("Must be atleast 4 characters") ||
+                        err.includes(
+                          "Must be at least 4 characters and under 20 character"
+                        ) ||
+                        err.includes("Must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
                 {type === "edit" && (
@@ -455,35 +448,35 @@ const UserProfileAlter = () => {
                       err.includes("Minimum 3 skills required")
                     )
                       ? error?.map((err: string, index: number) => {
-                          if (err.includes("Minimum 3 skills required")) {
-                            return (
-                              <div key={index} className="text-start">
-                                <span className="text-red-400 text-sm">
-                                  {err}
-                                </span>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })
+                        if (err.includes("Minimum 3 skills required")) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">
+                                {err}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })
                       : error?.map((err: string, index: number) => {
-                          if (
-                            err.includes("Minimum 3 skills required") ||
-                            err.includes("Maximum 10 skills are allowed") ||
-                            err.includes(
-                              "Skill Filed must be at least 2 - 6 data"
-                            )
-                          ) {
-                            return (
-                              <div key={index} className="text-start">
-                                <span className="text-red-400 text-sm">
-                                  {err}
-                                </span>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })}
+                        if (
+                          err.includes("Minimum 3 skills required") ||
+                          err.includes("Maximum 10 skills are allowed") ||
+                          err.includes(
+                            "Skill Filed must be at least 2 - 6 data"
+                          )
+                        ) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">
+                                {err}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
                   </div>
                   {/* <hr className="my-3" /> */}
                   <div>
@@ -551,40 +544,42 @@ const UserProfileAlter = () => {
                     type="text"
                   />
                   <hr />
-                  {error?.some((err: string) => err.includes("Domain is required"))
+                  {error?.some((err: string) =>
+                    err.includes("Domain is required")
+                  )
                     ? error?.map((err: string, index: number) => {
-                        if (err.includes("Domain is required")) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (err.includes("Domain is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("Domain is required") ||
-                          err.includes(
-                            "Domain must be atleast 10 characters"
-                          ) ||
-                          err.includes(
-                            "Domain name must be at least 10 -  20 characters"
-                          ) ||
-                          err.includes("Domain must be under 20 characters")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("Domain is required") ||
+                        err.includes(
+                          "Domain must be atleast 10 characters"
+                        ) ||
+                        err.includes(
+                          "Domain name must be at least 10 -  20 characters"
+                        ) ||
+                        err.includes("Domain must be under 20 characters")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
 
                 <div>
@@ -601,40 +596,40 @@ const UserProfileAlter = () => {
                     err.includes("github link is required")
                   )
                     ? error?.map((err: string, index: number) => {
-                        if (err.includes("github link is required")) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (err.includes("github link is required")) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("github link is required") ||
-                          err.includes(
-                            "GithubLink must be atleast 10 characters"
-                          ) ||
-                          err.includes(
-                            "GithubLink must be under 30 characters"
-                          ) ||
-                          err.includes(
-                            "Github link must be at least 10 - 30 characters"
-                          )
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("github link is required") ||
+                        err.includes(
+                          "GithubLink must be atleast 10 characters"
+                        ) ||
+                        err.includes(
+                          "GithubLink must be under 30 characters"
+                        ) ||
+                        err.includes(
+                          "Github link must be at least 10 - 30 characters"
+                        )
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
               </div>
 
@@ -652,34 +647,34 @@ const UserProfileAlter = () => {
                   err.includes("Description is required")
                 )
                   ? error?.map((err: string, index: number) => {
-                      if (err.includes("Description is required")) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
+                    if (err.includes("Description is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
                   : error?.map((err: string, index: number) => {
-                      if (
-                        err.includes("Description is required") ||
-                        err.includes(
-                          "Description must be atleast 20 characters"
-                        ) ||
-                        err.includes(
-                          "Descripton must be at least 20 - 200 characters"
-                        ) ||
-                        err.includes("Description must be under 200 characters")
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })}
+                    if (
+                      err.includes("Description is required") ||
+                      err.includes(
+                        "Description must be atleast 20 characters"
+                      ) ||
+                      err.includes(
+                        "Descripton must be at least 20 - 200 characters"
+                      ) ||
+                      err.includes("Description must be under 200 characters")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
@@ -696,36 +691,36 @@ const UserProfileAlter = () => {
                   err.includes("Hire me field is required")
                 )
                   ? error?.map((err: string, index: number) => {
-                      if (err.includes("Hire me field is required")) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
+                    if (err.includes("Hire me field is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
                   : error?.map((err: string, index: number) => {
-                      if (
-                        err.includes("Hire me field is required") ||
-                        err.includes(
-                          "Hire me filed must be atleast 20 characters"
-                        ) ||
-                        err.includes(
-                          "Hire me filed must be under 60 characters"
-                        ) ||
-                        err.includes(
-                          "Hire me Filed must be at least 20 - 60 characters"
-                        )
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })}
+                    if (
+                      err.includes("Hire me field is required") ||
+                      err.includes(
+                        "Hire me filed must be atleast 20 characters"
+                      ) ||
+                      err.includes(
+                        "Hire me filed must be under 60 characters"
+                      ) ||
+                      err.includes(
+                        "Hire me Filed must be at least 20 - 60 characters"
+                      )
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
@@ -742,36 +737,36 @@ const UserProfileAlter = () => {
                   err.includes("Experiences are required")
                 )
                   ? error?.map((err: string, index: number) => {
-                      if (err.includes("Experiences are required")) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
+                    if (err.includes("Experiences are required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
                   : error?.map((err: string, index: number) => {
-                      if (
-                        err.includes("Experiences are required") ||
-                        err.includes(
-                          "Experience must be atleast 20 characters"
-                        ) ||
-                        err.includes(
-                          "Experience must be under 60 characters"
-                        ) ||
-                        err.includes(
-                          "Experience Filed must be at least 20 - 60 characters"
-                        )
-                      ) {
-                        return (
-                          <div key={index} className="text-start">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })}
+                    if (
+                      err.includes("Experiences are required") ||
+                      err.includes(
+                        "Experience must be atleast 20 characters"
+                      ) ||
+                      err.includes(
+                        "Experience must be under 60 characters"
+                      ) ||
+                      err.includes(
+                        "Experience Filed must be at least 20 - 60 characters"
+                      )
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </div>
 
               <div>
@@ -794,42 +789,42 @@ const UserProfileAlter = () => {
                     err.includes("Eduction informations are required")
                   )
                     ? error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("Eduction informations are required")
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
+                      if (
+                        err.includes("Eduction informations are required")
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
                     : error?.map((err: string, index: number) => {
-                        if (
-                          err.includes("Eduction informations are required") ||
-                          err.includes(
-                            "Minimum 2 eduction information needed"
-                          ) ||
-                          err.includes(
-                            "Maximum 6 eduction information allowed"
-                          ) ||
-                          err.includes(
-                            "Education Filed must be at least 2 - 6 data"
-                          )
-                        ) {
-                          return (
-                            <div key={index} className="text-start">
-                              <span className="text-red-400 text-sm">
-                                {err}
-                              </span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
+                      if (
+                        err.includes("Eduction informations are required") ||
+                        err.includes(
+                          "Minimum 2 eduction information needed"
+                        ) ||
+                        err.includes(
+                          "Maximum 6 eduction information allowed"
+                        ) ||
+                        err.includes(
+                          "Education Filed must be at least 2 - 6 data"
+                        )
+                      ) {
+                        return (
+                          <div key={index} className="text-start">
+                            <span className="text-red-400 text-sm">
+                              {err}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                 </div>
                 {/* <hr className="my-3" /> */}
                 <div>

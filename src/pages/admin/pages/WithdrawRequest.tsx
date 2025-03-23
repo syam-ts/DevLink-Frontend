@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { SuccessTransferMoneyModal } from "../../../components/nextUi/modals/SuccessTransferMoneyModal";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
+interface Request {
+  roleId: string
+  userName: string
+  amount: number
+  accountNumber: number
+}
+
 function WithdrawRequest() {
   const [data, setData] = useState({});
 
   useEffect(() => {
     try {
       const fetchRequest = async () => {
-        const { data } = await apiAdminInstance.get("/getWithdrawRequests"); 
+        const { data } = await apiAdminInstance.get("/getWithdrawRequests");
         setData(data.requests);
       };
       fetchRequest();
@@ -17,13 +24,13 @@ function WithdrawRequest() {
       console.error(err.message);
     }
   }, []);
- 
+
 
   return (
     <div>
       <div className="grid gap-5 w-2/3 my-44 mx-auto rounded-small">
-        {Object.entries(data).map((request: any) => (
-          <div className="flex bg-white shadow-lg rounded-large justify-between">
+        {Object.entries(data).map(([key, request]: [string, Request]) => (
+          <div key={key} className="flex bg-white shadow-lg rounded-large justify-between">
             <div className="px-5 grid py-4">
               <span className="font-bold text-md">
                 UserName: {request[1].userName}{" "}

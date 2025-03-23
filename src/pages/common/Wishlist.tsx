@@ -3,8 +3,26 @@ import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 
+interface Jobs {
+  title: string
+  description: string
+  expertLevel: string
+  location: string
+  requiredSkills: string[]
+  paymentType: string
+  amount: number
+};
+
 const Wishlist: React.FC = () => {
-  const [jobs, setJobs] = useState({});
+  const [jobs, setJobs] = useState<Jobs>({
+    title: "",
+    description: "",
+    expertLevel: "",
+    location: "",
+    requiredSkills: [""],
+    paymentType: "",
+    amount: 0,
+  });
   const [wishlistId, setWishlistId] = useState<string>("");
   const [removeFlag, setRemoveFlag] = useState<boolean>(false);
 
@@ -57,8 +75,11 @@ const Wishlist: React.FC = () => {
       </section>
       {Object.entries(jobs).length != 0 ? (
         <div>
-          {Object.entries(jobs)?.map((job: any) => (
-            <div className="w-2/3 transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular">
+          {Object.entries(jobs)?.map(([key, job]: [string, Jobs]) => (
+            <div
+              key={key}
+              className="w-2/3 transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular"
+            >
               <div className="flex justify-between ">
                 <div className="grid">
                   <span className="text-2xl text-start">{job[1]?.title}</span>

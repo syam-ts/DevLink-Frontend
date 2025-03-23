@@ -3,8 +3,38 @@ import { Sonner } from "../../../components/sonner/Toaster";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 import { ContractView } from "../../../components/nextUi/modals/ContractViewAdmin";
 
+interface Contract {
+  clientData: {
+    comapanyName: string
+  }
+  userData: {
+    name: string
+  }
+  jobPostData: {
+    title: string
+  }
+  amount: number
+  deadline: number
+  status: string
+  createdAt: number
+};
+
 const Contracts: React.FC = () => {
-  const [contracts, setContracts] = useState({});
+  const [contracts, setContracts] = useState<Contract>({
+    clientData: {
+      comapanyName: ""
+    },
+    userData: {
+      name: ""
+    },
+    jobPostData: {
+      title: ""
+    },
+    amount: 0,
+    deadline: 0,
+    status: "",
+    createdAt: 0,
+  });
 
   useEffect(() => {
     try {
@@ -43,46 +73,46 @@ const Contracts: React.FC = () => {
                 <tr className="">
                   <div className="grid gap-12 py-4">
                     {
-                      Object.entries(contracts).map((contract: any) => (
-                        <div className='border-b border-gray-400'>
+                      Object.entries(contracts).map(([key, contract]: [string, Contract]) => (
+                        <div key={key} className='border-b border-gray-400'>
                           <td className="w-[100px]">
-                            <span className="text-sm"> 
-                             {contract[1].clientData.companyName}
+                            <span className="text-sm">
+                              {contract[1].clientData.companyName}
                             </span>
                           </td>
                           <td className="w-[230px] text-center">
                             <span className="text-sm w-20">
-                            {contract[1].userData.name}
+                              {contract[1].userData.name}
                             </span>
                           </td>
                           <td className="w-[360px]">
                             <span className="text-sm w-20">
-                            {contract[1].jobPostData.title}
-                            </span>
-                          </td> 
-                          <td className="w-[260px]">
-                            <span className="text-sm w-20">
-                            {contract[1].amount}
+                              {contract[1].jobPostData.title}
                             </span>
                           </td>
                           <td className="w-[260px]">
                             <span className="text-sm w-20">
-                            {contract[1].deadline} 
+                              {contract[1].amount}
                             </span>
                           </td>
                           <td className="w-[260px]">
                             <span className="text-sm w-20">
-                            {contract[1].status}
+                              {contract[1].deadline}
                             </span>
                           </td>
                           <td className="w-[260px]">
-                            <span className="text-sm w-20"> 
-                                <ContractView contract={contract} />
+                            <span className="text-sm w-20">
+                              {contract[1].status}
+                            </span>
+                          </td>
+                          <td className="w-[260px]">
+                            <span className="text-sm w-20">
+                              <ContractView contract={contract} />
                             </span>
                           </td>
                         </div>
                       ))
-                    } 
+                    }
 
                   </div>
                 </tr>

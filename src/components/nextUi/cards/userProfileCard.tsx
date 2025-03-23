@@ -1,8 +1,7 @@
 import { ClientState } from "../../../config/state/allState";
 import { Card, CardHeader, CardBody } from "@heroui/react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { Link } from "react-router-dom"; 
 
 interface Developer {
   _id: string
@@ -16,8 +15,7 @@ interface Developer {
 }
 
 interface UserProfileCardProps { 
-  developer: Developer[]
-
+  developer: Developer[] 
 };
 
 export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) => { 
