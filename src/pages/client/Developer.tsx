@@ -1,36 +1,28 @@
-import { useEffect, useState } from "react";
 import { UserProfileCard } from "../../components/nextUi/cards/userProfileCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
+import { useEffect, useState } from "react";
 
 interface Developer {
-  _id: string
-  domain: string
-  location?: string
+  _id: string;
+  domain: string;
+  location?: string;
   rating: {
-    avgRating: number
-  }
-  name: string
-  profilePicture: string
-};
+    avgRating: number;
+  };
+  name: string;
+  profilePicture: string;
+}
 
 function ListUsers() {
-  const [developers, setDevelopers] = useState<Developer>({
-    _id: "",
-    domain: "",
-    location: "",
-    rating: {
-      avgRating: 0,
-    },
-    name: "",
-    profilePicture: "",
-  });
+  const [developers, setDevelopers] = useState({});
 
   useEffect(() => {
     try {
-      (async () => {
+      const fetchUsers = async () => {
         const { data } = await apiClientInstance.get("/developers");
         setDevelopers(data.developers);
-      })();
+      };
+      fetchUsers();
     } catch (error: unknown) {
       const err = error as { message: string };
       console.error("ERROR: ", err.message);
@@ -47,7 +39,7 @@ function ListUsers() {
       <section className="flex justify-center mx-44">
         <div className="flex gap-16 flex-wrap ">
           {Object.entries(developers).map(
-            ([key, developer]: [string, Developer[]]) => (
+            ([key, developer]: [string, Developer]) => (
               <div key={key}>
                 <UserProfileCard developer={developer} />
               </div>

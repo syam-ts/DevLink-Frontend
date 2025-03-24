@@ -12,6 +12,7 @@ import {
 } from "../../redux/slices/userSlice";
 
 interface Notification {
+  _id: string
   type: string
   message: string
   sender_id: string
@@ -20,14 +21,24 @@ interface Notification {
     documentId: string
   }
   createdAt?: string
+  newContract: {
+    userId: string
+    contractId: string
+  }
+  closeContract: {
+    userId: string
+    contractId: string
+  }
+  inviteSuccess: {
+    userId: string
+  }
 };
 
 const Notification = () => {
   const { role, roleId } = useParams<{ role: string; roleId: string }>();
   const dispatch = useDispatch();
   let notification;
-
-  // alert(typeof(rateUser))
+ 
   //Re-render after user rating happend
   //  if(rateUser) {
   //   localStorage.removeItem('notificationsPageFirstVisit');
@@ -79,7 +90,7 @@ const Notification = () => {
             response = await apiUserInstance.get(`/notifications/${roleId}`);
           } else {
             response = await apiClientInstance.get(`/notifications/${roleId}`);
-          }
+          } 
 
           const notifications = JSON.stringify(response?.data?.notifications);
           if (role === "user") {
@@ -97,6 +108,7 @@ const Notification = () => {
       console.error("ERROR: ", err.message);
     }
   }, []);
+  console.log('The not: ',notification)
 
   return (
     <div className="text-center text-xl py-12 arsenal-sc-regular pt-44 ">
@@ -115,27 +127,26 @@ const Notification = () => {
                   />
                 </div>
                 <div className="grid w-[30rem]  ">
-                  <span className="text-md text-green-500">
-                    {" "}
-                    {notif[1]?.type}
+                  <span className="text-md text-green-500"> 
+                    {notif?.type}  
                   </span>
-                  <span className="text-sm"> {notif[1]?.message}</span>
+                  <span className="text-sm"> {notif?.message}</span>
                 </div>
                 <div className="w-[10rem]">
                   <span className="text-sm">
-                    {getTimeAgo(notif[1].createdAt)}
+                    {getTimeAgo(notif?.createdAt)}
                   </span>
                 </div>
               </div>
               <div>
-                {notif[1].newContract && (
+                {notif?.newContract && (
                   <div className="px-20">
                     <button
                       className="rounded-small bg-[#0000ff] py-1.5 px-5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700  ml-2"
                       type="button"
                     >
                       <Link
-                        to={`/${role}/contract/${notif[1].newContract.contractId}/${role}`}
+                        to={`/${role}/contract/${notif.newContract.contractId}/${role}`}
                         className="no-underline text-white font-bold"
                       >
                         View
@@ -145,15 +156,15 @@ const Notification = () => {
                 )}
               </div>
               <div>
-                {notif[1]?.closeContract && (
+                {notif?.closeContract && (
                   <div className="px-3 flex gap-2">
-                    <div>
+                    <div> 
                       <button
                         className="rounded-small bg-[#0000ff] py-1.5 px-5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700  ml-2"
                         type="button"
                       >
                         <Link
-                          to={`/${role}/contract/${notif[1].closeContract.contractId}/${role}`}
+                          to={`/${role}/contract/${notif.closeContract.contractId}/${role}`}
                           className="no-underline text-white font-bold"
                         >
                           View
@@ -163,8 +174,8 @@ const Notification = () => {
                     {role === "client" && (
                       <div>
                         <RateUserModal
-                          notificationId={notif[1]?._id}
-                          userId={notif[1]?.closeContract.userId}
+                          notificationId={notif?._id}
+                          userId={notif?.closeContract.userId}
                         />
                       </div>
                     )}
@@ -172,7 +183,7 @@ const Notification = () => {
                 )}
               </div>
               <div>
-                {notif[1]?.inviteSuccess && (
+                {notif?.inviteSuccess && (
                   <div className="px-20">
                     <div>
                       <button
@@ -180,7 +191,7 @@ const Notification = () => {
                         type="button"
                       >
                         <Link
-                          to={`/client/userProfile/client-view/${notif[1].inviteSuccess.userId}`}
+                          to={`/client/userProfile/client-view/${notif.inviteSuccess.userId}`}
                           className="no-underline text-white font-bold"
                         >
                           View

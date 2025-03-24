@@ -1,10 +1,10 @@
 import {Link} from "@heroui/react";
  
-interface Props { 
+interface LinkComponentProps { 
     text: string 
 }
 
-export const App: React.FC<Props> = (props) => {
+ const LinkComponent: React.FC<LinkComponentProps> = (props) => {
   return (
     <div className=" gap-4"> 
       <Link isExternal showAnchorIcon className='text-[#0000ff]'> 
@@ -12,4 +12,6 @@ export const App: React.FC<Props> = (props) => {
       </Link>
     </div>
   );
-}
+};
+
+export default LinkComponent;

@@ -90,7 +90,10 @@ const LoginComponent = () => {
             style: {
               backgroundColor: "red",
               color: "white",
+              width: "10rem",
+              height: "3rem"
             },
+            position: "top-center"
           });
           setError([]);
         }
