@@ -1,83 +1,34 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
-import { userLoginSchema } from "../../utils/validation/loginSchema";
-import { Sonner } from "../sonner/Toaster";
-import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../../redux/slices/userSlice";
-import { signInClient } from "../../redux/slices/clientSlice";
-import Google from "../../components/common/Google";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { Sonner } from "../../components/sonner/Toaster";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config/helper/config";
-import { signInAdmin } from "../../redux/slices/adminSlice";
-import {
-  AdminState,
-  ClientState,
-  UserState,
-} from "../../config/state/allState";
 
-const LoginComponent = () => {
-  const [error, setError] = useState<string[]>([]);
+
+const VerifyEmail = () => {
+  const [email, setEmail] = useState<string>('');
   const [searchParams] = useSearchParams();
-  const rt = searchParams.get("rt");
-  const dispatch = useDispatch();
+  const rt = searchParams.get("rt"); 
   const navigate = useNavigate();
 
-  let isAutharized: boolean;
-
-  if (rt === "user") {
-    isAutharized = useSelector((state: UserState) => state.user.isUser);
-  } else if (rt === "client") {
-    isAutharized = useSelector((state: ClientState) => state.client.isClient);
-  } else if (rt === "admin") {
-    isAutharized = useSelector((state: AdminState) => state.admin.isAdmin);
-  }
-
-  useEffect(() => {
-    if (rt === "admin") {
-      isAutharized && navigate("/admin");
-    } 
-  }, []);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    let formData = {
-      email: event.target[0].value,
-      password: event.target[1].value,
-    };
-
-    try {
-      const validForm = await userLoginSchema.validate(formData, {
-        abortEarly: false,
-      });
-      if (validForm) {
+    event.preventDefault(); 
+    try {  
         try {
           const { data } = await axios.post(
-            `${config.VITE_SERVER_URL}/${rt}/login`,
-            formData,
+            `${config.VITE_SERVER_URL}/${rt}/verify-email`,
+            email,
             {
               withCredentials: true,
             }
           );
-
-          const { accessToken } = data;
-          localStorage.setItem("accessToken", accessToken);
-
+          console.log('The data: ',data)
+          
           if (data.success) {
-            if (rt === "user") {
-              dispatch(signInUser(data.user));
-              setError([]);
-              window.location.href = "/user/home";
-            } else if (rt === "client") {
-              dispatch(signInClient(data.client));
-              setError([]);
-              window.location.href = "/client/home";
-            } else if (rt === "admin") {
-              dispatch(signInAdmin(data.admin));
-              setError([]);
-              window.location.href = "/admin";
-            }
+            //navigate to reset pass with the user || client id
+            // navigate(`/resetPassword?roleId=${roleId}`)
           } else {
             toast.error(data.message, {
               style: {
@@ -95,14 +46,9 @@ const LoginComponent = () => {
             },
             position: "top-center"
           });
-          setError([]);
-        }
-      } else {
-        await userLoginSchema.validate(formData, { abortEarly: false });
-      }
+        } 
     } catch (err) {
       console.log(err.errors);
-      setError(err.errors);
     }
   };
 
@@ -365,131 +311,33 @@ const LoginComponent = () => {
         </div>
         <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
           <div className="max-w-md w-full p-6">
-            {rt === "admin" && (
-              <h1 className="text-3xl font-semibold mb-6 text-black text-center">
-                Admin Login
-              </h1>
-            )}
-            {(rt === "user" || rt === "client") && (
-              <div>
-                <h1 className="text-3xl font-semibold mb-6 text-black text-center">
-                  Login
-                </h1>
-                <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
-                  Join to the Best Community with all time access and free
-                </h1>
-                <div className="mt-4 flex flex-col lg:flex-row items-center justify-center">
-                  <div>
-                    <Google role={rt} />
-                  </div>
-                </div>
-                <div className="mt-4 text-sm text-gray-600 text-center">
-                  <p>or with email</p>
-                </div>
-              </div>
-            )}
-            <form onSubmit={handleSubmit} method="POST" className="space-y-4">
+          
+         
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Email
+                  Enter Email
                 </label>
                 <input
+                onChange={(e) => setEmail(e.target.value)}
                   type="text"
                   name="email"
                   className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                 />
-                <div>
-                  {error.map(
-                    (err: string, index: number) =>
-                      err.includes("Email is required") && (
-                        <div className="text-center">
-                          <span className="text-red-400 text-sm ">
-                            {error[index]}
-                          </span>
-                        </div>
-                      )
-                  )}
-                  {error.map(
-                    (err: string, index: number) =>
-                      err.includes("Email is invalid") && (
-                        <div className="text-center">
-                          <span className="text-red-400 text-sm ">
-                            {error[index]}
-                          </span>
-                        </div>
-                      )
-                  )}
-                </div>
-              </div>
+              </div> 
+             
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-                />
-              </div>
-              <div>
-                {error.some((err: string) => err.includes("Password is required"))
-                  ? error.map(
-                    (err: string, index: number) =>
-                      err.includes("Password is required") && (
-                        <div className="text-center">
-                          <span className="text-red-400 text-sm ">
-                            {error[index]}
-                          </span>
-                        </div>
-                      )
-                  )
-                  : error.map(
-                    (err: string, index: number) =>
-                      err.includes("minimum 8 characters need") &&
-                      err[index] !== "Password is required" && (
-                        <div className="text-center">
-                          <span className="text-red-400 text-sm ">
-                            {error[index]}
-                          </span>
-                        </div>
-                      )
-                  )}
-              </div>
-              <div>
-                <button
-                  type="submit"
+                <button 
+                onClick={handleSubmit}
                   className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black   focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
                 >
-                  Login
+                  Enter
                 </button>
               </div>
-            </form>
-            {(rt === "user" || rt === "client") && (
-              <div className="mt-4 text-sm text-gray-600 text-center">
-                <p>
-                  Dont't have an account ?
-                  <a href="#" className="text-black hover:underline">
-                    <Link to={`/signup?rt=${rt}`} className="text-black">
-                      Signup here
-                    </Link>
-                  </a>
-                </p>
-                <p>
-                
-                  <a href="#" className="text-black hover:underline">
-                    <Link to={`/verifyEmail?rt=${rt}`} className="text-black">
-                    Forgot Password ?
-                    </Link>
-                  </a>
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>
-      o
     </div>
   );
 };
 
-export default LoginComponent;
+export default VerifyEmail;
