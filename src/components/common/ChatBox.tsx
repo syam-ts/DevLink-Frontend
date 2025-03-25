@@ -17,7 +17,8 @@ interface Messages {
     text: string
 };
 
-const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
+const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => { 
+    
     const [messages, setMessages] = useState<Messages[]>([]);
     const [newMessage, setNewMessage] = useState<string>("");
     const socketRef = useRef<Socket | null>(null);
@@ -35,6 +36,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
             (state: ClientState) => state?.client?.currentClient?._id
         );
     }
+   
 
     const fetchChatMessages = async () => {
         let response;
@@ -46,6 +48,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                 }
             );
         } else {
+            console.log('Target id', targetId)
             response = await apiClientInstance.get(
                 `/chat/view/${roleType}/${roleId}/${targetId}`,
                 {

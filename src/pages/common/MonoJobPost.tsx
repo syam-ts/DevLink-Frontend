@@ -306,11 +306,14 @@ const MonoJobPost = () => {
             <span>
               Large Company({jobPost?.aboutClient?.numberOfEmployees} people)
             </span>
+            <button className='bg-green-400 py-1.5 px-4 rounded-small font-bold shadow-xl '>
+              Chat
+            </button>
           </div>
           <div className="pt-4">
             <span className="text-sm">
               {jobPost?.aboutClient?.companyName} Inc.
-            </span>
+            </span> 
           </div>
         </section>
 

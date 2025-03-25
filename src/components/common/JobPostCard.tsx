@@ -41,7 +41,7 @@ export const JobPostCard = ({
       {Object.entries(jobs).map((job: JobsParams[], index: number) => (
         <div
           key={index}
-          className="w-full max-sm:w-[1450px] sm:w-[1400px] lg:w-[1450px] transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-2xl hover:shadow-slate-300 rounded-xl h-auto sm:h-[300px] border mx-auto my-10 sm:my-16 p-6 sm:p-12 arsenal-sc-regular"
+          className="w-full max-sm:w-[1450px] sm:w-[1400px] lg:w-[1350px] transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-2xl hover:shadow-slate-300 rounded-xl h-auto sm:h-[300px] border mx-auto my-10 sm:my-16 p-6 sm:p-12 arsenal-sc-regular"
         >
           <div className="flex flex-col sm:flex-row justify-between gap-6">
             {/* Left Side (Job Details) */}

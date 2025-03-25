@@ -156,7 +156,7 @@ const HomeUser: React.FC = () => {
                     <input
                       type="search"
                       id="default-search"
-                      className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-small bg-gray-50   "
+                      className="block w-full p-4 ps-10 text-sm text-gray-900 outline-none border border-gray-300 rounded-small bg-gray-50   "
                       placeholder="Search your desire Jobs..."
                       required
                     />

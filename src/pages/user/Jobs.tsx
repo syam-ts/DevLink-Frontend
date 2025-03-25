@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Sonner } from "../../components/sonner/Toaster";
 import { JobPostCard } from "../../components/common/JobPostCard";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
+import { FilterJobs } from "../../components/common/FilterJobs";
 
 interface Jobs {
   jobs: {
@@ -19,6 +20,7 @@ interface Jobs {
 
 const Jobs = () => {
   const [activeTab, setActiveTab] = useState<string>("listAllJobs");
+  const [filter, setFilter] = useState('amount=500');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [jobs, setJobs] = useState<Jobs>({
@@ -34,12 +36,13 @@ const Jobs = () => {
       projectType: "",
     },
   });
-
+ console.log('THe filter: ',filter)
   useEffect(() => {
+
     (async () => {
       try {
         const { data } = await apiUserInstance.get(
-          `/jobs/${activeTab}?currentPage=${currentPage}`
+          `/jobs/${activeTab}?${filter}&&currentPage=${currentPage}`
         );
         console.log("The result", data);
         setJobs(data?.data?.jobs);
@@ -49,7 +52,7 @@ const Jobs = () => {
         console.log('error: ', err.message)
       }
     })();
-  }, [activeTab, currentPage]);
+  }, [activeTab, currentPage,filter]);
 
   const changePage = async (page: number) => {
     setCurrentPage(page);
@@ -57,10 +60,17 @@ const Jobs = () => {
 
   return (
     <main>
-      <div className="text-center">
+      <div className="flex gap-2 pt-44">
         <Sonner />
-        <div className="justify-center pt-44">
-          <div className="tabs-container flex justify-center ">
+      <section>
+       <div className=''>
+       <FilterJobs setFilter={setFilter} />
+       </div>
+      </section>
+
+      <section>
+      <div className="w-screen">
+          <div className="tabs-container flex justify-center">
             <button
               className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
                 activeTab === "listAllJobs" && "border-b border-black"
@@ -86,10 +96,26 @@ const Jobs = () => {
               Trending Jobs
             </button>
           </div>
+ 
 
-          <div className="tab-content mt-8">
+         <div className=''>
+         <div className="tab-content mt-8">
             <JobPostCard jobs={jobs} role="user" type="user-view" />
           </div>
+
+                <div>
+                  {
+                    Object.entries(jobs).length === 0 && (
+                      <div className='flex justify-center py-44'>
+                         <span className='text-xl'>No Jobs Found</span> 
+                      </div>
+                    )
+                  }                
+                </div>
+         </div>
+
+
+      
           <div>
             <div>
               <div className="container mx-auto px-4 ">
@@ -164,6 +190,7 @@ const Jobs = () => {
             </div>
           </div>
         </div>
+      </section>
       </div>
     </main>
   );

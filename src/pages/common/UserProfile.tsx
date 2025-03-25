@@ -168,7 +168,7 @@ const UserProfile: React.FC = () => {
       }
     );
     if (data.success) {
-      navigate(`/client/allChats/client/${clientId}`);
+      navigate(`/client/allChats/client/${clientId}?targetId=${user._id}`);
     }
   };
 
