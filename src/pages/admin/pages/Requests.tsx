@@ -1,16 +1,36 @@
 import { useEffect, useState } from "react";
-// import { ViewClient } from '../../../../components/nextUi/modals/AdminViewClientModal'
 import { Sonner } from "../../../components/sonner/Toaster";
 import { toast } from "sonner";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import { VerifyClientViewByAdmin } from "../../../components/nextUi/modals/VerifyClientByAdmin";
 
 interface Request {
   _id: string
+  type: string
+  status: string
+  clientId: string
+  unChangedData: {
+    companyName: string
+    description: string
+    location: string
+    numberOfEmployees: number
+    since: number
+  }
 };
 
 const Requests: React.FC = () => {
   const [requests, setRequests] = useState<Request>({
     _id: "",
+    type: "",
+    status: "",
+    clientId: "",
+    unChangedData: {
+      companyName: "",
+      description: "",
+      location: "",
+      numberOfEmployees: 0,
+      since: 0,
+    },
   });
 
   useEffect(() => {
@@ -24,7 +44,6 @@ const Requests: React.FC = () => {
       console.log("ERROR: ", err.message);
     }
   }, []);
-  console.log('The data: ',requests)
 
   const acceptRequest = async (clientId: string) => {
     try {
@@ -54,34 +73,9 @@ const Requests: React.FC = () => {
 
       <div className="mt-44">
         {Object.entries(requests).length == 0 ? (
-          <div className="text-center my-44 text-xl font-bold">
+          <div className="text-center my-64 text-xl font-bold arsenal-sc-regular">
             <div className="text-center">
-              {/* <h1 className="mb-4 text-6xl font-semibold text-red-500">Empty</h1> */}
-              <p className="mb-4 text-lg text-gray-600">
-                Oops! No Requests are hitted.
-              </p>
-              <div className="animate-bounce">
-                <svg
-                  className="mx-auto h-16 w-16 text-green-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                  ></path>
-                </svg>
-              </div>
-              <p className="mt-4 text-gray-600">
-                Let's get you back{" "}
-                <a href="/admin/index/dashboard" className="text-blue-500">
-                  Dashboard
-                </a>
-                .
-              </p>
+              <p className="mb-4 text-lg">No Requests are hitted.</p>
             </div>
           </div>
         ) : (
@@ -95,12 +89,15 @@ const Requests: React.FC = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      {/* getRequestedClient */}
-                      {/* <button>
-            <ViewClient clientId={request[1]?.clientId} />
-         </button> */}
+                      <div>
+                        <button className="" type="button">
+                          <VerifyClientViewByAdmin
+                            unChangedData={request.unChangedData}
+                          />
+                        </button>
+                      </div>
 
-                      <div className="flex flex-col ml-3">
+                      <div className="grid justify-center ml-5 ">
                         <div className="font-medium leading-none text-black">
                           {request?.type}
                         </div>
