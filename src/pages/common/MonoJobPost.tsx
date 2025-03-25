@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 import useUserVerified from "../../hooks/userUserVerified";
 import { apiClientInstance } from ".././../api/axiosInstance/axiosClientRequest";
 import { apiUserInstance } from ".././../api/axiosInstance/axiosUserInstance";
 import { JobProposalModal } from "../../components/shadcn/modal/JobProposalModal";
+import config from "../../config/helper/config";
+import { useSelector } from "react-redux";
+import { UserState } from "../../config/state/allState";
 
 type Id = string;
 
@@ -88,10 +91,12 @@ const MonoJobPost = () => {
     jobPostId: Id,
     viewType: 'user-view' | 'client-view' | 'proposal-view' | 'invite-view'
   }>();
+  const navigate = useNavigate();
 
-  let userVerified;
+  let userVerified, userId;
   if (viewType === "user-view") {
     userVerified = useUserVerified();
+    userId = useSelector((state: UserState) => state.user.currentUser._id);
   };
 
   useEffect(() => {
@@ -155,6 +160,22 @@ const MonoJobPost = () => {
         },
         position: "top-center",
       });
+    }
+  };
+
+  const fetchChatMessages = async (
+    roleType: string,
+    roleId: string,
+    targetId: string
+  ) => {
+    const { data } = await apiUserInstance.get(
+      `${config.VITE_SERVER_URL}/${roleType}/chat/view/${roleType}/${roleId}/${targetId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    if (data.success) {
+      navigate(`/user/allChats/user/${userId}?targetId=${targetId}`);
     }
   };
 
@@ -305,15 +326,23 @@ const MonoJobPost = () => {
             <span>{jobPost?.aboutClient?.domain}</span>
             <span>
               Large Company({jobPost?.aboutClient?.numberOfEmployees} people)
-            </span>
-            <button className='bg-green-400 py-1.5 px-4 rounded-small font-bold shadow-xl '>
-              Chat
-            </button>
+            </span> 
           </div>
-          <div className="pt-4">
+          <div className="pt-4 flex gap-3">
             <span className="text-sm">
               {jobPost?.aboutClient?.companyName} Inc.
-            </span> 
+            </span>  
+            <button
+                  onClick={() =>
+                    fetchChatMessages(
+                      "user",
+                      userId,
+                      jobPost.clientId
+                    )
+                  }
+            className='bg-[#2ffe2b] py-1.5 text-gray-700 px-4 rounded-small text-sm font-bold shadow-xl '>
+              Chat
+            </button>
           </div>
         </section>
 

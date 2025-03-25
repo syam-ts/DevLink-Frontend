@@ -24,6 +24,7 @@ const Requests: React.FC = () => {
       console.log("ERROR: ", err.message);
     }
   }, []);
+  console.log('The data: ',requests)
 
   const acceptRequest = async (clientId: string) => {
     try {
@@ -101,17 +102,17 @@ const Requests: React.FC = () => {
 
                       <div className="flex flex-col ml-3">
                         <div className="font-medium leading-none text-black">
-                          {request[1]?.type}
+                          {request?.type}
                         </div>
                         <p className="text-sm text-gray-500 leading-none mt-1">
-                          {request[1]?.type}
+                          {request?.type}
                         </p>
                       </div>
                     </div>
-                    {request[1]?.status !== "verified" && (
+                    {request?.status !== "verified" && (
                       <div>
                         <button
-                          onClick={() => acceptRequest(request[1]?.clientId)}
+                          onClick={() => acceptRequest(request?.clientId)}
                           className="font-bold bg-green-500 px-4 ml-4 py-2 text-sm shadow-sm border-2  text-white rounded-2xl"
                         >
                           Accept
