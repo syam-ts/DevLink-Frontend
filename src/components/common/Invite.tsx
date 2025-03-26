@@ -65,12 +65,12 @@ const InviteComponent = () => {
                 <hr />
             </section>
             <section>
-                <div className="w-3/5 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6">
+                <div className="w-3/5 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6 ">
                     {Object.entries(invites).map((invite: Invite[]) => (
-                        <div className="flex my-12 rounded-xl p-4 shadow-large">
-                            <div className="flex w-2/3 items-center gap-4 text-slate-800 mx-auto">
+                        <div className="flex my-12 rounded-xl p-3 shadow-large justify-between border">
+                            <div className="flex w-2/3 text-center gap-4 px-36 text-slate-800 mx-auto">
                                 <div className="flex w-full flex-col">
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between ">
                                         <div className="grid">
                                             <h5 className="text-xl font-semibold text-slate-800">
                                                 Title: {invite[1]?.jobPostData?.title}
@@ -78,14 +78,14 @@ const InviteComponent = () => {
                                             <p className="text-xs uppercase font-bold text-black mt-0.5">
                                                 {invite[1]?.jobPostData?.expertLevel}
                                             </p>
-                                            <p className="text-md uppercase font-bold text-black mt-0.5">
+                                            <p className="text-sm uppercase font-bold text-black mt-0.5">
                                                 Description: {invite[1]?.description}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-24 flex gap-3">
+                            <div className="pt-5 px-20 w-1/3 ">
                                 <button
                                     className="rounded-small bg-[#ff0000] py-2 px-4 text-white font-bold text-center text-sm  ml-2"
                                     type="button"
@@ -93,7 +93,7 @@ const InviteComponent = () => {
                                     Reject
                                 </button>
                                 <button
-                                    className="rounded-small bg-[#0000ff] py-2 px-4 font-bold text-center text-sm  ml-2"
+                                    className="rounded-small bg-[#0000ff] py-2 px-4 font-bold text-center text-sm ml-6"
                                     type="button"
                                 >
                                     <Link
