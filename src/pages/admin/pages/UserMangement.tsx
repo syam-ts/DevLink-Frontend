@@ -153,52 +153,83 @@ const clientManagement: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex-auto block py-8 pt-6 px-9 ">
-                <div className="overflow-x-hidden">
-                  <table className="w-full my-0 align-middle">
-                    <thead className="align-bottom">
-                      <tr className="border-b border-black bg-[hsl(0, 0%, 98%)] text-[1.1rem] flex gap-32 text-secondary-dark">
-                        <th className="text-start">Image</th>
-                        <th className="text-start">Name</th>
-                        <th className="text-start">Email</th>
-                        <th className="text-start">Pay/Hr</th>
-                        <th className="text-start">Block/UnBlock</th>
-                        <th className="text-start">View</th>
-                        <th className="text-start">Total Jobs</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        {Object.entries(users).map((user: User[]) => (
-                          <div className="flex border-b border-gray-300 pt-4 pb-1">
-                            <td className="w-[80px]">
-                              <span className="text-md/normal">
-                                <img
+               
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section className="w-3/4 mx-auto arsenal-sc-regular mt-10">
+          <div className="relative flex flex-col w-full h-full overflow-hidden border-1 border-[#c0bebe] text-gray-700 rounded-2xl bg-clip-border">
+            <table className="w-full">
+              <thead>
+                <tr className="text-center">
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Profile
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Name
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Email
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Pay/Hr
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Block/Unblock
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      View
+                    </p>
+                  </th>
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Total Jobs
+                    </p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  Object.entries(users).map((user: User[]) => (
+                    <tr className="text-center">
+                      <td className="p-3 border-b border-gray-300 ">
+                      <img
                                   className="w-10 h-10 rounded-full"
                                   src={user[1].profilePicture}
                                   alt="user-image"
                                 />
-                              </span>
-                            </td>
-                            <td className="w-[230px] text-center">
-                              <span className="text-md/normal w-20">
-                                {user[1].name}
-                              </span>
-                            </td>
-                            <td className="w-[260px]">
-                              <span className="text-md/normal w-20">
-                                {user[1].email}
-                              </span>
-                            </td>
-                            <td className="w-[200px]">
-                              <span className="text-md/normal w-20">
-                                {user[1].budget}
-                              </span>
-                            </td>
-                            <td className="w-[180px]">
-                              <span className="text-md/normal">
-                                {user[1]?.isBlocked}{" "}
-                                {user[1].isBlocked ? (
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                        {user[1].name}
+                        </p>
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                        {user[1].email}
+                        </p>
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                        {user[1].budget}
+                        </p>
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                        {user[1].isBlocked ? (
                                   <span className="bg-red-500 py-0.5 px-2 rounded-full text-sm text-white font-bold">
                                     <button
                                       onClick={() => unBlockUser(user[1]._id)}
@@ -215,27 +246,26 @@ const clientManagement: React.FC = () => {
                                     </button>
                                   </span>
                                 )}
-                              </span>
-                            </td>
-                            <td className="w-[230px]">
-                              <UserProfileModal userData={user} />
-                            </td>
-                            <td className="w-[230px]">
-                              <span className="text-md/normal">
-                                {user[1]?.totalJobs} 0
-                              </span>
-                            </td>
-                          </div>
-                        ))}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+                        </p>
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                          <UserProfileModal userData={user} />
+                        </p>
+                      </td>
+                      <td className="p-3 border-b border-gray-300">
+                        <p className="text-sm antialiased leading-normal text-gray-900">
+                        {user[1].totalJobs}
+                        </p>
+                      </td>
+                    </tr> 
+                  ))
+                }
+            
+              </tbody>
+            </table>
           </div>
-        </div>
-      </div>
+        </section>
 
       <section>
         <div className="container mx-auto px-4">
@@ -273,7 +303,7 @@ const clientManagement: React.FC = () => {
               <p
                 onClick={() => changePage(index + 1)}
                 key={index}
-                className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white -700 text-black  hover:border-gray-300 -gray-600"
+                className="md:flex w-8 h-8 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border-1 border-gray-300 bg-white -700 text-black  hover:border-gray-300 -gray-600"
                 title={`Page ${index + 1}`}
               >
                 {index + 1}
