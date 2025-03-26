@@ -5,7 +5,7 @@ import { ContractView } from "../../../components/nextUi/modals/ContractViewAdmi
 
 interface Contract {
   clientData: {
-    comapanyName: string
+    companyName: string
   }
   userData: {
     name: string
@@ -20,9 +20,9 @@ interface Contract {
 };
 
 const Contracts: React.FC = () => {
-  const [contracts, setContracts] = useState<Contract>({
+  const [contracts, setContracts] = useState<Contract[]>([{
     clientData: {
-      comapanyName: ""
+      companyName: ""
     },
     userData: {
       name: ""
@@ -34,13 +34,12 @@ const Contracts: React.FC = () => {
     deadline: 0,
     status: "",
     createdAt: 0,
-  });
+  }]);
 
   useEffect(() => {
     try {
       const fetchContracts = async () => {
-        const { data } = await apiAdminInstance.get("/viewContracts");
-        console.log("The response new: ", data);
+        const { data } = await apiAdminInstance.get("/viewContracts"); 
         setContracts(data.contracts);
       };
       fetchContracts();
@@ -49,6 +48,7 @@ const Contracts: React.FC = () => {
       console.error(err.message);
     }
   }, []);
+ 
 
   return (
     <div>
@@ -77,32 +77,32 @@ const Contracts: React.FC = () => {
                         <div key={key} className='border-b border-gray-400'>
                           <td className="w-[100px]">
                             <span className="text-sm">
-                              {contract[1].clientData.companyName}
+                              {contract?.clientData.companyName}
                             </span>
                           </td>
                           <td className="w-[230px] text-center">
                             <span className="text-sm w-20">
-                              {contract[1].userData.name}
+                              {contract?.userData.name}
                             </span>
                           </td>
                           <td className="w-[360px]">
                             <span className="text-sm w-20">
-                              {contract[1].jobPostData.title}
+                              {contract?.jobPostData.title}
                             </span>
                           </td>
                           <td className="w-[260px]">
                             <span className="text-sm w-20">
-                              {contract[1].amount}
+                              {contract.amount}
                             </span>
                           </td>
                           <td className="w-[260px]">
                             <span className="text-sm w-20">
-                              {contract[1].deadline}
+                              {contract.deadline}
                             </span>
                           </td>
                           <td className="w-[260px]">
                             <span className="text-sm w-20">
-                              {contract[1].status}
+                              {contract.status}
                             </span>
                           </td>
                           <td className="w-[260px]">
