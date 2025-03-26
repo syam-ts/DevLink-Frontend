@@ -96,7 +96,7 @@ export const ProfileNotFilledModal: React.FC<ProfileNotFilledModalProps> = ({
                 <Button className="bg-[#0000ff] rounded-full" onPress={onClose}>
                   <Link
                     className="no-underline text-white font-bold"
-                    to={`/${roleType}/${roleType}Profile/view/${roleId}/${roleType}-view`}
+                    to={`/${roleType}/profile/${roleType}-view`}
                   >
                     Fill Now
                   </Link>

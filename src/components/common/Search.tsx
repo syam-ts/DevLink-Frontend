@@ -90,18 +90,18 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                             {input !== "" && (
                                 <div className="absolute w-[40rem] pt-2 border bg-white overflow-hidden border-gray-300 rounded shadow-lg z-10">
                                     <ul className="divide-y text-start divide-gray-200">
-                                        {Object.entries(jobs).map(([key, job]: [string, Jobs]) => (
+                                        {Object.entries(jobs)?.map(([key, job]: [string, Jobs]) => (
                                             <li
                                                 key={key}
                                                 onClick={() => setInput("")}
                                                 className="py-3 cursor-pointer hover:bg-gray-100"
                                             >
                                                 <Link
-                                                    to={`/user/job/${job[1]._id}/user-view`}
+                                                    to={`/user/job/${job._id}/user-view`}
                                                     className="no-underline text-black arsenal-sc-regular"
                                                     reloadDocument
                                                 >
-                                                    {job[1].title} {console.log("The solol: ", job)}
+                                                    {job.title}  
                                                 </Link>
                                             </li>
                                         ))}
@@ -122,16 +122,16 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                                                     className="py-3 cursor-pointer hover:bg-gray-100"
                                                 >
                                                     <Link
-                                                        to={`/client/userProfile/client-view/${developer[1]?._id}`}
+                                                        to={`/client/userProfile/client-view/${developer?._id}`}
                                                         className="no-underline text-black arsenal-sc-regular"
                                                         reloadDocument
                                                     >
                                                         <div>
                                                             <div>
-                                                                <p>{developer[1]?.name} </p>
+                                                                <p>{developer?.name} </p>
                                                             </div>
                                                             <div className="flex gap-3">
-                                                                {developer[1]?.skills.map((skill: string) => (
+                                                                {developer?.skills.map((skill: string) => (
                                                                     <div className=" gap-1  ">
                                                                         <p className="text-xs">{skill}</p>
                                                                     </div>

@@ -63,6 +63,8 @@ interface User {
   workHistory: [WorkHistory];
   isBoosted: boolean;
   isProfileFilled: boolean;
+  totalJobs: number
+  totalHours: number
 }
 const UserProfile: React.FC = () => {
   const [user, setUser] = useState<User>({
@@ -108,6 +110,8 @@ const UserProfile: React.FC = () => {
     ],
     isBoosted: false,
     isProfileFilled: false,
+    totalJobs: 0,
+    totalHours: 0
   });
   const { type } = useParams<{
     type: "user-view" | "client-view" | "proposal-view";
@@ -171,6 +175,7 @@ const UserProfile: React.FC = () => {
       navigate(`/client/allChats/client/${clientId}?targetId=${user._id}`);
     }
   };
+  console.log('The user: ',user)
 
   return (
     <>
@@ -193,7 +198,7 @@ const UserProfile: React.FC = () => {
                         style={{ width: "150px" }}
                       >
                         <img
-                          src={user?.profilePicture}
+                          src={user?.profilePicture || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtNdYCHq-sbuOxKC47BIXtEPhO6_9RCMmDyw&s'}
                           alt="user-image"
                           className="mt-4 mb-2 object-fll img-thumbnail"
                           style={{
@@ -235,7 +240,7 @@ const UserProfile: React.FC = () => {
                             <span>{user?.location}, india</span>
                             <span>{user?.email}</span>
                             <span>{user?.mobile}</span>
-                            <span>view profile(git)</span>
+                            <span><a href={user.githugLink} target="_blank">view profile(Github)</a></span>
                             <span>Rating {user?.rating?.avgRating}</span>
                           </div>
                         </div>
@@ -320,7 +325,7 @@ const UserProfile: React.FC = () => {
                         </div>
                         <div>
                           <MDBCardText className="mb-1 h5 text-white font-extrabold">
-                            253
+                          {user.totalJobs || 0}
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
                             <span className="text-white font-extrabold">
@@ -330,7 +335,7 @@ const UserProfile: React.FC = () => {
                         </div>
                         <div className="px-3">
                           <MDBCardText className="mb-1 h5 text-white font-extrabold">
-                            1026
+                            {user.totalHours || 0}
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
                             <span className="text-white font-extrabold">

@@ -123,7 +123,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                                                         <span>{message.name}</span>
                                                     </div>
                                                     <div>
-                                                        <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
+                                                        <span className="px-4 py-2 rounded-large inline-block rounded-bl-none bg-gray-300 text-gray-600">
                                                             {message.text}
                                                         </span>
                                                     </div>
@@ -150,7 +150,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                                                         <span>{message.name}</span>
                                                     </div>
                                                     <div>
-                                                        <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
+                                                        <span className="px-4 py-2 rounded-large inline-block rounded-bl-none bg-gray-300 text-gray-600">
                                                             {message.text}
                                                         </span>
                                                     </div>
@@ -181,7 +181,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                             <button
                                 onClick={sendMessage}
                                 type="button"
-                                className="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out  text-white bg-[#0000ff] hover:bg-blue-400 focus:outline-none"
+                                className="inline-flex items-center justify-center rounded-large px-4 py-3 transition duration-500 ease-in-out  text-white bg-[#0000ff] hover:bg-blue-400 focus:outline-none"
                             >
                                 <span className="font-bold">Send </span>
                                 <svg
