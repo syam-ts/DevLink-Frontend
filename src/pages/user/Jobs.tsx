@@ -20,7 +20,7 @@ interface Jobs {
 
 const Jobs = () => {
   const [activeTab, setActiveTab] = useState<string>("listAllJobs");
-  const [filter, setFilter] = useState('amount=500');
+  const [filter, setFilter] = useState('paymentType=hourly');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [jobs, setJobs] = useState<Jobs>({
@@ -36,7 +36,8 @@ const Jobs = () => {
       projectType: "",
     },
   });
- console.log('THe filter: ',filter)
+
+  
   useEffect(() => {
 
     (async () => {
@@ -63,13 +64,13 @@ const Jobs = () => {
       <div className="flex gap-2 pt-44">
         <Sonner />
       <section>
-       <div className=''>
+       <div className='w-[23rem]'>
        <FilterJobs setFilter={setFilter} />
        </div>
       </section>
 
       <section>
-      <div className="w-screen">
+      <div className="w-[95rem] ">
           <div className="tabs-container flex justify-center">
             <button
               className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
