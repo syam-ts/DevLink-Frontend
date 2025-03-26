@@ -1,36 +1,32 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { userLoginSchema } from "../../utils/validation/loginSchema";
-import { Sonner } from "../sonner/Toaster";
-import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../../redux/slices/userSlice";
-import { signInClient } from "../../redux/slices/clientSlice";
-import Google from "../../components/common/Google";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import config from "../../config/helper/config";
-import { signInAdmin } from "../../redux/slices/adminSlice";
-import {resetPasswordSchema} from '../../utils/validation/resetPasswordSchema'
- 
+import { Sonner } from "../../components/sonner/Toaster"; 
+import { resetPasswordSchema } from "../../utils/validation/resetPasswordSchema";
+import { 
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+import config from "../../config/helper/config"; 
 
 const LoginComponent = () => {
   const [error, setError] = useState<string[]>([]);
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>("");
+  const { roleId } = useParams<{ roleId: string }>();
   const [searchParams] = useSearchParams();
-  const roleId = searchParams.get("roleId");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  alert(roleId)
+  const role = searchParams.get("role");
 
- 
+  const navigate = useNavigate();
+
   const handleSubmit = async () => {
     event.preventDefault();
 
-    console.log('THe value: ',password)
+    console.log("THe value: ", password);
     const formData = {
-        password: password
-    }
-    
+      password: password,
+    };
 
     try {
       const validForm = await resetPasswordSchema.validate(formData, {
@@ -39,17 +35,15 @@ const LoginComponent = () => {
       if (validForm) {
         try {
           const { data } = await axios.post(
-            `${config.VITE_SERVER_URL}/resetPassword/${roleId}`,
-            password,
+            `${config.VITE_SERVER_URL}/${role}/resetPassword/${roleId}`,
+            { password: password },
             {
               withCredentials: true,
             }
           );
 
-         
-
           if (data.success) {
-             navigate('/user/login')
+            navigate(`/login?rt=${role}`);
           } else {
             toast.error(data.message, {
               style: {
@@ -58,14 +52,14 @@ const LoginComponent = () => {
             });
           }
         } catch (err) {
-          toast.error('Error Message ', {
+          toast.error("Error Message ", {
             style: {
               backgroundColor: "red",
               color: "white",
               width: "10rem",
-              height: "3rem"
+              height: "3rem",
             },
-            position: "top-center"
+            position: "top-center",
           });
           setError([]);
         }
@@ -336,62 +330,55 @@ const LoginComponent = () => {
           </div>
         </div>
         <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
-          <div className="max-w-md w-full p-6 grid gap-1">  
-            
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                 Enter New Password
-                </label>
-                <input
+          <div className="max-w-md w-full p-6 grid gap-1">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Enter New Password
+              </label>
+              <input
                 onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  name="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-                />
-              </div>
-              <div>
-              {
-                  error.some((err: string) => err.includes("Password is required")) ? (
-                    error.map((err: string, index: number) => {
-                      if (
-                        err.includes("Password is required")
-                      ) {
-                        return (
-                          <div key={index} className="text-center">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  ) : (
-                    error.map((err: string, index: number) => {
-                      if (
-                        err.includes("Password is required") ||
-                        err.includes("Incorrect (minimum 8 characters)") ||
-                        err.includes("Include at least one number, uppercase letter")
-                      ) {
-                        return (
-                          <div key={index} className="text-center">
-                            <span className="text-red-400 text-sm">{err}</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  )
-
-                }
-              </div>
-              <div>
-                <button 
+                type="password"
+                name="password"
+                className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+              />
+            </div>
+            <div>
+              {error.some((err: string) => err.includes("Password is required"))
+                ? error.map((err: string, index: number) => {
+                  if (err.includes("Password is required")) {
+                    return (
+                      <div key={index} className="text-center">
+                        <span className="text-red-400 text-sm">{err}</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })
+                : error.map((err: string, index: number) => {
+                  if (
+                    err.includes("Password is required") ||
+                    err.includes("Incorrect (minimum 8 characters)") ||
+                    err.includes(
+                      "Include at least one number, uppercase letter"
+                    )
+                  ) {
+                    return (
+                      <div key={index} className="text-center">
+                        <span className="text-red-400 text-sm">{err}</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+            </div>
+            <div>
+              <button
                 onClick={handleSubmit}
-                  className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black   focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
-                >
-                  Reset Password
-                </button>
-              </div> 
-           
+                className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black   focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
+              >
+                Reset Password
+              </button>
+            </div>
           </div>
         </div>
       </div>

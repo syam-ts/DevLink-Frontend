@@ -16,24 +16,37 @@ const VerifyEmail = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); 
     try {  
-        try {
+        try { 
           const { data } = await axios.post(
             `${config.VITE_SERVER_URL}/${rt}/verify-email`,
-            email,
+            {
+              email: email
+            },
             {
               withCredentials: true,
             }
           );
           console.log('The data: ',data)
           
-          if (data.success) {
-            //navigate to reset pass with the user || client id
-            // navigate(`/resetPassword?roleId=${roleId}`)
+          if (data.success) { 
+            toast.success('Verification link sended to your Email', {
+              style: {
+                backgroundColor: "green",
+                color: "white",
+                width: "full",
+                height: "3rem"
+              },
+              position: "top-center"
+            });
           } else {
-            toast.error(data.message, {
+            toast.error('Error Message ', {
               style: {
                 backgroundColor: "red",
+                color: "white",
+                width: "10rem",
+                height: "3rem"
               },
+              position: "top-center"
             });
           }
         } catch (err) {
@@ -41,7 +54,7 @@ const VerifyEmail = () => {
             style: {
               backgroundColor: "red",
               color: "white",
-              width: "10rem",
+              width: "12rem",
               height: "3rem"
             },
             position: "top-center"

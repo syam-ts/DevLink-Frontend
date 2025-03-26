@@ -1,7 +1,5 @@
 // ------- user imports ------------
 import HomeUser from "../../pages/user/HomeUser";
-import VerfiyEmail from "../../pages/user/VerifyEmailFP";
-import ResetPassword from "../../pages/user/ResetPassword";
 import JobPage from "../../pages/user/Jobs";
 import ProfileAlter from "../../pages/user/ProfileAlter";
 import BoostPaymentSuccess from "../../pages/user/BoostAcc-Success";
@@ -39,9 +37,7 @@ import Wishlist from "../../pages/common/Wishlist";
 import MonoJobPost from "../../pages/common/MonoJobPost"; 
 
 // --------- user exports -----------
-export const userRouteHelper = {
-  VerfiyEmail,
-  ResetPassword,
+export const userRouteHelper = { 
   HomeUser,
   JobPage,
   UserProfile,
