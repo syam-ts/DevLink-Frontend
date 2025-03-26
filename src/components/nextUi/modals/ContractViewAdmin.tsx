@@ -9,6 +9,23 @@ import {
 interface Contract {
   createdAt: number;
   deadline: number;
+  amount: number;
+  clientData: {
+    companyName: string;
+    location: string;
+    email: string;
+  };
+  userData: {
+    name: string;
+    location: string;
+    email: string;
+  };
+  jobPostData: {
+    title: string;
+    description: string;
+    expertLevel: string;
+    projectType: string;
+  };
 }
 
 interface ContractViewProps {
@@ -28,8 +45,8 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
           {() => (
             <>
               <ModalBody>
-                <div className="w-full mx-auto py-3 arsenal-sc-regular">
-                  <div className="lg:w-full mx-auto border-1  border-gray-300 rounded-small">
+                <div className="w-full mx-auto py-1 arsenal-sc-regular">
+                  <div className="lg:w-full mx-auto rounded-small">
                     <div className=" p-5 h-[53rem]">
                       <section>
                         <div className="grid arsenal-sc-regular">
@@ -48,7 +65,7 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                                 Created date:
                               </dt>
                               <dd className=" text-gray-500">
-                                {contract[1]?.createdAt}
+                                {contract?.createdAt}
                               </dd>
                             </dl>
                             <dl className="flex px-10">
@@ -56,7 +73,7 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                                 Due date:
                               </dt>
                               <dd className=" text-gray-500">
-                                {contract[1]?.deadline}
+                                {contract?.deadline}
                               </dd>
                             </dl>
                             <dl className="flex px-10">
@@ -64,7 +81,7 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                                 Amount:
                               </dt>
                               <dd className=" text-gray-500">
-                                {contract[1]?.amount}
+                                {contract?.amount}
                               </dd>
                             </dl>
                           </div>
@@ -86,14 +103,12 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                               <ul className="text-md">
                                 <li>
                                   Company Name :
-                                  {contract[1]?.clientData?.companyName}
+                                  {contract?.clientData?.companyName}
                                 </li>
                                 <li>
-                                  Location : {contract[1]?.clientData?.location}
+                                  Location : {contract?.clientData?.location}
                                 </li>
-                                <li>
-                                  Email : {contract[1]?.clientData?.email}
-                                </li>
+                                <li>Email : {contract?.clientData?.email}</li>
                               </ul>
                             </div>
                           </div>
@@ -104,11 +119,11 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                             <hr className="bg-black " />
                             <div>
                               <ul className="text-md">
-                                <li>Name : {contract[1]?.userData?.name}</li>
+                                <li>Name : {contract?.userData?.name}</li>
                                 <li>
-                                  Location : {contract[1]?.userData?.location}
+                                  Location : {contract?.userData?.location}
                                 </li>
-                                <li>Email : {contract[1]?.userData?.email}</li>
+                                <li>Email : {contract?.userData?.email}</li>
                               </ul>
                             </div>
                           </div>
@@ -118,20 +133,20 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
                             <hr className="bg-black " />
                             <div>
                               <ul className="text-md">
-                                <li>
-                                  Title : {contract[1]?.jobPostData?.title}
-                                </li>
+                                <li>Title : {contract?.jobPostData?.title}</li>
                                 <li>
                                   Description :{" "}
-                                  <span className='text-sm'>{contract[1]?.jobPostData?.description}</span>
+                                  <span className="text-sm">
+                                    {contract?.jobPostData?.description}
+                                  </span>
                                 </li>
                                 <li>
                                   Expert Level :{" "}
-                                  {contract[1]?.jobPostData?.expertLevel}
+                                  {contract?.jobPostData?.expertLevel}
                                 </li>
                                 <li>
                                   Project Type :{" "}
-                                  {contract[1]?.jobPostData?.projectType}
+                                  {contract?.jobPostData?.projectType}
                                 </li>
                               </ul>
                             </div>

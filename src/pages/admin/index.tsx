@@ -55,7 +55,7 @@ function Component() {
     <div className="flex arsenal-sc-regular">
       <Sidebar
         aria-label="Beautiful sidebar"
-        className=" border-r border-gray-300 w-[25rem] shadow-lg bg-gradient-to-b from-blue-50 to-indigo-50"
+        className=" border-r border-gray-300 w-[25rem] h-screen bg-gradient-to-b from-blue-50 to-indigo-50"
       >
         <div className="mb-5 p-4 text-start">
           <h2 className="text-3xl font-bold text-[#0000ff]">DevLink</h2>
@@ -121,3 +121,63 @@ function Component() {
 }
 
 export default Component;
+
+
+
+
+// <section className="w-2/3 mx-auto arsenal-sc-regular ">
+//           <div className="relative flex flex-col w-full h-full overflow-hidden border-1 border-[#c0bebe] text-gray-700 rounded-2xl bg-clip-border">
+//             <table className="w-full">
+//               <thead>
+//                 <tr className="text-center">
+//                   <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+//                     <p className="text-sm antialiased leading-none text-gray-500">
+//                       Type
+//                     </p>
+//                   </th>
+//                   <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+//                     <p className="text-sm antialiased leading-none text-gray-500">
+//                       Amount
+//                     </p>
+//                   </th>
+//                   <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+//                     <p className="text-sm antialiased leading-none text-gray-500">
+//                       From
+//                     </p>
+//                   </th>
+//                   <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+//                     <p className="text-sm antialiased leading-none text-gray-500">
+//                       Created At
+//                     </p>
+//                   </th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+                
+//                   <tr className="text-center">
+//                     <td className="p-3 border-b border-gray-300 ">
+//                       <p className="text-sm antialiased leading-normal text-gray-900">
+                       
+//                       </p>
+//                     </td>
+//                     <td className="p-3 border-b border-gray-300">
+//                       <p className="text-sm antialiased leading-normal text-gray-900">
+                       
+//                       </p>
+//                     </td>
+//                     <td className="p-3 border-b border-gray-300">
+//                       <p className="text-sm antialiased leading-normal text-gray-900">
+                        
+//                       </p>
+//                     </td>
+//                     <td className="p-3 border-b border-gray-300">
+//                       <p className="text-sm antialiased leading-normal text-gray-900">
+                      
+//                       </p>
+//                     </td>
+//                   </tr>
+            
+//               </tbody>
+//             </table>
+//           </div>
+//         </section>
