@@ -10,20 +10,22 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select"; 
+} from "../../../components/ui/select";
 
 interface Client {
-  comapnyName: string;
-  email: string;
-  isBlocked: boolean;
-  view: string;
-  totalJobs: number;
-  totalHours: number;
-}
+  _id: string
+  companyName: string
+  email: string
+  isBlocked: boolean
+  view: string
+  totalJobs: number
+  totalHours: number
+};
 
 const clientManagement: React.FC = () => {
   const [clients, setClients] = useState<Client>({
-    comapnyName: "",
+    _id: "",
+    companyName: "",
     email: "",
     isBlocked: false,
     view: "",
@@ -135,7 +137,7 @@ const clientManagement: React.FC = () => {
                 <div className="flex justify-end ">
                   <div>
                     <Select onValueChange={(value) => handleSortType(value)}>
-                      <SelectTrigger className="w-[180px] rounded-xl">
+                      <SelectTrigger className="w-[180px] rounded-small">
                         <SelectValue placeholder="Sort Client" />
                       </SelectTrigger>
                       <SelectContent>
@@ -150,85 +152,95 @@ const clientManagement: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex-auto block py-8 pt-6 px-9 ">
-                <div className="">
-                  <table className="w-full my-0 align-middle">
-                    <thead className="align-bottom">
-                      <tr className="border-b border-black text-[1.1rem] flex gap-40 text-secondary-dark">
-                        <th className="pb-3 text-start">Name</th>
-                        <th className="pb-3 text-start">Email</th>
-                        <th className="pb-3 text-start">Block/UnBlock</th>
-                        <th className="pb-3 text-start">View</th>
-                        <th className="pb-3 text-start">Total Jobs</th>
-                        <th className="pb-3 text-start">Total Hours</th>
+
+
+              <div className="w-3/4 mx-auto arsenal-sc-regular mt-20">
+                <div className="relative flex flex-col w-full h-full overflow-hidden border-1 border-[#c0bebe] text-gray-700 rounded-2xl bg-clip-border">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="text-center">
+                        <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                          <p className="text-sm antialiased leading-none text-gray-500">
+                            CompanyName
+                          </p>
+                        </th>
+                        <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                          <p className="text-sm antialiased leading-none text-gray-500">
+                            Email
+                          </p>
+                        </th>
+                        <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                          <p className="text-sm antialiased leading-none text-gray-500">
+                            View
+                          </p>
+                        </th>
+                        <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                          <p className="text-sm antialiased leading-none text-gray-500">
+                            Block/Unblock
+                          </p>
+                        </th>
+                        <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                          <p className="text-sm antialiased leading-none text-gray-500">
+                            Total Jobs
+                          </p>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="">
-                        {Object.entries(clients).map(([key, client]: [string, Client]) => (
-                          <div key={key} className="flex border-b border-gray-400 py-4">
-                            <td className="w-[180px]">
-                              <span className="text-md/normal">
-                                {client[1].companyName}
-                              </span>
+                      {
+                        Object.entries(clients).map(([key, client]: [string, Client]) => (
+                          <tr key={key} className="text-center">
+                            <td className="p-2 border-b border-gray-300 ">
+                              <p className="text-sm antialiased leading-normal text-gray-900">
+                                {client.companyName}
+                              </p>
                             </td>
-                            <td className="w-[260px]">
-                              <span className="text-md/normal w-20">
-                                {client[1].email}
-                              </span>
+                            <td className="p-2 border-b border-gray-300">
+                              <p className="text-sm antialiased leading-normal text-gray-900">
+                                {client.email}
+                              </p>
                             </td>
-                            <td className="w-[200px]">
-                              <span className="text-md/normal">
-                                {client[1]?.isBlocked}{" "}
-                                {client[1].isBlocked ? (
-                                  <span className="bg-red-500 py-1 px-2 rounded-full text-sm text-white font-thin">
-                                    <button
-                                      onClick={() =>
-                                        unBlockClient(client[1]._id)
-                                      }
-                                    >
-                                      unBlock
-                                    </button>
-                                  </span>
-                                ) : (
-                                  <span className="bg-green-500 py-1 px-2 rounded-full text-sm text-white font-thin">
-                                    <button
-                                      onClick={() => blockClient(client[1]._id)}
-                                    >
-                                      block
-                                    </button>
-                                  </span>
-                                )}
-                              </span>
+                            <td className="p-2 border-b border-gray-300">
+                              <p className="text-sm antialiased leading-normal text-gray-900">
+                                <ClientProfileModal clientData={client} />
+                              </p>
                             </td>
-                            <td className="w-[230px]">
-                              <span className="text-md/normal">
-                              <ClientProfileModal clientData={client} />
-                              </span>
+                            <td className="p-2 border-b border-gray-300">
+                              {client.isBlocked ? (
+                                <span className="bg-red-500 py-1 px-2 rounded-full text-sm text-white font-thin">
+                                  <button
+                                    onClick={() =>
+                                      unBlockClient(client._id)
+                                    }
+                                  >
+                                    unBlock
+                                  </button>
+                                </span>
+                              ) : (
+                                <span className="bg-green-500 py-1 px-2 rounded-full text-sm text-white font-thin">
+                                  <button
+                                    onClick={() => blockClient(client._id)}
+                                  >
+                                    block
+                                  </button>
+                                </span>
+                              )}
                             </td>
-                            <td className="w-[230px]">
-                              <span className="text-md/normal">
-                                {client[1]?.totalJobs} 0
-                              </span>
+                            <td className="p-2 border-b border-gray-300">
+                              <p className="text-sm antialiased leading-normal text-gray-900">
+                                {client.totalJobs}
+                              </p>
                             </td>
-                            <td className="w-[230px] text-center">
-                              <span className="text-md/normal ">
-                                {client[1]?.totalHours}
-                              </span>
-                            </td>
-                          </div>
-                        ))}
-                      </tr>
+                          </tr>
+                        ))
+                      }
+
                     </tbody>
                   </table>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <section>
+              <section>
         <div className="container mx-auto px-4">
           <nav
             className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
@@ -264,7 +276,7 @@ const clientManagement: React.FC = () => {
               <p
                 onClick={() => changePage(index + 1)}
                 key={index}
-                className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white -700 text-black  hover:border-gray-300 -gray-600"
+                className="md:flex w-8 h-8 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border-1 border-gray-300 bg-white -700 text-black  hover:border-gray-300 -gray-600"
                 title={`Page ${index + 1}`}
               >
                 {index + 1}
@@ -299,6 +311,13 @@ const clientManagement: React.FC = () => {
           </nav>
         </div>
       </section>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+     
     </div>
   );
 };

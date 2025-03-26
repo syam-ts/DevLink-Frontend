@@ -138,7 +138,7 @@ const clientManagement: React.FC = () => {
                 <div className="flex justify-end ">
                   <div>
                     <Select onValueChange={(value) => handleSortType(value)}>
-                      <SelectTrigger className="w-[180px] rounded-xl">
+                      <SelectTrigger className="w-[180px] rounded-small">
                         <SelectValue placeholder="Sort User" />
                       </SelectTrigger>
                       <SelectContent>
