@@ -73,11 +73,11 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
 
   return (
     <div className="overflow-hidden 2xl:w-[1900px] 2xl:flex max-sm:grid md:grid gap-5 max-sm:w-[1100px] md:w-[1000px]">
-      <div>
+      <div className='w-1/5'>
         <section>
-          <div className="text-start mx-20 my-64 md:w-[800px] 2xl:w-[300px] shadow-xl rounded-2xl border-1 border-gray-300 px-5">
+          <div className="text-start mx-20 my-64 md:w-[800px] 2xl:w-[350px] shadow-xl rounded-2xl border-1 border-gray-300 px-5">
             <div className="pt-20">
-              <span className="arsenal-sc-regular max-sm:mx-80 text-black text-xl font-bold py-2 px-5 rounded-lg">
+              <span className="arsenal-sc-regular flex max-sm:mx-80 text-black text-xl font-extrabold py-2 px-5 rounded-lg">
                 Balance : {Math.floor(balance)}
               </span>
             </div>
@@ -97,7 +97,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
         </section>
       </div>
 
-      <div className="mt-20">
+      <div className="pt-44 w-4/5 mx-44">
         <section className=" text-center">
           <div>
             <span className="text-2xl text-center arsenal-sc-regular">
@@ -107,68 +107,63 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
           </div>
         </section>
 
-        <section>
-          <div className="relative 2xl:flex flex-col px-44 w-[70rem] max-sm:w-[1000px] md:w-[900px] sm:w-[600px] mx-auto h-full overflow-hidden p-5 text-gray-700 shadow-2xl border-1 border-gray-300 rounded-2xl ">
-            <table className="w-full text-left table-auto min-w-max">
+        <section className="w-full mx-auto arsenal-sc-regular ">
+          <div className="relative flex flex-col w-full h-full overflow-hidden border-1 border-[#c0bebe] text-gray-700 rounded-2xl bg-clip-border">
+            <table className="w-full">
               <thead>
-                <tr>
-                  <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
+                <tr className="text-center">
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
                       Type
                     </p>
                   </th>
-                  <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
                       Amount
                     </p>
                   </th>
-                  <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal leading-none text-blue-gray-900">
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
                       From
                     </p>
                   </th>
-                  <th className="p-4 border-b border-gray-400 bg-blue-gray-50">
-                    <p className="block arsenal-sc-regular text-xl antialiased font-normal no-underline leading-none text-blue-gray-900">
-                      CreatedAt
+                  <th className="p-3 border-b border-blue-gray-100 bg-gray-200">
+                    <p className="text-sm antialiased leading-none text-gray-500">
+                      Created At
                     </p>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {transactions?.map((tra: Transactions) => (
-                  <tr>
-                    <td className="py-4 px-4 border-b border-blue-gray-50">
-                      <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {tra?.type || tra[0]?.type}
+                {transactions?.map((transact: Transactions) => (
+                  <tr className="text-center">
+                    <td className="p-3 border-b border-gray-300 ">
+                      <p className="text-sm antialiased leading-normal text-gray-900">
+                        {transact?.type || transact[0]?.type}
                       </p>
                     </td>
-                    <td className="py-4 px-4 border-b border-blue-gray-50">
-                      <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {tra?.amount || tra[0]?.amount}
+                    <td className="p-3 border-b border-gray-300">
+                      <p className="text-sm antialiased leading-normal text-gray-900">
+                        {transact?.amount || transact[0]?.amount}
                       </p>
                     </td>
-                    <td className="py-4 px-4 border-b border-blue-gray-50">
-                      <p className="block arsenal-sc-regular text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {tra?.from || tra[0]?.from}
+                    <td className="p-3 border-b border-gray-300">
+                      <p className="text-sm antialiased leading-normal text-gray-900">
+                        {transact?.from || transact[0]?.from}
                       </p>
                     </td>
-                    <td className="py-4 px-4 border-b border-blue-gray-50">
-                      <a
-                        href="#"
-                        className="block arsenal-sc-regular text-sm antialiased font-medium leading-normal text-blue-gray-900"
-                      >
-                        {tra?.date || tra[0]?.date}
-                      </a>
+                    <td className="p-3 border-b border-gray-300">
+                      <p className="text-sm antialiased leading-normal text-gray-900">
+                        {transact?.date || transact[0]?.date}
+                      </p>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </section>
-
-        
-
+        </section> 
+         
         <section>
           <div className="container mx-auto px-4 my-4">
             <nav
@@ -246,3 +241,6 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
 };
 
 export default Wallet;
+
+
+ 
