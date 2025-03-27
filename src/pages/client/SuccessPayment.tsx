@@ -8,7 +8,9 @@ function SuccessPayment() {
     clientId: string;
     data: string;
   }>();
+
   const finalData = JSON.parse(decodeURIComponent(data));
+  console.log('The final Set of Data: ', finalData)
 
   useEffect(() => {
     try {

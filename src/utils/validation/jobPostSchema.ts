@@ -31,7 +31,7 @@ export const jobPostSchema = yup.object().shape({
         .required("Payment type is required"),
 
 
-    payment: yup
+    amount: yup
         .number()
         .transform((originalValue) => (originalValue && !isNaN(originalValue) ? Number(originalValue) : NaN))
         .typeError("Payment must be a valid number")

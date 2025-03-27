@@ -53,19 +53,20 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({ type }) => {
   const navigate = useNavigate();
 
   //Loads client existing data's
-  useEffect(() => {
-    try {
-      (async () => {
+  useEffect(() => { 
+    try { 
+      const fetchClientData = async() => {
         const response = await apiClientInstance.get(`/profile`, {
           withCredentials: true,
         });
         setClientData(response?.data?.data);
-      })();
+      }
+      fetchClientData() 
     } catch (error: unknown) {
       const err = error as { message: string };
       console.error("Error: ", err.message);
     }
-  }, []);
+  }, []); 
 
   const handleChange = (
     e: React.ChangeEvent<

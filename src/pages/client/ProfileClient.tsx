@@ -21,6 +21,7 @@ interface Client {
   totalSpends: number
   since: number
   isVerified: boolean
+  proposals: []
 };
 
 const UserProfile1: React.FC = () => {
@@ -35,9 +36,9 @@ const UserProfile1: React.FC = () => {
     totalSpends: 0,
     since: 0,
     isVerified: false,
+    proposals: []
   });
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const [time, setTime] = useState<Date>(new Date());
 
   useEffect(() => {
     (async () => {
@@ -55,15 +56,8 @@ const UserProfile1: React.FC = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
 
-  const showTime: string = time.toLocaleTimeString();
 
   return (
     <section className="container mx-auto px-8 py-10 arsenal-sc-regular pt-28">
@@ -181,21 +175,24 @@ const UserProfile1: React.FC = () => {
               >
                 Since {client.since}
               </Typography>
-              <Typography
-                variant="small"
-                className=" text-gray-600 mt-6 arsenal-sc-regular"
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                {showTime}
-              </Typography>
             </div>
             <div className="pt-28">
               {isVerified ? (
-                <ClientProfileAlter type="edit" />
+                <div className='grid gap-3'>
+                  <ClientProfileAlter type="edit" />
+                  {
+                    client.proposals.length !== 0 ? (
+                      <p>Total Proposals: {client.proposals.length}</p>
+                    ) : (
+                      <p>Total Proposals: 0</p>
+                    )
+                  }
+                </div>
               ) : (
-                <ClientProfileAlter type="verify" />
+                <div>
+                  <ClientProfileAlter type="verify" />
+                  <p>Total Proposals: 0</p>
+                </div>
               )}
             </div>
           </div>

@@ -60,7 +60,7 @@ const Jobs = () => {
       }
     })();
   }, [activeTab, currentPage]);
-
+ 
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
@@ -87,7 +87,7 @@ const Jobs = () => {
             <div>
               {
                 isVerified ? (
-                  <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-2xl hover:bg-blue-800  ">
+                  <p className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0000ff] rounded-small hover:bg-blue-800  ">
                     <Link to="/client/draftJobPost">
                       <button className="text-white font-bold">
                         Create Job Post
@@ -143,7 +143,15 @@ const Jobs = () => {
             </div>
 
             <div className="tab-content mt-8">
-              <JobPostCard jobs={jobs} role="client" type="client-view" />
+              {
+                Object.entries(jobs).length === 0 ? (
+                <div className='flex justify-center my-64'>
+                  <p>No Job Found</p>
+                </div>
+              ) : (
+                  <JobPostCard jobs={jobs} role="client" type="client-view" />
+                )
+              }
             </div>
             <div>
               <div>

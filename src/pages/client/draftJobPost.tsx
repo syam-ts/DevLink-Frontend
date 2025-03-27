@@ -9,7 +9,7 @@ interface JobPost {
   keyResponsiblities?: string
   requiredSkills?: string[]
   paymentType?: string
-  payment: number
+  amount: number
   projectType?: string
   maxProposals?: number
   description?: string
@@ -27,7 +27,7 @@ const DraftJobPost = () => {
     keyResponsiblities: "",
     requiredSkills: [],
     paymentType: "",
-    payment: 0,
+    amount: 0,
     projectType: "",
     maxProposals: 0,
     description: "",
@@ -67,7 +67,7 @@ const DraftJobPost = () => {
 
     setFormData((prev) => ({
       ...prev,
-      [name]: ["payment", "maxProposals", "estimateTime"].includes(name)
+      [name]: ["amount", "maxProposals", "estimateTime"].includes(name)
         ? Number(value) || 0
         : value,
     }));
@@ -332,7 +332,7 @@ const DraftJobPost = () => {
                     }}
                     className="w-full px-4 pt-3 outline-none text-sm"
                     placeholder="250rs"
-                    name="payment"
+                    name="amount"
                     type="number"
                     min="100"
                     max="1500"
@@ -368,7 +368,7 @@ const DraftJobPost = () => {
                     onChange={handleChange}
                     className="w-full px-4 pt-3 outline-none text-sm"
                     placeholder="15000"
-                    name="payment"
+                    name="amount"
                     type="number"
                   />
                   <hr />
