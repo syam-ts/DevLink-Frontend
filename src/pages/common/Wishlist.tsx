@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Sonner } from "../../components/sonner/Toaster";
 
 interface Jobs {
+  _id: string
   title: string
   description: string
   expertLevel: string
@@ -11,10 +12,13 @@ interface Jobs {
   requiredSkills: string[]
   paymentType: string
   amount: number
+  estimateTimeinHours: number
+  projectType: string
 };
 
 const Wishlist: React.FC = () => {
   const [jobs, setJobs] = useState<Jobs>({
+    _id: "",
     title: "",
     description: "",
     expertLevel: "",
@@ -22,6 +26,9 @@ const Wishlist: React.FC = () => {
     requiredSkills: [""],
     paymentType: "",
     amount: 0,
+    estimateTimeinHours: 0,
+    projectType: "",
+
   });
   const [wishlistId, setWishlistId] = useState<string>("");
   const [removeFlag, setRemoveFlag] = useState<boolean>(false);
@@ -42,8 +49,7 @@ const Wishlist: React.FC = () => {
 
   const removeFromWishlist = async (wishlistId: string, jobPostId: string) => {
     try {
-      const { data } = await apiUserInstance.patch("/removeFromWishlist", {
-        wishlistId,
+      const { data } = await apiUserInstance.patch(`/removeFromWishlist/${wishlistId}`, {
         jobPostId,
       });
 
@@ -82,14 +88,14 @@ const Wishlist: React.FC = () => {
             >
               <div className="flex justify-between ">
                 <div className="grid">
-                  <span className="text-2xl text-start">{job[1]?.title}</span>
-                  <span className="text-sm mt-2">{job[1]?.description}</span>
+                  <span className="text-2xl text-start">{job?.title}</span>
+                  <span className="text-sm mt-2">{job?.description}</span>
                   <div className="grid justify-start gap-3 mt-3">
-                    <span className="text-sm">{job[1]?.expertLevel}</span>
-                    <span className="text-sm">{job[1]?.location}</span>
+                    <span className="text-sm">{job?.expertLevel}</span>
+                    <span className="text-sm">{job?.location}</span>
                   </div>
                   <span className="flex gap-3">
-                    {job[1]?.requiredSkills?.map((skill: string) => (
+                    {job?.requiredSkills?.map((skill: string) => (
                       <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                         {skill}
                       </span>
@@ -98,16 +104,16 @@ const Wishlist: React.FC = () => {
                 </div>
 
                 <div className="grid text-end py-3">
-                  <span className="text-sm">{job[1]?.amount}.00₹</span>
-                  <span className="text-sm">{job[1]?.paymentType}</span>
+                  <span className="text-sm">{job?.amount}.00₹</span>
+                  <span className="text-sm">{job?.paymentType}</span>
                   <span className="text-sm">
-                    {job[1]?.estimateTimeinHours}/hr
+                    {job?.estimateTimeinHours}/hr
                   </span>
                   <span className="text-sm text-green-400 underline">
-                    {job[1]?.projectType}
+                    {job?.projectType}
                   </span>
                   <button
-                    onClick={() => removeFromWishlist(wishlistId, job[1]?._id)}
+                    onClick={() => removeFromWishlist(wishlistId, job?._id)}
                     className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
                     type="button"
                   >
