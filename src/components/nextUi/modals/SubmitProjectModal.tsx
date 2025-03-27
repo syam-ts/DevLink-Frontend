@@ -102,16 +102,16 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
         <ModalContent className="belleza-regular px-5 py-2">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col text-xl gap-1 underline">
+              <ModalHeader className="flex flex-col text-xl gap-1 text-center">
                 Project Submit: {jobTitle}
               </ModalHeader>
               <ModalBody>
                 <label>Description About The Contract</label>
                 <textarea
                   onChange={handleOnChange}
-                  className="border rounded-lg h-44 p-10"
+                  className="border-1 border-gray-400 rounded-small h-44 p-10 outline-none"
                   name="description"
-                  placeholder="description"
+                  placeholder="Description goes here...."
                 />
                 {error?.some((err: string) =>
                   err.includes("Description is required")
@@ -174,7 +174,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                     {progress === "incomplete" ? (
                       <input
                         onChange={handleOnChange}
-                        className="border-gray-400 border-1 px-3 rounded-lg p-2 w-12 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                        className="border-gray-400 border-1 px-2 py-2 rounded-small outline-none w-12 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                         name="progress"
                         type="number"
                         placeholder="70"
@@ -188,7 +188,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                     <label> Attach Github: </label>
                     <input
                       onChange={handleOnChange}
-                      className="border rounded-lg py-2 p-3"
+                      className="border-1 border-gray-400 rounded-small py-2 p-3 outline-none"
                       type="url"
                       name="attachedFile"
                       placeholder="Attach Github link"
@@ -254,13 +254,17 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
                       return null;
                     })}
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+              <ModalFooter> 
+                <button
+                  onClick={onClose}
+                  className="py-2 px-4 bg-[#ff0000] text-white rounded-small shadow-xl"
+                  key="5xl"
+                >
                   Close
-                </Button>
+                </button>
                 <button
                   onClick={submitProject}
-                  className="py-2 px-4 bg-[#0000ff] text-white rounded-md shadow-xl"
+                  className="py-2 px-4 bg-[#0000ff] text-white rounded-small shadow-xl"
                   key="5xl"
                 >
                   Submit

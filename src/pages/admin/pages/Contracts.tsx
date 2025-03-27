@@ -72,7 +72,7 @@ const Contracts: React.FC = () => {
 
   const changePage = async (page: number) => {
     setCurrentPage(page);
-  };
+  }; 
 
   return (
     <div>

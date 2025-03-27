@@ -111,27 +111,27 @@ const AllContract: React.FC = () => {
                 <div className="containter mx-auto my-10 max-lg:w-[1000px]" key={key}>
                   <div
                     className={`${
-                      contract.status === "submitted" ? "bg-black" : "bg-white"
-                    } p-8 rounded-xl shadow-lg relative hover:shadow-2xl transition duration-500`}
+                      contract.status === "submitted" ? "bg-white" : "bg-white"
+                    } p-8 rounded-xl shadow-lg relative hover:shadow-2xl border-1 border-gray-300 transition duration-500`}
                   >
                     <h1 className="text-2xl text-gray-800 font-semibold mb-3">
-                      {contract[1]?.jobPostData?.title}
+                      {contract?.jobPostData?.title}
                     </h1>
                     <p className="text-gray-600 leading-6 tracking-normal">
-                      {contract[1]?.jobPostData?.description}
+                      {contract?.jobPostData?.description}
                     </p>
                     <div className="grid">
                       <span className="text-xs">
-                        Contract Amount: {contract[1]?.amount}.00₹
+                        Contract Amount: {contract?.amount}.00₹
                       </span>
                       <span className="text-xs">
-                        Contract Amount Deadline: {contract[1]?.deadline}
+                        Contract Amount Deadline: {contract?.deadline}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-small shadow-xl">
                         <Link
-                          to={`/${roleType}/contract/${contract[1]?._id}/${roleType}`}
+                          to={`/${roleType}/contract/${contract?._id}/${roleType}`}
                           className="no-underline text-white"
                         >
                           View Contract
@@ -142,8 +142,8 @@ const AllContract: React.FC = () => {
                         contractsViewType === "pending" && (
                           <div>
                             <SubmitProject
-                              contractId={contract[1]?._id}
-                              jobTitle={contract[1]?.jobPostData?.title}
+                              contractId={contract?._id}
+                              jobTitle={contract?.jobPostData?.title}
                             />
                           </div>
                         )}
