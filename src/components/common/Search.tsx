@@ -51,6 +51,7 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
             console.error(err.message);
         }
     };
+    console.log('The dev:J ', developers)
 
     return (
         <div>
@@ -131,7 +132,7 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                                                                 <p>{developer?.name} </p>
                                                             </div>
                                                             <div className="flex gap-3">
-                                                                {developer?.skills.map((skill: string) => (
+                                                                {developer?.skills?.map((skill: string) => (
                                                                     <div className=" gap-1  ">
                                                                         <p className="text-xs">{skill}</p>
                                                                     </div>
