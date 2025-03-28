@@ -5452,6 +5452,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^22.13.14":
+  version: 22.13.14
+  resolution: "@types/node@npm:22.13.14"
+  dependencies:
+    undici-types: "npm:~6.20.0"
+  checksum: 10c0/fa2ab5b8277bfbcc86c42e46a3ea9871b0d559894cc9d955685d17178c9499f0b1bf03d1d1ea8d92ef2dda818988f4035acb8abf9dc15423a998fa56173ab804
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.2
   resolution: "@types/parse-json@npm:4.0.2"
@@ -6466,6 +6475,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^2.5.0"
     "@stripe/react-stripe-js": "npm:^3.1.1"
     "@stripe/stripe-js": "npm:^5.4.0"
+    "@types/node": "npm:^22.13.14"
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^18.3.1"
     "@types/redux-persist": "npm:^4.3.1"
@@ -9996,6 +10006,13 @@ __metadata:
   peerDependencies:
     react: ">=16.14.0"
   checksum: 10c0/bc9db6c82f69ed0e5c6b4ab057fb963a84e81b134b57b04b72975d6283f8d488bc7e617114547dda9e329d2156e538dc268816f52f821c40c12f1a2e3f7c703a
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.20.0":
+  version: 6.20.0
+  resolution: "undici-types@npm:6.20.0"
+  checksum: 10c0/68e659a98898d6a836a9a59e6adf14a5d799707f5ea629433e025ac90d239f75e408e2e5ff086afc3cace26f8b26ee52155293564593fbb4a2f666af57fc59bf
   languageName: node
   linkType: hard
 
