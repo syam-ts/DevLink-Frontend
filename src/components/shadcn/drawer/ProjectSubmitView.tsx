@@ -22,7 +22,7 @@ export const ProjectSubmissionViewDrawer: React.FC<
   console.log('progressPercent: ',progressPercent);
 
   useEffect(() => {
-    const timer: number = setTimeout(() => setProgressPercent(66), 500);
+    const timer = setTimeout(() => setProgressPercent(66), 500);
     return () => clearTimeout(timer);
   }, []);
 
