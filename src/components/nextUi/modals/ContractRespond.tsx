@@ -83,7 +83,7 @@ export const ContractRespond: React.FC<ContractRespondProps> = ({
       </div>
       <Modal isOpen={isOpen} size={"5xl"} onClose={onClose}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col ">Reponse</ModalHeader>
               <ModalBody>

@@ -19,6 +19,7 @@ export const ProjectSubmissionViewDrawer: React.FC<
   ProjectSubmissionViewDrawerProps
 > = ({ title, description, progress, attachedFile }) => {
   const [progressPercent, setProgressPercent] = useState<number>(13);
+  console.log('progressPercent: ',progressPercent);
 
   useEffect(() => {
     const timer: number = setTimeout(() => setProgressPercent(66), 500);

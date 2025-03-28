@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react"; 
 import { toast } from "sonner";
-import { Sonner } from "../../../components/sonner/Toaster"; 
-import { useDispatch } from "react-redux";
+import { Sonner } from "../../../components/sonner/Toaster";  
 import { apiClientInstance } from '../../../api/axiosInstance/axiosClientRequest';
 import {
   Modal,
@@ -46,9 +44,8 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
     since: "",
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState<string>("md"); 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [size, setSize] = useState<string>("md");  
+  console.log('clientData: ',clientData)
 
   useEffect(() => {
     (async () => {
@@ -73,10 +70,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
     try {
 
       console.log('The form data: ', formData)
-      const data = {
-        editData: formData,
-        unhangedData: clientData,
-      };
+    
 
       // const response = await apiClientInstance.post(`/profile/${type}/${clientId}`,
       //   data,
@@ -121,7 +115,7 @@ export const EditClientModal: React.FC<EditClientModalProps> = ({
       </div>
       <Modal isOpen={isOpen} backdrop={"blur"} size={"5xl"} onClose={onClose}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               {/* <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader> */}
               <ModalBody>

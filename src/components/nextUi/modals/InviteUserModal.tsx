@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
+import config from "../../../config/helper/config";
+import { Sonner } from "../../../components/sonner/Toaster";
+import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
 import {
   Modal,
   ModalContent,
@@ -8,10 +12,6 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
-import { toast } from "sonner";
-import { Sonner } from "../../../components/sonner/Toaster";
-import config from "../../../config/helper/config";
 
 interface InviteModalProps {
   userId: string;
@@ -42,11 +42,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
     onOpen();
   };
 
-  const handleChange = (e) => {
-    console.log("The value: ", e.target.value);
-    console.log(e.target.value);
-  };
-
+ 
   const inviteUser = async () => {
     try {
       const { data } = await apiClientInstance.post("/inviteUser", {
@@ -110,7 +106,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
         className="h-[30rem]"
       >
         <ModalContent className="arsenal-sc-regular w-full">
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1 text-center text-xl">
                 Invite User

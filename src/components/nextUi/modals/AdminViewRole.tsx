@@ -4,15 +4,13 @@ import {
     ModalBody, 
     Button,
     useDisclosure,
-  } from "@heroui/react"; 
-import {  useState } from "react";
+  } from "@heroui/react";  
 import { useParams } from "react-router-dom";
  
   
   export const ViewRole = () => {
 
-   const {roleId, roleInfo} = useParams<{roleId: string, roleInfo: string}>(); 
-    const [ role , setRole] = useState({});
+   const {roleId} = useParams<{roleId: string, roleInfo: string}>();  
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     console.log(roleId)
  
@@ -31,7 +29,7 @@ import { useParams } from "react-router-dom";
           onOpenChange={onOpenChange}
         >
           <ModalContent>
-            {(onClose) => (
+            {() => (
               <>
                
                 <ModalBody>

@@ -1,9 +1,7 @@
 import {
   Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  ModalContent, 
+  ModalBody, 
   Button,
   useDisclosure,
 } from "@heroui/react";
@@ -14,6 +12,7 @@ export const UserProfileModal = ({ userData }) => {
   const [backdrop, setBackdrop] = React.useState("blur");
 
   const backdrops = ["blur"];
+  console.log(backdrop)
 
   const handleOpen = (backdrop) => {
     setBackdrop(backdrop);
@@ -58,7 +57,7 @@ export const UserProfileModal = ({ userData }) => {
       </div>
       <Modal backdrop="blur" size="3xl" isOpen={isOpen} onClose={onClose}>
         <ModalContent className="py-3 arsenal-sc-regular p-0 m-0 ">
-          {(onClose) => (
+          {() => (
             <>
               <ModalBody className="p-0 m-0 ">
                 <div className="flex">

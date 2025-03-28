@@ -67,35 +67,7 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
     }
   };
 
-  const rejectContractApproval = async (contractId: string) => {
-    try {
-      const { data } = await apiClientInstance.post(
-        `/contractSubmitReject/${contractId}`,
-        {
-          withCredentials: true,
-        }
-      );
-
-      if (data.success) {
-        const notificationClient = JSON.stringify([
-          data.data.newNotificationClient,
-        ]);
-        dispatch(addNotification(notificationClient));
-        toast.success("Contract rejected ", {
-          style: {
-            backgroundColor: "#15E029",
-            color: "white",
-          },
-        });
-        setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
-        }, 1000);
-      }
-    } catch (error: unknown) {
-      const err = error as { message: string };
-      toast.error(err.message);
-    }
-  };
+ 
 
   return (
     <div>

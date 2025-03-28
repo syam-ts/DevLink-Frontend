@@ -50,7 +50,7 @@ const UserRoute = () => {
 
               {/* ----------Pending---------- */}
         <Route path="/allChats/:roleType/:roleId" element={<ListAllClientChat />} />
-        <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
+        <Route path="/chat/view/:roleType/:targetId" element={<ChatBox roleType='' targetId='' />} />
       </Routes>
       <Footer />
     </>

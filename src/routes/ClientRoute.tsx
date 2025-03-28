@@ -51,13 +51,13 @@ const ClientRoute = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/userProfile/:type/:userId" element={<UserProfile />} />
         <Route path="/contracts/:roleType" element={<AllContracts />} />
-        <Route path="/contract/:contractId/:roleType" element={<Contract />} />  
+        <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/wallet" element={<Wallet roleType="client" />} />
         <Route path="/invites" element={<InviteCilent />} />
- 
-        <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />  
+
+        <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
         <Route path="/allChats/:roleType/:roleId" element={<ListAllUserChat />} />
-        <Route path="/chat/view/:roleType/:targetId" element={<ChatBox />} />
+        <Route path="/chat/view/:roleType/:targetId" element={<ChatBox roleType='' targetId='' />} />
         <Route path="/notifications/:roleId/:role" element={<Notifications />} />
 
 

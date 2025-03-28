@@ -77,9 +77,12 @@ const adminSlice = createSlice({
             }
         },
         deleteDatasUser: (state: any, action: any)=> { 
+            console.log('action: ',action)
                 state.user = []
         }, 
         deleteDatasClient: (state: any, action: any)=> { 
+            console.log('action: ',action)
+
                 state.client = []
         } 
 

@@ -2,15 +2,14 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Sonner } from "../../components/sonner/Toaster";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import config from "../../config/helper/config";
 
 
 const VerifyEmail = () => {
   const [email, setEmail] = useState<string>('');
   const [searchParams] = useSearchParams();
-  const rt = searchParams.get("rt"); 
-  const navigate = useNavigate();
+  const rt = searchParams.get("rt");  
 
 
   const handleSubmit = async (event) => {

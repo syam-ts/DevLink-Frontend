@@ -360,6 +360,7 @@ const MonoJobPost = () => {
                   formData={formData}
                   setFormData={setFormData}
                   paymentType={jobPost?.paymentType}
+                  viewType=''
                 />
               </button>
 
@@ -381,6 +382,7 @@ const MonoJobPost = () => {
                     formData={formData}
                     setFormData={setFormData}
                     paymentType={jobPost?.paymentType}
+                    viewType=''
                   />
                 </button>
               </div>

@@ -4,8 +4,34 @@ import { Sonner } from "../../components/sonner/Toaster";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { ProjectApprovalCard } from "../../components/common/ProjectApprovalCard";
 
-function ContractApproval() {
-  const [pendingApprovals, setPendingApprovals] = useState({});
+interface PendigApprovals {
+  jobPostData: {
+    title: string
+    amount: number
+    status: string
+  }
+  status: string
+  createdAt: string
+  contractId: string
+  description: string
+  attachedFile: string
+  progress: number
+};
+
+const ContractApproval = () => {
+  const [pendingApprovals, setPendingApprovals] = useState<PendigApprovals>({
+    jobPostData: {
+      title: "",
+      amount: 0,
+      status: "",
+    },
+    status: "",
+    createdAt: "",
+    contractId: "",
+    description: "",
+    attachedFile: "",
+    progress: 0
+  });
 
   useEffect(() => {
     try {

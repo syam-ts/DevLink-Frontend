@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
-const SUPPORTED_FORMATS = ["jpg", "jpeg", "png", "webp"];
-const MAX_FILE_SIZE = 100 * 1024; // 100KB
+// const SUPPORTED_FORMATS = ["jpg", "jpeg", "png", "webp"];
+// const MAX_FILE_SIZE = 100 * 1024; // 100KB
 
 export const userProfileVerifySchema = yup.object().shape({
   name: yup

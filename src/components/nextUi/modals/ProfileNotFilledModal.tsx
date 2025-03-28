@@ -18,8 +18,7 @@ interface ProfileNotFilledModalProps {
 
 export const ProfileNotFilledModal: React.FC<ProfileNotFilledModalProps> = ({
   isProfileFilled,
-  roleType,
-  roleId,
+  roleType
 }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
