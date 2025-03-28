@@ -216,7 +216,7 @@ const DraftJobPost = () => {
                 <input
                   value={inputValue}
                   onChange={handleChangeSkills}
-                  className="w-auto p-3 text-sm border border-gray-300 rounded"
+                  className="w-auto p-3 text-sm border border-gray-300 rounded outline-none"
                   placeholder="Add a skill"
                   name="skills"
                   type="text"
@@ -367,7 +367,7 @@ const DraftJobPost = () => {
                   <input
                     onChange={handleChange}
                     className="w-full px-4 pt-3 outline-none text-sm"
-                    placeholder="15000"
+                    placeholder="15000rs"
                     name="amount"
                     type="number"
                   />
@@ -401,7 +401,7 @@ const DraftJobPost = () => {
                 <div>
                   <select
                     name="projectType"
-                    className="w-full py-2"
+                    className="w-full py-2 outline-none"
                     onChange={handleChange}
                   >
                     <option value="ongoing project">Ongoing Project</option>
@@ -418,7 +418,7 @@ const DraftJobPost = () => {
                 <div>
                   <select
                     name="expertLevel"
-                    className=" py-2"
+                    className=" py-2 outline-none"
                     onChange={handleChange}
                   >
                     <option selected value="beginner">
@@ -560,7 +560,7 @@ const DraftJobPost = () => {
                   <input
                     onChange={handleChange}
                     className="w-full px-4 pt-3 outline-none text-sm"
-                    placeholder="15hrs"
+                    placeholder="44hrs"
                     name="estimateTime"
                     type="number"
                   />

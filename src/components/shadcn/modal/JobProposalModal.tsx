@@ -9,6 +9,7 @@ import { Sonner } from "../../../components/sonner/Toaster.tsx";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts";
 import { proposalSchema } from "../../../utils/validation/proposalValidaiton.ts";
 import { UserState } from "../../../config/state/allState.ts";
+import config from "../../../config/helper/config.ts";
 import {
   Dialog,
   DialogContent,
@@ -19,19 +20,19 @@ import {
 } from "../../../components/ui/dialog";
 
 interface FormData {
-  bidAmount: number;
-  bidDeadline: number;
-  description: string;
-  paymentType: string;
-}
+  bidAmount: number
+  bidDeadline: number
+  description: string
+  paymentType: string
+};
 
 interface ProposalModalProps {
-  jobPostId: string;
-  formData: FormData;
-  setFormData: any;
-  paymentType: string;
-  viewType: string;
-}
+  jobPostId: string
+  formData: FormData
+  setFormData: any
+  paymentType: string
+  viewType: string
+};
 
 export const JobProposalModal: React.FC<ProposalModalProps> = ({
   jobPostId,
@@ -83,14 +84,12 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               },
             });
           } else {
-            const notifications = JSON.stringify([
-              data?.data?.notification,
-            ]);
+            const notifications = JSON.stringify([data?.data?.notification]);
             dispatch(addNotification(notifications));
             toast.success("Proposal successfully sended");
 
             setTimeout(() => {
-              window.location.href = `http://localhost:5173/user/proposals`;
+              window.location.href = `${config.BASE_URL}/user/proposals`;
             }, 500);
           }
         } catch (err) {
@@ -130,7 +129,13 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[900px] sm:min-h-[400px] arsenal-sc-regular bg-white">
+      <DialogContent
+        style={{
+          border: "2px solid #e5e7eb",
+          borderRadius: "15px",
+        }}
+        className="sm:max-w-[900px] sm:min-h-[400px] arsenal-sc-regular bg-white"
+      >
         <DialogHeader>
           <DialogDescription>Draft Job Proposal</DialogDescription>
         </DialogHeader>
@@ -140,60 +145,64 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             <Input
               onChange={handleOnChange}
               name="bidAmount"
-              value={formData.bidAmount}
-              className="col-span-3"
+              value={Math.floor(formData.bidAmount / formData.bidDeadline)}
+              className="col-span-3 rounded-small"
             />
           </div>
 
           {paymentType === "hourly" ? (
             <div>
-              {error.some((err: string) => err.includes("Bid Amount is required"))
+              {error.some((err: string) =>
+                err.includes("Bid Amount is required")
+              )
                 ? error
-                    .filter((err: string) =>
-                      err.includes("Bid Amount is required")
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))
+                  .filter((err: string) =>
+                    err.includes("Bid Amount is required")
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))
                 : error
-                    .filter((err: string) =>
-                      [
-                        "Bid Amount must be at least 100rs",
-                        "Bid Amount must be at most 1500rs",
-                      ].some((msg) => err.includes(msg))
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))}
+                  .filter((err: string) =>
+                    [
+                      "Bid Amount must be at least 100rs",
+                      "Bid Amount must be at most 1500rs",
+                    ].some((msg) => err.includes(msg))
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))}
             </div>
           ) : (
             <div>
-              {error.some((err: string) => err.includes("Bid Amount is required"))
+              {error.some((err: string) =>
+                err.includes("Bid Amount is required")
+              )
                 ? error
-                    .filter((err: string) =>
-                      err.includes("Bid Amount is required")
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))
+                  .filter((err: string) =>
+                    err.includes("Bid Amount is required")
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))
                 : error
-                    .filter((err: string) =>
-                      [
-                        "Bid Amount must be at least 2000rs",
-                        "Bid Amount must be at most 70000rs",
-                      ].some((msg) => err.includes(msg))
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))}
+                  .filter((err: string) =>
+                    [
+                      "Bid Amount must be at least 2000rs",
+                      "Bid Amount must be at most 70000rs",
+                    ].some((msg) => err.includes(msg))
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))}
             </div>
           )}
 
@@ -203,7 +212,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               onChange={handleOnChange}
               name="bidDeadline"
               value={formData.bidDeadline}
-              className="col-span-3"
+              className="col-span-3 rounded-small"
             />
           </div>
 
@@ -213,26 +222,26 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
                 err.includes("Estimate time is required")
               )
                 ? error
-                    .filter((err: string) =>
-                      err.includes("Estimate time is required")
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))
+                  .filter((err: string) =>
+                    err.includes("Estimate time is required")
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))
                 : error
-                    .filter((err: string) =>
-                      [
-                        "Estimate deadline must be at least 5hr",
-                        "Estimate deadline must be at most 48hrs",
-                      ].some((msg) => err.includes(msg))
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))}
+                  .filter((err: string) =>
+                    [
+                      "Estimate deadline must be at least 5hr",
+                      "Estimate deadline must be at most 48hrs",
+                    ].some((msg) => err.includes(msg))
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))}
             </div>
           ) : (
             <div>
@@ -240,66 +249,67 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
                 err.includes("Bid Deadline is required")
               )
                 ? error
-                    .filter((err: string) =>
-                      err.includes("Bid Deadline is required")
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))
+                  .filter((err: string) =>
+                    err.includes("Bid Deadline is required")
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))
                 : error
-                    .filter((err: string) =>
-                      [
-                        "Estimate deadline must be at least 10hr",
-                        "Estimate deadline must be at most 120hrs",
-                      ].some((msg) => err.includes(msg))
-                    )
-                    .map((err: string, index: number) => (
-                      <div key={index} className="text-center">
-                        <span className="text-red-400 text-sm">{err}</span>
-                      </div>
-                    ))}
+                  .filter((err: string) =>
+                    [
+                      "Estimate deadline must be at least 10hr",
+                      "Estimate deadline must be at most 120hrs",
+                    ].some((msg) => err.includes(msg))
+                  )
+                  .map((err: string, index: number) => (
+                    <div key={index} className="text-center">
+                      <span className="text-red-400 text-sm">{err}</span>
+                    </div>
+                  ))}
             </div>
           )}
 
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid grid-cols-4 items-center gap-4 ">
             <Label className="text-right text-sm">Description</Label>
             <Input
               onChange={handleOnChange}
               name="description"
               value={formData.description}
-              className="col-span-3 h-44"
+              placeholder="Your description goes here ...."
+              className="col-span-3 h-44 rounded-small"
             />
           </div>
 
           {error?.some((err: string) => err.includes("Description is required"))
             ? error.map((err: string, index: number) => {
-                if (err.includes("Description is required")) {
-                  return (
-                    <div key={index} className="text-center">
-                      <span className="text-red-400 text-sm">{err}</span>
-                    </div>
-                  );
-                }
-                return null;
-              })
+              if (err.includes("Description is required")) {
+                return (
+                  <div key={index} className="text-center">
+                    <span className="text-red-400 text-sm">{err}</span>
+                  </div>
+                );
+              }
+              return null;
+            })
             : error.map((err: string, index: number) => {
-                if (
-                  err.includes("Description is required") ||
-                  err.includes(
-                    "Description should have atleast 20 200 characters"
-                  ) ||
-                  err.includes("Maximum characters are 200")
-                ) {
-                  return (
-                    <div key={index} className="text-center">
-                      <span className="text-red-400 text-sm">{err}</span>
-                    </div>
-                  );
-                }
-                return null;
-              })}
+              if (
+                err.includes("Description is required") ||
+                err.includes(
+                  "Description should have atleast 20 200 characters"
+                ) ||
+                err.includes("Maximum characters are 200")
+              ) {
+                return (
+                  <div key={index} className="text-center">
+                    <span className="text-red-400 text-sm">{err}</span>
+                  </div>
+                );
+              }
+              return null;
+            })}
 
           <div className="flex gap-3">
             <input
@@ -307,7 +317,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               onClick={() => setiSAgreedTerms((prev) => !prev)}
               className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm "
             />
-            <span className="text-xs "> 
+            <span className="text-xs ">
               I agree with the terms and conditions that, You are requesting for
               a jobpost proposal which cannot be cancelled later. if you aggreed
               on the condition click submit
@@ -318,7 +328,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           {!isAgreedTerms ? (
             <Button
               type="submit"
-              className="bg-gray-300 px-9 hover:bg-gray-300"
+              className="bg-gray-300 px-9 hover:bg-gray-300 rounded-small"
             >
               <img
                 className="w-5 h-5 "
@@ -326,7 +336,10 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
               />
             </Button>
           ) : (
-            <Button onClick={submitProposal} className="bg-[#0000ff] px-4 py-2 text-white font-bold rounded-small">
+            <Button
+              onClick={submitProposal}
+              className="bg-[#0000ff] px-4 py-2 text-white font-bold rounded-small"
+            >
               Submit
             </Button>
           )}
