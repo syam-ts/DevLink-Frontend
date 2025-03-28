@@ -8,8 +8,7 @@ import LoginComponent from "../components/common/LoginComponent";
 import SignupComponent from "../components/common/SignupComponent";
 import ResetPassword from "../pages/common/ResetPassword";
 import VerifyEmail from "../pages/common/VerifyEmail";
-// import ResetPassword from '../pages/user/ResetPassword'
-
+// import ResetPassword from '../pages/user/ResetPassword'; 
 
 
 const LandingRoute: React.FC = () => {

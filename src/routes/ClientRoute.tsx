@@ -1,8 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
-import { ClientState } from "../config/state/allState";
-
+import { ClientState } from "../config/state/allState"; 
 import ClientProfile1 from '../pages/client/ProfileClient'
 
 const {
@@ -17,8 +16,7 @@ const {
   ContractApprovals,
   DraftJobPost,
   PaymentSuccess,
-  PaymentFailed,
-
+  PaymentFailed, 
   Profile,
   InviteCilent,
   Wallet,
@@ -53,19 +51,12 @@ const ClientRoute = () => {
         <Route path="/contracts/:roleType" element={<AllContracts />} />
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/wallet" element={<Wallet roleType="client" />} />
-        <Route path="/invites" element={<InviteCilent />} />
-
+        <Route path="/invites" element={<InviteCilent />} /> 
         <Route path="/job/:jobPostId/:type" element={<MonoJobPage />} />
         <Route path="/allChats/:roleType/:roleId" element={<ListAllUserChat />} />
         <Route path="/chat/view/:roleType/:targetId" element={<ChatBox roleType='' targetId='' />} />
-        <Route path="/notifications/:roleId/:role" element={<Notifications />} />
-
-
-
-        <Route path="/profile-new" element={<ClientProfile1 />} />
-
-
-
+        <Route path="/notifications/:roleId/:role" element={<Notifications />} /> 
+        <Route path="/profile-new" element={<ClientProfile1 />} /> 
       </Routes>
       <Footer />
     </>
