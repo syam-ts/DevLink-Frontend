@@ -1,6 +1,6 @@
 import { ViewRole } from "../components/nextUi/modals/AdminViewRole";
 import { Routes, Route } from "react-router-dom";
-import Admin from '@/pages/admin/Index'
+import Admin from '../pages/admin/Index'
 
 const AdminRoute = () => {
   return (
