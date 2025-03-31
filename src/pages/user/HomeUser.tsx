@@ -115,7 +115,7 @@ const HomeUser: React.FC = () => {
     (async () => {
       const { data } = await apiUserInstance.get(`/home/latestJobs`);
       console.log('The data:', data)
-      setLatestJobs(data?.latestJobs);
+      setLatestJobs(data?.data?.latestJobs);
     })();
   }, []);
   console.log('The latest: ',latestJobs)
