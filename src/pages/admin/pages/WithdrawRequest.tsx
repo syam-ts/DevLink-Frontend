@@ -3,6 +3,7 @@ import { SuccessTransferMoneyModal } from "../../../components/nextUi/modals/Suc
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 interface Request {
+  _id: string
   roleId: string
   userName: string
   amount: number
@@ -33,13 +34,13 @@ function WithdrawRequest() {
           <div key={key} className="flex bg-white shadow-lg rounded-large justify-between">
             <div className="px-5 grid py-4">
               <span className="font-bold text-md">
-                UserName: {request[1].userName}{" "}
+                UserName: {request.userName}{" "}
               </span>
               <span className="font-bold text-md">
-                Amount: {request[1].amount}{" "}
+                Amount: {request.amount}{" "}
               </span>
               <span className="font-bold text-md">
-                Account Number: {request[1].accountNumber}{" "}
+                Account Number: {request.accountNumber}{" "}
               </span>
             </div>
             <div className="py-4 px-5 ">
@@ -48,9 +49,9 @@ function WithdrawRequest() {
                 type="button"
               >
                 <SuccessTransferMoneyModal
-                  userId={request[1].roleId}
-                  requestId={request[1]._id}
-                  requestedAmount={request[1].amount}
+                  userId={request.roleId}
+                  requestId={request._id}
+                  requestedAmount={request.amount}
                 />
               </button>
             </div>
