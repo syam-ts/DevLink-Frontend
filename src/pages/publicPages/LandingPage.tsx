@@ -68,7 +68,7 @@ const LandingPage = () => {
           <img src="/lasdingpage_option.png" alt="join-image" />
         </div>
         <div>
-          <img src="http://localhost:5173/public/landingpage_bigimage.png" alt="join-image" />
+          <img src="/ladnigpage_last-img.png" alt="join-image" />
         </div>
       </section>
 
