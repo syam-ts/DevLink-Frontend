@@ -116,8 +116,7 @@ const HomeUser: React.FC = () => {
       const { data } = await apiUserInstance.get(`/home/latestJobs`);
       setLatestJobs(data?.data);
     })();
-  }, []);
-  console.log('The latest: ',latestJobs)
+  }, []); 
 
   return (
     <div className="arsenal-sc-regular pt-16 overflow-x-hidden">
