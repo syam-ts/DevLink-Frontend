@@ -74,7 +74,7 @@ const HomeUser: React.FC = () => {
     (state: UserState) => state?.user?.currentUser?._id
   );
   const user = useSelector((state: UserState) => state?.user?.currentUser);
-  console.log('The user from home: ', user)
+ 
 
   useEffect(() => {
     if (user.isProfileFilled) {
@@ -117,6 +117,7 @@ const HomeUser: React.FC = () => {
       setLatestJobs(data?.data);
     })();
   }, []);
+  console.log('The latest: ',latestJobs)
 
   return (
     <div className="arsenal-sc-regular pt-16 overflow-x-hidden">
