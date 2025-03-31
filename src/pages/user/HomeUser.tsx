@@ -114,8 +114,7 @@ const HomeUser: React.FC = () => {
   useEffect(() => {
     (async () => {
       const { data } = await apiUserInstance.get(`/home/latestJobs`);
-      console.log('The data:', data.data.data)
-      setLatestJobs(data?.data?.data.latestJobs);
+      setLatestJobs(data?.data);
     })();
   }, []);
   console.log('The latest: ',latestJobs)
