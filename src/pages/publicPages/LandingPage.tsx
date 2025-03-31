@@ -37,7 +37,7 @@ const LandingPage = () => {
 
       <section className="flex justify-between py-12 mx-auto w-[1100px] my-20 border border-black rounded-xl">
         <div className="pl-12">
-          <img src="public/landingpage_left.png" alt="profile-image" />
+          <img src="http://localhost:5173/public/landingpage_left.png" alt="profile-image" />
         </div>
         <div className=" ">
           <div className="pt-44">
@@ -55,7 +55,7 @@ const LandingPage = () => {
         </div>
 
         <div className="pr-12">
-          <img src="public/landingpage_right.png" alt="profile-image" />
+          <img src="http://localhost:5173/landingpage_right.png" alt="profile-image" />
         </div>
       </section>
 
@@ -65,10 +65,10 @@ const LandingPage = () => {
 
       <section className="flex mt-20">
         <div className="ml-80">
-          <img src="public/lasdingpage_option.png" alt="join-image" />
+          <img src="/lasdingpage_option.png" alt="join-image" />
         </div>
         <div>
-          <img src="public/ladnigpage_last-img.png" alt="join-image" />
+          <img src="/ladnigpage_last-img.png" alt="join-image" />
         </div>
       </section>
 
