@@ -11,11 +11,16 @@ const LandingPage = () => {
 
   return (
     <div>
-      <nav>
-        <div className="flex flex-1 sm:items-stretch sm:justify-center py-3 bg-[#2b3247] w-full"> 
-          <span className="font-bold text-center text-white text-2xl py-1 nunito-regular">DevLink</span>
-        </div>
-      </nav>
+    <nav>
+  <div className="flex items-center justify-center sm:justify-center  py-2 sm:py-3 bg-[#2b3247] w-full px-4">
+    <span className="font-bold text-white text-xl sm:text-2xl py-1 nunito-regular">DevLink</span>
+    
+    {/* Optional: Mobile menu button placeholder if needed later */}
+    <div className="block sm:hidden">
+      {/* You can add a mobile menu button here if needed */}
+    </div>
+  </div>
+</nav>
 
       <section>
         <div className="text-center pt-12 my-6 arsenal-sc-regular">
@@ -54,13 +59,12 @@ const LandingPage = () => {
         </div>
       </section>
 
-
-
       <section>
-        <div className="text-center pt-12 my-6">
-          <span className="text-3xl arsenal-sc-regular">Unlimited Oppurtunities...</span>
-        </div>
-      </section>
+  <div className="text-center pt-8 sm:pt-10 md:pt-12 my-4 sm:my-6 px-4">
+    <span className="text-xl sm:text-2xl md:text-3xl arsenal-sc-regular">Unlimited Oppurtunities...</span>
+  </div>
+</section>
+ 
 
       <section>
         <div className='flex mt-20 justify-end bg-[#2b3247] '>
