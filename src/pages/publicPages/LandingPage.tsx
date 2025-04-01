@@ -82,7 +82,7 @@ const LandingPage: React.FC = () => {
         <div className="flex flex-col lg:flex-row p-4 sm:p-8 md:p-12 lg:p-20 mt-12 md:mt-20 lg:mt-28 arsenal-sc-regular">
           <div className="mx-auto lg:ml-4 xl:ml-44">
             <img
-              src="/public/landingpage_bigimage.png"
+              src="landingpage_bigimage.png"
               alt="professional image"
               className="w-full max-w-md lg:max-w-none h-auto"
             />
