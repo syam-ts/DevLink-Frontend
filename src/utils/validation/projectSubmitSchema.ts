@@ -26,35 +26,4 @@ export const projectSubmissionSchema = yup.object().shape({
 
 });
 
-// {
-//     error?.some((err: any) => err.includes("Description is required")) ? (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Description is required")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     ) : (
-//       error.map((err: any, index: number) => {
-//         if (
-//           err.includes("Description is required") ||
-//           err.includes("Description should have atleast 20 200 characters") ||
-//           err.includes("Maximum characters are 200")
-//         ) {
-//           return (
-//             <div key={index} className="text-start">
-//               <span className="text-red-400 text-sm">{err}</span>
-//             </div>
-//           );
-//         }
-//         return null;
-//       })
-//     )
-//   } 
- 
+  
