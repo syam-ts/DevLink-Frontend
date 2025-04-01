@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SmallModal } from "../../components/nextUi/modals/SmallModal";
 import { useNavigate } from "react-router-dom";
+import { SmallModal } from "../../components/nextUi/modals/SmallModal";
 
 const Role = () => {
   const [checkBox, setCheckBox] = useState<string>("");
@@ -11,7 +11,7 @@ const Role = () => {
     setCheckBox(role);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (checkBox === "") {
       showModal(true);
       setTimeout(() => {
@@ -24,9 +24,9 @@ const Role = () => {
         navigate("/signup?rt=client");
       }
     }
-  }; 
+  };
 
-  return ( 
+  return (
     <div>
       <div>
         {modal && <SmallModal showModals={true} />}
@@ -37,9 +37,10 @@ const Role = () => {
         <div className="flex items-center justify-center arsenal-sc-regular">
           <form className="flex flex-col md:flex-row gap-10 md:gap-20">
             <div
-              className={` ${
-            checkBox === "freelancer" ? "text-center border border-black" : "text-center"
-          }`}
+              className={` ${checkBox === "freelancer"
+                  ? "text-center border border-black"
+                  : "text-center"
+                }`}
               onClick={() => checkFn("freelancer")}
             >
               <input
@@ -53,14 +54,18 @@ const Role = () => {
                 htmlFor="radio_1"
               >
                 <img src="https://media.licdn.com/dms/image/D5612AQGctn1djk31Ww/article-cover_image-shrink_600_2000/0/1721492130919?e=2147483647&v=beta&t=jzv8vvsG25SZIkRID9XEsBNUzHy0G0Aul0CS8QgoHI0" />
-                <span className="mt-2 text-lg md:text-xl font-bold"> Freelancer </span>
+                <span className="mt-2 text-lg md:text-xl font-bold">
+                  {" "}
+                  Freelancer{" "}
+                </span>
               </label>
             </div>
 
             <div
-              className={`${
-            checkBox === "client" ? "text-center border border-black" : "text-center"
-          }`}
+              className={`${checkBox === "client"
+                  ? "text-center border border-black"
+                  : "text-center"
+                }`}
               onClick={() => checkFn("client")}
             >
               <input
@@ -74,7 +79,10 @@ const Role = () => {
                 htmlFor="radio_2"
               >
                 <img src="https://st4.depositphotos.com/1075946/23526/i/450/depositphotos_235260704-stock-photo-smart-professional-male-client-office.jpg" />
-                <span className="mt-2 text-lg md:text-xl font-bold"> Client </span>
+                <span className="mt-2 text-lg md:text-xl font-bold">
+                  {" "}
+                  Client{" "}
+                </span>
               </label>
             </div>
           </form>
@@ -88,9 +96,7 @@ const Role = () => {
           </button>
         </div>
       </div>
-
     </div>
-
   );
 };
 
