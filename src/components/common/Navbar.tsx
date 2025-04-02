@@ -42,14 +42,14 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
-      dispatch(clearNotificationsUser());
-      window.location.href = "https://devlinkweb.shop/login?rt=user";
+      dispatch(clearNotificationsUser()); 
+      window.location.href = "http://localhost:5173/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotificationsClient());
-      window.location.href = "https://devlinkweb.shop/login?rt=client";
+      window.location.href = "http://localhost:5173/login?rt=client";
     }
   };
 

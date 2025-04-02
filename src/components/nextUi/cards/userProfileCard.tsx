@@ -36,7 +36,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
       {
         isVerified ? (
           <Link to={`/client/userProfile/client-view/${developer._id}`} >
-          <CardBody className="overflow-visible py-2">
+          <CardBody className="overflow-hidden py-2">
             <img
               alt="Card background"
               className="object-cover rounded-xl"
@@ -46,7 +46,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           </CardBody>
           </Link>
         ) : (
-          <CardBody className="overflow-visible py-2">
+          <CardBody className="overflow-hidden py-2">
           <img
             alt="Card background"
             className="object-cover rounded-xl"
