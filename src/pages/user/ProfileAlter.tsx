@@ -8,6 +8,7 @@ import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from "../../redux/slices/userSlice";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import {
+  imageValidationSchema,
   userProfileEditSchema,
   userProfileVerifySchema,
 } from "../../utils/validation/userProfileSchema";
@@ -120,27 +121,36 @@ const UserProfileAlter = () => {
   });
 
   const handleFileUpload = async (e) => {
-    setImageLoading(true);
-    const file = e.target.files[0];
-    if (!file) return;
+    try { 
+      let validForm = await imageValidationSchema.validate({ profilePicture: e.target.files[0] }, {
+        abortEarly: false,
+      }); 
 
-    const data = new FormData();
-    data.append("file", file), console.log("rist", data);
-    data.append("upload_preset", "devlink-userProfle"),
-      data.append("cloud_name", "dusbc29s2");
+      if (validForm) { 
+          setImageLoading(true);
+          const file = e.target.files[0];
+          if (!file) return;
 
-    try {
-      console.log("file", [...data.entries()]);
-      const response = await cloudinaryInstance.post("", data);
-      console.log("The respnose", response);
-      console.log("The image url : ", response.data?.url);
-      setImage(response.data?.url);
-      setImageLoading(false);
-    } catch (err) {
+          const data = new FormData();
+          data.append("file", file) 
+          data.append("upload_preset", "devlink-userProfle"),
+            data.append("cloud_name", "dusbc29s2");
+
+          console.log("file", [...data.entries()]);
+          const response = await cloudinaryInstance.post("", data);  
+          setImageLoading(false); 
+          setImage(response.data?.url);  
+          setError([])
+      }
+    } catch (err) { 
+      console.log('THE MAIN ERR: ',err.errors)
+       setError(err.errors);
       console.log(err.message);
+
     }
   };
-
+ 
+  
   var loadFile = function (event): void {
     var output = document.getElementById(
       "preview_img"
@@ -524,6 +534,42 @@ const UserProfileAlter = () => {
                               file:bg-violet-200 file:text-violet-700
                               hover:file:bg-violet-100"
                       />
+
+
+
+                      {error?.some((err: string) =>
+                        err.includes("Profile Picture is required")
+                      )
+                        ? error?.map((err: string, index: number) => {
+                          if (err.includes("Profile Picture is required")) {
+                            return (
+                              <div key={index} className="text-start">
+                                <span className="text-red-400 text-sm">{err}</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })
+                        : error?.map((err: string, index: number) => {
+                          if (
+                            err.includes("Profile Picture is required") ||
+                            err.includes(
+                              "Not a valid image type. Only JPG, JPEG, and PNG are allowed"
+                            ) ||
+                            err.includes("Max allowed size is 2mb")
+                          ) {
+                            return (
+                              <div key={index} className="text-start">
+                                <span className="text-red-400 text-sm">{err}</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+
+
+
+
                     </label>
                   ) : (
                     <label className="px-3 mx-5 mt-3 text-center py-2 rounded-full text-sm font-bold bg-violet-200 text-violet-700 hover:bg-violet-100">

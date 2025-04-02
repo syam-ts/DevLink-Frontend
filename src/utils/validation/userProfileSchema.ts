@@ -1,8 +1,26 @@
 import * as yup from "yup";
 
-// const SUPPORTED_FORMATS = ["jpg", "jpeg", "png", "webp"];
-// const MAX_FILE_SIZE = 100 * 1024; // 100KB
 
+const MAX_FILE_SIZE = 2 * 1024 * 1024; //max size is 2mb
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+
+const isValidFileType = (fileType) => SUPPORTED_FORMATS.includes(fileType);
+
+export const imageValidationSchema = yup.object().shape({
+  profilePicture: yup
+    .mixed()
+    .required("Profile Picture is required")
+    .test(
+      "is-valid-type",
+      "Not a valid image type. Only JPG, JPEG, and PNG are allowed",
+      (value: { type: string }) => value && isValidFileType(value.type)
+    )
+    .test(
+      "is-valid-size",
+      "Max allowed size is 2mb",
+      (value: { size: number }) => value && value.size <= MAX_FILE_SIZE
+    ),
+});
 export const userProfileVerifySchema = yup.object().shape({
   name: yup
     .string()
@@ -249,3 +267,5 @@ export const userProfileEditSchema = yup.object().shape({
       }
     ),
 });
+
+
