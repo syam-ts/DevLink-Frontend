@@ -106,8 +106,8 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
         }
       }
     } catch (err) {
-      console.log("ERROR: ", err);
       setError(err.errors);
+      console.log("ERROR: ", err.errors);
       toast.error(err.message.response.data.message);
     }
   };
@@ -145,7 +145,8 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             <Input
               onChange={handleOnChange}
               name="bidAmount"
-              value={Math.floor(formData.bidAmount / formData.bidDeadline)}
+              type="number"
+              value={formData.bidAmount}
               className="col-span-3 rounded-small"
             />
           </div>
@@ -211,6 +212,7 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
             <Input
               onChange={handleOnChange}
               name="bidDeadline"
+              type="number"
               value={formData.bidDeadline}
               className="col-span-3 rounded-small"
             />
@@ -219,11 +221,11 @@ export const JobProposalModal: React.FC<ProposalModalProps> = ({
           {paymentType === "hourly" ? (
             <div>
               {error.some((err: string) =>
-                err.includes("Estimate time is required")
+                err.includes("Bid Deadline is required")
               )
                 ? error
                   .filter((err: string) =>
-                    err.includes("Estimate time is required")
+                    err.includes("Bid Deadline is required")
                   )
                   .map((err: string, index: number) => (
                     <div key={index} className="text-center">

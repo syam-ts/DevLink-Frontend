@@ -123,7 +123,7 @@ const MonoJobPost = () => {
 
   useEffect(() => {
     setFormData({
-      bidAmount: jobPost?.amount,
+      bidAmount: Math.floor(jobPost.amount / jobPost.estimateTimeinHours),
       bidDeadline: jobPost?.estimateTimeinHours,
       description: "",
       paymentType: jobPost?.paymentType,
