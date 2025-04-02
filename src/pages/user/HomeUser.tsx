@@ -129,55 +129,51 @@ const HomeUser: React.FC = () => {
         />
       </div>
 
-      <section>
-        <div className="arsenal-sc-regular">
-          <figure className="relative transition-all home-user-image max-xl:w-[1600px] max-2xl:w-[1200px] duration-300 bg-black cursor-pointer  hover:grayscale-0">
-            <img
-              className="w-full max-2xl:w-full h-[900px] sm:h-[500px] md:h-[600px] lg:h-[700px] object-cover"
-              src="/public/user_home-1.png"
-              alt="image description"
-            />
-            <figcaption className="absolute text-lg text-white bottom-6">
-              <div className="pb-60 px-56">
-                <div className="font-extrabold text-4xl">
-                  <span>Find Your Desired Job Here</span>
-                </div>
+      <section className="w-full px-1 sm:px-6 lg:px-8 ">
+  <div className="arsenal-sc-regular">
+    <figure className="relative transition-all duration-300 bg-black cursor-pointer hover:grayscale-0">
+      <img
+        className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[700px] object-cover"
+        src="/public/user_home-1.png"
+        alt="image description"
+      />
+      <figcaption className="absolute bottom-16 left-4 sm:left-10 md:left-16 text-white text-center sm:text-left">
+        <div className="pb-10 sm:pb-20 px-4 sm:px-8 md:px-12 lg:px-16">
+          <div className="font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            <span>Find Your Desired Job Here</span>
+          </div>
+          <div className="font-extrabold text-lg sm:text-xl md:text-2xl lg:text-3xl">
+            <span>Over 1200+ stunning projects are waiting for you</span>
+          </div>
 
-                <div className="font-extrabold text-4xl">
-                  <span>Over 1200+ stunnig projects are waiting for you</span>
-                </div>
-
-                {/* ------Serach------- */}
-                <div>
-                  <label className="mb-2 text-sm font-medium sr-only text-white">
-                    Search
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="search"
-                      id="default-search"
-                      className="block w-full p-4 ps-10 text-sm text-gray-900 outline-none border border-gray-300 rounded-small bg-gray-50   "
-                      placeholder="Search your desire Jobs..."
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="text-white h-full w-22 absolute end-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-small text-md px-4  "
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-                <div>
-                  <span>
-                    Popular search : Full Stack development, php development
-                  </span>
-                </div>
-              </div>
-            </figcaption>
-          </figure>
+        
+          <div className="mt-4">
+            <label className="mb-2 text-sm font-medium sr-only text-white">Search</label>
+            <div className="relative w-full max-w-md mx-auto sm:mx-0">
+              <input
+                type="search"
+                id="default-search"
+                className="block w-full p-3 ps-10 text-sm text-gray-900 outline-none border border-gray-300 rounded-small bg-gray-50"
+                placeholder="Search your desired Jobs..."
+                required
+              />
+              <button
+                type="submit"
+                className="text-white h-full absolute right-0 top-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-small text-sm px-4"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          <div className="mt-2 text-sm text-gray-300">
+            <span>Popular search: Full Stack development, PHP development</span>
+          </div>
         </div>
-      </section>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
 
       <section>
         <Chatbot />
