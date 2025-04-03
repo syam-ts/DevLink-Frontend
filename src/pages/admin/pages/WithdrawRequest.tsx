@@ -34,13 +34,13 @@ function WithdrawRequest() {
           <div key={key} className="flex bg-white shadow-lg rounded-large justify-between">
             <div className="px-5 grid py-4">
               <span className="font-bold text-md">
-                UserName: {request.userName}{" "}
+                UserName: {request.userName}
               </span>
               <span className="font-bold text-md">
-                Amount: {request.amount}{" "}
+                Amount: {request.amount}
               </span>
               <span className="font-bold text-md">
-                Account Number: {request.accountNumber}{" "}
+                Account Number: {request.accountNumber}
               </span>
             </div>
             <div className="py-4 px-5 ">

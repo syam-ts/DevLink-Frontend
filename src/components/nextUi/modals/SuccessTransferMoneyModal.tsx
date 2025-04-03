@@ -1,3 +1,11 @@
+import { toast } from "sonner";
+import { Label } from "flowbite-react";
+import { useEffect, useState } from "react";
+import config from "../../../config/helper/config";
+import { Sonner } from "../../../components/sonner/Toaster";
+import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import { imageValidationSchema } from "../../../utils/validation/userProfileSchema";
+import { transferMoneySchema } from "../../../utils/validation/TransferMoneySchema";
 import {
     Modal,
     ModalContent,
@@ -8,23 +16,19 @@ import {
     useDisclosure,
     Input,
 } from "@heroui/react";
-import { Label } from "flowbite-react";
-import { toast } from "sonner"; 
-import { useState } from "react";
-import { Sonner } from "../../../components/sonner/Toaster";
-import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
+import axios from "axios";
 
 interface SuccessTransferMoneyModalProps {
-    userId: string
-    requestId: string
-    requestedAmount: number
-};
+    userId: string;
+    requestId: string;
+    requestedAmount: number;
+}
 
 interface FormData {
-    paymentScreenshot: string
-    amount: number
-    upiId: number
-};
+    paymentScreenshot: string;
+    amount: number;
+    upiId: number;
+}
 
 export const SuccessTransferMoneyModal: React.FC<
     SuccessTransferMoneyModalProps
@@ -34,7 +38,50 @@ export const SuccessTransferMoneyModal: React.FC<
         amount: 0,
         upiId: 0,
     });
+    const [image, setImage] = useState<string>("");
+    const [error, setError] = useState<string[]>();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    useEffect(() => {
+        formData.paymentScreenshot = image;
+    }, [image]);
+
+    const cloudinaryInstance = axios.create({
+        baseURL: `${config.CLOUDINARY_URL}`,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+
+    const handleFileUpload = async (e) => {
+        try {
+            let validForm = await imageValidationSchema.validate(
+                { profilePicture: e.target.files[0] },
+                {
+                    abortEarly: false,
+                }
+            );
+
+            if (validForm) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const data = new FormData();
+                data.append("file", file);
+                data.append("upload_preset", "devlink-userProfle"),
+                    data.append("cloud_name", "dusbc29s2");
+
+                console.log("file", [...data.entries()]);
+                const response = await cloudinaryInstance.post("", data);
+                setImage(response.data?.url);
+                console.log("The image url: ", response.data?.url);
+                setError([]);
+            }
+        } catch (err) {
+            setError(err.errors);
+            console.log(err.message);
+        }
+    };
 
     const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,53 +89,58 @@ export const SuccessTransferMoneyModal: React.FC<
 
     const successMoneyTransfer = async () => {
         try {
-            const body = {
-                paymentScreenshot: formData.paymentScreenshot,
-                amount: formData.amount,
+            const dataSet = {
+                paymentScreenshot: image,
+                amount: Number(formData.amount),
                 upiId: formData.upiId,
-                userId: userId,
-                requestId: requestId,
                 requestedAmount: requestedAmount,
             };
-
-            const { data } = await apiAdminInstance.post("/successMoneyTransfer", {
-                body,
+            console.log(dataSet);
+            const isValid = await transferMoneySchema.validate(dataSet, {
+                abortEarly: false,
             });
 
-            if (data.success) {
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
+            if (isValid) {
+                const body = {
+                    paymentScreenshot: formData.paymentScreenshot,
+                    amount: formData.amount,
+                    upiId: formData.upiId,
+                    userId: userId,
+                    requestId: requestId,
+                    requestedAmount: requestedAmount,
+                };
 
-                toast.success("Successfully sended", {
-                    position: "top-center",
-                    style: {
-                        width: "11rem",
-                        height: "3rem",
-                        justifyContent: "center",
-                        backgroundColor: "#32a852",
-                        color: "white",
-                        border: "none",
-                    },
+                const { data } = await apiAdminInstance.post("/successMoneyTransfer", {
+                    body,
                 });
+
+                if (data.success) {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
+
+                    toast.success("Successfully sended", {
+                        position: "top-center",
+                        style: {
+                            width: "11rem",
+                            height: "3rem",
+                            justifyContent: "center",
+                            backgroundColor: "#32a852",
+                            color: "white",
+                            border: "none",
+                        },
+                    });
+                }
+            } else {
+                await transferMoneySchema.validate(dataSet, { abortEarly: false });
             }
         } catch (error: unknown) {
-            const err = error as { response: { data: { message: string } } };
-            console.log("ERROR: ", err.response.data.message);
-            toast.error(err.response.data.message, {
-                position: "top-center",
-                style: {
-                    width: "full",
-                    height: "3rem",
-                    justifyContent: "center",
-                    backgroundColor: "red",
-                    color: "white",
-                    border: "none",
-                },
-            });
+            const err = error as { errors: string[] };
+            setError(err.errors);
         }
     };
- 
+
+    console.log("ERRORS: ", error);
 
     return (
         <>
@@ -114,13 +166,44 @@ export const SuccessTransferMoneyModal: React.FC<
                             </ModalHeader>
                             <ModalBody>
                                 <Label>Payment Success Screenshot</Label>
-                                <Input
-                                    onChange={handleChanges}
+                                <input
+                                    onChange={handleFileUpload}
                                     placeholder="Upload screenshot"
-                                    variant="bordered"
                                     type="file"
+                                    accept="image/*"
                                     name="paymentScreenshot"
                                 />
+
+                                {error?.some((err: string) =>
+                                    err.includes("paymentScreenshot is required")
+                                )
+                                    ? error?.map((err: string, index: number) => {
+                                        if (err.includes("paymentScreenshot is required")) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })
+                                    : error?.map((err: string, index: number) => {
+                                        if (
+                                            err.includes("paymentScreenshot is required") ||
+                                            err.includes(
+                                                "Not a valid image type. Only JPG, JPEG, and PNG are allowed"
+                                            ) ||
+                                            err.includes("Max allowed size is 2mb")
+                                        ) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+
                                 <Label>Amount</Label>
                                 <Input
                                     onChange={handleChanges}
@@ -129,6 +212,37 @@ export const SuccessTransferMoneyModal: React.FC<
                                     variant="bordered"
                                     name="amount"
                                 />
+
+                                {error?.some((err: string) =>
+                                    err.includes("amount is required")
+                                )
+                                    ? error?.map((err: string, index: number) => {
+                                        if (err.includes("amount is required")) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })
+                                    : error?.map((err: string, index: number) => {
+                                        if (
+                                            err.includes("amount is required") ||
+                                            err.includes(
+                                                "amount should be under requestd amount"
+                                            ) ||
+                                            err.includes("the amount need to be valid")
+                                        ) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+
                                 <Label>Upi Id</Label>
                                 <Input
                                     onChange={handleChanges}
@@ -137,6 +251,34 @@ export const SuccessTransferMoneyModal: React.FC<
                                     variant="bordered"
                                     name="upiId"
                                 />
+
+                                {error?.some((err: string) => err.includes("upi id required.."))
+                                    ? error?.map((err: string, index: number) => {
+                                        if (err.includes("upi id required..")) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })
+                                    : error?.map((err: string, index: number) => {
+                                        if (
+                                            err.includes("upi id required..") ||
+                                            err.includes(
+                                                "upi id need to be between 7 - 15 digits"
+                                            ) ||
+                                            err.includes("upi id need to be atlest 7 digits")
+                                        ) {
+                                            return (
+                                                <div key={index} className="text-start">
+                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })}
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="flat" onPress={onClose}>
@@ -153,5 +295,3 @@ export const SuccessTransferMoneyModal: React.FC<
         </>
     );
 };
-
-
