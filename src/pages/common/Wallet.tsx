@@ -32,7 +32,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [transactions, setTransactions] = useState<Transactions[]>([]);
-
+ 
   useEffect(() => {
     (async () => {
       try {
@@ -71,10 +71,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
       }
     })();
   }, [currentPage]);
-
-  console.log('The transctions: ', transactions);
-  console.log('The balance: ', balance);
-
+ 
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
@@ -97,7 +94,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-3 rounded-small text-white">
                 <button>
-                  <WithdrawMoneyModal balance={balance} type="user" />
+                  <WithdrawMoneyModal balance={balance} roleType={roleType} />
                 </button>
               </span>
             </div>

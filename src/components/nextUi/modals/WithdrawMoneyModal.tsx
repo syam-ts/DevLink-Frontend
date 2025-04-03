@@ -5,6 +5,7 @@ import config from "../../../config/helper/config";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { withdrasSchema } from "../../../utils/validation/withdrawSchema";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
+import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
 import {
   Modal,
   ModalContent,
@@ -18,18 +19,18 @@ import {
 
 interface WithdrawMoneyModalProps {
   balance: number;
-  type: string;
+  roleType: string;
 }
 
 export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
   balance,
-  type,
+  roleType,
 }) => {
   const [amount, setAmount] = useState<number | string>(0);
   const [accountNumber, setAccountNumber] = useState<number | string>(0);
   const [error, setError] = useState<string[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+ 
   const sendRequest = async () => {
     try {
       const dataSet = {
@@ -40,30 +41,55 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
       const isValid = await withdrasSchema.validate(dataSet, {
         abortEarly: false,
       });
-      if (isValid) {
-        const { data } = await apiUserInstance.post("/withdrawMoney", {
-          amount,
-          accountNumber,
-          balance,
-          type,
-        });
-        if (data.success) {
-          setTimeout(() => {
-            window.location.href = `${config.BASE_URL}/user/wallet`;
-          }, 500);
-
-          toast.success("Sended Request", {
-            position: "top-center",
-            style: {
-              width: "11rem",
-              height: "3rem",
-              justifyContent: "center",
-              backgroundColor: "#03C03C",
-              color: "white",
-              border: "none",
-            },
+      if (isValid) { 
+        if(roleType === 'user') {
+          const { data } = await apiUserInstance.post("/withdrawMoney", {
+            amount,
+            accountNumber,
+            balance
           });
+          if (data.success) {
+            setTimeout(() => {
+              window.location.href = `${config.BASE_URL}/user/wallet`;
+            }, 500);
+  
+            toast.success("Sended Request", {
+              position: "top-center",
+              style: {
+                width: "11rem",
+                height: "3rem",
+                justifyContent: "center",
+                backgroundColor: "#03C03C",
+                color: "white",
+                border: "none",
+              },
+            });
+          }
+        } else {
+          const { data } = await apiClientInstance.post("/withdrawMoney", {
+            amount,
+            accountNumber,
+            balance
+          });
+          if (data.success) {
+            setTimeout(() => {
+              window.location.href = `${config.BASE_URL}/client/wallet`;
+            }, 500);
+  
+            toast.success("Sended Request", {
+              position: "top-center",
+              style: {
+                width: "11rem",
+                height: "3rem",
+                justifyContent: "center",
+                backgroundColor: "#03C03C",
+                color: "white",
+                border: "none",
+              },
+            });
+          }
         }
+        
       } else {
         await withdrasSchema.validate(dataSet, { abortEarly: false });
       }
