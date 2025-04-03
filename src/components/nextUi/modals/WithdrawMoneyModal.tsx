@@ -1,4 +1,10 @@
+import { toast } from "sonner";
 import { useState } from "react";
+import { Label } from "../../ui/label";
+import config from "../../../config/helper/config";
+import { Sonner } from "../../../components/sonner/Toaster";
+import { withdrasSchema } from "../../../utils/validation/withdrawSchema";
+import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 import {
   Modal,
   ModalContent,
@@ -9,16 +15,11 @@ import {
   useDisclosure,
   Input,
 } from "@heroui/react";
-import { Label } from "../../ui/label";
-import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
-import config from "../../../config/helper/config";
-import { toast } from "sonner";
-import { Sonner } from "../../../components/sonner/Toaster";
 
 interface WithdrawMoneyModalProps {
-  balance: number
-  type: string
-};
+  balance: number;
+  type: string;
+}
 
 export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
   balance,
@@ -26,48 +27,53 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
 }) => {
   const [amount, setAmount] = useState<number | string>(0);
   const [accountNumber, setAccountNumber] = useState<number | string>(0);
+  const [error, setError] = useState<string[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const sendRequest = async () => {
     try {
-      const { data } = await apiUserInstance.post("/withdrawMoney", {
-        amount,
-        accountNumber,
-        balance,
-        type,
+      const dataSet = {
+        accountNumber: Number(accountNumber),
+        amount: Number(amount),
+        balance: Number(balance),
+      }; 
+      const isValid = await withdrasSchema.validate(dataSet, {
+        abortEarly: false,
       });
-      if (data.success) {
-        setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/user/wallet`;
-        }, 500);
-
-        toast.success("Sended Request", {
-          position: "top-center",
-          style: {
-            width: "11rem",
-            height: "3rem",
-            justifyContent: "center",
-            backgroundColor: "#03C03C",
-            color: "white",
-            border: "none",
-          },
+      if (isValid) {
+        const { data } = await apiUserInstance.post("/withdrawMoney", {
+          amount,
+          accountNumber,
+          balance,
+          type,
         });
+        if (data.success) {
+          setTimeout(() => {
+            window.location.href = `${config.BASE_URL}/user/wallet`;
+          }, 500);
+
+          toast.success("Sended Request", {
+            position: "top-center",
+            style: {
+              width: "11rem",
+              height: "3rem",
+              justifyContent: "center",
+              backgroundColor: "#03C03C",
+              color: "white",
+              border: "none",
+            },
+          });
+        }
+      } else {
+        await withdrasSchema.validate(dataSet, { abortEarly: false });
       }
     } catch (error: unknown) {
-      const err = error as { response: { data: { message: string } } };
-      toast.error(err.response.data.message, {
-        position: "top-center",
-        style: {
-          width: "full",
-          height: "3rem",
-          justifyContent: "center",
-          backgroundColor: "red",
-          color: "white",
-          border: "none",
-        },
-      });
+      const err = error as { errors: string[] };
+      setError(err.errors);
     }
   };
+
+  console.log("The err: ", error);
 
   return (
     <>
@@ -90,7 +96,6 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
         <ModalContent>
           {(onClose) => (
             <>
-              {" "}
               {onClose}
               <ModalHeader className="flex flex-col gap-1">
                 Withdraw Money
@@ -110,6 +115,39 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
                   variant="bordered"
                   name="accountNumber"
                 />
+
+                {error?.some((err: string) =>
+                  err.includes("account number is required...")
+                )
+                  ? error?.map((err: string, index: number) => {
+                    if (err.includes("account number is required...")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                  : error?.map((err: string, index: number) => {
+                    if (
+                      err.includes("account number is required...") ||
+                      err.includes(
+                        "The account number need to be minimum 13 digits"
+                      ) ||
+                      err.includes(
+                        "The account number need to be maximum of 14 digits"
+                      )
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+
                 <Label>Amount</Label>
                 <Input
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -120,6 +158,36 @@ export const WithdrawMoneyModal: React.FC<WithdrawMoneyModalProps> = ({
                   variant="bordered"
                   name="amount"
                 />
+
+                {error?.some((err: string) =>
+                  err.includes("amount is required")
+                )
+                  ? error?.map((err: string, index: number) => {
+                    if (err.includes("amount is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                  : error?.map((err: string, index: number) => {
+                    if (
+                      err.includes("amount is required") ||
+                      err.includes(
+                        "Amount should be below the existing balance"
+                      ) ||
+                      err.includes("Amount need to valid")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
               </ModalBody>
               <ModalFooter>
                 <button
