@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
@@ -17,16 +17,21 @@ interface Transactions {
 }
 
 interface Wallet {
-  totalPages: number
-  balance: number
-  transactions: Transactions
-}
+  totalPages: number,
+  wallet: [
+    {
+      totalPages: number
+      balance: number
+      transactions: Transactions[]
+    }
+  ]
+};
 
 const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   const [balance, setBalance] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [transactions, setTransactions] = useState<Transactions[]>([]); 
+  const [transactions, setTransactions] = useState<Transactions[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -52,9 +57,9 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
             }
           );
         }
-        setTotalPages(response.data?.wallet?.totalPages); 
-        setBalance(response.data?.wallet[0]?.balance);
-        setTransactions(response.data.wallet[0]?.transactions);
+        setTotalPages(response.data?.wallet.totalPages);
+        setBalance(response.data?.wallet.wallet[0]?.balance);
+        setTransactions(response.data.wallet.wallet[0]?.transactions);
       } catch (error: unknown) {
         const err = error as { message: string };
         toast.error(err.message, {
@@ -66,6 +71,9 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
       }
     })();
   }, [currentPage]);
+
+  console.log('The transctions: ', transactions);
+  console.log('The balance: ', balance);
 
   const changePage = async (page: number) => {
     setCurrentPage(page);
@@ -85,7 +93,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
               <hr />
             </div>
 
-            {/* WITHDRAW SECTION */} 
+            {/* WITHDRAW SECTION */}
             <div className="py-16 text-center">
               <span className="arsenal-sc-regular text-xl bg-[#0000ff] font-bold py-2 px-3 rounded-small text-white">
                 <button>
@@ -162,8 +170,8 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
               </tbody>
             </table>
           </div>
-        </section> 
-         
+        </section>
+
         <section>
           <div className="container mx-auto px-4 my-4">
             <nav
@@ -243,4 +251,3 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
 export default Wallet;
 
 
- 
