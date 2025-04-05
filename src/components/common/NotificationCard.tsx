@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { RateUserModal } from "../shadcn/modal/RateUserModal";
+import { ImageZoom } from "../nextUi/modals/imageZoom";
 import { useDispatch, useSelector } from "react-redux";
 import { addNotificationClient } from "../../redux/slices/clientSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
@@ -31,6 +32,9 @@ interface Notification {
   }
   inviteSuccess: {
     userId: string
+  }
+  withdrawData: {
+    paymentScreenshot: string
   }
 };
 
@@ -201,9 +205,17 @@ const Notification = () => {
                   </div>
                 )}
               </div>
+              {
+                notif?.withdrawData && (
+                  <div className='flex justify-center w-screen'> 
+                  <ImageZoom image={notif.withdrawData.paymentScreenshot} />  
+                  </div>
+                )
+              }
             </div>
           )
         )}
+
       </div>
     </div>
   );
