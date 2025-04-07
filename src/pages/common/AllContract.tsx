@@ -108,55 +108,58 @@ const AllContract: React.FC = () => {
           ) : (
             <div>
               {Object.entries(contracts).map(([key, contract]: [string, Contract]) => (
-                <div className="containter mx-auto my-10 max-lg:w-[1000px]" key={key}>
-                  <div
-                    className={`${
-                      contract.status === "submitted" ? "bg-white" : "bg-white"
-                    } p-8 rounded-xl shadow-lg relative hover:shadow-2xl border-1 border-gray-300 transition duration-500`}
-                  >
-                    <h1 className="text-2xl text-gray-800 font-semibold mb-3">
-                      {contract?.jobPostData?.title}
-                    </h1>
-                    <p className="text-gray-600 leading-6 tracking-normal">
-                      {contract?.jobPostData?.description}
-                    </p>
-                    <div className="grid">
-                      <span className="text-xs">
-                        Contract Amount: {contract?.amount}.00₹
-                      </span>
-                      <span className="text-xs">
-                        Contract Amount Deadline: {contract?.deadline}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <button className="py-2 px-4 mt-8 bg-[#0000ff] text-white rounded-small shadow-xl">
-                        <Link
-                          to={`/${roleType}/contract/${contract?._id}/${roleType}`}
-                          className="no-underline text-white"
-                        >
-                          View Contract
-                        </Link>
-                      </button>
+               
+               <div className="container mx-auto my-8 px-4 md:px-6" key={key}>
+               <div
+                 className={`${
+                   contract.status === "submitted" ? "bg-white" : "bg-white"
+                 } p-8 md:p-10 rounded-xl shadow-lg relative hover:shadow-2xl border border-gray-300 transition duration-500 min-h-[350px] sm:min-h-[300px]`}
+               >
+                 <h1 className="text-xl md:text-2xl text-gray-800 font-semibold mb-6 pr-16">
+                   {contract?.jobPostData?.title}
+                 </h1>
+                 
+                 <p className="text-base text-gray-600 leading-relaxed mb-8">
+                   {contract?.jobPostData?.description}
+                 </p>
+                 
+                 <div className="grid gap-4 my-8">
+                   <span className="text-base">
+                     Contract Amount: {contract?.amount}.00₹
+                   </span>
+                   <span className="text-base">
+                     Contract Amount Deadline: {contract?.deadline}
+                   </span>
+                 </div>
+                 
+                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mt-10">
+                   <button className="py-4 px-6 bg-[#0000ff] text-white rounded-small shadow-md hover:shadow-lg w-full sm:w-auto">
+                     <Link
+                       to={`/${roleType}/contract/${contract?._id}/${roleType}`}
+                       className="no-underline text-white block text-center"
+                     >
+                       View Contract
+                     </Link>
+                   </button>
+             
+                   {roleType === "user" && contractsViewType === "pending" && (
+                     <div className="w-full sm:w-auto mt-5 sm:mt-0">
+                       <SubmitProject
+                         contractId={contract?._id}
+                         jobTitle={contract?.jobPostData?.title}
+                       />
+                     </div>
+                   )}
+                 </div>
+                 
+                 {contractsViewType === "pending" && (
+                   <span className="absolute py-2 px-5 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-3 shadow-md">
+                     New
+                   </span>
+                 )}
+               </div>
+             </div>
 
-                      {roleType === "user" &&
-                        contractsViewType === "pending" && (
-                          <div>
-                            <SubmitProject
-                              contractId={contract?._id}
-                              jobTitle={contract?.jobPostData?.title}
-                            />
-                          </div>
-                        )}
-                    </div>
-                    <div>
-                      {contractsViewType === "pending" && (
-                        <span className="absolute py-2 px-8 text-sm text-white top-0 right-0 bg-[#0000ff] rounded-small transform translate-x-2 -translate-y-3 shadow-xl">
-                          New
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
               ))}
             </div>
           )}
