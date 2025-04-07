@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
@@ -29,20 +30,25 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
         skills: [""],
     });
     const [input, setInput] = useState<string>("");
+    const debounceSearch = useDebounce(input);
+
+    useEffect(() => {  
+          searchFunction(debounceSearch);  
+    },[debounceSearch]);
  
 
-    const searchFuntion = async (input: string) => {
+    const searchFunction = async (debounceSearch: string) => {
         try {
-            setInput(input);
+            setInput(debounceSearch);
             let response;
             if (roleType === "user") {
                 response = await apiUserInstance.post("/searchJobs", {
-                    input,
+                    input: debounceSearch,
                 });
                 setJobs(response.data.jobs);
             } else {
                 response = await apiClientInstance.post("/searchDevelopers", {
-                    input,
+                    input: debounceSearch,
                 });
                 setDevelopers(response.data.developers);
             }
@@ -63,7 +69,7 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                     <div className="flex">
                         {roleType === "user" ? (
                             <input
-                                onChange={(e) => searchFuntion(e.target.value)}
+                                onChange={(e) => setInput(e.target.value)}
                                 id="search-bar"
                                 placeholder="React.js Developer....."
                                 name="q"
@@ -72,7 +78,7 @@ const Search: React.FC<SearchProps> = ({ roleType }) => {
                             />
                         ) : (
                             <input
-                                onChange={(e) => searchFuntion(e.target.value)}
+                                onChange={(e) => setInput(e.target.value)}
                                 id="search-bar"
                                 placeholder="Aman Gupta....."
                                 name="q"
