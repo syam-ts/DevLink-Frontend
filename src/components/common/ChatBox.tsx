@@ -175,13 +175,13 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             type="text"
                             placeholder="Write your message!"
-                            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3"
+                            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-small py-2.5"
                         />
                         <div className="absolute right-0 items-center inset-y-0 sm:flex">
                             <button
                                 onClick={sendMessage}
                                 type="button"
-                                className="inline-flex items-center justify-center rounded-large px-4 py-3 transition duration-500 ease-in-out  text-white bg-[#0000ff] hover:bg-blue-400 focus:outline-none"
+                                className="inline-flex items-center justify-center rounded-large px-4 py-2.5 transition duration-500 ease-in-out  text-white bg-[#0000ff] hover:bg-blue-400 focus:outline-none"
                             >
                                 <span className="font-bold">Send </span>
                                 <svg

@@ -67,6 +67,20 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
     }
   };
 
+  const rejectContractApproval = async (contractId: string) => {
+    try{
+      const {data} = await apiClientInstance.post('/contractSubmitReject', {
+        contractId: contractId
+      });
+      console.log('The result: ',data);
+      //SHOW SUCCESS MESSAGE AND REFRSH THE CURENT PAGE
+
+    }catch(error: unknown) {
+      const err = error as {message: string};
+      console.log('ERROR: ',err.message);
+    }
+  }
+
  
 
   return (
@@ -118,15 +132,15 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
                   attachedFile={pendingApproval?.attachedFile}
                 />
               </button>
-              {/* <button
+              <button
                 onClick={() =>
                   rejectContractApproval(pendingApproval?.contractId)
                 }
                 className="rounded-full bg-[#ff2453] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                 type="button"
               >
-                Reject Approval
-              </button> */}
+                Reject Submission
+              </button>
               <button
                 onClick={() =>
                   approveAndCloseContract(
