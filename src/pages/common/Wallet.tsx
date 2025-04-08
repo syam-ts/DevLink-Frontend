@@ -77,7 +77,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
   };
 
   return (
-    <div className="w-full flex flex-col xl:flex-row gap-5 px-4">
+    <div className="w-full flex flex-col xl:flex-row gap-5 px-4 pt-44">
   {/* Left Sidebar Section */}
   <div className="w-full xl:w-1/4">
     <section>
