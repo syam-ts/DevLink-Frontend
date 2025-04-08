@@ -65,48 +65,63 @@ const InviteComponent = () => {
                 <hr />
             </section>
             <section>
-                <div className="w-3/5 py-2 h-full mx-auto arsenal-sc-regular flex-col my-6 ">
-                    {Object.entries(invites).map((invite: Invite[]) => (
-                        <div className="flex my-12 rounded-xl p-3 shadow-large justify-between border">
-                            <div className="flex w-2/3 text-center gap-4 px-36 text-slate-800 mx-auto">
-                                <div className="flex w-full flex-col">
-                                    <div className="flex justify-between ">
-                                        <div className="grid">
-                                            <h5 className="text-xl font-semibold text-slate-800">
-                                                Title: {invite[1]?.jobPostData?.title}
-                                            </h5>
-                                            <p className="text-xs uppercase font-bold text-black mt-0.5">
-                                                {invite[1]?.jobPostData?.expertLevel}
-                                            </p>
-                                            <p className="text-sm uppercase font-bold text-black mt-0.5">
-                                                Description: {invite[1]?.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="pt-5 px-20 w-1/3 ">
-                                <button
-                                    className="rounded-small bg-[#ff0000] py-2 px-4 text-white font-bold text-center text-sm  ml-2"
-                                    type="button"
-                                >
-                                    Reject
-                                </button>
-                                <button
-                                    className="rounded-small bg-[#0000ff] py-2 px-4 font-bold text-center text-sm ml-6"
-                                    type="button"
-                                >
-                                    <Link
-                                        to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}
-                                        className="no-underline text-white font-bold"
-                                    >
-                                        View
-                                    </Link>
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                
+
+            <div className="w-full max-w-4xl mx-auto py-6">
+  {Object.entries(invites).map((invite, index) => (
+    <div key={index} className="mb-6 overflow-hidden bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+      <div className="flex flex-col md:flex-row">
+        {/* Left side with color accent */}
+        <div className="w-full md:w-2 bg-blue-600"></div>
+        
+        {/* Content container */}
+        <div className="flex flex-col md:flex-row w-full p-5">
+          {/* Job information */}
+          <div className="flex-1 pr-4">
+            <div className="flex items-center mb-2">
+              <span className="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                {invite[1]?.jobPostData?.expertLevel}
+              </span>
+            </div>
+            
+            <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
+              {invite[1]?.jobPostData?.title}
+            </h3>
+            
+            <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+              {invite[1]?.description}
+            </p>
+            
+            <div className="flex items-center text-xs text-gray-500">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span>Invited recently</span>
+            </div>
+          </div>
+          
+          {/* Action buttons */}
+          <div className="flex flex-row md:flex-col justify-center items-center mt-4 md:mt-0 space-x-3 md:space-x-0 md:space-y-3">
+            <button
+              className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              type="button"
+            >
+              Reject
+            </button>
+            
+            <Link
+              to={`/user/job/${invite[1]?.jobPostData?._id}/invite-view`}
+              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 no-underline text-center md:w-full"
+            >
+              View Details
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+                
             </section>
         </div>
     );
