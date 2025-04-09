@@ -175,7 +175,7 @@ const HomeUser: React.FC = () => {
       </section>
 
 
-      <section>
+      <section className='max-sm:hidden'>
         <Chatbot />
       </section>
 

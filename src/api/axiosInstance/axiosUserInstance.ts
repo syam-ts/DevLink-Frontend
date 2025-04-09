@@ -9,6 +9,11 @@ export const apiUserInstance = axios.create({
   withCredentials: true,
 });
 
+const refreshInstance = axios.create({
+  baseURL: `${BASE_SERVER_URL}/user`,
+  withCredentials: true,
+});
+
 // Request interceptor
 apiUserInstance.interceptors.request.use(
   (config: any) => {
@@ -27,16 +32,18 @@ apiUserInstance.interceptors.request.use(
   }
 );
 
+
+
 apiUserInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    // const dispatch = useDispatch();
     const originalRequest = error.config;
 
     if (error.response?.status === 401) {
       if (originalRequest._retry) {
         console.log("Redirecting to login due to failed token refresh");
         localStorage.removeItem("accessToken");
+        store.dispatch(signOutUser());
         window.location.href = "/login?rt=user";
         return Promise.reject(error);
       }
@@ -44,9 +51,7 @@ apiUserInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await apiUserInstance.post(
-          `${BASE_SERVER_URL}/user/refresh-token`
-        );
+        const { data } = await refreshInstance.post("/refresh-token");
         const { accessToken } = data;
 
         if (!accessToken) {
@@ -54,21 +59,24 @@ apiUserInstance.interceptors.response.use(
         }
 
         localStorage.setItem("accessToken", accessToken);
+ 
         apiUserInstance.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${accessToken}`;
 
+        // Retry original request with new token
         return apiUserInstance(originalRequest);
       } catch (refreshError) {
         console.error("Refresh token failed:", refreshError);
 
         localStorage.removeItem("accessToken");
-
         store.dispatch(signOutUser());
         window.location.href = "/login?rt=user";
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
+
