@@ -107,10 +107,10 @@ const DraftJobPost = () => {
   };
 
   return (
-    <div className="flex justify-center py-16 gap-44 arsenal-sc-regular pt-28">
+    <div className="flex max-sm:grid max-sm: justify-center gap-44 arsenal-sc-regular pt-28">
       <Sonner />
       <section>
-        <div className="lg:col-span-2 lg:py-44">
+        <div className="lg:col-span-2 lg:py-44 lg:w-full max-sm:w-full max-sm:grid text-center ">
           <span className="text-4xl"> Draft New Job Post </span>
           <div className="py-5">
             <hr className=" border-black" />
@@ -131,7 +131,7 @@ const DraftJobPost = () => {
       </section>
 
       <section>
-        <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1  w-[900px] lg:col-span-3 lg:p-12">
+        <div className="bg-white shadow-2xl rounded-3xl border-gray-200 border-1 max-sm:grid max-sm:w-[35rem] max-sm:justify-center text-center lg:w-[900px] lg:col-span-3 lg:p-12">
           <form className="space-y-8">
             <div>
               <label className="text-black">Title</label>
@@ -142,7 +142,7 @@ const DraftJobPost = () => {
                 name="title"
                 type="text"
               />
-              <hr />
+              <hr className='max-sm:hidden' />
               {error?.some((err: string) => err.includes("Title is required"))
                 ? error.map((err: string, index: number) => {
                     if (err.includes("Title is required")) {
@@ -175,12 +175,12 @@ const DraftJobPost = () => {
                 <label className="text-black">Key Responsiblities</label>
                 <input
                   onChange={handleChange}
-                  className="w-full px-4 pt-3 text-sm outline-none"
+                  className="w-full px-4 pt-3 text-sm outline-none line-clamp-1"
                   placeholder="Freelancer need to know amazone web service, digital ocean and firebase"
                   name="keyResponsiblities"
                   type="text"
                 />
-                <hr />
+                <hr className='max-sm:hidden'/>
                 {error?.some((err: string) =>
                   err.includes("KeyResponsiblities is required")
                 )
@@ -266,8 +266,8 @@ const DraftJobPost = () => {
               </div>
             </div>
 
-            <div className="grid items-center gap-3">
-              <label className="text-black">Payment Type</label>
+            <div className="gap-3 max-sm:flex max-sm:justify-center">
+              <div className='flex py-2 max-sm:hidden'><label>Payment Type</label></div>
               <div className="flex gap-5">
                 <label>
                   <input
@@ -337,7 +337,7 @@ const DraftJobPost = () => {
                     min="100"
                     max="1500"
                   />
-                  <hr />
+                  <hr className='max-sm:hidden'/>
                   {error.some((err: string) => err.includes("Payment is required"))
                     ? error
                         .filter((err: string) =>
@@ -371,7 +371,7 @@ const DraftJobPost = () => {
                     name="amount"
                     type="number"
                   />
-                  <hr />
+                  <hr className='max-sm:hidden'/>
                   {error.some((err: string) => err.includes("Payment is required"))
                     ? error
                         .filter((err: string) =>
@@ -477,11 +477,11 @@ const DraftJobPost = () => {
               <label className="text-black">Description</label>
               <textarea
                 onChange={handleChange}
-                className="w-full px-4 pt-3 outline-none text-sm"
+                className="w-full px-4 pt-3 outline-none text-sm line-clamp-1"
                 placeholder="Cloud engineer urgent requirement with experties of more than 3 years....."
                 name="description"
               />
-              <hr />
+              <hr className='max-sm:hidden'/>
               {error?.some((err: string) =>
                 err.includes("Description is required")
               )
@@ -528,7 +528,7 @@ const DraftJobPost = () => {
                     min="100"
                     max="1500"
                   />
-                  <hr />
+                  <hr className='max-sm:hidden'/>
                   {error.some((err: string) =>
                     err.includes("Estimate time is required")
                   )
@@ -564,7 +564,7 @@ const DraftJobPost = () => {
                     name="estimateTime"
                     type="number"
                   />
-                  <hr />
+                  <hr className='max-sm:hidden'/>
                   {error.some((err: string) =>
                     err.includes("Estimate time is required")
                   )
@@ -601,7 +601,7 @@ const DraftJobPost = () => {
                   name="location"
                   type="string"
                 />
-                <hr />
+                <hr className='max-sm:hidden'/>
                 {error?.some((err: string) => err.includes("Location is required"))
                   ? error.map((err: string, index: number) => {
                       if (err.includes("Location is required")) {
@@ -634,7 +634,7 @@ const DraftJobPost = () => {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 flex justify-end">
               <button
                 onClick={paymentFunction}
                 type="button"

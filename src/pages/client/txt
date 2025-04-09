@@ -1,0 +1,348 @@
+       {error?.some((err: string) => err.includes("Title is required"))
+                ? error.map((err: string, index: number) => {
+                    if (err.includes("Title is required")) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                : error.map((err: string, index: number) => {
+                    if (
+                      err.includes("Title is required") ||
+                      err.includes("Must be atleast 10 characters") ||
+                      err.includes("Must be under 80 characters")
+                    ) {
+                      return (
+                        <div key={index} className="text-start">
+                          <span className="text-red-400 text-sm">{err}</span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+
+
+
+
+
+
+
+
+                  {error?.some((err: string) =>
+                    err.includes("KeyResponsiblities is required")
+                  )
+                    ? error.map((err: string, index: number) => {
+                        if (err.includes("KeyResponsiblities is required")) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })
+                    : error.map((err: string, index: number) => {
+                        if (
+                          err.includes("KeyResponsiblities is required") ||
+                          err.includes(
+                            "KeyResponsiblities must be between (20 to 150 characters"
+                          ) ||
+                          err.includes("KeyResponsiblities should under 150")
+                        ) {
+                          return (
+                            <div key={index} className="text-start">
+                              <span className="text-red-400 text-sm">{err}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+
+
+
+
+
+                      -------------------->
+
+
+                        {error.some((err: string) => err.includes("Skills are required"))
+                                        ? error
+                                            .filter((err: string) => err.includes("Skills are required"))
+                                            .map((err: string, index: number) => (
+                                              <div key={index} className="text-start">
+                                                <span className="text-red-400 text-sm">{err}</span>
+                                              </div>
+                                            ))
+                                        : error
+                                            .filter((err: string) =>
+                                              [
+                                                "Minimum 3 skills required",
+                                                "Maximum 10 skills are allowed",
+                                              ].some((msg) => err.includes(msg))
+                                            )
+                                            .map((err: string, index: number) => (
+                                              <div key={index} className="text-start">
+                                                <span className="text-red-400 text-sm">{err}</span>
+                                              </div>
+                                            ))}
+
+
+
+
+
+                                            {error?.some((err: string) =>
+                                                err.includes("Payment type is required")
+                                              )
+                                                ? error.map((err: string, index: number) => {
+                                                    if (err.includes("Payment type is required")) {
+                                                      return (
+                                                        <div key={index} className="text-start">
+                                                          <span className="text-red-400 text-sm">{err}</span>
+                                                        </div>
+                                                      );
+                                                    }
+                                                    return null;
+                                                  })
+                                                : error.map((err: string, index: number) => {
+                                                    if (
+                                                      err.includes("Payment type is required") ||
+                                                      err.includes(
+                                                        "Payment type must be either 'hourly' or 'fixed'"
+                                                      )
+                                                    ) {
+                                                      return (
+                                                        <div key={index} className="text-start">
+                                                          <span className="text-red-400 text-sm">{err}</span>
+                                                        </div>
+                                                      );
+                                                    }
+                                                    return null;
+                                                  })}
+
+
+
+
+
+
+
+
+
+                                                  {error.some((err: string) => err.includes("Payment is required"))
+                                                    ? error
+                                                        .filter((err: string) =>
+                                                          err.includes("Payment is required")
+                                                        )
+                                                        .map((err: string, index: number) => (
+                                                          <div key={index} className="text-start">
+                                                            <span className="text-red-400 text-sm">{err}</span>
+                                                          </div>
+                                                        ))
+                                                    : error
+                                                        .filter((err: string) =>
+                                                          [
+                                                            "Hourly rate must be at least 100rs",
+                                                            "Hourly rate must be at most 1500rs",
+                                                          ].some((msg) => err.includes(msg))
+                                                        )
+                                                        .map((err: string, index: number) => (
+                                                          <div key={index} className="text-start">
+                                                            <span className="text-red-400 text-sm">{err}</span>
+                                                          </div>
+                                                        ))}
+
+
+
+
+
+
+                                                        {error.some((err: string) => err.includes("Payment is required"))
+                                                            ? error
+                                                                .filter((err: string) =>
+                                                                  err.includes("Payment is required")
+                                                                )
+                                                                .map((err: string, index: number) => (
+                                                                  <div key={index} className="text-start">
+                                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                                  </div>
+                                                                ))
+                                                            : error
+                                                                .filter((err: string) =>
+                                                                  [
+                                                                    "Fixed price must be at least 2000rs",
+                                                                    "Fixed price must be at most 70000rs",
+                                                                  ].some((msg) => err.includes(msg))
+                                                                )
+                                                                .map((err: string, index: number) => (
+                                                                  <div key={index} className="text-start">
+                                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                                  </div>
+                                                                ))}
+
+
+
+
+
+                                                                {error?.some((err: string) =>
+                                                                    err.includes("Maximum proposal is required")
+                                                                  )
+                                                                    ? error.map((err: string, index: number) => {
+                                                                        if (err.includes("Maximum proposal is required")) {
+                                                                          return (
+                                                                            <div key={index} className="text-start">
+                                                                              <span className="text-red-400 text-sm">{err}</span>
+                                                                            </div>
+                                                                          );
+                                                                        }
+                                                                        return null;
+                                                                      })
+                                                                    : error.map((err: string, index: number) => {
+                                                                        if (
+                                                                          err.includes("Maximum proposal is required") ||
+                                                                          err.includes("Minimum 3 proposals are mandatory") ||
+                                                                          err.includes("Maximum proposals are 10")
+                                                                        ) {
+                                                                          return (
+                                                                            <div key={index} className="text-start">
+                                                                              <span className="text-red-400 text-sm">{err}</span>
+                                                                            </div>
+                                                                          );
+                                                                        }
+                                                                        return null;
+                                                                      })}
+
+
+
+
+
+                                                                      {error?.some((err: string) =>
+                                                                        err.includes("Description is required")
+                                                                      )
+                                                                        ? error.map((err: string, index: number) => {
+                                                                            if (err.includes("Description is required")) {
+                                                                              return (
+                                                                                <div key={index} className="text-start">
+                                                                                  <span className="text-red-400 text-sm">{err}</span>
+                                                                                </div>
+                                                                              );
+                                                                            }
+                                                                            return null;
+                                                                          })
+                                                                        : error.map((err: string, index: number) => {
+                                                                            if (
+                                                                              err.includes("Description is required") ||
+                                                                              err.includes(
+                                                                                "Description should have atleast 20 500 characters"
+                                                                              ) ||
+                                                                              err.includes("Maximum characters are 500")
+                                                                            ) {
+                                                                              return (
+                                                                                <div key={index} className="text-start">
+                                                                                  <span className="text-red-400 text-sm">{err}</span>
+                                                                                </div>
+                                                                              );
+                                                                            }
+                                                                            return null;
+                                                                          })}
+
+
+
+                                                                          {error.some((err: string) =>
+                                                                            err.includes("Estimate time is required")
+                                                                          )
+                                                                            ? error
+                                                                                .filter((err: string) =>
+                                                                                  err.includes("Estimate time is required")
+                                                                                )
+                                                                                .map((err: string, index: number) => (
+                                                                                  <div key={index} className="text-start">
+                                                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                                                  </div>
+                                                                                ))
+                                                                            : error
+                                                                                .filter((err: string) =>
+                                                                                  [
+                                                                                    "Estimate time must be at least 5hr",
+                                                                                    "Estimate time must be at most 48hrs",
+                                                                                  ].some((msg) => err.includes(msg))
+                                                                                )
+                                                                                .map((err: string, index: number) => (
+                                                                                  <div key={index} className="text-start">
+                                                                                    <span className="text-red-400 text-sm">{err}</span>
+                                                                                  </div>
+                                                                                ))}
+
+
+
+
+
+
+                                                                                {error.some((err: string) =>
+                                                                                    err.includes("Estimate time is required")
+                                                                                  )
+                                                                                    ? error
+                                                                                        .filter((err: string) =>
+                                                                                          err.includes("Estimate time is required")
+                                                                                        )
+                                                                                        .map((err: string, index: number) => (
+                                                                                          <div key={index} className="text-start">
+                                                                                            <span className="text-red-400 text-sm">{err}</span>
+                                                                                          </div>
+                                                                                        ))
+                                                                                    : error
+                                                                                        .filter((err: string) =>
+                                                                                          [
+                                                                                            "Estimate time must be at least 10hr",
+                                                                                            "Estimate time must be at most 120hrs",
+                                                                                          ].some((msg) => err.includes(msg))
+                                                                                        )
+                                                                                        .map((err: string, index: number) => (
+                                                                                          <div key={index} className="text-start">
+                                                                                            <span className="text-red-400 text-sm">{err}</span>
+                                                                                          </div>
+                                                                                        ))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                        {error?.some((err: string) => err.includes("Location is required"))
+                                                                                            ? error.map((err: string, index: number) => {
+                                                                                                if (err.includes("Location is required")) {
+                                                                                                  return (
+                                                                                                    <div key={index} className="text-start">
+                                                                                                      <span className="text-red-400 text-sm">{err}</span>
+                                                                                                    </div>
+                                                                                                  );
+                                                                                                }
+                                                                                                return null;
+                                                                                              })
+                                                                                            : error.map((err: string, index: number) => {
+                                                                                                if (
+                                                                                                  err.includes("Location is required") ||
+                                                                                                  err.includes(
+                                                                                                    "Location need to be valid(3 characters)"
+                                                                                                  ) ||
+                                                                                                  err.includes(
+                                                                                                    "Location need to be valid(25 characters maximum)"
+                                                                                                  )
+                                                                                                ) {
+                                                                                                  return (
+                                                                                                    <div key={index} className="text-start">
+                                                                                                      <span className="text-red-400 text-sm">{err}</span>
+                                                                                                    </div>
+                                                                                                  );
+                                                                                                }
+                                                                                                return null;
+                                                                                              })}
