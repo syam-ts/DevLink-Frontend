@@ -65,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
         <div className="w-full sm:hidden max-sm:hidden md:flex md:items-center md:justify-center md:space-x-6 bg-white">
           <Link
             to={`/${roleType}/home`}
-            className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+            className="text-md text-gray-900 hover:text-gray-500 no-underline pl-12 arsenal-sc-regular"
           >
             Home
           </Link>
@@ -119,20 +119,22 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
           )}
           {
             roleType === 'user' && (
-              <Link
+           <div className='flex gap-3'>
+               <Link
                 to={`/${roleType}/home`}
                 className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
               >
                 About
               </Link>
-            )
-          }
           <Link
             to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
           >
             Contact
           </Link>
+           </div>
+            )
+          }
 
           {/* PENDING */}
 
