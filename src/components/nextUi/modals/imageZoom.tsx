@@ -16,10 +16,7 @@ export const ImageZoom: React.FC<ImageZoomProps> = ({ image }) => {
     return (
         <>
             <Button className="bg-transparent" onPress={onOpen}>
-                <img
-                    src={image}
-                    className="h-[3rem] w-[5rem] bg-transparent rounded-large"
-                />
+                <p className='text-white font-extrabold rounded-small py-2 px-4 bg-gray-600'>View</p>
             </Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>

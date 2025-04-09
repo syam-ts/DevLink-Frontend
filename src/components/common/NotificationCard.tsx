@@ -42,7 +42,7 @@ const Notification = () => {
   const { role, roleId } = useParams<{ role: string; roleId: string }>();
   const dispatch = useDispatch();
   let notification;
- 
+
   //Re-render after user rating happend
   //  if(rateUser) {
   //   localStorage.removeItem('notificationsPageFirstVisit');
@@ -94,7 +94,7 @@ const Notification = () => {
             response = await apiUserInstance.get(`/notifications/${roleId}`);
           } else {
             response = await apiClientInstance.get(`/notifications/${roleId}`);
-          } 
+          }
 
           const notifications = JSON.stringify(response?.data?.notifications);
           if (role === "user") {
@@ -112,112 +112,100 @@ const Notification = () => {
       console.error("ERROR: ", err.message);
     }
   }, []);
-  console.log('The not: ',notification)
+  console.log('The not: ', notification)
 
   return (
-    <div className="text-center text-xl py-12 arsenal-sc-regular pt-44 ">
-      <div className="grid justify-center gap-4 items-center inset-0 z-50 ">
-        {Object.entries(notification).map(
-          ([key, notif]: [string, Notification]) => (
-            <div
-              key={key}
-              className="flex shadow-lg hover:shodow-xl rounded-large justify-between border w-[70rem] py-2"
-            >
-              <div className="flex items-center w-[50rem]">
-                <div className="pl-16 w-[10rem]">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/128/18365/18365539.png"
-                    className="w-6 h-6"
-                  />
-                </div>
-                <div className="grid w-[30rem]  ">
-                  <span className="text-md text-green-500"> 
-                    {notif?.type}  
-                  </span>
-                  <span className="text-sm"> {notif?.message}</span>
-                </div>
-                <div className="w-[10rem]">
-                  <span className="text-sm">
-                    {getTimeAgo(notif?.createdAt)}
-                  </span>
-                </div>
+    <div className="text-center text-xl py-12 arsenal-sc-regular pt-44 px-4">
+      <div className="grid justify-center gap-4 items-center inset-0 z-50">
+        {Object.entries(notification).map(([key, notif]: [string, Notification]) => (
+          <div
+            key={key}
+            className="flex flex-col md:flex-row md:justify-between shadow-lg hover:shadow-xl rounded-xl border md:w-[70rem] w-full py-2 px-4 gap-4"
+          > 
+            <div className="flex flex-col md:flex-row items-start md:items-center md:w-[50rem] gap-4">
+              <div className="pl-0 md:pl-16">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/18365/18365539.png"
+                  className="w-6 h-6"
+                  alt="notification"
+                />
               </div>
-              <div>
-                {notif?.newContract && (
-                  <div className="px-20">
-                    <button
-                      className="rounded-small bg-[#0000ff] py-1.5 px-5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700  ml-2"
-                      type="button"
-                    >
-                      <Link
-                        to={`/${role}/contract/${notif.newContract.contractId}/${role}`}
-                        className="no-underline text-white font-bold"
-                      >
-                        View
-                      </Link>
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div>
-                {notif?.closeContract && (
-                  <div className="px-3 flex gap-2">
-                    <div> 
-                      <button
-                        className="rounded-small bg-[#0000ff] py-1.5 px-5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700  ml-2"
-                        type="button"
-                      >
-                        <Link
-                          to={`/${role}/contract/${notif.closeContract.contractId}/${role}`}
-                          className="no-underline text-white font-bold"
-                        >
-                          View
-                        </Link>
-                      </button>
-                    </div>
-                    {role === "client" && (
-                      <div>
-                        <RateUserModal
-                          notificationId={notif?._id}
-                          userId={notif?.closeContract.userId}
-                        />
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              <div>
-                {notif?.inviteSuccess && (
-                  <div className="px-20">
-                    <div>
-                      <button
-                        className="rounded-small bg-[#0000ff] py-1.5 px-5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg hover:bg-slate-700  ml-2"
-                        type="button"
-                      >
-                        <Link
-                          to={`/client/userProfile/client-view/${notif.inviteSuccess.userId}`}
-                          className="no-underline text-white font-bold"
-                        >
-                          View
-                        </Link>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {
-                notif?.withdrawData && (
-                  <div className='flex justify-center w-screen'> 
-                  <ImageZoom image={notif.withdrawData.paymentScreenshot} />  
-                  </div>
-                )
-              }
-            </div>
-          )
-        )}
 
+              <div className="grid w-full md:w-[30rem]">
+                <span className="text-sm text-green-600 font-medium">{notif?.type}</span>
+                <span className="text-sm text-gray-800">{notif?.message}</span>
+              </div>
+
+              <div className="text-xs text-gray-500 md:w-[10rem]">{getTimeAgo(notif?.createdAt)}</div>
+            </div>
+ 
+            <div className="flex flex-col md:flex-row md:items-center gap-2">
+              {notif?.newContract && (
+                <div className="md:px-20">
+                  <button
+                    className="rounded bg-blue-600 hover:bg-slate-700 py-1.5 px-5 text-sm text-white shadow-md transition"
+                    type="button"
+                  >
+                    <Link
+                      to={`/${role}/contract/${notif.newContract.contractId}/${role}`}
+                      className="no-underline text-white font-bold"
+                    >
+                      View
+                    </Link>
+                  </button>
+                </div>
+              )}
+
+              {notif?.closeContract && (
+                <div className="flex gap-2 px-0 md:px-3">
+                  <button
+                    className="rounded bg-blue-600 hover:bg-slate-700 py-1.5 px-5 text-sm text-white shadow-md transition"
+                    type="button"
+                  >
+                    <Link
+                      to={`/${role}/contract/${notif.closeContract.contractId}/${role}`}
+                      className="no-underline text-white font-bold"
+                    >
+                      View
+                    </Link>
+                  </button>
+
+                  {role === "client" && (
+                    <RateUserModal
+                      notificationId={notif?._id}
+                      userId={notif?.closeContract.userId}
+                    />
+                  )}
+                </div>
+              )}
+
+              {notif?.inviteSuccess && (
+                <div className="md:px-20">
+                  <button
+                    className="rounded bg-blue-600 hover:bg-slate-700 py-1.5 px-5 text-sm text-white shadow-md transition"
+                    type="button"
+                  >
+                    <Link
+                      to={`/client/userProfile/client-view/${notif.inviteSuccess.userId}`}
+                      className="no-underline text-white font-bold"
+                    >
+                      View
+                    </Link>
+                  </button>
+                </div>
+              )}
+            </div>
+ 
+            {notif?.withdrawData && (
+              <div className="">
+                <ImageZoom image={notif.withdrawData.paymentScreenshot} />
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
+
   );
 };
 
