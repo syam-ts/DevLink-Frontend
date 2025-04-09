@@ -6,7 +6,7 @@ import { JobPostCard } from "../../components/common/JobPostCard";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { useSelector } from "react-redux";
 import { ClientState } from "../../config/state/allState";
-import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover"; 
+import { CreatePostPopover } from "../../components/nextUi/popover/CreateJobPostPopover";
 
 interface Jobs {
   jobs: {
@@ -39,7 +39,10 @@ const Jobs = () => {
       projectType: "",
     },
   });
-  const isVerified = useSelector((state: ClientState) => state.client.currentClient.isVerified);
+  
+  const isVerified = useSelector(
+    (state: ClientState) => state.client.currentClient.isVerified
+  );
 
   useEffect(() => {
     (async () => {
@@ -60,7 +63,7 @@ const Jobs = () => {
       }
     })();
   }, [activeTab, currentPage]);
- 
+
   const changePage = async (page: number) => {
     setCurrentPage(page);
   };
@@ -71,91 +74,83 @@ const Jobs = () => {
   };
 
   return (
-    <main className='pt-20'>
-      <Sonner /> 
+    <main className="pt-20">
+      <Sonner />
       <section className="px-4 sm:px-6 md:px-12 lg:px-24 mt-20">
-  <div className="w-full max-w-6xl mx-auto p-6 bg-white border border-gray-200 rounded-xl shadow arsenal-sc-regular">
-    <h5 className="mb-2 text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
-      Job post creation section
-    </h5>
-    <p className="mb-4 text-sm sm:text-base text-gray-700">
-      The need to create a job.
-    </p>
+        <div className="w-full max-w-6xl mx-auto p-6 bg-white border border-gray-200 rounded-xl shadow arsenal-sc-regular">
+          <h5 className="mb-2 text-xl sm:text-2xl font-bold tracking-tight text-gray-900">
+            Job post creation section
+          </h5>
+          <p className="mb-4 text-sm sm:text-base text-gray-700">
+            The need to create a job.
+          </p>
 
-    <div>
-      {isVerified ? (
-        <Link to="/client/draftJobPost">
-          <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#0000ff] rounded-small hover:bg-blue-700 transition-all duration-200">
-            Create Job Post
-            <svg
-              className="ml-2 w-4 h-4 rtl:rotate-180"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-              aria-hidden="true"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </button>
-        </Link>
-      ) : (
-        <div>
-          <CreatePostPopover />
+          <div>
+            {isVerified ? (
+              <Link to="/client/draftJobPost">
+                <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-[#0000ff] rounded-small hover:bg-blue-700 transition-all duration-200">
+                  Create Job Post
+                  <svg
+                    className="ml-2 w-4 h-4 rtl:rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </button>
+              </Link>
+            ) : (
+              <div>
+                <CreatePostPopover />
+              </div>
+            )}
+          </div>
         </div>
-      )}
-    </div>
-  </div>
-</section>
+      </section>
 
-      
       <section>
         <div className="text-center">
           <div className="justify-center mt-44">
-          <div className="tabs-container flex flex-wrap justify-center gap-4 sm:gap-8 my-4">
-  <button
-    className={`tab-button text-base sm:text-xl md:text-2xl arsenal-sc-regular px-4 py-2 w-1/2 sm:w-1/4 md:w-1/6 text-center ${
-      activeTab === "myJobs" ? "border-b-2 border-black" : ""
-    }`}
-    value="myJobs"
-    onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-      changeActiveTab((e.target as HTMLButtonElement).value)
-    }
-  >
-    My Jobs
-  </button>
+            <div className="tabs-container flex flex-wrap justify-center gap-4 sm:gap-8 my-4">
+              <button
+                className={`tab-button text-base sm:text-xl md:text-2xl arsenal-sc-regular px-4 py-2 w-1/2 sm:w-1/4 md:w-1/6 text-center ${activeTab === "myJobs" ? "border-b-1 border-black" : ""
+                  }`}
+                value="myJobs"
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  changeActiveTab((e.target as HTMLButtonElement).value)
+                }
+              >
+                My Jobs
+              </button>
 
-  <button
-    className={`tab-button text-base sm:text-xl md:text-2xl arsenal-sc-regular px-4 py-2 w-1/2 sm:w-1/4 md:w-1/6 text-center ${
-      activeTab === "completedJobs" ? "border-b-2 border-black" : ""
-    }`}
-    value="completedJobs"
-    onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-      changeActiveTab((e.target as HTMLButtonElement).value)
-    }
-  >
-    Completed Jobs
-  </button>
-</div>
-
-
-
+              <button
+                className={`tab-button text-base sm:text-xl md:text-2xl arsenal-sc-regular px-4 py-2 w-1/2 sm:w-1/4 md:w-1/6 text-center ${activeTab === "completedJobs" ? "border-b-1 border-black" : ""
+                  }`}
+                value="completedJobs"
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  changeActiveTab((e.target as HTMLButtonElement).value)
+                }
+              >
+                Completed Jobs
+              </button>
+            </div>
 
             <div className="tab-content mt-8">
-              {
-                Object.entries(jobs).length === 0 ? (
-                <div className='flex justify-center my-64'>
+              {Object.entries(jobs).length === 0 ? (
+                <div className="flex justify-center my-64">
                   <p>No Job Found</p>
                 </div>
               ) : (
-                  <JobPostCard jobs={jobs} role="client" type="client-view" />
-                )
-              }
+                <JobPostCard jobs={jobs} role="client" type="client-view" />
+              )}
             </div>
             <div>
               <div>
