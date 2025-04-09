@@ -36,13 +36,13 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
     );
     console.log("The response: ", response);
 
-    if (roleType === "user") { 
+    if (roleType === "user") {
       // MOVE ALL TO LOGOUT SLICE
       //remove trace of notification page visit
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
-      dispatch(clearNotificationsUser()); 
+      dispatch(clearNotificationsUser());
       window.location.href = "http://localhost:5173/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
@@ -117,16 +117,16 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
               Project Approvals
             </Link>
           )}
-         {
-          roleType === 'user' && (
-            <Link
-            to={`/${roleType}/home`}
-            className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
-          >
-            About
-          </Link>
-          )
-         }
+          {
+            roleType === 'user' && (
+              <Link
+                to={`/${roleType}/home`}
+                className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+              >
+                About
+              </Link>
+            )
+          }
           <Link
             to={`/${roleType}/home`}
             className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
@@ -146,11 +146,11 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
               alt="notification-icon"
             />
           </Link>
-          <div>
-            <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8">
-              <Search roleType={roleType} />
-            </div>
+
+          <div className="relative px-6 mx-auto   text-center isolate sm:px-16 max-w-7xl lg:px-8">
+            <Search roleType={roleType} />
           </div>
+
         </div>
 
         {/* Profile section */}
@@ -248,13 +248,13 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
               {
                 roleType === 'client' && (
                   <DropdownItem key="none">
-                  <Link
-                    to={`/${roleType}/home`}
-                    className="text-gray-900 no-underline"
-                  >
-                    About
-                  </Link>
-                </DropdownItem>
+                    <Link
+                      to={`/${roleType}/home`}
+                      className="text-gray-900 no-underline"
+                    >
+                      About
+                    </Link>
+                  </DropdownItem>
                 )
               }
               <DropdownItem
@@ -276,45 +276,106 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
         {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </button>
       {menuOpen && (
-        <div className="md:hidden bg-white shadow-md py-3 absolute top-full left-0 w-full z-50">
-          <div className="container mx-auto px-6 flex flex-col space-y-4">
+        <div className="md:hidden bg-white text-center shadow-md py-3 absolute top-full left-0 w-full z-50">
+          <div className="container arsenal-sc-regular mx-auto px-6 flex flex-col space-y-4">
             <Link
               to={`/${roleType}/home`}
-              className="text-gray-900"
+              className="text-gray-900 no-underline"
               onClick={() => setMenuOpen(false)}
             >
               Home
             </Link>
+            {roleType === "client" && (
+              <Link
+                to="/client/developers"
+                className="text-gray-900 no-underline arsenal-sc-regular"
+                onClick={() => setMenuOpen(false)}
+              >
+                Developers
+              </Link>
+            )}
             <Link
               to={`/${roleType}/jobs`}
-              className="text-gray-900"
+              className="text-gray-900 no-underline"
               onClick={() => setMenuOpen(false)}
             >
               Jobs
             </Link>
             <Link
+              to={`/${roleType}/contracts/${roleType}`}
+              className="text-gray-900 no-underline"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contracts
+            </Link>
+            <Link
               to={`/${roleType}/proposals`}
-              className="text-gray-900"
+              className="text-gray-900 no-underline"
               onClick={() => setMenuOpen(false)}
             >
               Proposals
             </Link>
-            {/* <Link
+            <Link
               to={`/${roleType}/invites`}
-              className="text-gray-900"
+              className="text-gray-900 no-underline"
               onClick={() => setMenuOpen(false)}
             >
               Invites
-            </Link> */}
+            </Link>
+
+            {roleType === "user" && (
+              <Link
+                to="/user/wishlist"
+                className="text-gray-900 no-underline"
+                onClick={() => setMenuOpen(false)}
+              >
+                Wishlist
+              </Link>
+            )}
+
             {roleType === "client" && (
               <Link
                 to="/client/contractsApprovals"
-                className="text-gray-900"
+                className="text-gray-900 no-underline"
                 onClick={() => setMenuOpen(false)}
               >
                 Project Approvals
               </Link>
             )}
+
+            {roleType === "user" && (
+              <Link
+                to="/user/about"
+                className="text-gray-900 no-underline"
+                onClick={() => setMenuOpen(false)}
+              >
+                About
+              </Link>
+            )}
+
+            <Link
+              to="/client/contact"
+              className="text-gray-900 no-underline"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact
+            </Link>
+
+            <div className="relative px-6 mx-auto text-center isolate sm:px-16 max-w-7xl lg:px-8">
+              <Search roleType={roleType} />
+            </div>
+
+            <Link
+              to={`/${roleType}/notifications/${roleInfo._id}/${roleType}`}
+              className="text-md text-gray-900 hover:text-gray-500 no-underline arsenal-sc-regular"
+              onClick={() => setMenuOpen(false)}
+            >
+              <img
+                className="w-5 h-5"
+                src="https://cdn-icons-png.flaticon.com/128/2645/2645897.png"
+                alt="notification-icon"
+              />
+            </Link>
           </div>
         </div>
       )}
