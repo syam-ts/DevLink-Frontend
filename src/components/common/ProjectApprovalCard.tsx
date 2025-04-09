@@ -68,79 +68,77 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
   };
 
   const rejectContractApproval = async (contractId: string) => {
-    try{
-      const {data} = await apiClientInstance.post('/contractSubmitReject', {
+    try {
+      const { data } = await apiClientInstance.post('/contractSubmitReject', {
         contractId: contractId
       });
-      console.log('The result: ',data);
+      console.log('The result: ', data);
       //SHOW SUCCESS MESSAGE AND REFRSH THE CURENT PAGE
 
-    }catch(error: unknown) {
-      const err = error as {message: string};
-      console.log('ERROR: ',err.message);
+    } catch (error: unknown) {
+      const err = error as { message: string };
+      console.log('ERROR: ', err.message);
     }
   }
 
- 
+
 
   return (
     <div>
       <Sonner />
       {Object.entries(pendingApprovals).map(
         ([key, pendingApproval]: [string, PendingApproval]) => (
-          <div key={key} className="w-2/3 grid gap-2 border-gray-100 shadow-xl rounded-xl h-[200px] border mx-auto my-20 p-4 arsenal-sc-regular">
-            <div>
-              <ul className="flex gap-20">
-                <li>
-                  <p>Title</p>
-                  <p>{pendingApproval?.jobPostData?.title}</p>
-                </li>
-                <li>
-                  <p>Amount</p>
-                  <p>{pendingApproval?.jobPostData?.amount}</p>
-                </li>
-                <li>
-                  <p>Status</p>
-                  <p>{pendingApproval?.status || "status"}</p>
-                </li>
-                <li>
-                  <p>Created on</p>
-                  <p>{pendingApproval?.createdAt}</p>
-                </li>
-              </ul>
-            </div>
-            <div className="text-end">
-              <button
-                className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                type="button"
+          <div
+            key={key}
+            className="w-11/12 md:w-2/3 grid gap-4 border border-gray-100 shadow-xl rounded-xl mx-auto my-10 p-6 arsenal-sc-regular"
+          >
+            {/* Job Info */}
+            <ul className="flex flex-wrap gap-10 text-sm text-gray-800">
+              <li>
+                <p className="font-semibold">Title</p>
+                <p>{pendingApproval?.jobPostData?.title || "N/A"}</p>
+              </li>
+              <li>
+                <p className="font-semibold">Amount</p>
+                <p>₹{pendingApproval?.jobPostData?.amount || "N/A"}</p>
+              </li>
+              <li>
+                <p className="font-semibold">Status</p>
+                <p>{pendingApproval?.status || "Pending"}</p>
+              </li>
+              <li>
+                <p className="font-semibold">Created On</p>
+                <p>
+                  {pendingApproval?.createdAt
+                    ? new Date(pendingApproval.createdAt).toLocaleDateString()
+                    : "N/A"}
+                </p>
+              </li>
+            </ul>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap justify-end gap-3">
+              <Link
+                to={`/client/contract/${pendingApproval?.contractId}/client`}
+                className="rounded-full bg-[#0000ff] no-underline px-4 py-1.5 text-sm text-white shadow-md hover:bg-blue-700 transition"
               >
-                <Link
-                  to={`/client/contract/${pendingApproval?.contractId}/client`}
-                  className="no-underline text-white"
-                >
-                  View Contract
-                </Link>
-              </button>
+                View Contract
+              </Link>
+
+              <ProjectSubmissionViewDrawer
+                title={pendingApproval?.jobPostData?.title}
+                description={pendingApproval?.description}
+                progress={pendingApproval?.progress}
+                attachedFile={pendingApproval?.attachedFile}
+              />
+
               <button
-                className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                type="button"
-              >
-                <ProjectSubmissionViewDrawer
-                  title={pendingApproval?.jobPostData?.title}
-                  description={pendingApproval?.description}
-                  progress={pendingApproval?.progress}
-                  attachedFile={pendingApproval?.attachedFile}
-                />
-              </button>
-              <button
-                onClick={() =>
-                  rejectContractApproval(pendingApproval?.contractId)
-                }
-                className="rounded-full bg-[#ff2453] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                type="button"
+                onClick={() => rejectContractApproval(pendingApproval?.contractId)}
+                className="rounded-full bg-[#ff0000] px-4 py-1.5 text-sm text-white shadow-md hover:bg-red-600 transition"
               >
                 Reject Submission
               </button>
+
               <button
                 onClick={() =>
                   approveAndCloseContract(
@@ -148,8 +146,7 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
                     pendingApproval?.progress
                   )
                 }
-                className="rounded-full bg-[#0000ff] px-3 py-1 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-                type="button"
+                className="rounded-full bg-green-500 px-4 py-1.5 text-sm text-white shadow-md hover:bg-green-700 transition"
               >
                 Approve Contract
               </button>
@@ -158,5 +155,6 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
         )
       )}
     </div>
+
   );
 };

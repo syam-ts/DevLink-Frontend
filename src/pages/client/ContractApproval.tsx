@@ -49,7 +49,7 @@ const ContractApproval = () => {
   return (
     <div>
       <Sonner />
-      <div className="text-center pt-20">
+      <div className="text-center pt-44">
         <span className="text-xl arsenal-sc-regular ">Pending Approvals</span>
       </div>
       {Object.entries(pendingApprovals).length === 0 ? (
