@@ -31,7 +31,7 @@ const LandingPage: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-center items-center py-12 :mx-auto mx-auto max-w-[1100px] my-20 border border-black rounded-xl px-6 md:px-12">
           <div className="w-full md:w-1/3 flex justify-center md:justify-start">
             <img
-              src="http://localhost:5173/public/landingpage_left.png"
+              src="/landingpage_left.png"
               alt="profile-image"
               className="max-w-[80%] md:max-w-full h-auto"
             />
@@ -52,7 +52,7 @@ const LandingPage: React.FC = () => {
 
           <div className="w-full md:w-1/3 flex justify-center md:justify-end">
             <img
-              src="http://localhost:5173/landingpage_right.png"
+              src="/landingpage_right.png"
               alt="profile-image"
               className="max-w-[80%] md:max-w-full h-auto"
             />
