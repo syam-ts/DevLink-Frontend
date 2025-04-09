@@ -1,36 +1,36 @@
-import LinkAttribute from "../../components/nextUi/Link";
-import { Card, CardHeader } from "@heroui/react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
-import { signOutClient } from "../../redux/slices/clientSlice";
-import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import { JobPostCard } from "../../components/common/JobPostCard";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardHeader } from "@heroui/react";
+import { useDispatch, useSelector } from "react-redux";
+import LinkAttribute from "../../components/nextUi/Link";
 import { ClientState } from "../../config/state/allState";
+import { signOutClient } from "../../redux/slices/clientSlice";
+import { JobPostCard } from "../../components/common/JobPostCard";
+import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 
 interface Jobs {
   jobs: {
-    _id: string;
-    title: string;
-    description: string;
-    expertLevel: string;
-    location: string;
-    amount: number;
-    paymentType: string;
-    estimateTimeinHours: string;
-    projectType: string;
-  };
-}
+    _id: string
+    title: string
+    description: string
+    expertLevel: string
+    location: string
+    amount: number
+    paymentType: string
+    estimateTimeinHours: string
+    projectType: string
+  }
+};
 
 interface User {
-  _id: string;
-  name: string;
-  email: string;
-  domain: string;
-  profilePicture: string;
-}
+  _id: string
+  name: string
+  email: string
+  domain: string
+  profilePicture: string
+};
 
 const HomeClient = () => {
   const navigate = useNavigate();
@@ -83,9 +83,7 @@ const HomeClient = () => {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await apiClientInstance.get("/trendingJobs");
-        console.log("The data: ", data);
-
+        const { data } = await apiClientInstance.get("/trendingJobs"); 
         setTrendingJobs(data.data);
       })();
     } catch (error: unknown) {
@@ -115,36 +113,36 @@ const HomeClient = () => {
   return (
     <main className="arsenal-sc-regular pt-16">
       <section className="bg-rose-200">
-        <figure className="relative transition-all duration-300 cursor-pointer  hover:grayscale-0">
+        <figure className="relative transition-all duration-300 cursor-pointer hover:grayscale-0">
           <a href="#">
             <img
-              className="object-fill ml-auto"
-              src="/public/client_home-1.png"
+              className="object-contain w-full max-h-96 sm:max-h-128 md:max-h-[500px] lg:max-h-[600px]"
+              src="/client_home-1.png"
               alt="image description"
             />
           </a>
-          <figcaption className="absolute text-lg text-white bottom-6 ">
-            <div className="mb-44 ml-20">
+          <figcaption className="absolute text-lg text-white bottom-6 left-6 right-6 md:left-20 md:right-20">
+            <div className="mb-24 md:mb-44">
               <div>
-                <span className="text-black text-3xl">
+                <span className="text-black text-2xl sm:text-3xl md:text-4xl max-md:hidden">
                   Thrive the World of Freelance
                   <br /> Excellence Marketplace
                 </span>
               </div>
               <div>
-                <span className="text-black  text-xl">
-                  TFlourish in a thriving freelance ecosystem dedicated to
+                <span className="text-black text-lg sm:text-xl md:text-2xl max-md:hidden">
+                  Flourish in a thriving freelance ecosystem dedicated to
                   <br /> excellence and limitless opportunities.
                 </span>
               </div>
-              <label className="mx-auto mt-40 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300">
+              <label className="mx-auto mt-10 md:mt-16 relative max-md:hidden bg-white w-full max-w-xl md:max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-4 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300">
                 <input
                   id="search-bar"
                   placeholder="Search for freelancers..."
-                  className="px-6 py-2 w-full text-black rounded-md flex-1 outline-none  bg-white"
+                  className="px-6 py-2 w-full text-black rounded-md flex-1 outline-none bg-white"
                 />
-                <button className="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
-                  <div className="relative">
+                <button className="w-full md:w-auto px-6 py-3 bg-black text-white border-black border rounded-xl transition-all duration-300 hover:scale-95 disabled:opacity-70">
+                  <div className="relative flex items-center justify-center">
                     <div className="flex items-center justify-center h-3 w-3 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all">
                       <svg
                         className="opacity-0 animate-spin w-full h-full"
@@ -158,7 +156,7 @@ const HomeClient = () => {
                           cy="12"
                           r="10"
                           stroke="currentColor"
-                          stroke-width="4"
+                          strokeWidth="4"
                         ></circle>
                         <path
                           className="opacity-75"
@@ -168,8 +166,8 @@ const HomeClient = () => {
                       </svg>
                     </div>
 
-                    <div className="flex items-center transition-all opacity-1 valid:">
-                      <span className="text-sm  whitespace-nowrap truncate mx-auto">
+                    <div className="flex items-center transition-all opacity-1">
+                      <span className="text-sm whitespace-nowrap mx-auto">
                         Search
                       </span>
                     </div>
@@ -181,40 +179,61 @@ const HomeClient = () => {
         </figure>
       </section>
 
-      <section className="flex bg-stone-300 h-auto text-center p-16 gap-48">
-        <div>
-          <span>
-            Flourish in a thriving freelance ecosystem dedicated to
-            <br /> excellence and limitless opportunities.
-          </span>
-        </div>
-        <div>
-          <span>
-            4.91/5
-            <br /> Average rating for work with tech
-            <br /> talent.
-          </span>
-        </div>
-        <div>
-          <span>
-            211K+ contracts
-            <br /> Engaged in development & IT work in
-            <br /> the past year.
-          </span>
-        </div>
-        <div>
-          <span>
-            1,665 skills
-            <br /> Backed by talent on Workreap.
-          </span>
+      <section className="bg-stone-300 p-4 sm:p-6 md:p-10 lg:p-16">
+        <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-4 lg:gap-8 max-w-7xl mx-auto text-center">
+          <div className="flex-1 p-2">
+            <span className="text-sm sm:text-base md:text-lg">
+              Flourish in a thriving freelance ecosystem dedicated to
+              <br className="hidden sm:block" /> excellence and limitless
+              opportunities.
+            </span>
+          </div>
+
+          <div className="flex-1 p-2">
+            <span className="font-medium text-lg sm:text-xl md:text-2xl">
+              4.91/5
+            </span>
+            <br />
+            <span className="text-sm sm:text-base">
+              Average rating for work with tech
+              <br className="hidden sm:block" /> talent.
+            </span>
+          </div>
+
+          <div className="flex-1 p-2">
+            <span className="font-medium text-lg sm:text-xl md:text-2xl">
+              211K+ contracts
+            </span>
+            <br />
+            <span className="text-sm sm:text-base">
+              Engaged in development & IT work in
+              <br className="hidden sm:block" /> the past year.
+            </span>
+          </div>
+
+          <div className="flex-1 p-2">
+            <span className="font-medium text-lg sm:text-xl md:text-2xl">
+              1,665 skills
+            </span>
+            <br />
+            <span className="text-sm sm:text-base">
+              Backed by talent on Workreap.
+            </span>
+          </div>
         </div>
       </section>
-      <section className="text-center my-12 mt-44">
-        <span className="text-3xl">Top Rated Freelancers</span> <br />
-        <span>Browse talent for your projects</span>
-        <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
-        <div className="text-end px-96">
-          <span className="arsenal-sc-regular">
+
+      <section className="text-center my-12 mt-44 px-4 sm:px-8">
+        <span className="text-2xl sm:text-3xl font-semibold">
+          Top Rated Freelancers
+        </span>{" "}
+        <br />
+        <span className="text-base sm:text-lg text-gray-600">
+          Browse talent for your projects
+        </span>
+        <hr className="border-gray-400 mt-8 w-3/4 sm:w-2/4 mx-auto" />
+        <div className="flex justify-end mt-6 sm:mt-8 px-4 sm:px-12 md:px-20 lg:px-36 xl:px-72">
+          <span className="arsenal-sc-regular text-sm sm:text-base">
             <Link to="/client/developers">
               <LinkAttribute text="More Users" />
             </Link>
@@ -223,155 +242,136 @@ const HomeClient = () => {
       </section>
 
       {/* cards */}
-      <section className="grid gap-7 lg:grid-cols-4 sm:grid-cols-2 px-96 my-28">
-        {Object.entries(users).map((user: User[]) => (
-          <div className="max-w-[900px] flex gap-12 ">
-            <Card className="col-span-12 sm:col-span-4 h-[250px]">
-              <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-                <p className="text-tiny text-white ">{user?.[1]?.email}</p>
+      <section className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-64 my-28">
+        {Object.entries(users).map(([_, user]) => (
+          <div key={user._id} className="flex flex-col items-center">
+            <Card className="relative w-2/3 max-w-xs sm:max-w-sm h-[300px]">
+              <CardHeader className="absolute z-10 top-2 left-2 flex-col items-start">
+                <p className="text-xs text-white bg-black bg-opacity-50 px-2 py-1 rounded">
+                  {user?.email}
+                </p>
               </CardHeader>
+
               {isVerified ? (
-                <div>
-                  <Link to={`/client/userProfile/client-view/${user?.[1]._id}`}>
-                    <img
-                      alt="developer-image"
-                      className="z-0 w-64 h-80 object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
-                      src={
-                        user?.[1]?.profilePicture ||
-                        "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
-                      }
-                    />
-                  </Link>
-                </div>
-              ) : (
-                <div>
+                <Link to={`/client/userProfile/client-view/${user?._id}`}>
                   <img
                     alt="developer-image"
-                    className="z-0 w-64 h-80 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                    className="z-0 w-full h-[300px] object-cover rounded cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
                     src={
-                      user?.[1]?.profilePicture ||
+                      user?.profilePicture ||
                       "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
                     }
                   />
-                </div>
+                </Link>
+              ) : (
+                <img
+                  alt="developer-image"
+                  className="z-0 w-full h-[300px] object-cover rounded transition-transform duration-300 ease-in-out hover:scale-105"
+                  src={
+                    user?.profilePicture ||
+                    "https://img.freepik.com/premium-vector/professional-grey-default-avatar-profile-icon-placeholder_1147429-12635.jpg"
+                  }
+                />
               )}
             </Card>
-            <div className="absolute pt-72 pl-4 grid">
-              <span>{user?.[1]?.name}</span>
-              <span className="text-sm">{user?.[1]?.domain}</span>
+
+            <div className="mt-4 text-center">
+              <span className="block font-medium">{user?.name}</span>
+              <span className="block text-sm text-gray-600">
+                {user?.domain}
+              </span>
             </div>
           </div>
         ))}
       </section>
 
-      <section className="mt-64 bg-black">
+      <section className="mt-32 sm:mt-48 bg-black">
         <div
           id="default-carousel"
-          className="relative w-full h-[600px]"
+          className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
           data-carousel="slide"
         >
-          <div className="relative h-[600px] overflow-hidden rounded-lg ">
+          {/* Slides */}
+          <div className="relative h-full overflow-hidden rounded-lg">
             <div className="duration-700 ease-in-out" data-carousel-item>
               <img
                 src="https://cdn-employer-wp.arc.dev/wp-content/uploads/2022/04/how-to-hire-a-freelance-developer-1128x635.jpg"
-                className="absolute object-cover  block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                alt="..."
+                className="absolute object-cover block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                alt="Slide 1"
               />
             </div>
-            <div className="  duration-700 ease-in-out" data-carousel-item>
+            <div className="duration-700 ease-in-out" data-carousel-item>
               <img
                 src="https://media.licdn.com/dms/image/D5612AQEQmeY5e7W8sQ/article-cover_image-shrink_720_1280/0/1719068700883?e=2147483647&v=beta&t=GvjM15rQJJmonr2t4lx28pBdOm82aAexL-Fmwb7PQ5Y"
-                className="absolute object-cover block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                alt="..."
+                className="absolute object-cover block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                alt="Slide 2"
               />
             </div>
             <div className="duration-700 ease-in-out" data-carousel-item>
               <img
                 src="https://www.elevatus.io/wp-content/uploads/2022/04/Full-Stack-Developer.jpg"
-                className="absolute object-cover block w-full h-[800px] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                alt="..."
+                className="absolute object-cover block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                alt="Slide 3"
               />
             </div>
           </div>
-          <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full"
-              aria-current="true"
-              aria-label="Slide 1"
-              data-carousel-slide-to="0"
-            ></button>
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 2"
-              data-carousel-slide-to="1"
-            ></button>
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 3"
-              data-carousel-slide-to="2"
-            ></button>
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 4"
-              data-carousel-slide-to="3"
-            ></button>
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full"
-              aria-current="false"
-              aria-label="Slide 5"
-              data-carousel-slide-to="4"
-            ></button>
+
+          {/* Carousel Section */}
+          <div className="absolute z-30 flex -translate-x-1/2 bottom-4 left-1/2 space-x-2">
+            {[...Array(3)].map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-white"
+                aria-label={`Slide ${idx + 1}`}
+                data-carousel-slide-to={idx}
+              ></button>
+            ))}
           </div>
+
+          {/* Prev Button */}
           <button
             type="button"
-            className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-3 sm:px-4 cursor-pointer group focus:outline-none"
             data-carousel-prev
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
               <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 text-white"
                 fill="none"
                 viewBox="0 0 6 10"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 1 1 5l4 4"
                 />
               </svg>
               <span className="sr-only">Previous</span>
             </span>
           </button>
+
+          {/* Next Button */}
           <button
             type="button"
-            className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-3 sm:px-4 cursor-pointer group focus:outline-none"
             data-carousel-next
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white">
               <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 text-white"
                 fill="none"
                 viewBox="0 0 6 10"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 9 4-4-4-4"
                 />
               </svg>

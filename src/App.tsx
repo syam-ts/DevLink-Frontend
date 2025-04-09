@@ -7,13 +7,19 @@ import {
   UserProtectedRoute,
   ClientProtectedRoute,
   AdminProtectedRoute,
+  // RootProtectedRoute,
 } from "./utils/middleware/ProtectedRoute";
 import { Routes, Route } from "react-router-dom"; 
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/*" element={<LandingRoute />} />
+   
+   <Route path="/*" element={<LandingRoute />} />
+
+      {/* <Route element={<RootProtectedRoute />}>
+        <Route path="/*" element={<LandingRoute />} />
+      </Route> */}
 
       <Route element={<UserProtectedRoute />}>
         <Route path="user/*" element={<UserRoute />} />

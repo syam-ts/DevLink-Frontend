@@ -2,9 +2,36 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AdminState, ClientState, UserState } from "../../config/state/allState";
 
+
+// export const RootProtectedRoute = () => { 
+//   const location = useLocation();  
+//   console.log('The location: ',location)
+ 
+//   if (location.pathname === "/login" && location.search === '?rt=user') {
+//     const isUserAuth = useSelector((state: UserState) => state?.user?.isUser); 
+//     if(isUserAuth) { 
+//       return <Navigate to="/user/home" />;  
+//     } 
+//   } else if(location.pathname === "/login" && location.search === '?rt=client') {
+//     const isClientAuth = useSelector((state: ClientState) => state?.client?.isClient); 
+//     if(isClientAuth) { 
+//       return <Navigate to="/client/home" />;  
+//     } 
+//   } else if(location.pathname === "/login" && location.search === '?rt=admin') {
+//     const isAdminAuth = useSelector((state: AdminState) => state?.admin?.isAdmin); 
+//     if(isAdminAuth) {
+//       return <Navigate to="/admin" />;  
+//     } 
+//   }
+ 
+//   return;
+ 
+// };
+
+
 export const UserProtectedRoute = () => {
   const isUserAuth = useSelector((state: UserState) => state?.user?.isUser); 
-  const location = useLocation(); 
+  const location = useLocation();  
  
   if (isUserAuth && location.pathname === "/login") {
     return <Navigate to="/user/home" />;  
