@@ -120,7 +120,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                                         </span>
                                     </div>
                                     <img
-                                        src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb"
+                                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68ktpV08nXJtoNFAaMEc3zE8rckvhyFW2BA&s'
                                         alt="Profile"
                                         className="w-6 h-6 rounded-full order-1"
                                     />
@@ -137,7 +137,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
                                         </span>
                                     </div>
                                     <img
-                                        src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb"
+                                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68ktpV08nXJtoNFAaMEc3zE8rckvhyFW2BA&s'
                                         alt="Profile"
                                         className="w-6 h-6 rounded-full order-1"
                                     />

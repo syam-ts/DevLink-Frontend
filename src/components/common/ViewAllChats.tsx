@@ -12,6 +12,7 @@ interface Chat {
     }
     userData?: {
         userName: string
+        profilePicture: string
     }
 };
 
@@ -39,6 +40,7 @@ function ListAllUserChat() {
             setData(response.data.data);  
         })();
     }, []);
+    
 
     const handleChatClick = (chatId: string) => {
         setCurrentRoleId(chatId);
@@ -74,7 +76,11 @@ function ListAllUserChat() {
                                     <div className="flex gap-4">
                                         <img
                                             alt="profile"
-                                            src="https://docs.material-tailwind.com/img/face-1.jpg"
+                                            src={
+                                                roleType === 'user' ?
+                                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68ktpV08nXJtoNFAaMEc3zE8rckvhyFW2BA&s' :
+                                                  d.userData.profilePicture
+                                                }
                                             className="inline-block h-12 w-12 rounded-full object-cover"
                                         />
                                         <div>
