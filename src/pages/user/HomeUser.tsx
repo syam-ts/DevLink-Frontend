@@ -134,7 +134,7 @@ const HomeUser: React.FC = () => {
           <figure className="relative transition-all duration-300 bg-black cursor-pointer hover:grayscale-0">
             <img
               className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[700px] object-cover"
-              src="user_home-1.png"
+              src="/user_home-1.png"
               alt="image description"
             />
             <figcaption className="absolute bottom-16 left-4 sm:left-10 md:left-16 text-white text-center sm:text-left">
@@ -235,7 +235,7 @@ const HomeUser: React.FC = () => {
         <div className="relative w-full mx-auto my-12 sm:my-16 lg:my-24">
           <img
             className="h-[400px] sm:h-[500px] lg:h-[600px] w-full object-cover"
-            src="user-home-img-2.png"
+            src="/user-home-img-2.png"
             alt="start-freelancer-image"
           />
           <div className="absolute inset-0 bg-black/40"></div>
