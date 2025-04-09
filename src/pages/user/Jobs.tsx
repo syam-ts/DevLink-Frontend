@@ -61,138 +61,119 @@ const Jobs = () => {
 
   return (
     <main>
-      <div className="flex gap-2 pt-44">
-        <Sonner />
-      <section>
-       <div className='w-[23rem]'>
-       <FilterJobs setFilter={setFilter} />
-       </div>
-      </section>
+     
+     <div className="flex flex-col md:flex-row gap-4 md:gap-6 pt-28 md:pt-44 px-4">
+  <Sonner />
 
-      <section>
-      <div className="w-[95rem] ">
-          <div className="tabs-container flex justify-center">
-            <button
-              className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
-                activeTab === "listAllJobs" && "border-b border-black"
-              }`}
-              onClick={() => setActiveTab("listAllJobs")}
-            >
-              All Jobs
-            </button>
-            <button
-              className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
-                activeTab === "bestMatches" && "border-b border-black"
-              }`}
-              onClick={() => setActiveTab("bestMatches")}
-            >
-              Best Matches
-            </button>
-            <button
-              className={`tab-button text-2xl arsenal-sc-regular w-1/6 ${
-                activeTab === "trendingJobs" && "border-b border-black"
-              }`}
-              onClick={() => setActiveTab("trendingJobs")}
-            >
-              Trending Jobs
-            </button>
-          </div>
- 
+  {/* Sidebar Filter */}
+  <section className="w-full md:w-[23rem]">
+    <FilterJobs setFilter={setFilter} />
+  </section>
 
-         <div className=''>
-         <div className="tab-content mt-8">
-            <JobPostCard jobs={jobs} role="user" type="user-view" />
-          </div>
+  {/* Main Job Section */}
+  <section className="flex-1 w-full">
+    {/* Tabs */}
+    <div className="tabs-container flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-0">
+      <button
+        className={`tab-button text-lg sm:text-2xl arsenal-sc-regular w-full sm:w-1/4 text-center ${
+          activeTab === "listAllJobs" ? "border-b border-black" : ""
+        }`}
+        onClick={() => setActiveTab("listAllJobs")}
+      >
+        All Jobs
+      </button>
+      <button
+        className={`tab-button text-lg sm:text-2xl arsenal-sc-regular w-full sm:w-1/4 text-center ${
+          activeTab === "bestMatches" ? "border-b border-black" : ""
+        }`}
+        onClick={() => setActiveTab("bestMatches")}
+      >
+        Best Matches
+      </button>
+      <button
+        className={`tab-button text-lg sm:text-2xl arsenal-sc-regular w-full sm:w-1/4 text-center ${
+          activeTab === "trendingJobs" ? "border-b border-black" : ""
+        }`}
+        onClick={() => setActiveTab("trendingJobs")}
+      >
+        Trending Jobs
+      </button>
+    </div>
 
-                <div>
-                  {
-                    Object.entries(jobs).length === 0 && (
-                      <div className='flex justify-center py-44'>
-                         <span className='text-xl'>No Jobs Found</span> 
-                      </div>
-                    )
-                  }                
-                </div>
-         </div>
+    {/* Job Posts */}
+    <div className="tab-content mt-8">
+      <JobPostCard jobs={jobs} role="user" type="user-view" />
+    </div>
 
-
-      
-          <div>
-            <div>
-              <div className="container mx-auto px-4 ">
-                <nav
-                  className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
-                  aria-label="Pagination"
-                >
-                  {currentPage - 1 < 1 ? (
-                    <div></div>
-                  ) : (
-                    <a
-                      onClick={() => changePage(currentPage - 1)}
-                      className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300"
-                      title="Previous Page"
-                    >
-                      <span className="sr-only">Previous Page</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        className="block w-5 h-5 my-2 mx-auto"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M15.75 19.5L8.25 12l7.5-7.5"
-                        />
-                      </svg>
-                    </a>
-                  )}
-
-                  {Array.from({ length: totalPages }).map((_, index) => (
-                    <p
-                      onClick={() => changePage(index + 1)}
-                      key={index}
-                      className="md:flex w-10 h-10 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border border-gray-200 bg-white  text-black  hover:border-gray-300 "
-                      title={`Page ${index + 1}`}
-                    >
-                      {index + 1}
-                    </p>
-                  ))}
-
-                  {currentPage + 1 > totalPages ? (
-                    <div></div>
-                  ) : (
-                    <a
-                      onClick={() => changePage(currentPage + 1)}
-                      className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-whitetext-black  hover:border-gray-300"
-                      title="Next Page"
-                    >
-                      <span className="sr-only">Next Page</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        className="block w-5 h-5"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                        />
-                      </svg>
-                    </a>
-                  )}
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* No Jobs Found */}
+    {Object.entries(jobs).length === 0 && (
+      <div className="flex justify-center py-20 sm:py-44">
+        <span className="text-base sm:text-xl">No Jobs Found</span>
       </div>
+    )}
+
+    {/* Pagination */}
+    <div className="container mx-auto px-4 mt-10">
+      <nav
+        className="flex flex-wrap justify-center items-center gap-2"
+        aria-label="Pagination"
+      >
+        {currentPage - 1 >= 1 && (
+          <a
+            onClick={() => changePage(currentPage - 1)}
+            className="cursor-pointer flex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300"
+            title="Previous Page"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </a>
+        )}
+
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <p
+            onClick={() => changePage(index + 1)}
+            key={index}
+            className={`cursor-pointer flex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300 ${
+              currentPage === index + 1 ? "font-bold bg-gray-100" : ""
+            }`}
+            title={`Page ${index + 1}`}
+          >
+            {index + 1}
+          </p>
+        ))}
+
+        {currentPage + 1 <= totalPages && (
+          <a
+            onClick={() => changePage(currentPage + 1)}
+            className="cursor-pointer flex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300"
+            title="Next Page"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </a>
+        )}
+      </nav>
+    </div>
+  </section>
+</div>
+
+
     </main>
   );
 };
