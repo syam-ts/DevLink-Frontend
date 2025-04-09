@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { toast } from "sonner";
+import React, { useEffect, useState } from "react";
 import { Sonner } from "../../components/sonner/Toaster";
+import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 
 interface Jobs {
   _id: string
@@ -28,7 +28,6 @@ const Wishlist: React.FC = () => {
     amount: 0,
     estimateTimeinHours: 0,
     projectType: "",
-
   });
   const [wishlistId, setWishlistId] = useState<string>("");
   const [removeFlag, setRemoveFlag] = useState<boolean>(false);
@@ -49,9 +48,12 @@ const Wishlist: React.FC = () => {
 
   const removeFromWishlist = async (wishlistId: string, jobPostId: string) => {
     try {
-      const { data } = await apiUserInstance.patch(`/removeFromWishlist/${wishlistId}`, {
-        jobPostId,
-      });
+      const { data } = await apiUserInstance.patch(
+        `/removeFromWishlist/${wishlistId}`,
+        {
+          jobPostId,
+        }
+      );
 
       if (data.success) {
         setRemoveFlag(true);
@@ -71,65 +73,90 @@ const Wishlist: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="w-full px-4 sm:px-6 md:px-8">
       <Sonner />
+
+      {/* Header Section */}
       <section>
-        <div className="flex justify-center pt-44">
-          <span className="arsenal-sc-regular text-3xl "> Wishlist </span>
+        <div className="flex justify-center pt-12 sm:pt-16 md:pt-20 lg:pt-24">
+          <span className="arsenal-sc-regular text-2xl sm:text-3xl">
+            {" "}
+            Wishlist{" "}
+          </span>
         </div>
-        <hr className="w-2/3 mx-auto" />
+        <hr className="w-4/5 sm:w-2/3 mx-auto mt-2" />
       </section>
+
+      {/* Wishlist Content */}
       {Object.entries(jobs).length != 0 ? (
-        <div>
+        <div className="mt-8 sm:mt-12 md:mt-16 space-y-6 sm:space-y-8 md:space-y-10">
           {Object.entries(jobs)?.map(([key, job]: [string, Jobs]) => (
             <div
               key={key}
-              className="w-2/3 transform relative transition duration-500 hover:scale-105 border-gray-100 shadow-xl rounded-xl h-[300px] border mx-auto my-20 p-12 arsenal-sc-regular"
+              className="w-full sm:w-11/12 md:w-5/6 lg:w-2/3 transform relative transition duration-500 hover:shadow-xl border-gray-100 shadow-lg rounded-2xl border mx-auto px-5 py-4 sm:p-6 md:p-8 lg:p-12 arsenal-sc-regular"
             >
-              <div className="flex justify-between ">
-                <div className="grid">
-                  <span className="text-2xl text-start">{job?.title}</span>
-                  <span className="text-sm mt-2">{job?.description}</span>
-                  <div className="grid justify-start gap-3 mt-3">
+              <div className="flex flex-col lg:flex-row lg:justify-between gap-6"> 
+                <div className="flex-1">
+                  <span className="text-xl sm:text-2xl mb-2 line-clamp-1">
+                    {job?.title}
+                  </span>
+                  <span className="text-sm mb-4 line-clamp-3">
+                    {job?.description}
+                  </span>
+
+                  <div className="grid gap-1 sm:gap-2 mb-4">
                     <span className="text-sm">{job?.expertLevel}</span>
                     <span className="text-sm">{job?.location}</span>
                   </div>
-                  <span className="flex gap-3">
-                    {job?.requiredSkills?.map((skill: string) => (
-                      <span className="rounded-full border border-transparent my-4 py-1.5 px-8  text-center text-sm transition-all text-white bg-[#0000ff] focus:bg-slate-100 active:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                        {skill}
-                      </span>
-                    ))}
-                  </span>
+ 
+                  <div className="flex flex-wrap gap-2 my-3">
+                    {job?.requiredSkills?.map(
+                      (skill: string, index: number) => (
+                        <span
+                          key={index}
+                          className="rounded-full border border-transparent py-1 px-3 sm:px-4 text-center text-xs sm:text-sm text-white bg-[#0000ff]"
+                        >
+                          {skill}
+                        </span>
+                      )
+                    )}
+                  </div>
                 </div>
+ 
+                <div className="flex flex-row lg:flex-col justify-between lg:text-end lg:min-w-40">
+                  <div className="grid gap-1">
+                    <span className="text-sm">{job?.amount}.00₹</span>
+                    <span className="text-sm">{job?.paymentType}</span>
+                    <span className="text-sm">
+                      {job?.estimateTimeinHours}/hr
+                    </span>
+                    <span className="text-sm text-green-500">
+                      {job?.projectType}
+                    </span>
+                  </div>
 
-                <div className="grid text-end py-3">
-                  <span className="text-sm">{job?.amount}.00₹</span>
-                  <span className="text-sm">{job?.paymentType}</span>
-                  <span className="text-sm">
-                    {job?.estimateTimeinHours}/hr
-                  </span>
-                  <span className="text-sm text-green-400 underline">
-                    {job?.projectType}
-                  </span>
-                  <button
-                    onClick={() => removeFromWishlist(wishlistId, job?._id)}
-                    className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-12 border border-transparent text-center text-sm text-white shadow-md hover:shadow-lg ml-2"
-                    type="button"
-                  >
-                    Remove
-                  </button>
+                  <div className="self-end lg:mt-4">
+                    <button
+                      onClick={() => removeFromWishlist(wishlistId, job?._id)}
+                      className="rounded-small bg-black px-4 sm:px-6 py-2 border border-transparent text-center text-xs sm:text-sm text-white shadow-md hover:shadow-lg transition-all hover:bg-gray-800"
+                      type="button"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="flex justify-center my-[15rem]">
-          <p className="arsenal-sc-regular text-2xl ">Your Wishlist is Empty</p>
+        <div className="flex justify-center items-center h-56 sm:h-64 md:h-80 lg:h-96">
+          <p className="arsenal-sc-regular text-xl sm:text-2xl">
+            Your Wishlist is Empty
+          </p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
