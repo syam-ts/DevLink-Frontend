@@ -150,7 +150,7 @@ const UserProfile: React.FC = () => {
           toast.error("Wrong page selection");
         }
       } catch (error: unknown) {
-        const err = error as {response: {data: {message: string}}};
+        const err = error as { response: { data: { message: string } } };
         if (err.response.data.message == "No token provided") {
           navigate("/user/login");
         }
@@ -175,7 +175,7 @@ const UserProfile: React.FC = () => {
       navigate(`/client/allChats/client/${clientId}?targetId=${user._id}`);
     }
   };
-  console.log('The user: ',user)
+  console.log('The user: ', user)
 
   return (
     <>
@@ -221,17 +221,17 @@ const UserProfile: React.FC = () => {
                               type === 'user-view' && (
                                 <div>
                                   {user?.isBoosted ? (
-                              <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
-                                <img
-                                  className="h-5 w-5 "
-                                  src="https://cdn-icons-png.flaticon.com/128/6009/6009429.png"
-                                />
-                              </span>
-                            ) : (
-                              <span className=" cursor-pointer bg-transparent">
-                                <BoostPopover />
-                              </span>
-                            )}
+                                    <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
+                                      <img
+                                        className="h-5 w-5 "
+                                        src="https://cdn-icons-png.flaticon.com/128/6009/6009429.png"
+                                      />
+                                    </span>
+                                  ) : (
+                                    <span className=" cursor-pointer bg-transparent">
+                                      <BoostPopover />
+                                    </span>
+                                  )}
                                 </div>
                               )
                             }
@@ -325,7 +325,7 @@ const UserProfile: React.FC = () => {
                         </div>
                         <div>
                           <MDBCardText className="mb-1 h5 text-white font-extrabold">
-                          {user.totalJobs || 0}
+                            {user.totalJobs || 0}
                           </MDBCardText>
                           <MDBCardText className="small text-muted mb-0">
                             <span className="text-white font-extrabold">
@@ -425,55 +425,61 @@ const UserProfile: React.FC = () => {
                         </div>
                         <div className="px-4">
                           {user.workHistory.map((job: WorkHistory, index: number) => (
-                            <div
-                              key={index}
-                              className="w-full sm:w-4/5 lg:w-5/6 border-gray-100 shadow-xl rounded-xl h-auto sm:h-[300px] border mx-auto my-10 sm:my-16 p-6 sm:p-12 arsenal-sc-regular"
-                            >
-                              <div className="flex flex-col sm:flex-row justify-between gap-6"> 
-                                <div className="grid">
-                                  <span className="text-lg sm:text-2xl text-start">
-                                    {job?.title}
-                                  </span>
-                                  <span className="text-sm mt-2">
-                                    {job?.description}
-                                  </span>
-                                  <div className="grid justify-start gap-3 mt-3">
-                                    <span className="text-sm">
-                                      {job?.expertLevel}
-                                    </span>
-                                    <span className="text-sm">
-                                      {job?.location}
-                                    </span>
-                                  </div>
-                                  <div className="flex flex-wrap gap-3">
-                                    {job?.requiredSkills?.map(
-                                      (skill: string, i: number) => (
-                                        <span
-                                          key={i}
-                                          className="rounded-full border border-transparent my-2 py-1.5 px-4 sm:px-8 text-center text-xs sm:text-sm transition-all text-white bg-[#0000ff]"
-                                        >
-                                          {skill}
+                            <div>
+                              {
+                                index < 3 && (
+                                  <div
+                                    key={index}
+                                    className="w-full sm:w-4/5 lg:w-5/6 border-gray-100 shadow-xl rounded-xl h-auto sm:h-[300px] border mx-auto my-10 sm:my-16 p-6 sm:p-12 arsenal-sc-regular"
+                                  >
+                                    <div className="flex flex-col sm:flex-row justify-between gap-6">
+                                      <div className="grid">
+                                        <span className="text-lg sm:text-2xl text-start">
+                                          {job?.title}
                                         </span>
-                                      )
-                                    )}
+                                        <span className="text-sm mt-2">
+                                          {job?.description}
+                                        </span>
+                                        <div className="grid justify-start gap-3 mt-3">
+                                          <span className="text-sm">
+                                            {job?.expertLevel}
+                                          </span>
+                                          <span className="text-sm">
+                                            {job?.location}
+                                          </span>
+                                        </div>
+                                        <div className="flex flex-wrap gap-3">
+                                          {job?.requiredSkills?.map(
+                                            (skill: string, i: number) => (
+                                              <span
+                                                key={i}
+                                                className="rounded-full border border-transparent my-2 py-1.5 px-4 sm:px-8 text-center text-xs sm:text-sm transition-all text-white bg-[#0000ff]"
+                                              >
+                                                {skill}
+                                              </span>
+                                            )
+                                          )}
+                                        </div>
+                                      </div>
+
+                                      <div className="grid text-start sm:text-end py-3">
+                                        <span className="text-sm sm:text-base">
+                                          {job?.amount}.00₹
+                                        </span>
+                                        <span className="text-sm sm:text-base">
+                                          {job?.paymentType}
+                                        </span>
+                                        <span className="text-sm sm:text-base">
+                                          {job?.estimateTimeinHours}/hr
+                                        </span>
+                                        <span className="text-sm text-green-400 underline">
+                                          {job?.projectType}
+                                        </span>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
- 
-                                <div className="grid text-start sm:text-end py-3">
-                                  <span className="text-sm sm:text-base">
-                                    {job?.amount}.00₹
-                                  </span>
-                                  <span className="text-sm sm:text-base">
-                                    {job?.paymentType}
-                                  </span>
-                                  <span className="text-sm sm:text-base">
-                                    {job?.estimateTimeinHours}/hr
-                                  </span>
-                                  <span className="text-sm text-green-400 underline">
-                                    {job?.projectType}
-                                  </span>
-                                </div>
-                              </div>
+                                )
+                              }
                             </div>
                           ))}
                         </div>
