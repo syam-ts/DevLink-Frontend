@@ -113,8 +113,8 @@ const HomeUser: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await apiUserInstance.get(`/home/latestJobs`);
-      setLatestJobs(data?.data);
+      const { data } = await apiUserInstance.get(`/home/latestJobs`); 
+      setLatestJobs(data?.data.latestJobs);
     })();
   }, []);
 
