@@ -22,7 +22,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
     const isVerified = useSelector((state: ClientState) => state.client.currentClient.isVerified);
  
   return (
-    <Card className="py-3 w-80 ">
+    <Card className="py-3 w-80">
       <CardHeader className="pb-0 px-4">
         <div className='grid'>
           <span className="text-tiny font-bold">{developer.domain}</span>
@@ -39,7 +39,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           <CardBody className="overflow-hidden py-2">
             <img
               alt="Card background"
-              className="object-cover rounded-xl"
+              className="object-cover rounded-xl h-[17rem] "
               src={developer.profilePicture}
               width={270}
             />
