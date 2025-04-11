@@ -164,7 +164,7 @@ const AllContract: React.FC = () => {
                       </div>
 
                       {contractsViewType === "pending" && (
-                        <span className="absolute py-1 sm:py-2 px-3 sm:px-5 text-xs sm:text-sm text-white top-0 right-0 bg-[#0000ff] rounded-md transform translate-x-2 -translate-y-2 sm:-translate-y-3 shadow-md">
+                        <span className="absolute py-1 sm:py-2 px-3 sm:px-5 text-xs sm:text-sm text-white top-0 right-0 bg-[#0000ff] rounded-small transform translate-x-2 -translate-y-2 sm:-translate-y-3 shadow-md">
                           New
                         </span>
                       )}

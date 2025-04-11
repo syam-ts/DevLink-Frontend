@@ -74,7 +74,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
           );
 
           data.success
-            ? (window.location.href = `http://localhost:5173/user/job/myContracts/${userId}/user`)
+            ? (window.location.href = `https://dev-link-frontend.vercel.app/user/job/myContracts/${userId}/user`)
             : toast.error(data.message);
         } catch (err) {
           console.log(err.message);
