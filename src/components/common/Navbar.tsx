@@ -178,7 +178,7 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
             <DropdownTrigger>
               {roleInfo?.profilePicture ? (
                 <div className="flex gap-4">
-                  <span>{roleInfo.name.split(" ").join("")}</span>
+                  <span className='line-clamp-1'>{roleInfo.name.split(" ").join("")}</span>
                   <img
                     className="h-9 w-9 rounded-full border border-gray-300"
                     src={roleInfo.profilePicture}
@@ -187,7 +187,7 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
                 </div>
               ) : (
                 <div className="flex gap-4">
-                  <span>{roleInfo.companyName}</span>
+                  <span className='line-clamp-1'>{roleInfo.companyName}</span>
                   <span className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-300"></span>
                 </div>
               )}
