@@ -218,7 +218,7 @@ const UserProfile: React.FC = () => {
                               {user?.name}
                             </MDBTypography>
                             {
-                              type === 'user-view' && (
+                              type === 'user-view' && "client-view" && "proposal-view" && (
                                 <div>
                                   {user?.isBoosted ? (
                                     <span className=" cursor-pointer bg-transperant text-white px-2 rounded-full py-2 mx-2">
