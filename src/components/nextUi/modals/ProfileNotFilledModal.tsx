@@ -66,7 +66,7 @@ export const ProfileNotFilledModal: React.FC<ProfileNotFilledModalProps> = ({
               </ModalHeader>
               <ModalBody>
                 {roleType === "user" ? (
-                  <p className="text-sm px-5">
+                  <p className="text-sm px-5 line-clamp-3">
                     Your profile details are not completly filled. Becuase of
                     that your activities on Devlink would be very limitted. If
                     you want get more access and get jobs by the filter
@@ -75,7 +75,7 @@ export const ProfileNotFilledModal: React.FC<ProfileNotFilledModalProps> = ({
                     and become a premium member in Devlink....
                   </p>
                 ) : (
-                  <p className="text-sm px-5">
+                  <p className="text-sm px-5 line-clamp-3">
                     Your profile details are not completly filled. Becuase of
                     that your activities on Devlink would be very limitted.You
                     are not eligible to create job posts and view more
