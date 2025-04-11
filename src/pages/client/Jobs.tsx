@@ -73,6 +73,7 @@ const Jobs = () => {
     setCurrentPage(1);
   };
 
+
   return (
     <main className="pt-20">
       <Sonner />

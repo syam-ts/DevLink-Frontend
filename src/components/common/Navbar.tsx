@@ -43,13 +43,13 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotificationsUser());
-      window.location.href = "http://localhost:5173/login?rt=user";
+      window.location.href = "https://dev-link-frontend.vercel.app/login?rt=user";
     } else if (roleType === "client") {
       localStorage.removeItem("notificationsPageFirstVisit");
       localStorage.removeItem("accessToken");
       dispatch(signOutUser());
       dispatch(clearNotificationsClient());
-      window.location.href = "http://localhost:5173/login?rt=client";
+      window.location.href = "https://dev-link-frontend.vercel.app/login?rt=client";
     }
   };
 
