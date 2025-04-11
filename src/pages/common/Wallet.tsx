@@ -142,7 +142,7 @@ const Wallet: React.FC<WalletProps> = ({ roleType }) => {
                 {transactions?.map((transact: Transactions, idx: number) => (
                   <tr key={idx} className="text-center border-b">
                     <td className="p-3">{transact?.type || transact[0]?.type}</td>
-                    <td className="p-3">{transact?.amount || transact[0]?.amount}</td>
+                    <td className="p-3">{Math.floor(transact?.amount || transact[0]?.amount)}</td>
                     <td className="p-3">{transact?.from || transact[0]?.from}</td>
                     <td className="p-3 line-clamp-1">{transact?.date || transact[0]?.date}</td>
                   </tr>
