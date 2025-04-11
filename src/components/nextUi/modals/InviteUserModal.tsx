@@ -27,7 +27,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
   useEffect(() => {
     try {
       const fetchJobTitle = async () => {
-        const { data } = await apiClientInstance.get("/listAllJobs");
+        const { data } = await apiClientInstance.get("/inviteJobsList");
         setJobs(data.response);
       };
       fetchJobTitle();
