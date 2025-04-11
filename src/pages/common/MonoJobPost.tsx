@@ -337,7 +337,7 @@ const MonoJobPost = () => {
             <span>Large Company ({jobPost?.aboutClient?.numberOfEmployees} people)</span>
           </div>
           {
-            viewType !== 'client-view' && viewType !== 'proposal-view' && (
+            viewType !== 'client-view' && viewType !== 'proposal-view' && userVerified && (
               <div className="pt-4 flex flex-wrap items-center gap-3">
                 <span className="text-sm font-medium">{jobPost?.aboutClient?.companyName} Inc.</span>
                 <button
