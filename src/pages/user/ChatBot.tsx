@@ -29,7 +29,7 @@ export const Chatbot = () => {
 
     try {
       const { data } = await apiUserInstance.post(
-        "http://localhost:3000/user/chatbot",
+        "https://devlinkweb.shop/user/chatbot",
         {
           userInput,
         }
