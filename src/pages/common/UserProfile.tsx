@@ -352,7 +352,7 @@ const UserProfile: React.FC = () => {
                       <div className="mb-5 arsenal-sc-regular">
                         <p className="lead fw-normal mb-1">About</p>
                         <div
-                          className="p-4"
+                          className="p-4 rounded-small"
                           style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-extrabold mb-1 text-center text-xl py-4">
@@ -369,7 +369,7 @@ const UserProfile: React.FC = () => {
                       <div className="mb-5 arsenal-sc-regular">
                         <p className="lead fw-normal mb-1">Why Hire Me</p>
                         <div
-                          className="p-4"
+                          className="p-4 rounded-small"
                           style={{ backgroundColor: "#cbd0d6" }}
                         >
                           <MDBCardText className="font-italic mb-1">

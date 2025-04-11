@@ -14,7 +14,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
     <div className="flex flex-wrap justify-center">
       {review?.map((re: Review) => (
-        <div className="p-4 w-[35rem] rounded-lg shadow-sm border border-slate-200 m-3">
+        <div className="p-4 w-[35rem] rounded-small shadow-sm border border-slate-200 m-3">
           <div className="flex justify-between gap-4 text-slate-800">
             <div>
               <p className="text-xs uppercase font-bold text-black mt-0.5">
