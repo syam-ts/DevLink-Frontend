@@ -115,7 +115,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({ type }) => {
           if (response.data.success) {
             dispatch(addRequest(response.data));
             toast.success(response.data.message);
-           // navigate("/client/home");
+            navigate("/client/home");
           } else {
             toast.error(response.data.message, {
               style: {
