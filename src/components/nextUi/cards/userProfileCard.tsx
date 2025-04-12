@@ -39,7 +39,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           <CardBody className="overflow-hidden py-2">
             <img
               alt="Card background"
-              className="object-contain rounded-xl h-[17rem] "
+              className="object-contain rounded-xl h-[300px] "
               src={developer.profilePicture}
               width={270} 
             />
@@ -49,7 +49,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           <CardBody className="overflow-hidden py-2">
           <img
             alt="Card background"
-            className="object-contain rounded-xl h-[17-rem]"
+            className="object-contain rounded-xl h-[300px]"
             src={developer.profilePicture}
             width={270}
           />
