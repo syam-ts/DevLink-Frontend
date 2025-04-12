@@ -1,5 +1,3 @@
-import {lazy} from 'react';
-
 // ------- user imports ------------
 import HomeUser from "../../pages/user/HomeUser";
 import JobPage from "../../pages/user/Jobs";
@@ -25,9 +23,7 @@ import Footer from "../../components/common/Footer";
 import Navbar from "../../components/common/Navbar";
 import UserProfile from "../../pages/common/UserProfile";
 import Contract from "../../pages/common/Contract";
-
-const AllContracts = lazy(() => import("../../pages/common/AllContract"));
-
+import AllContracts from "../../pages/common/AllContract";
 import ListAllUserChat from "../../components/common/ViewAllChats";
 import SignupComponent from "../../components/common/SignupComponent";
 import LoginComponent from "../../components/common/LoginComponent";
@@ -39,7 +35,6 @@ import Wallet from "../../pages/common/Wallet";
 import InviteComponent from "../../components/common/Invite";
 import Wishlist from "../../pages/common/Wishlist";
 import MonoJobPost from "../../pages/common/MonoJobPost"; 
-import React from "react";
 
 // --------- user exports -----------
 export const userRouteHelper = { 
