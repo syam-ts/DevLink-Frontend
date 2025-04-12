@@ -40,7 +40,7 @@ export const InputOtpComponent = () => {
       if (!response.data.success) {
         toast.error(response.data.message, { style: { backgroundColor: "red", color: "white" } });
       } else {
-        navigate(`/login?rt=${rt}`);
+       navigate(`/login?rt=${rt}`);
       }
     } catch (err) { 
       toast.error(err.response?.data?.message, {

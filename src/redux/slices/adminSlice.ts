@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from './userSlice';
+import { Client } from './clientSlice';
 
 interface Admin {
     name: string;
@@ -19,68 +21,68 @@ const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        signInAdmin: (state: any, action: PayloadAction<Admin>) => { 
+        signInAdmin: (state, action: PayloadAction<Admin>) => { 
             state.currentAdmin = action.payload;
             state.isAdmin = true;
         },
         
-        signOutAdmin: (state: any) => {
+        signOutAdmin: (state) => {
             state.currentAdmin = null;
             state.isAdmin = false;
         },
-        addRequest: (state: any, action: PayloadAction<Admin>) => {
+        addRequest: (state, action: PayloadAction<Admin>) => {
                state.request.push(action);
         },
-        pullRequest: (state: any, action: PayloadAction<Admin>) => {
+        pullRequest: (state, action: PayloadAction<Admin>) => {
             state.request = state.request.filter(
-                (item: any) => item.clientId !== action.payload.clientId
+                (item) => item.clientId !== action.payload.clientId
               );
         },
-        setUser: (state: any, action: PayloadAction<any>) => {
-            const usersMap = new Map(state.user.map((user: any) => [user._id, user]));  
+        setUser: (state, action: PayloadAction<User>) => {
+            const usersMap = new Map(state.user.map((user) => [user._id, user]));  
             usersMap.set(action.payload._id, action.payload); 
             state.user = Array.from(usersMap.values()); 
              
         },
-        setClient: (state: any, action: PayloadAction<any>) => {
-            const clientMap = new Map(state.client.map((client: any) => [client._id, client])); 
+        setClient: (state, action: PayloadAction<Client>) => {
+            const clientMap = new Map(state.client.map((client) => [client._id, client])); 
             clientMap.set(action.payload._id, action.payload); 
             state.client = Array.from(clientMap.values()); 
              
         },
-        blockUser: (state: any, action: PayloadAction<any>) => {
-           const foundUser = state.user.find((u: any) => u._id === action.payload );
+        blockUser: (state, action: PayloadAction<User>) => {
+           const foundUser = state.user.find((u) => u._id === action.payload );
        
            if(foundUser) {
             foundUser.isBlocked = true
            }
         },
-        unBlockUser: (state: any, action: any) => {
-            const foundUser = state.user.find((u: any) => u._id === action.payload );
+        unBlockUser: (state, action) => {
+            const foundUser = state.user.find((u: User) => u._id === action.payload );
        
             if(foundUser) {
              foundUser.isBlocked = false
             }
         },
-        blockClient: (state: any, action: PayloadAction<any>) => {
-           const foundClient= state.client.find((u: any) => u._id === action.payload );
+        blockClient: (state, action: PayloadAction<Client>) => {
+           const foundClient= state.client.find((u) => u._id === action.payload );
        
            if(foundClient) {
             foundClient.isBlocked = true
            }
         },
-        unBlockClient: (state: any, action: any) => {
-            const fountClient = state.client.find((u: any) => u._id === action.payload );
+        unBlockClient: (state, action) => {
+            const fountClient = state.client.find((u) => u._id === action.payload );
        
             if(fountClient) {
              fountClient.isBlocked = false
             }
         },
-        deleteDatasUser: (state: any, action: any)=> { 
+        deleteDatasUser: (state, action)=> { 
             console.log('action: ',action)
                 state.user = []
         }, 
-        deleteDatasClient: (state: any, action: any)=> { 
+        deleteDatasClient: (state, action)=> { 
             console.log('action: ',action)
 
                 state.client = []

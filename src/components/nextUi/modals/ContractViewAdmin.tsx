@@ -38,7 +38,7 @@ export const ContractView: React.FC<ContractViewProps> = ({ contract }) => {
   return (
     <>
       <Button className="bg-transparent" onPress={onOpen}>
-        <img className="h-5 w-5" src="/public/view-user.png" />
+        <img className="h-5 w-5" src="/view-user.png" />
       </Button>
       <Modal size="3xl" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>

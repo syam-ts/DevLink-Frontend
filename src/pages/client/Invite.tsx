@@ -20,9 +20,9 @@ interface Invite {
     status: String;
     createdAt: String;
 }
- 
+
 const Invite = () => {
-    const [inviteType, setInviteType] = useState<string>('pending');
+    const [inviteType, setInviteType] = useState<string>("pending");
     const [invites, setInvites] = useState<Invite>({
         userId: "",
         clientId: "",
@@ -63,10 +63,15 @@ const Invite = () => {
             </section>
 
             <section>
-                <div className='justify-end flex mx-[5rem] arsenal-sc-regular'>
+                <div className="justify-end flex mx-[5rem] arsenal-sc-regular">
                     <form className="w-[15rem] justify-center">
-                        <select onChange={(e) => setInviteType(e.currentTarget.value)} className="border shadow-2xl border-gray-300 text-gray-900 text-sm rounded-small block w-full outline-none p-2.5">
-                            <option selected value="pending">Pending</option>
+                        <select
+                            onChange={(e) => setInviteType(e.currentTarget.value)}
+                            className="border shadow-2xl border-gray-300 text-gray-900 text-sm rounded-small block w-full outline-none p-2.5"
+                        >
+                            <option selected value="pending">
+                                Pending
+                            </option>
                             <option value="rejected">Rejected</option>
                         </select>
                     </form>
@@ -75,44 +80,40 @@ const Invite = () => {
 
             <section>
                 <div className="px-10 arsenal-sc-regular grid gap-5 justify-center pt-5">
-                    {
-                        Object.entries(invites).length === 0 && (
-                            <p className='text-xl py-44'>
-                                No invites Found
-                            </p>
-                        )
-                    }
+                    {Object.entries(invites).length === 0 && (
+                        <p className="text-xl py-44">No invites Found</p>
+                    )}
 
                     {Object.entries(invites).map((invite) => (
-                        <div className="flex border h-[10rem] shadow-xl rounded-xl w-[70rem] py-3 px-5">
+                        <div className="w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-4 md:p-8 flex flex-col md:flex-row justify-between gap-6 transition-all duration-300 hover:shadow-2xl">
+                            <div className="flex-1 space-y-3">
+                                <h2 className="text-2xl font-bold text-gray-800 leading-snug">
+                                    {invite[1]?.jobPostData?.title}
+                                </h2>
 
-                            <div className="grid w-full flex-col ">
-                                <h5 className="text-xl font-semibold text-slate-800">
-                                    Title: {invite[1]?.jobPostData?.title}
-                                </h5>
-                                <span className="text-xs uppercase font-bold text-slate-500 mt-0.5">
-                                    Expert level: {invite[1]?.jobPostData?.expertLevel}
-                                </span>
-                                <span className="text-slate-600 font-light leading-normal">
+                                <div className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold uppercase px-3 py-1 rounded-full">
+                                    {invite[1]?.jobPostData?.expertLevel}
+                                </div>
+
+                                <p className="text-gray-600 text-sm leading-relaxed">
                                     {invite[1]?.description}
-                                </span>
-                                <p className="text-slate-600 font-light leading-normal">
-                                    Location: {invite[1]?.jobPostData?.location}
+                                </p>
+
+                                <p className="text-gray-500 text-sm font-medium">
+                                    📍 Location:{" "}
+                                    <span className="font-normal">
+                                        {invite[1]?.jobPostData?.location}
+                                    </span>
                                 </p>
                             </div>
 
-                            <div className='flex justify-end h-[2.5rem] mt-10'>
-                                <button
-                                    className="rounded-small bg-[#0000ff] px-5 font-bold text-sm ml-2"
-                                    type="button"
+                            <div className="flex items-start md:items-center justify-end">
+                                <Link
+                                    to={`/client/job/${invite[1]?.jobPostData?._id}/client-view`}
+                                    className="inline-block bg-[#0000ff] text-white px-6 py-2 rounded-small no-underline text-sm font-semibold shadow-md hover:bg-blue-700 transition duration-200"
                                 >
-                                    <Link
-                                        to={`/client/job/${invite[1]?.jobPostData?._id}/client-view`}
-                                        className="no-underline text-white font-bold"
-                                    >
-                                        View
-                                    </Link>
-                                </button>
+                                    View Job
+                                </Link>
                             </div>
                         </div>
                     ))}

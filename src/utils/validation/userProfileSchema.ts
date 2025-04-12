@@ -109,7 +109,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "name-validation",
       "Must be at least 3 characters and under 20 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 3 && value.length <= 20;
         }
@@ -122,7 +122,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "budget-validation",
       "Hourly rate must be at least 100rs - 1500rs characters",
-      (value: any) => {
+      (value: number) => {
         if (value > 0) {
           return value >= 100 && value <= 1500;
         }
@@ -135,7 +135,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "mobile-validation",
       "Need valid number (10 digits only)",
-      (value: any) => {
+      (value: number) => {
         if (value > 0) {
           const numStr = value.toString();
           return numStr.length === 10;
@@ -149,7 +149,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "skills-validation",
       "Skill Filed must be at least 2 - 6 data",
-      (value: any) => {
+      (value: string[]) => {
         if (value.length > 0) {
           return value.length >= 2 && value.length <= 6;
         }
@@ -163,34 +163,21 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "location-validation",
       "Must be at least 4 characters and under 20 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 4 && value.length <= 20;
         }
         return true;
       }
     ),
-
-  // profilePicture: yup
-  //   .mixed()
-  //   .test("is-valid-size", "Max allowed size is 100KB", (value: any) => {
-  //     if (!value) return true; // Allow empty values (optional)
-  //     if (typeof value === "string") return true; // Allow URLs
-  //     return value.size <= MAX_FILE_SIZE;
-  //   })
-  //   .test("is-valid-type", "Only JPG, JPEG, PNG, and WEBP formats are allowed", (value: any) => {
-  //     if (!value) return true; // Allow empty values (optional)
-  //     if (typeof value === "string") return true; // Allow URLs
-  //     return value && value.type && SUPPORTED_FORMATS.includes(value.type);
-  //   }),
-
+ 
   domain: yup
     .string()
     .trim()
     .test(
       "domain-validation",
       "Domain name must be at least 10 -  20 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 10 && value.length <= 20;
         }
@@ -204,7 +191,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "github-validation",
       "Github link must be at least 10 - 30 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 10 && value.length <= 30;
         }
@@ -218,7 +205,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "description-validation",
       "Descripton must be at least 20 - 200 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 20 && value.length <= 200;
         }
@@ -232,7 +219,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "whyHireMe-validation",
       "Hire me Filed must be at least 20 - 60 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 20 && value.length <= 60;
         }
@@ -246,7 +233,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "experience-validation",
       "Experience Filed must be at least 20 - 60 characters",
-      (value: any) => {
+      (value: string) => {
         if (value?.trim().length > 0) {
           return value.length >= 20 && value.length <= 60;
         }
@@ -259,7 +246,7 @@ export const userProfileEditSchema = yup.object().shape({
     .test(
       "education-validation",
       "Education Filed must be at least 2 - 6 data",
-      (value: any) => {
+      (value: string[]) => {
         if (value.length > 0) {
           return value.length >= 2 && value.length <= 6;
         }

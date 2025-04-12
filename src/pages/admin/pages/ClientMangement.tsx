@@ -241,83 +241,83 @@ const clientManagement: React.FC = () => {
               </div>
 
               <section>
-        <div className="container mx-auto px-4">
-          <nav
-            className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
-            aria-label="Pagination"
-          >
-            {currentPage - 1 < 1 ? (
-              <div></div>
-            ) : (
-              <a
-                onClick={() => changePage(currentPage - 1)}
-                className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white -800 text-black  hover:border-gray-300 -gray-600"
-                title="Previous Page"
-              >
-                <span className="sr-only">Previous Page</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="block w-5 h-5 my-2 mx-auto"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </a>
-            )}
+                <div className="container mx-auto px-4">
+                  <nav
+                    className="flex flex-row flex-nowrap justify-between md:justify-center items-center"
+                    aria-label="Pagination"
+                  >
+                    {currentPage - 1 < 1 ? (
+                      <div></div>
+                    ) : (
+                      <a
+                        onClick={() => changePage(currentPage - 1)}
+                        className="cursor-pointerflex w-10 h-10 justify-center items-center rounded-full border border-gray-200 bg-white -800 text-black  hover:border-gray-300 -gray-600"
+                        title="Previous Page"
+                      >
+                        <span className="sr-only">Previous Page</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="block w-5 h-5 my-2 mx-auto"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 19.5L8.25 12l7.5-7.5"
+                          />
+                        </svg>
+                      </a>
+                    )}
 
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <p
-                onClick={() => changePage(index + 1)}
-                key={index}
-                className="md:flex w-8 h-8 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border-1 border-gray-300 bg-white -700 text-black  hover:border-gray-300 -gray-600"
-                title={`Page ${index + 1}`}
-              >
-                {index + 1}
-              </p>
-            ))}
+                    {Array.from({ length: totalPages }).map((_, index) => (
+                      <p
+                        onClick={() => changePage(index + 1)}
+                        key={index}
+                        className="md:flex w-8 h-8 mx-2 my-4 cursor-pointer justify-center items-center rounded-full border-1 border-gray-300 bg-white -700 text-black  hover:border-gray-300 -gray-600"
+                        title={`Page ${index + 1}`}
+                      >
+                        {index + 1}
+                      </p>
+                    ))}
 
-            {currentPage + 1 > totalPages ? (
-              <div></div>
-            ) : (
-              <a
-                onClick={() => changePage(currentPage + 1)}
-                className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300 "
-                title="Next Page"
-              >
-                <span className="sr-only">Next Page</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="block w-5 h-5"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </a>
-            )}
-          </nav>
-        </div>
-      </section>
+                    {currentPage + 1 > totalPages ? (
+                      <div></div>
+                    ) : (
+                      <a
+                        onClick={() => changePage(currentPage + 1)}
+                        className="cursor-pointer flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300 "
+                        title="Next Page"
+                      >
+                        <span className="sr-only">Next Page</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="block w-5 h-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                          />
+                        </svg>
+                      </a>
+                    )}
+                  </nav>
+                </div>
+              </section>
 
             </div>
           </div>
         </div>
       </div>
 
-     
+
     </div>
   );
 };

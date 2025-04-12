@@ -12,8 +12,12 @@ interface Transactions {
 
 interface Wallet {
   totalPages: number
-  balance: number
-  transactions: Transactions
+  adminWallet: [
+    {
+      balance: number
+      transactions: [Transactions]
+    }
+  ]
 };
 
 const Wallet: React.FC = () => {
@@ -30,7 +34,7 @@ const Wallet: React.FC = () => {
             wallet?: Wallet;
           };
         }
-        let response: Response; 
+        let response: Response;
         response = await apiAdminInstance.get(
           `/wallet?currentPage=${currentPage}`,
           {
@@ -39,8 +43,8 @@ const Wallet: React.FC = () => {
         );
 
         setTotalPages(response.data?.wallet?.totalPages);
-        setBalance(response.data?.wallet[0]?.balance);
-        setTransactions(response.data.wallet[0]?.transactions);
+        setBalance(response.data.wallet.adminWallet[0].balance);
+        setTransactions(response.data.wallet.adminWallet[0].transactions);
       } catch (error: unknown) {
         const err = error as { message: string };
         toast.error(err.message, {
@@ -61,7 +65,7 @@ const Wallet: React.FC = () => {
     <div>
       <section className="flex justify-center mt-10">
         <div className="flex mt-10 bg-gradient-to-r from-slate-400 to-zinc-700 w-1/3 h-[10rem] rounded-large text-white font-extrabold justify-center py-12">
-          <span className="text-xl">Balance: {Math.floor(balance)} </span>
+          <span className="text-2xl arsenal-sc-regular">Balance: {Math.floor(balance)} </span>
         </div>
       </section>
 
@@ -122,7 +126,7 @@ const Wallet: React.FC = () => {
                     </td>
                     <td className="p-3 border-b border-gray-300">
                       <p className="text-sm antialiased leading-normal text-gray-900">
-                        {transact?.date || transact[0]?.date}
+                        {transact?.createdAt || transact[0]?.createdAt}
                       </p>
                     </td>
                   </tr>

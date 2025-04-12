@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { clientRouteHelper } from "../config/helper/routeHelper";
 import { ClientState } from "../config/state/allState"; 
 import ClientProfile1 from '../pages/client/ProfileClient'
+import {Suspense} from "react";
 
 const {
   Navbar,
@@ -31,6 +32,7 @@ const {
 const ClientRoute = () => {
   const currentClient = useSelector((state: ClientState) => state.client);
   const client = currentClient?.currentClient;
+ 
 
   return (
     <>
@@ -48,7 +50,16 @@ const ClientRoute = () => {
         <Route path="/paymenFailed" element={<PaymentFailed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/userProfile/:type/:userId" element={<UserProfile />} />
-        <Route path="/contracts/:roleType" element={<AllContracts />} />
+
+        <Route path="/contracts/:roleType" element={
+
+        <Suspense fallback={<div>Loading...</div>}>
+             <AllContracts />
+        </Suspense>
+        }/>
+         
+
+
         <Route path="/contract/:contractId/:roleType" element={<Contract />} />
         <Route path="/wallet" element={<Wallet roleType="client" />} />
         <Route path="/invites" element={<InviteCilent />} /> 

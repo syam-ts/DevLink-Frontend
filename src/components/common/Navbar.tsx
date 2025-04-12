@@ -187,8 +187,12 @@ const Navbar: React.FC<NavbarProps> = ({ roleType, roleInfo }) => {
                 </div>
               ) : (
                 <div className="flex gap-4">
-                  <span className='line-clamp-1'>{roleInfo.companyName}</span>
-                  <span className="h-9 w-9 flex items-center justify-center rounded-full bg-gray-300"></span>
+                  <p className='line-clamp-1'>{roleInfo.companyName}</p>
+                  <img
+                    className="h-9 w-9 rounded-full border border-gray-300"
+                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68ktpV08nXJtoNFAaMEc3zE8rckvhyFW2BA&s'
+                    alt="Profile"
+                  />
                 </div>
               )}
             </DropdownTrigger>

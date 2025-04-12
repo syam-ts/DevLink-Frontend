@@ -42,7 +42,8 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
     onOpen();
   };
 
- 
+
+
   const inviteUser = async () => {
     try {
       const { data } = await apiClientInstance.post("/inviteUser", {
@@ -66,7 +67,7 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
         });
 
         setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/client/home`;
+          window.location.href = `${config.BASE_URL}/client/invites`;
         }, 800);
       }
     } catch (error: unknown) {
@@ -76,8 +77,8 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
         position: "top-center",
         style: {
           backgroundColor: "yellow",
-          color: "#324033",
-          width: "13rem",
+          color: "black",
+          width: "full",
           height: "3rem",
           justifyContent: "center",
           border: "none",
@@ -122,8 +123,9 @@ export const InviteModal: React.FC<InviteModalProps> = ({ userId }) => {
                       <select
                         onChange={(e) => setSelectJobId(e.target.value)}
                         className="w-fullo bg-transparent outline-none placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease shadow-sm appearance-none cursor-pointer"
-                      >
+                      >  <option>Select a JobPost</option>
                         {Object.entries(jobs).map((job: {}) => (
+
                           <option value={job[1]._id}>{job[1].title}</option>
                         ))}
                       </select>

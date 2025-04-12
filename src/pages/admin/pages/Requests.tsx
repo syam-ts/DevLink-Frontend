@@ -9,12 +9,14 @@ interface Request {
   type: string
   status: string
   clientId: string
-  unChangedData: {
-    companyName: string
-    description: string
-    location: string
-    numberOfEmployees: number
-    since: number
+  data: {
+    unChangedData: {
+      companyName: string
+      description: string
+      location: string
+      numberOfEmployees: number
+      since: number
+    }
   }
 };
 
@@ -24,20 +26,26 @@ const Requests: React.FC = () => {
     type: "",
     status: "",
     clientId: "",
-    unChangedData: {
-      companyName: "",
-      description: "",
-      location: "",
-      numberOfEmployees: 0,
-      since: 0,
+    data: {
+      unChangedData: {
+        companyName: "",
+        description: "",
+        location: "",
+        numberOfEmployees: 0,
+        since: 0,
+      }
     },
   });
 
   useEffect(() => {
     try {
       const fetchRequest = async () => {
-        const data = await apiAdminInstance.get("/getRequests");
-        setRequests(data?.data?.data);
+        const { data } = await apiAdminInstance.get("/getRequests");
+        if (data.data) {
+          setRequests(data?.data);
+        } else {
+          setRequests(data?.data);
+        }
       };
       fetchRequest();
     } catch (err) {
@@ -62,6 +70,7 @@ const Requests: React.FC = () => {
       toast.error(err.message);
     }
   };
+
 
   return (
     <div className="text-center mt-20">
@@ -92,7 +101,7 @@ const Requests: React.FC = () => {
                       <div>
                         <button className="" type="button">
                           <VerifyClientViewByAdmin
-                            unChangedData={request.unChangedData}
+                            unChangedData={request?.data?.unChangedData}
                           />
                         </button>
                       </div>

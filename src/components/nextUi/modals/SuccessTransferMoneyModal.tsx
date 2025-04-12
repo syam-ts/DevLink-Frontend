@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 
 interface SuccessTransferMoneyModalProps {
+    roleType: string;
     userId: string;
     requestId: string;
     requestedAmount: number;
@@ -32,10 +33,10 @@ interface FormData {
 
 export const SuccessTransferMoneyModal: React.FC<
     SuccessTransferMoneyModalProps
-> = ({ userId, requestId, requestedAmount }) => {
+> = ({ roleType, userId, requestId, requestedAmount }) => {
     const [formData, setFormData] = useState<FormData>({
         paymentScreenshot: "",
-        amount: 0,
+        amount: requestedAmount,
         upiId: 0,
     });
     const [image, setImage] = useState<string>("");
@@ -101,9 +102,11 @@ export const SuccessTransferMoneyModal: React.FC<
             });
 
             if (isValid) {
+                console.log('amoutnnnt; ', formData.amount)
                 const body = {
+                    roleType: roleType,
                     paymentScreenshot: formData.paymentScreenshot,
-                    amount: formData.amount,
+                    amount: requestedAmount,
                     upiId: formData.upiId,
                     userId: userId,
                     requestId: requestId,
@@ -211,37 +214,9 @@ export const SuccessTransferMoneyModal: React.FC<
                                     type="number"
                                     variant="bordered"
                                     name="amount"
+                                    value={requestedAmount.toString()}
                                 />
 
-                                {error?.some((err: string) =>
-                                    err.includes("amount is required")
-                                )
-                                    ? error?.map((err: string, index: number) => {
-                                        if (err.includes("amount is required")) {
-                                            return (
-                                                <div key={index} className="text-start">
-                                                    <span className="text-red-400 text-sm">{err}</span>
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })
-                                    : error?.map((err: string, index: number) => {
-                                        if (
-                                            err.includes("amount is required") ||
-                                            err.includes(
-                                                "amount should be under requestd amount"
-                                            ) ||
-                                            err.includes("the amount need to be valid")
-                                        ) {
-                                            return (
-                                                <div key={index} className="text-start">
-                                                    <span className="text-red-400 text-sm">{err}</span>
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })}
 
                                 <Label>Upi Id</Label>
                                 <Input

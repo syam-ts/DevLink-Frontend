@@ -3,6 +3,7 @@ import { SuccessTransferMoneyModal } from "../../../components/nextUi/modals/Suc
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 
 interface Request {
+  roleType: string
   _id: string
   roleId: string
   userName: string
@@ -49,6 +50,7 @@ function WithdrawRequest() {
                 type="button"
               >
                 <SuccessTransferMoneyModal
+                  roleType={request.roleType}
                   userId={request.roleId}
                   requestId={request._id}
                   requestedAmount={request.amount}

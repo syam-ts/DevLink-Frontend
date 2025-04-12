@@ -58,7 +58,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "companyName-validation",
           "Must be at least 10 characters and under 30 characters",
-          (value: any) => {
+          (value: string) => {
             if (value?.trim().length > 0) {
                 console.log('lenght nam:', value)
               return value.length >= 10 && value.length <= 30;
@@ -74,7 +74,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "location-validation",
           "Must be valid location (4 - 20)",
-          (value: any) => {
+          (value: string) => {
             if (value?.trim().length > 0) {
               return value.length >= 4 && value.length <= 20;
             }
@@ -88,7 +88,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "domain-validation",
           "Must be at least 10 characters and under 25 characters",
-          (value: any) => {
+          (value: string) => {
             if (value?.trim().length > 0) {
               return value.length >= 10 && value.length <= 25;
             }
@@ -102,7 +102,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "description-validation",
           "Must be at least 20 - 100 characters",
-          (value: any) => {
+          (value: string) => {
             if (value?.trim().length > 0) {
                 console.log('length: ', value.length)
               return value.length >= 20 && value.length <= 100;
@@ -116,7 +116,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "description-validation",
           "Must be at least 10 - 2000 employees",
-          (value: any) => {
+          (value: number) => {
             if (value> 0) {
               return value >= 10 && value <= 2000;
             }
@@ -129,7 +129,7 @@ export const clientProfileEditSchema = yup.object().shape({
         .test(
           "description-validation",
           "Establishment Year must be valid(1990 - 2025)",
-          (value: any) => {
+          (value: number) => {
             if (value> 0) {
               return value >= 1990 && value <= 2025;
             }

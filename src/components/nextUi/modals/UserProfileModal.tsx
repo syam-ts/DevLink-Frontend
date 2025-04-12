@@ -49,7 +49,7 @@ export const UserProfileModal = ({ userData }) => {
           >
             <img
               className="w-5 h-5"
-              src="/public/view-user.png"
+              src="/view-user.png"
               alt="view-image"
             />
           </Button>

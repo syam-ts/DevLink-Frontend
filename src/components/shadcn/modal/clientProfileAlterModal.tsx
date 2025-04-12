@@ -97,10 +97,12 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({ type }) => {
       if (validForm) {
         try {
           setError([]);
+          console.log('rest first: ',formData, clientData)
           const data = {
             editData: formData,
-            unhangedData: clientData,
+            unChangedData: clientData,
           };
+          console.log('fins, data: ',data)
 
           const response = await apiClientInstance.post(
             `/profile/${type}`,
@@ -113,7 +115,7 @@ const ClientProfileAlter: React.FC<ClientProfileAlterProps> = ({ type }) => {
           if (response.data.success) {
             dispatch(addRequest(response.data));
             toast.success(response.data.message);
-            navigate("/client/home");
+           // navigate("/client/home");
           } else {
             toast.error(response.data.message, {
               style: {

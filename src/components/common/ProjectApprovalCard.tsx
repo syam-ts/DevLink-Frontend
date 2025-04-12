@@ -1,4 +1,3 @@
-import config from "../../config/helper/config";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -57,9 +56,9 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
             color: "white",
           },
         });
-        setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
+        // }, 1000);
       }
     } catch (error: unknown) {
       const err = error as { message: string };
@@ -73,8 +72,18 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
         contractId: contractId
       });
       console.log('The result: ', data);
-      //SHOW SUCCESS MESSAGE AND REFRSH THE CURENT PAGE
-
+      if(data.success) {
+        toast.success("Contract closed succssfully", {
+          style: {
+            backgroundColor: "#15E029",
+            color: "white",
+          },
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+      
     } catch (error: unknown) {
       const err = error as { message: string };
       console.log('ERROR: ', err.message);

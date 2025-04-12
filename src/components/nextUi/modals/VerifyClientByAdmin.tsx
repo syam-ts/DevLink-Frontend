@@ -22,8 +22,10 @@ interface VerifyClientViewByAdminProps {
 
 export const VerifyClientViewByAdmin: React.FC<
     VerifyClientViewByAdminProps
-> = ({ unChangedData }) => {
+> = ({ unChangedData }) => { 
+ 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    console.log('wholt,',unChangedData)
 
     return (
         <>

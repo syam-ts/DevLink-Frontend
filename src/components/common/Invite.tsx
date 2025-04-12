@@ -1,3 +1,4 @@
+import { toast, Toaster } from "sonner";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
@@ -58,14 +59,46 @@ const InviteComponent: React.FC = () => {
     }
   }, []);
 
+  const rejectInvite = async (inviteId: string) => {
+    try{
+
+      const {data} = await apiUserInstance.patch(`/invite-reject/${inviteId}`);
+
+      console.log('The result: ',data)
+      if(data.success) {
+        toast.warning('Invite declined successfully', {
+          position: "top-center",
+          style: {
+            backgroundColor: "green",
+            color: "white",
+            width: "full",
+            height: "3rem",
+            justifyContent: "center",
+            border: "none",
+          },
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      }
+    }catch(err: unknown) {
+      console.log(err)
+    }
+  };
+
+  console.log('invites:',invites)
+
   return (
     <div className="w-full pt-44">
+      <Toaster />
       <section className="text-center">
         <span className="font-bold text-2xl arsenal-sc-regular"> Invites </span>
         <hr />
       </section>
       <section>
-        <div className="w-full max-w-4xl mx-auto py-8 px-4">
+       {
+        Object.entries(invites).length !== 0 ? (
+          <div className="w-full max-w-4xl mx-auto py-8 px-4">
           {Object.entries(invites).map((invite, index) => (
             <div
               key={index}
@@ -107,6 +140,7 @@ const InviteComponent: React.FC = () => {
 
                   <div className="flex flex-row justify-end gap-3 pt-2">
                     <button
+                    onClick={() => rejectInvite(invite[1]._id)}
                       className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-small hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
                       type="button"
                     >
@@ -139,6 +173,12 @@ const InviteComponent: React.FC = () => {
             </div>
           ))}
         </div>
+        ) : (
+          <div className='flex justify-center pt-44'> 
+            <p className='arsenal-sc-regular'>No invites Found </p>
+          </div>
+        )
+       }
       </section>
     </div>
   );
