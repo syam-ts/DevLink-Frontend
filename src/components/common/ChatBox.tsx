@@ -61,9 +61,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
         setMessages(response.data.messages?.messages);
     };
 
-    useEffect(() => {
-        fetchChatMessages();
-    }, [targetId]);
+
 
     useEffect(() => {
         if (!roleId || !targetId) return;
@@ -97,6 +95,11 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
         });
         setNewMessage("");
     };
+ 
+
+    useEffect(() => {
+        fetchChatMessages();
+    }, [sendMessage, targetId]);
 
     return (
         <div className="flex flex-col sm:p-4 rounded-xl shadow-2xl h-[70vh] border border-gray-800">
