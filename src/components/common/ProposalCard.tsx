@@ -54,7 +54,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
         });
 
         setTimeout(() => {
-          window.location.href = `${config.BASE_URL}/client/proposals`;
+          window.location.href = `${config.BASE_URL}/${roleType}/proposals`;
         }, 500);
       }
     } catch (error: unknown) {
