@@ -1,8 +1,6 @@
 import { toast } from "sonner";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import config from "../../../config/helper/config";
-import { UserState } from "../../../config/state/allState";
+import config from "../../../config/helper/config"; 
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
 import {
@@ -40,7 +38,6 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
   const [error, setError] = useState<string[]>([]);
   const [size, setSize] = useState<string>("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const userId: string = useSelector((state: UserState) => state.user.currentUser._id);
 
   const handleOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
