@@ -2,6 +2,7 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sonner } from "../sonner/Toaster";
+import config from "../../config/helper/config";
 import { addNotification } from "../../redux/slices/userSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";
@@ -56,9 +57,9 @@ export const ProjectApprovalCard: React.FC<ProjectApprovalCardProps> = ({
             color: "white",
           },
         });
-        // setTimeout(() => {
-        //   window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
-        // }, 1000);
+        setTimeout(() => {
+          window.location.href = `${config.BASE_URL}/client/contractsApprovals`;
+        }, 1000);
       }
     } catch (error: unknown) {
       const err = error as { message: string };

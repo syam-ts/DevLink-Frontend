@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import { toast } from "sonner";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import config from "../../../config/helper/config";
+import { UserState } from "../../../config/state/allState";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
-import { useSelector } from "react-redux";
-import { UserState } from "../../../config/state/allState";
 import {
   Modal,
   ModalContent,
@@ -74,7 +75,7 @@ export const SubmitProject: React.FC<SubmitProjectProps> = ({
           );
 
           data.success
-            ? (window.location.href = `https://dev-link-frontend.vercel.app/user/job/myContracts/${userId}/user`)
+            ? (window.location.href = `${config.BASE_URL}/user/contracts/user`)
             : toast.error(data.message);
         } catch (err) {
           console.log(err.message);
