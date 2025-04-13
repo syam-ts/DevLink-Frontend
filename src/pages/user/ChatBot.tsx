@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";  
-import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+import { useSelector } from "react-redux";
 import { UserState } from "../../config/state/allState";
-
+import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
 
 interface ChatMessage {
   type: "user" | "bot";
   message: string;
 }
 
-export const Chatbot = () => {
-
+export const Chatbot = () => { 
 
   const [open, setOpen] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]); 
-  const userProfile = useSelector((state: UserState ) => state.user.currentUser.profilePicture);
- 
-
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const userProfile = useSelector((state: UserState) => state.user.currentUser.profilePicture);
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
@@ -29,7 +25,7 @@ export const Chatbot = () => {
 
     try {
       const { data } = await apiUserInstance.post(
-        "https://devlinkweb.shop/user/chatbot",
+        "/chatbot",
         {
           userInput,
         }
@@ -46,7 +42,7 @@ export const Chatbot = () => {
     }
   };
 
- 
+
 
   return (
     <div className="mx-auto py-96 p-3 z-3">
@@ -78,14 +74,14 @@ export const Chatbot = () => {
       </button>
 
       {open && (
-        <div className="fixed z-1 shadow-2xl bottom-[calc(4rem+1.5rem)] bg-white right-0 mr-4 px-10 p-6 rounded-lg w-[450px] h-[650px]">
+        <div className="fixed z-1 shadow-2xl bottom-[calc(4rem+1.5rem)] bg-white right-0 mr-4 px-10 p-6 rounded-small w-[450px] h-[650px]">
           <div className="flex flex-col space-y-1.5 pb-6">
             <h2 className="font-bold text-[#0000ff] text-lg tracking-tight">
               Devlink Chatbot
             </h2>
           </div>
 
-          <div className='h-[500px] overflow-y-scroll scrollbar-hide '>
+          <div className='h-[500px] overflow-y-scroll scrollbar-hide py-12 '>
             {chatHistory.map((chat) => (
               <div className="pr-4">
                 <div className="flex gap-3 my-4 text-gray-600 text-sm flex-1">
@@ -140,17 +136,17 @@ export const Chatbot = () => {
             ))}
           </div>
 
-          <div className="flex w-[400px] items-center pt-0 bottom-0 fixed mb-44">
+          <div className="flex w-[400px] items-center pt-0 bottom-0  mb-44">
             <form className="flex  items-center justify-center w-full space-x-2">
               <input
                 onChange={(e) => handleUserInput(e)}
-                className="flex  w-full rounded-md border border-black px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
+                className="flex  w-full rounded-small border border-black px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
                 placeholder="Ask to bot"
                 value={userInput}
               />
               <button
                 onClick={sendMessage}
-                className="  inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2"
+                className="inline-flex items-center justify-center rounded-small text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2"
               >
                 Send
               </button>
