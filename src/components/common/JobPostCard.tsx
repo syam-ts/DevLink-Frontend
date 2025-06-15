@@ -78,17 +78,17 @@ export const JobPostCard = ({
               <span className="text-sm text-green-400 underline mt-1">
                 {job[1]?.projectType}
               </span>
+              <Link
+                to={`/${role}/job/${job[1]?._id}/${type}`}
+                className="no-underline text-white block w-full"
+              >
               <button
                 className="rounded-small transform relative transition duration-500 hover:scale-110 bg-black px-5 py-2 md:px-6 border border-transparent text-center text-sm md:text-base text-white shadow-md hover:shadow-lg mt-3 w-full lg:w-auto"
                 type="button"
               >
-                <Link
-                  to={`/${role}/job/${job[1]?._id}/${type}`}
-                  className="no-underline text-white block w-full"
-                >
                   View
-                </Link>
               </button>
+                </Link>
             </div>
           </div>
         </div>
