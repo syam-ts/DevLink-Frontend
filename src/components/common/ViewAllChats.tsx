@@ -28,6 +28,7 @@ function ListAllUserChat() {
             setCurrentRoleId(targetId);
         }
     }, []);
+    console.log('THE TARGET IS: ',targetId)
 
     useEffect(() => {
         (async () => {
