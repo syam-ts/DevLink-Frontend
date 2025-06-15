@@ -21,7 +21,6 @@ const ChatBox: React.FC<ChatBoxProps> = ({ roleType, targetId }) => {
 
     const [messages, setMessages] = useState<Messages[]>([]);
     const [newMessage, setNewMessage] = useState<string>("");
-    const [loading, setLoading] = useState(true);
     const socketRef = useRef<Socket | null>(null);
 
     let name, roleId;
