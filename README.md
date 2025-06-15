@@ -74,9 +74,8 @@ cd devlink-frontend
 </code></pre>
 
 <h3>📦 2. Install Dependencies</h3>
-<pre><code>yarn install
-# or
-npm install
+<pre><code>
+yarn install 
 </code></pre>
 
 <h3>⚙️ 3. Create .env File</h3>
@@ -94,9 +93,8 @@ VITE_CLOUDINARY_URL=https://api.cloudinary.com/v1_1/your-cloud-name/image/upload
 </code></pre>
 
 <h3>▶️ 4. Start the Development Server</h3>
-<pre><code>yarn dev
-# or
-npm run dev
+<pre><code>
+yarn dev
 </code></pre>
 
 <p>The app will be available at <code>http://localhost:5173</code> by default.</p>
