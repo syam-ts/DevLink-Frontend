@@ -36,17 +36,17 @@ function ListUsers() {
         <span>List of all freelancers</span>
         <hr className="border-gray-400 mt-12 w-2/4 mx-auto" />
       </section>
-      <section className="flex justify-center mx-44">
-        <div className="flex gap-16 flex-wrap ">
-          {Object.entries(developers).map(
-            ([key, developer]: [string, Developer]) => (
-              <div key={key}>
-                <UserProfileCard developer={developer} />
-              </div>
-            )
-          )}
-        </div>
-      </section>
+    <section className="flex justify-center px-4 sm:px-8 md:px-16 lg:px-32">
+  <div className="w-full max-w-7xl flex gap-12 flex-wrap justify-center">
+    {Object.entries(developers).map(([key, developer]: [string, Developer]) => (
+      <div key={key}>
+        <UserProfileCard developer={developer} />
+      </div>
+    ))}
+  </div>
+</section>
+
+
     </div>
   );
 }
