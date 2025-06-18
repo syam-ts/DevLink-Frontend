@@ -14,7 +14,7 @@ export const CreatePostPopover = () => {
             <PopoverContent>
                 <div className="px-1 py-2 arsenal-sc-regular">
                     <div className="text-small font-bold text-center">Locked</div> 
-                    <div className="text-xs">You need to Login to access this feature</div>
+                    <div className="text-xs">You need to Verify to access this feature</div>
 
                 </div>
             </PopoverContent>
