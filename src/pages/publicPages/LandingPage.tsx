@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import Footer from "../../components/common/Footer";
+import { useNavigate } from "react-router-dom"; 
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
