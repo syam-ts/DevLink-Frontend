@@ -20,7 +20,7 @@ const LandingRoute: React.FC = () => {
                 <Route path='*' element={<NotFound />} />
                 <Route path='/rt' element={<Role />} /> 
                 <Route path='/login' element={<LoginComponent />} />
-               <Route path='/signup' element={<SignupComponent />} />
+                <Route path='/signup' element={<SignupComponent />} />
                 <Route path='/verify-otp' element={<OtpVerify />} /> 
                 <Route path='/verifyEmail' element={<VerifyEmail />} /> 
                 <Route path='/resetPassword/:roleId' element={<ResetPassword />} /> 

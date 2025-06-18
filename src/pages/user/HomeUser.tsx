@@ -151,18 +151,18 @@ const HomeUser: React.FC = () => {
                   <label className="mb-2 text-sm font-medium sr-only text-white">Search</label>
                   <div className="relative w-full max-w-md mx-auto sm:mx-0">
                     <input
-                      type="search"
+                      type="reset"
                       id="default-search"
-                      className="block w-full p-3 ps-10 text-sm text-gray-900 outline-none border border-gray-300 rounded-small bg-gray-50"
-                      placeholder="Search your desired Jobs..."
+                      className="block font-bold w-full p-3 ps-10 text-sm text-blue-700 outline-none border border-gray-300 rounded-small bg-gray-50"
                       required
+                      value="Search Job By Skills"
                     />
-                    <button
+                    {/* <button
                       type="submit"
                       className="text-white h-full absolute right-0 top-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-small text-sm px-4"
                     >
-                      Search
-                    </button>
+                      Find It
+                    </button> */}
                   </div>
                 </div>
                 <div className="mt-2 text-sm text-gray-300">

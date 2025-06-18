@@ -115,27 +115,11 @@ const LandingPage: React.FC = () => {
       </section>
 
       <section>
-        <div className="text-center min-h-[12rem] sm:min-h-[14rem] md:min-h-[17rem] w-full bg-[#2b3247] mt-12 sm:mt-20 md:mt-28 lg:mt-36 arsenal-sc-regular px-4 py-6 md:py-[4rem]">
-          <ul className="grid gap-0.5 sm:gap-2 text-white max-w-4xl mx-auto">
-            <li className="text-lg sm:text-2xl md:text-3xl font-medium mb-1 sm:mb-3">
-              Find an Expert for Anything which is Technological
-            </li>
-            <li className="text-xs sm:text-sm md:text-md">
-              Work with highly-efficient freelance talent from around the
-              country.
-            </li>
-            <li className="text-xs sm:text-sm md:text-md">
-              Take control of your project with Devlink.
-            </li>
-            <li className="text-xs sm:text-sm md:text-md">
-              Pay securely and confidently.
-            </li>
-            <li className="text-xs sm:text-sm md:text-md">No hillden fees.</li>
-          </ul>
+        <div className="text-center min-h-[1rem] sm:min-h-[1rem] md:min-h-[1rem] w-full bg-[#2b3247] mt-12 sm:mt-20 md:mt-28 lg:mt-36 arsenal-sc-regular px-4 py-6 md:py-[4rem]">
+       
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 };
