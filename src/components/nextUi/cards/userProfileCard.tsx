@@ -39,7 +39,7 @@ export const UserProfileCard: React.FC<UserProfileCardProps> = ({ developer }) =
           <CardBody className="overflow-hidden py-2">
             <img
               alt="Card background"
-              className="object-contain rounded-xl h-[300px] "
+              className="object-fill rounded-xl w-[12rem] h-[12rem] "
               src={developer.profilePicture}
               width={270} 
             />
