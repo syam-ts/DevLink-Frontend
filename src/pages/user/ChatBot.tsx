@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { UserState } from "../../config/state/allState";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
+import { toast, Toaster } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface ChatMessage {
   type: "user" | "bot";
@@ -14,6 +16,7 @@ export const Chatbot = () => {
   const [userInput, setUserInput] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const userProfile = useSelector((state: UserState) => state.user.currentUser.profilePicture);
+  const navigate = useNavigate()
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
@@ -37,6 +40,10 @@ export const Chatbot = () => {
         { type: "bot", message: data?.queryResult },
       ]);
       // console.log(data?.queryResult);
+      if(data.queryResult.error) {
+        navigate('/user/home')
+        toast.message(data.queryResult.error.error.message) 
+      }
     } catch (err) {
       console.log("ERROR: ", err.message);
     }
@@ -46,6 +53,7 @@ export const Chatbot = () => {
 
   return (
     <div className="mx-auto py-96 p-3 z-3">
+      <Toaster />
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="fixed bottom-4 right-4 inline-flex cursor-pointer items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0  border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900"
@@ -82,8 +90,8 @@ export const Chatbot = () => {
           </div>
 
           <div className='h-[500px] overflow-y-scroll scrollbar-hide py-12 '>
-            {chatHistory.map((chat) => (
-              <div className="pr-4">
+            {chatHistory.map((chat, index: number) => (
+              <div key={index} className="pr-4">
                 <div className="flex gap-3 my-4 text-gray-600 text-sm flex-1">
 
 
