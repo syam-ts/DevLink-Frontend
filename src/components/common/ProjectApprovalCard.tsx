@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Sonner } from "../sonner/Toaster";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { addNotification } from "../../redux/slices/userSlice";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
 import { ProjectSubmissionViewDrawer } from "../shadcn/drawer/ProjectSubmitView";

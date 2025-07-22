@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { Sonner } from "../../components/sonner/Toaster";
 import { updateUser } from "../../redux/slices/userSlice";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";

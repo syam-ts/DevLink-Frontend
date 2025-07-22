@@ -9,7 +9,7 @@ import { Sonner } from "../../../components/sonner/Toaster.tsx";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance.ts";
 import { proposalSchema } from "../../../utils/validation/proposalValidaiton.ts";
 import { UserState } from "../../../config/state/allState.ts";
-import config from "../../../config/helper/config.ts";
+import config from "../../../helper/config.ts";
 import {
   Dialog,
   DialogContent,

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Sonner } from "../../components/sonner/Toaster";
 import { useSearchParams } from "react-router-dom";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 
 
 const VerifyEmail = () => {

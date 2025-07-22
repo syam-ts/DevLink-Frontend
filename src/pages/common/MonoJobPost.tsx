@@ -6,7 +6,7 @@ import useUserVerified from "../../hooks/userUserVerified";
 import { apiClientInstance } from ".././../api/axiosInstance/axiosClientRequest";
 import { apiUserInstance } from ".././../api/axiosInstance/axiosUserInstance";
 import { JobProposalModal } from "../../components/shadcn/modal/JobProposalModal";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { useSelector } from "react-redux";
 import { UserState } from "../../config/state/allState";
 

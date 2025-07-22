@@ -5,7 +5,7 @@ import {
   monthsData,
   weeksData,
   yearsData,
-} from "../../../config/helper/dateHelper";
+} from "../../../helper/dateHelper";
 import {
   Chart as ChartJS,
   CategoryScale,

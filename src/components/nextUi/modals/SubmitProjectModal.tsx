@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import React, { useState } from "react";
-import config from "../../../config/helper/config"; 
+import config from "../../../helper/config"; 
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";
 import { projectSubmissionSchema } from "../../../utils/validation/projectSubmitSchema";
 import {

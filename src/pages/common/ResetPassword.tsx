@@ -9,7 +9,7 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import config from "../../config/helper/config"; 
+import config from "../../helper/config"; 
 
 const LoginComponent = () => {
   const [error, setError] = useState<string[]>([]);
