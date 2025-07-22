@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { useState } from "react";
 import { Label } from "../../ui/label";
-import config from "../../../config/helper/config";
+import config from "../../../helper/config";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { withdrasSchema } from "../../../utils/validation/withdrawSchema";
 import { apiUserInstance } from "../../../api/axiosInstance/axiosUserInstance";

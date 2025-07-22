@@ -8,7 +8,7 @@ import { signInUser } from "../../redux/slices/userSlice";
 import { signInClient } from "../../redux/slices/clientSlice";
 import Google from "../../components/common/Google";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { signInAdmin } from "../../redux/slices/adminSlice";
 import {
   AdminState,

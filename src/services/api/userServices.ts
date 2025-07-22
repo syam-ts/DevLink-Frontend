@@ -1,8 +1,9 @@
 import axios from "axios";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { apiUserInstance } from "@/api/axiosInstance/axiosUserInstance";
 
 export const UserService = {
+    
     loginUser: async (email: string, password: string) => {
         try {
             const { data } = await axios.post(
@@ -49,6 +50,39 @@ export const UserService = {
             });
 
             return data;
+        } catch (error: unknown) {
+            const err = error as { response: { data: { success: boolean } } };
+            if (!err.response.data.success) {
+                return err.response.data;
+            }
+        }
+    },
+
+    getProfileData: async () => {
+        try {
+            const { data } = await apiUserInstance.get(`/profile/user-view`, {
+                withCredentials: true,
+            });
+
+            return data;
+        } catch (error: unknown) {
+            const err = error as { response: { data: { success: boolean } } };
+            if (!err.response.data.success) {
+                return err.response.data;
+            }
+        }
+    },
+
+    editProfile: async (data: any, type: string) => {
+        try {
+            const response = await apiUserInstance.put(
+                `/profileAlter/${type}`,
+                data,
+                {
+                    withCredentials: true,
+                }
+            );
+            return response.data;
         } catch (error: unknown) {
             const err = error as { response: { data: { success: boolean } } };
             if (!err.response.data.success) {

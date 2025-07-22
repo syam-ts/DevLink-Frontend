@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import config from "../../../config/helper/config";
+import config from "../../../helper/config";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
 import {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 
 export const ClientService = {
     loginClient: async (email: string, password: string) => {

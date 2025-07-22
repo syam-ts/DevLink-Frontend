@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { Label } from "flowbite-react";
 import { useEffect, useState } from "react";
-import config from "../../../config/helper/config";
+import config from "../../../helper/config";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { apiAdminInstance } from "../../../api/axiosInstance/axiosAdminInstance";
 import { imageValidationSchema } from "../../../utils/validation/userProfileSchema";

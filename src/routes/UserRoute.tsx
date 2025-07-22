@@ -1,27 +1,46 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { userRouteHelper } from "../config/helper/routeHelper";
+import { userRouteHelper } from "../helper/routeHelper";
 import { UserState } from "../config/state/allState";
+import { ROUTE } from "../config/constants/route";
 
-const { 
+const {
   Navbar,
   Footer,
   HomeUser,
   JobPage,
-  Proposals, 
+  Proposals,
   AllContracts,
   Contract,
-  UserProfile, 
+  UserProfile,
   ProfileAlter,
   BoostPaymentSuccess,
   Wishlist,
-  Wallet, 
+  Wallet,
   MonoJobPost,
-  Notifications, 
+  Notifications,
   InviteComponent,
   ListAllClientChat,
   ChatBox,
 } = userRouteHelper;
+
+const {
+  HOME,
+  JOBS,
+  PROPOSALS,
+  CONTRACTS_LIST,
+  PROFILE,
+  PROFILE_EDIT,
+  PROFILE_BOOST_SUCCESS,
+  WISHLIST_VIEW,
+  WALLET_VIEW,
+  VIEW_JOBPOST,
+  VIEW_CONTRACT,
+  INVITE_VIEW,
+  NOTIFIICATIONS,
+  ALL_CHATS,
+  MESSAGE_VIEW,
+} = ROUTE.USER;
 
 const UserRoute = () => {
   const currentUser = useSelector((store: UserState) => store.user);
@@ -31,22 +50,25 @@ const UserRoute = () => {
     <>
       <Navbar roleType="user" roleInfo={user} />
 
-      <Routes> 
-        <Route path="/home" element={<HomeUser />} /> 
-        <Route path="/jobs" element={<JobPage />} />
-        <Route path="/proposals" element={<Proposals />} />
-        <Route path="/contracts/:roleType" element={<AllContracts />} />
-        <Route path="/profile/:type" element={<UserProfile />} /> 
-        <Route path="/profileAlter/:type" element={<ProfileAlter />} /> 
-        <Route path="/profileBoostSuccess" element={<BoostPaymentSuccess />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/wallet" element={<Wallet roleType="user" />} /> 
-        <Route path="/job/:jobPostId/:viewType" element={<MonoJobPost />} /> 
-        <Route path="/contract/:contractId/:roleType" element={<Contract />} />
-        <Route path="/invites" element={<InviteComponent />} />
-        <Route path="/notifications/:roleId/:role" element={<Notifications />} /> 
-        <Route path="/allChats/:roleType/:roleId" element={<ListAllClientChat />} />
-        <Route path="/chat/view/:roleType/:targetId" element={<ChatBox roleType='' targetId='' />} />
+      <Routes>
+        <Route path={HOME} element={<HomeUser />} />
+        <Route path={JOBS} element={<JobPage />} />
+        <Route path={PROPOSALS} element={<Proposals />} />
+        <Route path={CONTRACTS_LIST} element={<AllContracts />} />
+        <Route path={PROFILE} element={<UserProfile />} />
+        <Route path={PROFILE_EDIT} element={<ProfileAlter />} />
+        <Route path={PROFILE_BOOST_SUCCESS} element={<BoostPaymentSuccess />} />
+        <Route path={WISHLIST_VIEW} element={<Wishlist />} />
+        <Route path={WALLET_VIEW} element={<Wallet roleType="user" />} />
+        <Route path={VIEW_JOBPOST} element={<MonoJobPost />} />
+        <Route path={VIEW_CONTRACT} element={<Contract />} />
+        <Route path={INVITE_VIEW} element={<InviteComponent />} />
+        <Route path={NOTIFIICATIONS} element={<Notifications />} />
+        <Route path={ALL_CHATS} element={<ListAllClientChat />} />
+        <Route
+          path={MESSAGE_VIEW}
+          element={<ChatBox roleType="" targetId="" />}
+        />
       </Routes>
       <Footer />
     </>

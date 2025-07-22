@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signInUser } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { signInClient } from "../../redux/slices/clientSlice";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import axios from "axios";
 
 interface GoogleProps {

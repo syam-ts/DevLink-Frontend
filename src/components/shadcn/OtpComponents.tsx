@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Sonner } from "../sonner/Toaster";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export const InputOtpComponent = () => {

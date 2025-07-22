@@ -5,7 +5,7 @@ import { Sonner } from '../sonner/Toaster';
 import { toast } from 'sonner';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { signupSchemaClient, signupSchemaUser } from '../../utils/validation/signupSchema';
-import config from '../../config/helper/config'
+import config from '../../helper/config'
 
 
 const SignupComponent = () => {

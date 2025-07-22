@@ -6,7 +6,7 @@ import Rating from "@mui/material/Rating";
 import { toast } from "sonner";
 import { Sonner } from "../../../components/sonner/Toaster";
 import { apiClientInstance } from "../../../api/axiosInstance/axiosClientRequest";
-import config from "../../../config/helper/config";
+import config from "../../../helper/config";
 
 interface RateUserProps {
   notificationId: string;

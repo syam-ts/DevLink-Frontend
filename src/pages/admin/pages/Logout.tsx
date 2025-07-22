@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import config from "../../../config/helper/config";
+import config from "../../../helper/config";
 import { signOutAdmin } from "../../../redux/slices/adminSlice";
 
 const Logout: React.FC = () => {

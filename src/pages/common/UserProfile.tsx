@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import BoostPopover from "../../components/nextUi/popover/BoostAcc-Popover";
 import ReviewCard from "../../components/common/ReviewCard";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { ProfileShimmer } from "../../components/shimmer/ProfileShimmer";
 import { apiUserInstance } from "../../api/axiosInstance/axiosUserInstance";
 import { useSelector } from "react-redux";

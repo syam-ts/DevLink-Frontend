@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { addNotification } from "../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { apiClientInstance } from "../../api/axiosInstance/axiosClientRequest";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { Sonner } from "../sonner/Toaster";
 import {Proposals} from '../../pages/user/Proposals'
 

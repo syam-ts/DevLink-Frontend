@@ -10,7 +10,7 @@ import {
 import { Menu, X } from "lucide-react";
 import axios from "axios";
 import Search from "./Search";
-import config from "../../config/helper/config";
+import config from "../../helper/config";
 import { useState } from "react";
 import { clearNotificationsClient } from "../../redux/slices/clientSlice";
 
