@@ -112,3 +112,7 @@ yarn dev
   <li>yup, jwt-decode, clsx</li>
   <li>lucide-react, react-icons, html2canvas, jspdf</li>
 </ul>
+
+
+<p>Licence</p>
+[MIT Licence](LICENCE)
