@@ -114,5 +114,6 @@ yarn dev
 </ul>
 
 
-<p>Licence</p>
+## Licence
+
 [MIT Licence](LICENCE)
