@@ -15,8 +15,7 @@ export const Chatbot = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
-  const userProfile = useSelector((state: UserState) => state.user.currentUser.profilePicture);
-  const navigate = useNavigate()
+  const userProfile = useSelector((state: UserState) => state.user.currentUser.profilePicture); 
 
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
@@ -39,10 +38,16 @@ export const Chatbot = () => {
         { type: "user", message: userInput },
         { type: "bot", message: data?.queryResult },
       ]);
+      setUserInput('');
       // console.log(data?.queryResult);
-      if(data.queryResult.error) {
-        navigate('/user/home')
-        toast.message(data.queryResult.error.error.message) 
+      if(data.queryResult.error) { 
+ 
+        setChatHistory([
+        ...chatHistory,
+        { type: "user", message: userInput },
+        { type: "bot", message: data.queryResult.error.error.message}
+      ]);
+        // toast.message(data.queryResult.error.error.message) 
       }
     } catch (err) {
       console.log("ERROR: ", err.message);
