@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { UserState } from "../../config/state/allState";
 import { apiUserInstance } from '../../api/axiosInstance/axiosUserInstance';
-import { toast, Toaster } from "sonner";
-import { useNavigate } from "react-router-dom";
+import {Toaster } from "sonner";
 
 interface ChatMessage {
   type: "user" | "bot";
