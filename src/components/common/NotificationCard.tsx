@@ -157,7 +157,7 @@ const Notification = () => {
               )}
 
               {notif?.closeContract && (
-                <div className="flex gap-2 px-0 md:px-3">
+                <div className="md:px-20">
                   <button
                     className="rounded bg-blue-600 hover:bg-slate-700 py-1.5 px-5 text-sm text-white shadow-md transition"
                     type="button"
@@ -197,7 +197,9 @@ const Notification = () => {
             </div>
  
             {notif?.withdrawData && (
-              <div className="">
+              <div 
+              className="md:px-12"
+              >
                 <ImageZoom image={notif.withdrawData.paymentScreenshot} />
               </div>
             )}
